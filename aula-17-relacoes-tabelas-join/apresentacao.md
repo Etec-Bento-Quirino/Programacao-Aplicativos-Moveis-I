@@ -1,37 +1,32 @@
-# Aula 17 - Relações entre tabelas (JOIN)
+# Apresentação: Cruzando as Fronteiras 🖇️
 
-**Data:** 26/10/2026
+**Leitura Autônoma de Engenharia de Banco de Dados**
 
----
-
-## Apresentação
-
-SELECT com INNER JOIN para trazer nome da categoria junto dos itens; listar categorias com contagem de itens (GROUP BY); tratamento ao excluir categoria.
+Um Dev júnior puxa todos os Carrinhos de Compra do Banco, usa um `Loop For` em JavaScript e, para cada carrinho, dispara um novo `SELECT` em Categoria para achar o nome. Resultado? Ele disparou Mil Seleções travando a renderização gráfica do Frontend com Gargalo de Processamento de IO. 
+Seu chefe te demitiria por isso.
 
 ---
 
-## Slides
+## 1. O INNER JOIN (O Nó de Sangue)
+Qual a solução do sênior? Faça o Motor Primitivo do C++ do Banco fazer a conta em Milissegundos e lhe devolver um único array pronto com ambas as matérias grudadas.
 
-### Objetivo
+Para fazer isso usamos a Palavra `JOIN`. Ela gruda a `Tabela A` na `Tabela B` de lado. Mas o SQLite é Burro, ele precisa de uma Condição Suprema para grudar os bloquinhos do Lego:
 
-Usar JOIN nas consultas para exibir dados da tabela relacionada (ex.: nome da categoria na lista de itens). Tratar exclusão de categoria (cascata ou aviso).
+**A condição de Junção (ON).**
+Você diz ao motor: "Cruze a tabela ITENS com a CATEGORIAS. Como? Se o `id_categoria` do Item BATER IGUALZINHO (=) com a Chave Mestra `id` das Categorias."
+BOOM. A Matriz retorna casada perfeitamente. Todos os produtos estão colados com os seus respectivos e literais nomes de categoria ao invés de ids cegos.
 
-### JOIN
+## 2. Alias de Nomenclaturas (Apelidos)
+Ao juntar duas coisas, teremos 2 colunas com nome de "ID" grudadas, e 2 colunas com o nome "Nome", a do sapato e a da categoria... Isso causa Crash de Sobreposição.
+Para não bagunçar, usamos os "Apelidos" de Letras e extraímos as palavras chaves separando os clones (`AS`):
+```sql
+-- "i" = Sigla boba para itens. "c" = sigla para categorias.
+SELECT i.nome, c.nome AS nome_categoria_fantasia 
+```
 
-SELECT i.*, c.nome AS nome_categoria FROM itens i INNER JOIN categorias c ON i.id_categoria = c.id. Cada linha traz o nome da categoria.
+## 3. O Paradoxo da Deleção Relacional
+O JOIN exige perfeição e dependência de "Pai e Filho". Se eu apagar a Categoria Master "E-books" que possuía 50 e-book itens dentro dela... e meus itens ficarem salvos com a Foreign Key `id:45` que não puxa pra lugar nenhum pois o pai sumiu? Temos um banco quebrado de Dados Fofos Órfãos.
+Para defender isso, Arquitetos travam deleções.
+Ou **Vocễ deleta todas os Filhos primeiro (Cascading Delete)**, ou bota um Aviso Vermelho explodindo pro usuário: *"Não posso excluir PAI que possui Filhos amarrados... Limpe-os antes!"*
 
-### Contagem
-
-SELECT c.id, c.nome, COUNT(i.id) AS total FROM categorias c LEFT JOIN itens i ON c.id = i.id_categoria GROUP BY c.id.
-
-### Excluir categoria
-
-Opção 1: DELETE dos itens depois DELETE da categoria. Opção 2: se COUNT(itens) > 0, avisar "Exclua os itens antes".
-
-### Atividade da quinzena
-
-Pelo menos uma tela com consulta JOIN; listagem mostrando dado da tabela relacionada (nome da categoria ou contagem).
-
-### Próxima aula
-
-UX: loading (ActivityIndicator), empty state e mensagens de erro na tela.
+👉 **Expanda sua Cabeça Estudando a Documentação Base:** [O Mestre Padrão INNER JOIN SQL](https://www.w3schools.com/sql/sql_join.asp)

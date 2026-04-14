@@ -1,27 +1,21 @@
-# Aula 16 – Atividade
+# Missão 16: O Formulário Tático 📝
 
-**Sugestão de entrega:** até o final da quinzena 21 (23/10/2026).
+**Sua Validação Autônoma de Estudo:**
 
----
-
-## Objetivo
-
-Criar um app com **duas entidades** relacionadas no SQLite (ex.: **categorias** e **itens** ou **produtos**): listagem de categorias, listagem de itens por categoria, formulário que insere no banco e opção de editar/excluir.
+No material teórico ensinamos o Conceito Magnífico de usar a Rota do aplicativo para ditar os Filtros SQL de Listagem.
+O Front-End envia o ID da listagem, e o DB só exibe aquilo. Se estivermos na Categoria "Roupas", abrimos o Formulario, salvamos um "Casaco", o Router nos rebobina usando `router.back()` (ou `navigate.goBack`), e a tela de listagem renasce sozinha via Effect.
 
 ---
 
-## Requisitos
+## O Desafio: A Ponte sem Quebra
 
-1. **Tabelas:** pelo menos duas tabelas no SQLite, com relação (ex.: itens.id_categoria → categorias.id).
-2. **Tela 1:** lista de categorias (SELECT * FROM categorias); ao tocar, abre a lista de itens daquela categoria.
-3. **Tela 2:** lista de itens da categoria (SELECT * FROM itens WHERE id_categoria = ?); botão "Adicionar" abre formulário.
-4. **Formulário:** cadastro de item com seleção de categoria (e campos como nome, quantidade); ao salvar, INSERT no SQLite e voltar à lista atualizada.
-5. **Editar e/ou excluir:** em cada item, opção de editar (UPDATE) ou excluir (DELETE); lista atualizada após a ação.
+Sua tarefa de validação:
 
-**Entrega:** print da lista de categorias, da lista de itens de uma categoria e do formulário (ou da tela de edição); ou envio do trecho de código das consultas e do INSERT/UPDATE/DELETE.
+Você vai montar as Duas Telas operacionais mostradas no tutorial: A tela de **Listagem**, e a tela secundária de **Formulário de Cadastro_Novo**.
+1. Abra a tela de Listagem da Categoria "Alimentos". 
+2. Aperte um botão nela ("Adicionar +"). Ela deve carregar a tela Formulário e travar seu contexto do Expo para Inserção limpa.
+3. Insira o termo "Miojo da Madrugada". Clique no Button que Ativa o Insert e chama a GoBack().
 
----
-
-## Critérios de avaliação
-
-- Duas entidades relacionadas; consultas corretas (listagem por categoria); formulário inserindo no banco; edição e/ou exclusão funcionando.
+## Extração do Trófeu:
+Se tudo se conectou de forma perfeita e limpa... O Formulário vai fechar, e a Listagem nascerá atualizando automaticamente em Re-paint pra englobar seu "Miojo da madrugada".
+Tire um belíssimo ScreenShot da Listagem Recarregada comprovando que o Input de texto do seu Form preencheu corretamente um campo Variável da string Relacional e mande seu artefato via entrega!

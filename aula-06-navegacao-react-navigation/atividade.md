@@ -1,37 +1,23 @@
-# Aula 06 – Atividade
+# Missão 6: A Arquitetura do Casco Direcional ⛴️
 
-**Sugestão de entrega:** até o final da quinzena 7 (24/04/2026).
+**Sua Validação Autônoma de Estudo:**
 
----
-
-## Objetivo
-
-Criar um app com **três telas** e **navegação com parâmetros**: (1) lista de categorias, (2) lista de itens da categoria escolhida, (3) tela de detalhe do item.
+No tutorial atual montamos silenciosamente a navegação atrelada a Abas (`Tabs`) usando nosso amado Expo Router e migramos nossa tela raiz pro coração engaiolado do Layout.
+Vamos aferir a habilidade organizacional que trará robustez pra nossa aplicação a nível internacional!
 
 ---
 
-## Requisitos
+## O Desafio: A Tela do Silêncio!
 
-1. **Tela 1 – Categorias**
-   - Lista com pelo menos 3 categorias (ex.: Livros, Eletrônicos, Esportes).
-   - Ao tocar em uma categoria, navegar para a Tela 2 passando a categoria (nome ou id).
+Você viu como declaramos uma cor e ícones maravilhosamente escuros (`#25292e`) na Base Nativa, injetando *FontAwesome* e *Ionicons* no `<Tabs>`. 
 
-2. **Tela 2 – Itens da categoria**
-   - Recebe a categoria por **route.params**.
-   - Exibe uma lista de 2 ou 3 itens **dessa** categoria (dados podem ser fixos no código, ex.: objeto categorias → itens).
-   - Ao tocar em um item, navegar para a Tela 3 passando o item.
+A missão vai exigir que sua hierarquia de pastas esteja perfeita:
 
-3. **Tela 3 – Detalhe do item**
-   - Recebe o item por **route.params**.
-   - Exibe nome e pelo menos mais um dado (ex.: descrição, preço).
-   - Botão "Voltar" que retorna à lista de itens (e, a partir dela, novo "Voltar" para categorias).
+1. Assegure que o arquivo pai superior e intocável seja `app/_layout.tsx` (Ele abriga o Sistema Em caso de Erro `+not-found.tsx` e invoca o Stack).
+2. Assegure que as abas criadas em `(tabs)/_layout.tsx` estão invocando e detectando a `index` e a aba secundária `about` com absoluta harmonia de estilo Dark.
+3. No seu `(tabs)/about.tsx`, eu quero que crie não só texto, mas coloque uma assinatura nele (Pode ser uma `View` amarela e preta com o seu nome gravado e a versão atual do app "v1.0").
 
-4. Use **React Navigation** (stack) e organize as telas em uma pasta **screens/**.
+## Extração do Sucesso:
+No seu Expo Go ativo, clique no botão interativo inferior direito (Sobre / About) feito no Footer das Tabs. Ele fará uma transição suave animada apagando a Imagem de Edição e abrindo sua tela customizada.
 
-**Entrega:** print das três telas (categorias, itens de uma categoria, detalhe de um item) ou envio do código das telas e do App.js (navigator).
-
----
-
-## Critérios de avaliação
-
-- Três telas implementadas; passagem de parâmetros correta (categoria → itens, item → detalhe); navegação e Voltar funcionando; uso de React Navigation.
+**Tire o "Print" espetacular dessa tela secundaria onde eu consiga ver DE FATO a Aba "Sobre" preenchida na cor primária de seleção lá embaixo no rodapé do seu celular.** Anexe e retorne esse artefato. Estamos prontos pra captura pura de dados.

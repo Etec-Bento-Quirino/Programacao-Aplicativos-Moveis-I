@@ -1,53 +1,18 @@
-# Aula 02 – Atividade
+# Atividade Fixação: O Pinta Telas
 
-**Sugestão de entrega:** até o final da quinzena 2 (06/03/2026).
-
----
-
-## Objetivo
-
-Comprovar que você criou um projeto Expo, alterou o texto principal para "Olá, Mobile!" e que o app roda no emulador ou no celular. Também entregar um documento curto com os passos de instalação/configuração.
+**Sugestão de entrega:** Final da quinzena 2.
 
 ---
 
-## Tarefa 1 – App funcionando (obrigatório)
+O app foi gerado, e a magia do StyleSheet começou a invadir suas artérias de programador! Para garantir nossa segurança no percurso, eu preciso que você me prove que o seu aplicativo conseguiu invadir a tela do seu celular e escurecer a GUI (Graphical User Interface) usando a tática de túnel!
 
-1. Crie o projeto conforme o **tutorial da Aula 02** (comando `npx create-expo-app@latest ...`).
-2. Altere o conteúdo da tela para exibir **"Olá, Mobile!"** (pode usar um estilo de fonte maior, como no tutorial).
-3. Execute o app com `npx expo start` e abra no **emulador** ou no **celular** (Expo Go).
-4. Faça um **print da tela** do app mostrando a mensagem "Olá, Mobile!".
+## A Missão: Tela Viva
 
-**Entrega:** envie o print (ex.: `A02-app.png`).
+1. Mostre para o professor que o código inicial cruzou o roteador local.
+2. Tire uma foto (ou Screenshot) do aplicativo modificado que você elaborou no `tutorial.md` da nossa aula aberto no **Expo Go** do seu celular (Ou no emulador de Computador se preferir).
+3. Na Imagem gerada do print, eu quero conseguir ler *"Bem-vindo ao StickerSmash! 🚀"* em um background escuro puro `#25292e`.
 
----
+## Para refletir (Opcional)
+Se você se sentiu valente, mude o estilo `backgroundColor: '#25292e'` para uma cor hexadecimal que você queira! Mostre para você mesmo que você agora manda nas paletas da Apple e do Android.
 
-## Tarefa 2 – Documento dos passos (obrigatório)
-
-Crie um arquivo de texto (`.txt` ou `.md`) com:
-
-1. **Comando exato** que você usou para criar o projeto (copie e cole).
-2. **Onde você rodou o app:** emulador Android, simulador iOS ou celular com Expo Go (informe o tipo de dispositivo).
-3. **Problemas encontrados:** se algo deu erro, descreva a mensagem e o que você fez para resolver (ou que ainda não resolveu).
-
-Exemplo:
-
-```
-Comando: npx create-expo-app@latest OláMobile --template blank
-Onde rodei: Emulador Android (AVD)
-Problemas: Nenhum. / Ou: Ao pressionar 'a' o emulador não abria; resolvi reiniciando o emulador antes de rodar npx expo start.
-```
-
-**Entrega:** envie o arquivo (ex.: `A02-passos.txt`).
-
----
-
-## Critérios de avaliação
-
-- **Tarefa 1:** print mostrando o app com a mensagem "Olá, Mobile!" em execução (emulador ou dispositivo).
-- **Tarefa 2:** documento com comando, ambiente de execução e, se houver, descrição do problema e solução.
-
----
-
-## Dica
-
-Use o **tutorial da Aula 02** como guia passo a passo. Se o Expo não encontrar o emulador, verifique se o emulador está aberto antes de pressionar `a`. No celular, certifique-se de que o computador e o celular estão na mesma rede Wi-Fi.
+Salva essa imagem e envie para a plataforma da Sala!

@@ -1,30 +1,34 @@
-# Aula 12 – Contexto e mais hooks (createContext, useContext)
+# Tutorial: O Domínio do Sol e da Lua (Dark Mode)
 
-**Sugestão de execução:** quinzena 15 (10/08/2026 a 22/08/2026).
+**Sugestão de execução:** Quinzena 15.
 
-**Base tecnológica:** Gerenciamento de estado dos componentes; compartilhamento entre telas.
-
----
-
-## Objetivo
-
-Usar **createContext** e **useContext** para compartilhar um valor (ex.: tema claro/escuro ou preferência do usuário) entre vários componentes **sem** passar props em cada nível. Conhecer resumo de **useCallback** e **useMemo**.
+Nós iremos montar a nuvem de Tema do zero. Esse sistema será seu passaporte base para quando for criar coisas como "*Autenticação em Login*", em que o usuário precisa ser lido no app todo.
 
 ---
 
-## Parte 1 – Criar o Context e o Provider
+## Passo 1: Construindo o Céu (A Arquitetura de Nuvem)
 
-Crie um arquivo, ex.: **contexto/TemaContext.js**:
+Use uma pasta separada no projeto (Por exemplo `/contexts/TemaContext.tsx`).
+Você nunca deve misturar nuvens com arquivos de Rota do Expo.
 
-```javascript
+```tsx
 import { createContext, useState } from 'react';
 
-export const TemaContext = createContext({ tema: 'claro', setTema: () => {} });
+// O ESQUELETO DA NUVEM (O que tem dentro do buraco?)
+export const TemaContext = createContext({ 
+    tema: 'claro', 
+    setTema: (novo_tema: string) => {} // Tipagem TS de brincadeira só pra prever as coisas
+});
 
+// A NUVEM MATERNA QUE ENVOLVERÁ O APLICATIVO
 export function TemaProvider({ children }) {
+  
+  // Esse será o cérebro Oficial e único de pintura deste tema!
   const [tema, setTema] = useState('claro');
+  
   return (
     <TemaContext.Provider value={{ tema, setTema }}>
+      {/* Esse "Children" mágico é o Seu App Inteiro injetado no meio do Provider! */}
       {children}
     </TemaContext.Provider>
   );
@@ -33,63 +37,60 @@ export function TemaProvider({ children }) {
 
 ---
 
-## Parte 2 – Envolver o app com o Provider
+## Passo 2: O Guarda-Chuva (Provider Injetado)
 
-No **App.js**:
+Agora nós precisamos garantir que todas as coisas operam embaixo da Nuvem do Passo 1.
+Vá na Raíz máxima da sua compilação. (No Expo Router seria seu famigerado `app/_layout.tsx`, ou `App.tsx` global).
 
-```javascript
-import { TemaProvider } from './contexto/TemaContext';
+```tsx
+// O topo
+import { TemaProvider } from '../contexts/TemaContext';
 
-export default function App() {
+// A injeção em volta do roteador:
+export default function LayoutRaiz() {
   return (
-    <TemaProvider>
-      <NavigationContainer>
-        <Stack.Navigator>...</Stack.Navigator>
-      </NavigationContainer>
+    <TemaProvider>  { /* Aqui, abraçamos forte */ }
+        <Stack> ... </Stack>
     </TemaProvider>
   );
 }
 ```
 
-Assim, qualquer tela dentro de **TemaProvider** pode acessar **tema** e **setTema**.
-
 ---
 
-## Parte 3 – Usar o contexto em uma tela
+## Passo 3: Sugando a Água da Nuvem das Telas
 
-```javascript
+Com isso rodando, abra o código da sua Tela "Configurações.tsx" ou "Home.tsx". Em qualquer botão de profundidade, invoque O Gancho do Contexto:
+
+```tsx
 import { useContext } from 'react';
-import { TemaContext } from '../contexto/TemaContext';
+import { View, Text, TouchableOpacity } from 'react-native';
+import { TemaContext } from '../contexto/TemaContext'; // Puxe sempre quem exportamos
 
 export default function ConfigScreen() {
+  // 1. Invoca a Ponte
   const { tema, setTema } = useContext(TemaContext);
 
+  // 2. Condicionais Dinâmicos de Render Baseado na variável suprema:
+  const isDark = tema === 'escuro';
+
   return (
-    <View style={styles.container}>
-      <Text>Tema atual: {tema}</Text>
-      <TouchableOpacity onPress={() => setTema(tema === 'claro' ? 'escuro' : 'claro')}>
-        <Text>Alternar tema</Text>
+    <View style={{ flex: 1, backgroundColor: isDark ? '#111' : '#fff' }}>
+      
+      <Text style={{ color: isDark ? '#fff' : '#000' }}>
+         Tema Cósmico atual: {tema}
+      </Text>
+      
+      <TouchableOpacity 
+         onPress={() => setTema(isDark ? 'claro' : 'escuro')}
+         style={{ padding: 15, backgroundColor: 'blue'}}
+      >
+        <Text>Alternar Modo do Computador</Text>
       </TouchableOpacity>
     </View>
   );
 }
 ```
 
-Em outra tela, use o mesmo **useContext(TemaContext)** e aplique cores diferentes conforme `tema` (ex.: backgroundColor: tema === 'escuro' ? '#333' : '#fff').
-
----
-
-## Parte 4 – useCallback e useMemo (resumo)
-
-- **useCallback(função, [deps])** – devolve a mesma função enquanto as dependências não mudarem; evita recriação em cada render (útil para funções passadas a filhos ou a FlatList renderItem).
-- **useMemo(() => valor, [deps])** – calcula o valor uma vez e só recalcula quando deps mudar; evita cálculos pesados em todo render.
-
-Para esta aula, o foco é Context; useCallback/useMemo podem ser usados depois para otimização.
-
----
-
-## Checklist
-
-- [ ] createContext e Provider criados; valor (ex.: tema, setTema) no value do Provider.
-- [ ] App (ou navegação) envolvido pelo Provider.
-- [ ] useContext usado em pelo menos uma tela para ler e alterar o valor; alteração refletida (ex.: tema alternando).
+Mágica? Sim. Engenharia Pura. O botão muda a nuvem. A nuvem muda a propriedade do StyleSheet, que força o motor do celular pintar tudo de preto na mesma hora.
+Prossiga para a atividade!

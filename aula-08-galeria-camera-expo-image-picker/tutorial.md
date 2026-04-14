@@ -1,130 +1,39 @@
-# Aula 08 – Galeria e câmera (expo-image-picker)
+# Aula 08 – Galeria, Câmera e o Assincronismo
 
-**Sugestão de execução:** quinzena 9 (11/05/2026 a 22/05/2026).
-
-**Base tecnológica:** Manipulando recursos do dispositivo – galerias; imagens.
-
----
-
-## Objetivo
-
-Usar **expo-image-picker** para abrir a **galeria** (ou câmera), escolher uma **imagem** e **exibir** no app. Tratar **permissões** quando o usuário negar.
+**Sugestão de execução:** quinzena 8.
+**Base tecnológica:** expo-image-picker, Image URIs, Async/Await.
 
 ---
 
-## Parte 1 – Instalar e pedir permissão
+## 1. Abrindo a Ponte de Câmera Oficial
+O React Native não fala direto de forma tão fácil com a Galeria porque Android e iOS funcionam muito diferente sob o capô. A livraria `expo-image-picker` é a "tradutora".
+No terminal, adicione: `npx expo install expo-image-picker`
 
-No terminal, na pasta do projeto:
+## 2. A Mágica de "Parar o Tempo": async / await
 
-```bash
-npx expo install expo-image-picker
-```
+Para garantir que o Celular não vai travar enquanto o cara demora pra escolher a foto na gaveta dele, nós abrimos a ponte com o comando `async` numa variável Assíncrona.
+Volte ao seu Botão Genérico Yellow em `components/Button.tsx` e passe uma Arrow Function dinâmica que ele receberá nas Props! `onPress?: () => void`. Abrace isso no onPress.
 
-No código, importe e solicite permissão ao montar (ou ao tocar no botão):
+Em seguida, na `(tabs)/index.tsx`:
 
-```javascript
+```tsx
 import * as ImagePicker from 'expo-image-picker';
-import { Image } from 'react-native';
+import { useState } from 'react'; // Guardião local de variável volátil!
 
-const [imagemUri, setImagemUri] = useState(null);
-const [erroPermissao, setErroPermissao] = useState(null);
+  // Função Assíncrona! 
+  const pickImageAsync = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ['images'], 
+      allowsEditing: true, // Libera o Crop de Imagem (Formato Insta)
+      quality: 1,
+    });
 
-const pedirPermissaoGaleria = async () => {
-  const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-  if (status !== 'granted') {
-    setErroPermissao('Permissão para acessar a galeria foi negada.');
-    return false;
-  }
-  setErroPermissao(null);
-  return true;
-};
+    if (!result.canceled) {
+      // SALVAR A VARIÁVEL DE ESTADO SE TIVER SUCESSO AQUI:
+      // result.assets[0].uri = O Caminho Absoluto local do disco da foto do cara (file:///C:/Users...)
+    }
+  };
 ```
 
----
-
-## Parte 2 – Abrir a galeria e exibir a imagem
-
-```javascript
-const escolherDaGaleria = async () => {
-  const ok = await pedirPermissaoGaleria();
-  if (!ok) return;
-
-  const result = await ImagePicker.launchImageLibraryAsync({
-    mediaTypes: ImagePicker.MediaTypeOptions.Images,
-    allowsEditing: true,
-    aspect: [4, 3],
-    quality: 0.8,
-  });
-
-  if (!result.canceled) {
-    setImagemUri(result.assets[0].uri);
-  }
-};
-```
-
-- **result.assets[0].uri** – URI da imagem escolhida (arquivo local no dispositivo).
-- **allowsEditing** – permite recortar; **aspect** – proporção do recorte.
-
-Para exibir:
-
-```javascript
-{imagemUri && (
-  <Image source={{ uri: imagemUri }} style={styles.imagem} />
-)}
-```
-
-Estilo:
-
-```javascript
-imagem: {
-  width: 200,
-  height: 200,
-  borderRadius: 8,
-  resizeMode: 'cover',
-  marginTop: 16,
-},
-```
-
----
-
-## Parte 3 – Câmera (opcional)
-
-Permissão de câmera:
-
-```javascript
-const { status } = await ImagePicker.requestCameraPermissionsAsync();
-```
-
-Abrir câmera:
-
-```javascript
-const result = await ImagePicker.launchCameraAsync({
-  allowsEditing: true,
-  aspect: [4, 3],
-  quality: 0.8,
-});
-```
-
-Uso igual: `result.assets[0].uri` e exibir com `<Image source={{ uri: ... }} />`.
-
----
-
-## Parte 4 – Tratamento quando permissão é negada
-
-Se o usuário negar, não chame `launchImageLibraryAsync`; mostre uma mensagem na tela ou em Alert:
-
-```javascript
-{erroPermissao && (
-  <Text style={styles.erro}>{erroPermissao}</Text>
-)}
-```
-
-Ou: `Alert.alert('Atenção', erroPermissao);`
-
----
-
-## Checklist
-
-- [ ] expo-image-picker instalado; permissão solicitada antes de abrir a galeria.
-- [ ] Imagem escolhida exibida na tela (Image com uri).
-- [ ] Tratamento quando permissão é negada (mensagem ou Alert).
+E simplesmente ligue isso no construtor do `<Button theme="primary" label="Escolher uma foto" onPress={pickImageAsync} />`.
+Quando você apertar o botão, o sistema nativo bloqueado vai rasgar a sua tela e soltar a ponte pedindo as permissões oficiais pro usuário!

@@ -1,31 +1,23 @@
-# Aula 05 – Atividade
+# Missão 5: Abrindo a Mente e a Gaveta
 
-**Sugestão de entrega:** até o final da quinzena 5 (11/04/2026).
+**Sua Validação Autônoma de Estudo:**
 
----
-
-## Objetivo
-
-Criar um app com **duas telas**: (1) uma tela com **lista de 3 itens** e **uma imagem**; (2) ao tocar em um item, abrir uma **tela de detalhe** que mostra o nome (ou dados) do item. Na Aula 06 você usará React Navigation; aqui pode usar duas “telas” no mesmo `App.js` trocando um estado (ex.: `telaAtual` e `itemSelecionado`) ou já instalar e usar navegação.
+Muitos tentam fugir do módulo de `<FlatList>` pelo simples fato dela ser ligeiramente complexa em sua chamada matemática (o uso do looping desestruturado `({ item }) => ...`).
+Mas uma lista inútil onde a pessoa rola infinitamente e não consegue clicar em absolutamente nada para abrir não tem valor no mercado real!
 
 ---
 
-## Requisitos
+## O Desafio: Componentes Acoplados!
 
-1. **Tela 1 – Lista**
-   - Pelo menos **3 itens** em lista (FlatList ou ScrollView com map).
-   - Pelo menos **uma imagem** em algum lugar (topo da lista ou ao lado do texto).
-   - Ao tocar em um item, ir para a tela de detalhe (ou, se ainda não tiver navegação, mostrar em um Alert o nome do item e uma mensagem tipo “Detalhe em breve”).
-2. **Tela 2 – Detalhe**
-   - Mostrar o **nome** (ou id) do item selecionado.
-   - Ter um jeito de **voltar** (botão “Voltar” que retorna à lista).
+No tutorial base nós adicionamos nossa `EmojiList` (Contendo as fotos Horizontalmente pela nossa Flatlist maravilhosamente performática), dentro da barriga do `<EmojiPicker>` (O gigante engolidor flutuante de Z-index).
 
-Se você ainda não viu React Navigation (Aula 06), pode fazer com estado no App: `const [tela, setTela] = useState('lista')` e `const [item, setItem] = useState(null)`. Se tela === 'lista' renderiza a lista; se tela === 'detalhe' renderiza o detalhe do `item` e um botão que chama `setTela('lista')`.
+Sua Missão será comprovar para você mesmo que você consegue capturar interações da Lista Dinâmica que nós injetamos.
 
-**Entrega:** print da lista e print da tela de detalhe (ou do Alert). Opcional: trecho do código (lista + “navegação” por estado).
+1. Implemente rigorosamente a estrutura modular ensinada!
+2. Repare que o Prop `renderItem` da lista de sticker está passando o parâmetro `onSelect(item.foto)`. Eu quero uma comprovação de que o botão no "onPress" realmente está selecionando emojis individuais.
 
----
+## A Extração Final
 
-## Critérios de avaliação
+Bata o "Print" (Captura de Tela) com seu celular (Expo Go) demonstrando os emojis estourando na tela limpos de fundo (A Rolagem Horizontal visível da FlatList, dentro da aba inferior branca deslizável englobada perfeitamente na "UI/Caixa" do **EmojiPicker**). 
 
-- Lista com 3 itens; presença de imagem; ao tocar, exibição do detalhe (outra tela ou Alert); forma de voltar à lista.
+Tendo entendido essas "Telas sobre telas e Listas sobre Menus", você subiu seu level de Design Native pra Pleno. Anexe o JPEG e poste sua vitória na plataforma!

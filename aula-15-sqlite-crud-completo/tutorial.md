@@ -1,86 +1,80 @@
-# Aula 15 – SQLite: CRUD completo
+# Tutorial: O Executor Cirúrgico de Metas
 
-**Sugestão de execução:** quinzena 18 (21/09/2026 a 03/10/2026).
+**Sugestão de execução:** Quinzena 18.
 
-**Base tecnológica:** Manipulação de banco de dados no dispositivo; leitura e escrita.
-
----
-
-## Objetivo
-
-Implementar **CRUD** (Create, Read, Update, Delete) usando SQLite: **listar** na tela (FlatList), **adicionar** (formulário + INSERT), **editar** e **excluir** (UPDATE e DELETE). App tipo "Lista de tarefas" ou "Caderno de anotações".
+Vamos puxar a nossa Tela que foi erguida na Aula 14, unificando os conceitos lógicos para montar a fúria Completa de Listagem (`Flatlist` de alta performance baseada no lixeiro *Garbage collector*) + Botões Dinâmicos!
 
 ---
 
-## Parte 1 – Estrutura da tela
+## Passo 1: O Funil de Listagem (Read e State Sync)
+Continuando no escopo do seu Componente importando o `bancoDados`, nós forçamos o R da equação (No `useEffect` do Guardião, que ativou a Tabela, e nós acoplamos a Listagem Lógica):
 
-- **FlatList** com os itens vindos do banco (estado `itens`, carregado com SELECT no useEffect).
-- **Formulário:** TextInput + botão "Adicionar" (INSERT; depois recarregar a lista).
-- **Cada item:** texto + botão "Excluir" (DELETE) e, opcional, "Editar" (navegar para tela de edição ou modal com UPDATE).
+```tsx
+  const [listaDeMetas, setListaMetas] = useState([]);
 
----
+  // A FUNÇÃO MESTRA RECARREGADORA UNIVERSAL
+  const rebobinarServidor = () => {
+    // 1. O Padrão R - Read: Puxe em cascata Inversa (Sempre a maior/mais nova de cima)
+    const puxadaBruta = bancoDados.getAllSync('SELECT * FROM metas ORDER BY id DESC');
+    setListaMetas(puxadaBruta); 
+  };
 
-## Parte 2 – Carregar lista (Read)
+  useEffect(() => {
+    // ... criação das tabelas ensinada na Aula Anterior vai aqui em cima ...
+    setBancoGerado(true);
 
-```javascript
-const [itens, setItens] = useState([]);
-
-const carregarItens = useCallback(() => {
-  db.getAllSync('SELECT * FROM tarefas ORDER BY id DESC'); // ou runAsync + resultado
-  setItens(linhas);
-}, []);
-
-useEffect(() => {
-  carregarItens();
-}, [carregarItens]);
+    // Imediatamente após gerar, force uma Lida Base do SQLite para puxar resquícios passados:
+    rebobinarServidor();
+  }, []);
 ```
 
-(Ajuste para a API da sua versão: getAllSync, runAsync, ou transaction com executeSql e callback que chama setItens.)
+## Passo 2: Os Disparadores (Delete e Insert)
 
----
+Temos a base. Crie as duas funções principais que sofrerão botões da UI. Repare que passaremos parâmetro no meio ali da string do comando usando `?` ! Isso é brutal de lindo. O SQLite entende que o `id_da_lista` que você jogou no colchetes substituirá aquela Interrogação e fará o estrago oficial!
 
-## Parte 3 – Adicionar (Create)
+```tsx
+  // --- O PADRÃO CREATE
+  const injetarMetaNova = (qualquerTextoVindoDeInput) => {
+    bancoDados.runSync('INSERT INTO metas (descricao) VALUES (?)', [qualquerTextoVindoDeInput]);
+    
+    // O REFRESH MESTRE ENSINADO NA TEORIA:
+    rebobinarServidor(); 
+  };
 
-```javascript
-const adicionar = async (titulo) => {
-  db.runSync('INSERT INTO tarefas (titulo) VALUES (?)', [titulo]);
-  carregarItens();
-};
+  // --- O PADRÃO DELETE
+  const sumirComMetaNoSQL = (ID_Exato_Da_Linha_Que_Cliquei) => {
+    // Se o banco achar esse cara... Apague sem perdão.
+    bancoDados.runSync('DELETE FROM metas WHERE id = ?', [ID_Exato_Da_Linha_Que_Cliquei]);
+    
+    // O REFRESH MESTRE PARA QUE O COMPONENTE DA TELA SUMA:
+    rebobinarServidor();
+  };
 ```
 
-Chame **adicionar** no onPress do botão, passando o texto do input; depois limpe o input.
+## Passo 3: O Render Final (A Interface Crua)
+Usamos a Flatlist da Aula 05 para repintar os arrays brutos em Componentes Individuais. Eles terão botões.
 
----
-
-## Parte 4 – Excluir (Delete)
-
-```javascript
-const excluir = (id) => {
-  db.runSync('DELETE FROM tarefas WHERE id = ?', [id]);
-  carregarItens();
-};
+```tsx
+  return (
+    <View style={{ flex: 1, padding: 20 }}>
+      {/* Aqui iria um <TextInput /> charmoso apontando para a injeção... */}
+      <Text style={{fontSize: 20}}>Painel De Operações Master!</Text>
+      
+      <FlatList
+        data={listaDeMetas}
+        keyExtractor={(item) => String(item.id)} // Chave Única que o loop Enxerga 
+        renderItem={({ item }) => (
+          <View style={{ padding: 15, borderBottomWidth: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
+            <Text>Meta #{item.id} - {item.descricao}</Text>
+            
+            <TouchableOpacity onPress={() => sumirComMetaNoSQL(item.id)}>
+              <Text style={{ color: 'red', fontWeight: 'bold' }}>EXCLUIR_ITEM()</Text>
+            </TouchableOpacity>
+          </View>
+        )}
+      />
+    </View>
+  );
 ```
 
-No renderItem da FlatList, botão "Excluir" que chama excluir(item.id). Opcional: Alert.alert de confirmação antes.
-
----
-
-## Parte 5 – Editar (Update)
-
-```javascript
-const atualizar = (id, novoTitulo) => {
-  db.runSync('UPDATE tarefas SET titulo = ? WHERE id = ?', [novoTitulo, id]);
-  carregarItens();
-};
-```
-
-Pode ser um modal com TextInput pré-preenchido e botão "Salvar" que chama atualizar(id, valorDoInput).
-
----
-
-## Checklist
-
-- [ ] Listar itens do SQLite na FlatList; carregar ao abrir e após cada alteração.
-- [ ] Adicionar: INSERT e recarregar lista.
-- [ ] Excluir: DELETE e recarregar lista.
-- [ ] (Opcional) Editar: UPDATE e recarregar lista; interface coerente (modal ou tela).
+Avance para e missão final da Fase, você foi exímio.

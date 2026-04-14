@@ -1,108 +1,64 @@
-# Aula 04 – Texto e botões (Text, TouchableOpacity, eventos)
+# Aula 04 – Texto e Botões com Pressable
 
-**Sugestão de execução:** quinzena 4 (23/03/2026 a 02/04/2026).
-
-**Base tecnológica:** Criação e configuração de componentes básicos – Texto; Botões.
-
----
-
-## Objetivo
-
-Exibir textos estilizados e um **botão** que reage ao toque (ex.: mostra um Alert ou muda um texto na tela).
+**Sugestão de execução:** quinzena 4.
+**Base tecnológica:** TouchableOpacity / Pressable, onPress, Ícones Vetorizados.
 
 ---
 
-## Parte 1 – Text e estilo
+## Parte 1: O Pressable (A evolução do TouchableOpacity)
 
-- **Text** é o único componente que pode exibir texto; não se coloca texto solto dentro de View.
-- Estilos comuns: fontSize, fontWeight, color.
+Antigamente o React usava *TouchableOpacity*. Mas agora nós usamos seu substituto supremo moderno: `<Pressable>`, que detecta toques e movimentos mais robustos e sutis do dedo humano.
 
-Exemplo:
+### Parâmetros Inteligentes (Props Condicionais)
+Vamos criar dois botões (primário destaque amarelo, e secundário texto-limpo) num mesmo componente genérico e reutilizável usando If/Else em Props!
 
-```javascript
-import { StyleSheet, Text, View } from 'react-native';
+Crie `components/Button.tsx`:
 
-<View style={styles.container}>
-  <Text style={styles.titulo}>Título da tela</Text>
-  <Text style={styles.subtitulo}>Subtítulo ou descrição.</Text>
-</View>
+```tsx
+// components/Button.tsx
+import { StyleSheet, View, Pressable, Text } from 'react-native';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
 
-const styles = StyleSheet.create({
-  container: { flex: 1, padding: 20, justifyContent: 'center' },
-  titulo: { fontSize: 24, fontWeight: 'bold', color: '#333', marginBottom: 8 },
-  subtitulo: { fontSize: 16, color: '#666' },
-});
-```
+// Se receber "primary", veste o botão de amarelo brilhante com o Mestre FontAwesome!
+type Props = {
+  label: string;
+  theme?: 'primary';
+};
 
----
+export default function Button({ label, theme }: Props) {
+  if (theme === 'primary') { 
+    return (
+      <View style={[styles.buttonContainer, { borderWidth: 4, borderColor: '#ffd33d', borderRadius: 18 }]}>
+        <Pressable 
+          style={[styles.button, { backgroundColor: '#fff' }]} 
+          onPress={() => alert('Em Breve: Acesso a Câmera!')}
+        >
+          <FontAwesome name="picture-o" size={18} color="#25292e" style={styles.buttonIcon} />
+          <Text style={[styles.buttonLabel, { color: '#25292e' }]}>{label}</Text>
+        </Pressable>
+      </View>
+    );
+  }
 
-## Parte 2 – Botão com TouchableOpacity
-
-Em React Native não se usa `<button>`. Use **TouchableOpacity** (ou **Pressable**): envolve o conteúdo que será clicável.
-
-1. Importe:
-```javascript
-import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-```
-
-2. Coloque o conteúdo “clicável” dentro de **TouchableOpacity** e use **onPress**:
-```javascript
-<TouchableOpacity style={styles.botao} onPress={() => Alert.alert('Aviso', 'Você tocou no botão!')}>
-  <Text style={styles.textoBotao}>Clique aqui</Text>
-</TouchableOpacity>
-```
-
-3. Estilos do botão:
-```javascript
-botao: {
-  backgroundColor: '#2196F3',
-  paddingHorizontal: 24,
-  paddingVertical: 12,
-  borderRadius: 8,
-  alignSelf: 'center',
-  marginTop: 16,
-},
-textoBotao: {
-  color: '#fff',
-  fontSize: 16,
-  fontWeight: '600',
-},
-```
-
----
-
-## Parte 3 – Estado na tela (useState)
-
-Para o botão **mudar um texto na tela** (ex.: contador ou mensagem), use **useState**:
-
-```javascript
-import { useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-
-export default function App() {
-  const [mensagem, setMensagem] = useState('Aguardando toque...');
-
+  // SE NÃO RECEBER NENHUM TEMA -> Renderiza normal:
   return (
-    <View style={styles.container}>
-      <Text style={styles.titulo}>Olá, Mobile!</Text>
-      <Text style={styles.mensagem}>{mensagem}</Text>
-      <TouchableOpacity
-        style={styles.botao}
-        onPress={() => setMensagem('Você tocou no botão!')}
-      >
-        <Text style={styles.textoBotao}>Clique aqui</Text>
-      </TouchableOpacity>
+    <View style={styles.buttonContainer}>
+      <Pressable style={styles.button} onPress={() => alert('Em breve: Uso Desta Foto')}>
+        <Text style={styles.buttonLabel}>{label}</Text>
+      </Pressable>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  buttonContainer: { width: 320, height: 68, marginHorizontal: 20, alignItems: 'center', justifyContent: 'center', padding: 3 },
+  button: { borderRadius: 10, width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center', flexDirection: 'row' },
+  buttonIcon: { paddingRight: 8 },
+  buttonLabel: { color: '#fff', fontSize: 16 },
+});
 ```
 
-Assim, ao tocar no botão, o texto na tela é atualizado.
+> [!TIP]
+> **Inline Styles Array:** Notou o truque de sobrescrever estilo base usando `style={[styles.button, { backgroundColor: '#fff' }]}`? Arrays em estilo forçam o Native a juntar (merge) os códigos do bottom com as cores vivas em tempo real!
 
----
-
-## Checklist
-
-- [ ] Usou Text com estilos (fontSize, color).
-- [ ] Usou TouchableOpacity com onPress (Alert ou setState).
-- [ ] (Opcional) Usou useState para alterar um texto ao clicar.
+Conecte os dois botões no final da sua tela `index.tsx` de sempre e divirta-se clicando!

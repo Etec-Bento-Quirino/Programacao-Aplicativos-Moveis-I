@@ -1,26 +1,32 @@
-# Aula 14 – Atividade
+# Missão 14: Rompendo o Escudo de Integridade ⚔️
 
-**Sugestão de entrega:** até o final da quinzena 17 (19/09/2026).
+**Sua Validação Autônoma de Estudo:**
 
----
+No material teórico nós acionamos o motor C++ Nativão do SQLite dentro do JavaScript, usamos a instrução "DDL `CREATE`" para erguer uma matriz estrutural limpa (`id, descricao, status`), e usamos um Alert para aferir a injeção do Insert.
 
-## Objetivo
-
-Criar um projeto com **banco SQLite** configurado: **criar** uma tabela (ex.: tarefas ou itens) e **inserir** pelo menos um registro de teste. Opcional: exibir o resultado de um SELECT no console ou em um Text na tela.
-
----
-
-## Requisitos
-
-1. **Banco:** usar expo-sqlite; abrir um banco com nome fixo (ex.: app.db).
-2. **Tabela:** CREATE TABLE IF NOT EXISTS com pelo menos 2 ou 3 colunas (ex.: id INTEGER PRIMARY KEY AUTOINCREMENT, titulo TEXT, data TEXT).
-3. **Inserir:** executar um INSERT com valores de teste (ex.: uma tarefa ou um item).
-4. (Opcional) Executar SELECT * e mostrar o resultado na tela (Text ou console.log) para confirmar que o dado está no banco.
-
-**Entrega:** trecho do código onde você abre o banco, cria a tabela e insere o registro; ou print do app/console mostrando o dado lido do banco.
+Mas se nós não colocamos View de LEITURA de SQL no tutorial atual, como vamos provar que ela está funcionando lá dentro?
+Pelo Terminal de Debug!
 
 ---
 
-## Critérios de avaliação
+## O Desafio: A Inspeção de Raio-X do Servidor
 
-- Banco aberto; tabela criada; INSERT executado sem erro; (opcional) SELECT retornando o registro.
+Implemente na sua tela a lógica exata de abertura do SQLite demonstrada.
+Mas para validar sua nota, eu exijo que você veja o sangue da máquina rolando no console negro do PowerShell do Metro Bundler (Seu PC)!
+
+1. Insira duas "Metas" clicando no Botão "Simular um Insert".
+2. Crie uma Nova Função na sua tela chamada `verTudo`! Ela vai pegar os dados e CUSPIR no Log negro de compilação sem jogar pro React ainda.
+   ```js
+   const verTudo = () => {
+      // O getAllSync roda o query SQL de seleção massivo de dados do banco.
+      const linhasVivas = bancoDados.getAllSync('SELECT * FROM metas');
+      console.log("Raio X Do Servidor Nativo Retornou: ", linhasVivas);
+   }
+   ```
+3. Chame essa função por um Outro Botãozinho no seu componente. 
+
+## Extração do Trófeu:
+Selecione o Terminal onde o `npx expo start --tunnel` está rolando loucamente.
+Clique no "Ver Tudo" no seu celular virtual. Em seguida, tire uma Screenshot com seu `Print Screen` da Janela de Comando do PC evidenciando a matriz amarela esmagada do Objeto JSON que o Banco devolveu listando suas *"Metas dominar o mundo!"*! 
+
+Prove que as tubulações DDL estão fluindo e mande pra escola. Na próxima Aula, os traremos diretamente para a Visão final e ativaremos a opção Morte (Delete).

@@ -1,110 +1,72 @@
-# Aula 05 – Imagens e listas (Image, FlatList)
+# Aula 05 – Lidando com Renderização Extrema (FlatList e Modais)
 
-**Sugestão de execução:** quinzena 5 (06/04/2026 a 11/04/2026).
-
-**Base tecnológica:** Criação e configuração de componentes básicos – imagens; listas; views.
-
----
-
-## Objetivo
-
-Exibir uma **imagem** (local ou URL) e uma **lista** de itens com **FlatList**, e ao tocar em um item navegar para uma tela de detalhe (a navegação será aprofundada na Aula 06; aqui pode ser um Alert com o nome do item).
+**Sugestão de execução:** quinzena 5.
+**Base tecnológica:** FlatList, Modais Flutuantes, Array e RenderItem.
 
 ---
 
-## Parte 1 – Imagem (Image)
+## 1. O Componente Modal
+Nós não usamos o comando de CSS `display:none` no código React. Ao invés disso, usamos uma Regra Lógica (Se Estado é Verdadeiro, mostra, senão, apaga o trecho em memória).
+Porém para Menus Flutuantes ou Gavetas que sobrepõem tudo com Z-Index infinito, a Tag nativa `<Modal>` é a ideal!
 
-Importe **Image** de `react-native`:
+Crie uma gaveta mágica engolidora de itens no arquivo `components/EmojiPicker.tsx`:
+```tsx
+import { Modal, View, Text, Pressable, StyleSheet } from 'react-native';
+import { PropsWithChildren } from 'react';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
-```javascript
-import { Image, StyleSheet, View } from 'react-native';
-```
+// Usamos PropsWithChildren para dizer que esse Modal pode ABRAÇAR (engolir) coisas dentro dele!
+type Props = PropsWithChildren<{ isVisible: boolean; onClose: () => void; }>;
 
-**Imagem da rede (URL):**
-```javascript
-<Image
-  source={{ uri: 'https://via.placeholder.com/200x100' }}
-  style={styles.imagem}
-/>
-```
-
-**Imagem local (pasta do projeto):** coloque o arquivo, por exemplo, em `assets/logo.png` e use:
-```javascript
-<Image source={require('./assets/logo.png')} style={styles.imagem} />
-```
-
-Estilo:
-```javascript
-imagem: {
-  width: 200,
-  height: 100,
-  resizeMode: 'cover',
-  borderRadius: 8,
-},
-```
-
----
-
-## Parte 2 – Lista com FlatList
-
-**FlatList** exibe uma lista a partir de um array de dados. Propriedades principais: **data**, **renderItem**, **keyExtractor**.
-
-Exemplo com array de itens:
-
-```javascript
-import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-
-const ITENS = [
-  { id: '1', nome: 'Item Um' },
-  { id: '2', nome: 'Item Dois' },
-  { id: '3', nome: 'Item Três' },
-];
-
-export default function App() {
-  const mostrarDetalhe = (item) => {
-    Alert.alert('Detalhe', item.nome);
-  };
-
+export default function EmojiPicker({ isVisible, children, onClose }: Props) {
   return (
-    <View style={styles.container}>
-      <FlatList
-        data={ITENS}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <TouchableOpacity style={styles.linha} onPress={() => mostrarDetalhe(item)}>
-            <Text style={styles.texto}>{item.nome}</Text>
-          </TouchableOpacity>
-        )}
-      />
-    </View>
+    // animationType='slide' faz ele deslizar perfeitamente ao invocar isVisible = true
+    <Modal animationType="slide" transparent={true} visible={isVisible}>
+      <View style={styles.modalContent}>
+        <View style={styles.titleContainer}>
+          <Text style={styles.title}>Menu Especial</Text>
+          <Pressable onPress={onClose}><MaterialIcons name="close" color="#fff" size={22} /></Pressable>
+        </View>
+        {children} {/* Aqui ele vomitará a FlatList que vamos enfiar na barriga dele logo abaixo */}
+      </View>
+    </Modal>
   );
 }
-
-const styles = StyleSheet.create({
-  container: { flex: 1, padding: 16 },
-  linha: { padding: 16, borderBottomWidth: 1, borderBottomColor: '#eee' },
-  texto: { fontSize: 16 },
-});
+//... Adicione um style absoluto colocando ele bottom: 0 ...
 ```
 
-- **data={ITENS}** – array de objetos.
-- **keyExtractor** – retorna um id único para cada item (evita warnings e melhora desempenho).
-- **renderItem** – recebe `{ item }` e retorna o componente de cada linha (aqui: TouchableOpacity + Text). Ao tocar, chama `mostrarDetalhe(item)` (por enquanto um Alert).
+## 2. A Incrível FlatList (Gerenciando RAM com Listas)
+> **O que é FlatList?** Diferente do navegador Web (`Scrollview`) que segura fotos gerando lag até o celular não ter mais memória RAM, a `FlatList` joga fora as fotos velhas que saíram da borda da tela e substitui reutilizando os pixels vivos para os próximos arquivos da fila!
 
----
+1. Na sua pasta `assets/images`, garanta que haja as 6 figuras de emojis (`emoji1.png` etc).
+2. Crie a sua classe Lista em `components/EmojiList.tsx`:
 
-## Parte 3 – Combinar imagem e lista
+```tsx
+import { useState } from 'react';
+import { StyleSheet, FlatList, Platform, Pressable } from 'react-native';
+import { Image, type ImageSource } from 'expo-image';
 
-No mesmo app você pode ter:
-- No topo: um **Image** (logo ou banner).
-- Abaixo: uma **FlatList** com 3 itens; ao tocar, Alert com o nome do item.
+export default function EmojiList({ onSelect, onCloseModal }) {
+  // Os Emoticons baseados nos arquivos do seu projeto.
+  const [emoji] = useState<ImageSource[]>([
+    require("../assets/images/emoji1.png"),
+    require("../assets/images/emoji2.png"),
+    require("../assets/images/emoji3.png")
+  ]);
 
-Isso prepara a Aula 06, onde a “tela de detalhe” será uma segunda tela de verdade (React Navigation).
+  return (
+    <FlatList horizontal showsHorizontalScrollIndicator={Platform.OS === 'web'}
+      data={emoji} contentContainerStyle={styles.listContainer}
+      
+      // renderItem é um Looping! Para cada foto do "data={emoji}" ele cospe esse desenho:
+      renderItem={({ item, index }) => (
+        <Pressable onPress={() => { onSelect(item); onCloseModal(); }}>
+          <Image source={item} key={index} style={styles.image} />
+        </Pressable>
+      )}
+    />
+  );
+}
+```
 
----
-
-## Checklist
-
-- [ ] Exibiu uma imagem (URL ou local) com Image e style.
-- [ ] Usou FlatList com data, keyExtractor e renderItem.
-- [ ] Ao tocar em um item, algo acontece (Alert ou console.log).
+Mestre a Flatlist engolida na barriga da `<EmojiPicker>` na sua ROOT `Index.tsx` e o Modal funcionará com listas de altíssima performance!

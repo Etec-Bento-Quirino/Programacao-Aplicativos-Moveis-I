@@ -1,110 +1,86 @@
-# Aula 14 – SQLite: configuração e primeira tabela
+# Tutorial: A Forja da Tabela de Tarefas
 
-**Sugestão de execução:** quinzena 17 (08/09/2026 a 19/09/2026).
+**Sugestão de execução:** Quinzena 17.
 
-**Base tecnológica:** Manipulação de banco de dados no dispositivo.
-
----
-
-## Objetivo
-
-Configurar **expo-sqlite** no projeto Expo, **abrir** um banco de dados, **criar** uma tabela e **inserir** um registro de teste. Ainda sem interface completa; foco em conectar e executar SQL.
+O StickerSmash foi nosso protótipo de Design. Mas hoje, construiremos as fundações (o Database) para o nosso projeto independente "Tarefas Diárias". Este módulo foca unicamente em construir o cofre do zero, sem construir toda a interface linda ainda. 
 
 ---
 
-## Parte 1 – Instalar (Expo SDK 50+)
-
+## Passo 1: Injeção de Maquinário DDL
+No console de comando do terminal, acione a instalação da ponte (Lembre-se de desligar o server com Ctrl+C primeiro e ligar depois).
 ```bash
 npx expo install expo-sqlite
 ```
 
-Com Expo SDK 51+, o **expo-sqlite** usa a API "next" (opcional). Para a API clássica:
+## Passo 2: O Guardião de Arranque (`openDatabaseSync`)
 
-```javascript
+Crie uma tela nova limpa para testar, chamada `BancoTest.tsx`.
+No topo, importaremos a ferramenta. Ao invés da complicação de `useState`, usaremos a sintaxe pura moderna e limpa de abertura assíncrona. 
+
+```tsx
+import { useEffect, useState } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
 import * as SQLite from 'expo-sqlite';
+
+// ABERTURA IMEDIATA DO ARQUIVO BINÁRIO (Se ikke existir, ele forja no SSD do celular agora).
+const bancoDados = SQLite.openDatabaseSync('aplicativo_v1.db');
+
+export default function BancoTest() {
+  const [bancoGerado, setBancoGerado] = useState(false);
+
+  // Lembra dele? O Guarda Noturno. Irá criar as tabelas SÓ quando a tela abrir 1 vez.
+  useEffect(() => {
+    try {
+      bancoDados.execSync(`
+        CREATE TABLE IF NOT EXISTS metas (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          descricao TEXT NOT NULL,
+          status_feita INTEGER DEFAULT 0
+        );
+      `);
+      setBancoGerado(true);
+      console.log("Sucesso: A Tabela nas profundezas está montada.");
+    } catch(err) {
+      console.error("Pane no SQLite C++ engine:", err);
+    }
+  }, []);
 ```
 
----
+## Passo 3: O Primeiro Teste Lógico (INSERT)
 
-## Parte 2 – Abrir o banco e criar tabela
+Ainda no mesmo arquivo, embaixo do *useEffect*, você vai criar uma função e um *Componente Button* só para socar uma tarefa pra dentro na brutalidade e ver se o banco vai engolir:
 
-A função **openDatabaseSync** (ou **openDatabase** em versões antigas) abre/cria o arquivo do banco. Em Expo (SDK 51+), use:
-
-```javascript
-import * as SQLite from 'expo-sqlite';
-
-const db = SQLite.openDatabaseSync('meudb.db');
-
-useEffect(() => {
-  db.execSync(`
-    CREATE TABLE IF NOT EXISTS tarefas (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      titulo TEXT NOT NULL,
-      concluida INTEGER DEFAULT 0
+```tsx
+  const socarTarefaNoBanco = () => {
+    // A interrogação previne "SQL Injection Attack" onde hackers escrevem DROPs de BD.
+    bancoDados.runSync(
+        'INSERT INTO metas (descricao) VALUES (?)', 
+        ['Dominar o mundo hoje.']
     );
-  `);
-}, []);
-```
+    alert('Foi para o Cofre de Titânio. Se fechar o app, continuará vivo nos elétrons físicos!');
+  };
 
-Se sua versão usar **openDatabase** (callback), o padrão é:
-
-```javascript
-const db = SQLite.openDatabase('meudb.db');
-
-db.transaction((tx) => {
-  tx.executeSql(
-    'CREATE TABLE IF NOT EXISTS tarefas (id INTEGER PRIMARY KEY AUTOINCREMENT, titulo TEXT NOT NULL, concluida INTEGER DEFAULT 0);'
+  // --- Renderização Pobre de Laboratório:
+  return (
+    <View style={styles.container}>
+      <Text style={styles.titulos}> 
+        Status do Cofre: { bancoGerado ? "AERTO E OPERACIONAL" : "CONSTRUINDO..."  } 
+      </Text>
+      
+      {bancoGerado && (
+         <Text onPress={socarTarefaNoBanco} style={styles.botaoSocar}>
+            [ SIMULAR UM INSERT SQL ]
+         </Text>
+      )}
+    </View>
   );
+}
+
+const styles = StyleSheet.create({
+  container: { flex: 1, justifyContent: 'center', alignItems: 'center' },
+  titulos: { fontSize: 20, color: 'blue', marginBottom: 30 },
+  botaoSocar: { padding: 15, backgroundColor: 'red', color: 'white', fontWeight: 'bold' }
 });
 ```
 
-Consulte a documentação atual do **expo-sqlite** para a API exata da sua versão (execSync vs transaction/executeSql).
-
----
-
-## Parte 3 – Inserir um registro
-
-Com **execSync** (exemplo):
-
-```javascript
-db.runSync('INSERT INTO tarefas (titulo) VALUES (?)', ['Minha primeira tarefa']);
-```
-
-Com **transaction**:
-
-```javascript
-db.transaction((tx) => {
-  tx.executeSql('INSERT INTO tarefas (titulo) VALUES (?)', ['Minha primeira tarefa']);
-});
-```
-
----
-
-## Parte 4 – Ler e exibir (SELECT)
-
-Com **execSync** e **getAllSync** (ou equivalente):
-
-```javascript
-const linhas = db.getAllSync('SELECT * FROM tarefas');
-console.log(linhas);
-```
-
-Com **transaction**:
-
-```javascript
-db.transaction((tx) => {
-  tx.executeSql('SELECT * FROM tarefas', [], (_, { rows }) => {
-    console.log(rows._array);
-  });
-});
-```
-
-Coloque o resultado em um **useState** e exiba em uma FlatList na próxima aula (CRUD completo).
-
----
-
-## Checklist
-
-- [ ] expo-sqlite instalado; banco aberto (openDatabaseSync ou openDatabase).
-- [ ] CREATE TABLE IF NOT EXISTS executado; tabela criada.
-- [ ] INSERT executado; SELECT retorna o registro; sem erro no console.
+Na próxima aula nós faremos o painel majestoso de leitura (SELECT). Avance para a Sua Missão de prova!

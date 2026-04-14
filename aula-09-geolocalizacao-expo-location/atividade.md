@@ -1,26 +1,18 @@
-# Aula 09 – Atividade
+# Missão 9: A Sonda Espacial Pessoal 🚀
 
-**Sugestão de entrega:** até o final da quinzena 10 (03/06/2026).
+**Sua Validação Autônoma de Estudo:**
 
----
-
-## Objetivo
-
-Criar um app que **obtém a localização atual** do dispositivo e **exibe** (em texto ou, se quiser, em mapa). Incluir **tratamento de permissão** e **feedback** (loading ou mensagem de erro).
+Nós desenhamos um painel brutalmente limpo em nosso arquivo de geolocalização no `tutorial.md`. Usamos a bolinha animada Nativaz de interface `ActivityIndicator` (que funciona de forma nativa e pura nas duas plataformas grandes usando Spinner) pra mostrar ao cliente que o Hardware pode demorar pra ligar o chip.
 
 ---
 
-## Requisitos
+## O Desafio: A Interceptação Positiva e Negativa
 
-1. **Botão** (ex.: "Obter localização") que chama getCurrentPositionAsync após solicitar permissão.
-2. **Exibição:** mostrar latitude e longitude em texto na tela (formato livre). Opcional: exibir em um mapa (react-native-maps ou link para Google Maps).
-3. **Permissão:** se o usuário negar, exibir mensagem clara (na tela ou Alert).
-4. **Loading:** exibir indicador de carregamento ou texto "Obtendo..." enquanto a localização é obtida.
+Como engenheiro Mobile, você não testa só quando as coisas dão certo. Você testa quando tudo dá errado. 
 
-**Entrega:** print do app com a localização exibida (lat/lng). Opcional: print do comportamento quando a permissão é negada.
+1. Faça uma submissão apertando o botão da sua tela recém montada. Responda SIM (Allow) na caixinha do Emulador/App Oficial, e force o Activity Indicator a ser substituído pelos números astronômicos do GPS de Latitude e longitude! (Meio Ponto Adquirido).
+2. Vá nas configurações do seu celular Cobaia. Entre no menu Aplicativos > Expo Go, e force o corte de permissão na marra, desativando o botão verde do Rastreador de Localização Manualmente *(Ou simplesmente limpe os dados do seu EXPO GO pra ele zerar o aplicativo no Android)*.
+3. Volte pra página do seu Sistema de satélite. Clique, aperte com a unha seca "NEGAR / DENY" no pop-up, e ative seu escudo de erro contendo na tela a bela frase em letras avermelhadas: *"Você nos negou acesso. O GPS falhou miseravelmente"*.
 
----
-
-## Critérios de avaliação
-
-- Localização obtida e exibida; uso correto de permissão; feedback (loading e/ou mensagem de erro).
+## A Entrega
+Bata a Screenshot da Extração Final mostrando o Texto de Coordenadas Finais ou Erro com CSS e mande na devolução da plataforma. Seu aplicativo comanda a localização física real do cliente, você acabou de fazer seu primeiro Uberzinho base. Bom Trabalho!

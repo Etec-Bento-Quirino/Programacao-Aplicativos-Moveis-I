@@ -1,48 +1,34 @@
-# Aula 01 - Introdução ao desenvolvimento mobile e Node/npm/npx
+# Apresentação: O Universo Mobile 📱
 
 **Data:** 09/02/2026
 
 ---
 
-## Apresentação
+## 1. Bem-vindo à Fronteira
+A internet mudou, e o mundo não mora mais atrás de mesas com teclados e mouses gigantes. Ele está nos bolsos das pessoas. O desenvolvimento Mobile é a capacidade de colocar ferramentas vitais, entretenimento e vida financeira na ponta dos dedos de 5 bilhões de usuários.
 
-Conceitos de dispositivos móveis e mercado; introdução ao desenvolvimento mobile; principais plataformas (Android, iOS) e desenvolvimento cross-platform (React Native). Instalação e uso de Node.js, npm e npx.
+## 2. A Guerra das Plataformas (E o Tratado de Paz)
+Historicamente, criar um aplicativo era um inferno burocrático:
+- Você precisava aprender **Java ou Kotlin** para atingir usuários de **Android**.
+- Depois precisava começar tudo do absoluto zero, mudando a mentalidade para C++ / **Swift** se quisesse atingir os usuários da **Apple (iOS)**.
 
----
+Isso dobrava o orçamento das empresas de tecnologia. Então o Facebook (atual Meta) soltou uma bomba benevolente no mercado: O **React Native**.
 
-## Slides
+> **O que é o React Native?**
+> É o tratado de paz. É a ponte mágica ("Cross-Platform") que permite que escrevamos um único código lógico (em JavaScript) e ele seja instantaneamente traduzido pela matriz do Facebook em componentes nativos de altíssima performance para Android E para o iOS. De forma simultânea. 
 
-### Objetivo
+## 3. Quem faz as coisas girarem? (A Trindade)
 
-Compreender o que é desenvolvimento mobile e o mercado; instalar e testar Node.js, npm e npx no computador; entender o ciclo de vida de um app.
+Para você usar esse poder do React Native e construir prédios virtuais, você não constrói a própria betoneira, você a usa. Eis as três ferramentas primordiais que morarão no seu Computador de agora em diante:
 
-### Desenvolvimento mobile
+- **Node.js (O Motor):** Antigamente o Javascript era um peixinho que só nadava dentro do aquário chamado "Navegador Chrome". O Node quebrou o aquário. Ele é um motor que permite rodar Javascript puro no Windows/Mac, acessando arquivos e banco de dados.
+- **npm (O Shopping Center):** O *Node Package Manager*. Quando você está criando um App e pensa "Poxa, eu queria um botão em 3D, mas não sei fazer a matemática disso", você acessa o `npm` e baixa a biblioteca grátis que alguém fez.
+- **npx (O Executor Delivery):** Se o *npm* instala coisas permanentemente no seu HD, o *npx* age como o delivery de um Ifood. Ele chama pacotes gigantes da internet de uma vez só, excuta a criação deles no seu PC e não deixa sujeira para trás.
 
-- Dispositivos móveis: smartphones e tablets
-- Plataformas: Android e iOS
-- Cross-platform: um código para as duas (React Native, Flutter)
+## 4. O Ciclo de Vida: Nascer, Morrer e Dormir (Background)
+A diferença principal de um App para um Site, é que o App é vivo. O Sistema Operacional do celular pode minimizá-lo, fechar ele quando a bateria está acabando, ou deixá-lo acordado escutando seu GPS em segundo plano.
 
-### Ciclo de vida de um app
+Em nosso curso, você terá um aliado chamado **Expo**.
+O Expo funciona como seu co-piloto e permite que você veja tudo que você digita recarregar magicamente em 1 segundo no seu Celular real usando o que chamamos de *Hot Reload*.
 
-- Desenvolvimento: código e recursos
-- Build: compilação para APK ou IPA
-- Execução: abertura, segundo plano, encerramento
-- Com Expo: Metro envia o código em tempo quase real (hot reload)
-
-### Node.js, npm e npx
-
-- Node.js: executa JavaScript fora do navegador; usado pelas ferramentas
-- npm: instala e gerencia pacotes (npm install)
-- npx: executa pacote sem instalar globalmente (npx create-expo-app)
-
-### Verificação no terminal
-
-Comandos: node --version, npm --version, npx --version. Todos devem retornar número de versão.
-
-### Atividade da quinzena
-
-Print das versões (node, npm, npx) e pesquisa sobre cross-platform e ciclo de vida do app.
-
-### Próxima aula
-
-Ambiente React Native (Expo): criar o primeiro projeto e exibir "Olá, Mobile!" no emulador ou celular.
+Na próxima parada (O Tutorial Prático), vamos montar juntos esse ecossistema!

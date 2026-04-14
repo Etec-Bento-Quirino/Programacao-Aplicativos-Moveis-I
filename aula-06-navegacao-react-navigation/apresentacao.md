@@ -1,37 +1,31 @@
-# Aula 06 - Navegação (React Navigation)
+# Apresentação: O Roteamento Dinâmico (Expo Router) 🛣️
 
-**Data:** 17/04/2026
+**Leitura Autônoma de Arquitetura de Interface**
 
----
-
-## Apresentação
-
-React Navigation (stack): instalação, Navigator e Screens; passagem de parâmetros entre telas (navigation.navigate, route.params); botão Voltar (goBack).
+Se você já usou a Web (Next.js), a premissa será similar, mas os nomes e a física nativa mudam muito. Até poucos anos atrás, programadores de React Native gastavam centenas de linhas fazendo o clássico `navigation.navigate("MinhaTela")` manualmente usando livrarias chamadas React Navigation. Agora, o maquinista de trens evoluiu.
 
 ---
 
-## Slides
+## 1. File-Based Routing (O Nome do Arquivo Vira Rota)
+A pasta `/app` do Expo não é uma pasta comum. Ela é vigiada ativamente por um maquinista silencioso chamado **Expo Router**.
+Isso significa que, se você criar um arquivo chamado `configuracoes.tsx` e exportar nele um elemento usando `export default function Configs()`, O expo router vai detectar isso.
 
-### Objetivo
+Magicamente, o sistema vai gerar uma rota chamada invisivelmente de `"/configuracoes"`, e a Inserção de Link nativo no App será instantânea. Se você mudar a tela de nome as coisas se organizam. Nomes viram Rotas.
 
-Ter duas ou mais telas com React Navigation; passar dados de uma tela para outra (ex.: lista → detalhe); botão ou gesto para voltar.
+## 2. A Casca da Cebola: os `_layout.tsx`
+Só há um problema de criar arquivos soltos que viram tela: Telas soltas são "peladas". Elas nascem batendo nas bordas da bateria do celular, não possuem Menus Inferiores nem Header em Cima (O cabeçalho do celular no Android e no iOS).
 
-### Instalação
+É aqui que mora o segundo segredo supremo: O arquivo mestre chamado **`_layout.tsx`**.
+Toda vez que você coloca um arquivo com _ (underline) no começo do nome `_layout.tsx` dentro de uma pasta, o maquinista (Expo Router) intercepta tudo.
 
-npx expo install @react-navigation/native @react-navigation/native-stack react-native-screens react-native-safe-area-context.
+Em vez de exibir as telas puras e peladas daquela pasta, ele as "Veste". O que tiver escrito no `_layout.tsx` envelopa TODAS as telas da pasta.
 
-### Estrutura
+- Se fizermos um Layout tipo **`Stack`**, as telas serão empilhadas umas sobre as outras, herdando a famosa "Setinha de Voltar (<)" no Header superior.
+- Se fizermos um Layout usando **`Tabs`**, ele vestirá as suas telas colocando um lindo Menu Inferior com ícones interativos. E é exatamente isso que faremos no nosso StickerSmash!
 
-NavigationContainer envolve Stack.Navigator; cada Stack.Screen tem name, component e options. name é usado em navigation.navigate('Nome', { params }).
+## 3. Parênteses Invisíveis `(tabs)`
+A última mágica sutil do curso de rotas de hoje: Grupos Lógicos.
+No Expo Router, se você der o nome de uma pasta contendo parênteses (exemplo: `(minhasRotas)` e colocar arquivos lá, o maquinista **desconsidera o nome da pasta e lê direto o nome dos arquivos internos**.
+Isso é fenomenal porque te permite esconder `index.tsx` debaixo de uma pasta de navegação `(tabs)` sem estuprar a arquitetura da sua URL de acesso, permitindo a separação limpa do Menu de Base versus Telas Secundárias de Login!
 
-### Parâmetros
-
-Enviar: navigation.navigate('Detalhe', { item }). Receber: const { item } = route.params. Voltar: navigation.goBack().
-
-### Atividade da quinzena
-
-App com 3 telas: lista de categorias → lista de itens da categoria → detalhe do item. Passagem de parâmetros correta.
-
-### Próxima aula
-
-Formulários: TextInput, validação e diálogo de confirmação; opcional splash.
+👉 **Expanda sua cabeça estudando a Documentação Base:** [A Mágica do Expo Router](https://docs.expo.dev/router/introduction/)

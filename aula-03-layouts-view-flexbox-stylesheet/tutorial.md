@@ -1,98 +1,78 @@
-# Aula 03 – Layouts em React Native (View, Flexbox, StyleSheet)
+# Aula 03 – O Poder da Performance (Componentes e Flexbox)
 
-**Sugestão de execução:** quinzena 3 (09/03/2026 a 20/03/2026).
-
-**Base tecnológica:** Desenvolvimento de layout de aplicativo mobile; criação e configuração de componentes básicos – Layouts.
-
----
-
-## Objetivo
-
-Usar **View**, **StyleSheet** e **Flexbox** para organizar elementos na tela: container centralizado, linhas e colunas.
+**Sugestão de execução:** quinzena 3.
+**Base tecnológica:** Image, Flexbox, Componentização, Props.
 
 ---
 
-## Parte 1 – View e StyleSheet
+## Parte 1: O Conceito de Componentização
+A melhor prática no React é NÃO criar telas gigantes com mil linhas. Em vez disso, transformamos pedaços isolados de código visual em **Componentes Reutilizáveis**.
 
-No React Native não existe “div” nem CSS de navegador. Usamos:
-- **View** – “caixa” que agrupa outros componentes (como um div).
-- **StyleSheet.create** – define estilos (objetos JavaScript) e aplica com `style={styles.nome}`.
+Nesta Aula, vamos construir o componente que exibe a foto principal que sofrerá edições.
+Por motivos de performance absurda local no iOS/Android, evitamos a tag nativa `<Image>` do react-native clássico e usamos o plugin mágico `expo-image`.
 
-Exemplo mínimo em `App.js`:
+1. Crie uma pasta chamada `components` na raiz do seu projeto (mesma hierarquia da pasta `app`).
+2. Crie um arquivo `ImageViewer.tsx` dentro dela.
 
-```javascript
-import { StyleSheet, Text, View } from 'react-native';
+```tsx
+// components/ImageViewer.tsx
+import { StyleSheet } from 'react-native';
+import { Image, type ImageSource } from 'expo-image'; // ⚠️ Importação poderosa do Expo!
 
-export default function App() {
+// As PROPS (Propriedades) são variáveis que este componente exige do Pai.
+type Props = {
+  imgSource: ImageSource; // Obriga quem usar a fornecer uma Imagem.
+};
+
+export default function ImageViewer({ imgSource }: Props) {
+  return <Image source={imgSource} style={styles.image} />;
+}
+
+const styles = StyleSheet.create({
+  image: { width: 320, height: 440, borderRadius: 18 },
+});
+```
+
+---
+
+## Parte 2: Injetando no Layout e o Flexbox
+
+No React Native, **TUDO** é automaticamente Flexbox alinhado por Colunas (diferente da Web, que alinha em Linhas).
+Vamos usar isso para empurrar nossa foto no meio da Home.
+
+Baixe uma foto qualquer na web ou utilize as da aula e chame-a de `background-image.png` colocando-a na sua pasta `/assets/images`.
+
+Em seguida, edite o `app/(tabs)/index.tsx`:
+
+```tsx
+// app/(tabs)/index.tsx
+import { View, StyleSheet } from 'react-native';
+import ImageViewer from '@/components/ImageViewer'; // O símbolo '@' é um atalho configurado para a raiz do app!
+
+// Require chama e codifica o arquivo fisicamente em disco para memória:
+const PlaceholderImage = require('@/assets/images/background-image.png');
+
+export default function Index() {
   return (
     <View style={styles.container}>
-      <Text>Olá, Mobile!</Text>
+      {/* Container novo para a imagem! */}
+      <View style={styles.imageContainer}>
+        {/* Renderiza injetando a propridade declarada! */}
+        <ImageViewer imgSource={PlaceholderImage} />
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#f0f0f0',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+  container: { flex: 1, backgroundColor: '#25292e', alignItems: 'center' },
+  imageContainer: { flex: 1, paddingTop: 28 }, // Empurra o flexbox um pouquinho para baixo
 });
 ```
 
-- **flex: 1** – o container ocupa toda a tela.
-- **alignItems: 'center'** – alinha os filhos no eixo transversal (horizontal, em coluna).
-- **justifyContent: 'center'** – centraliza no eixo principal (vertical, em coluna).
-
 ---
 
-## Parte 2 – Flexbox: direção e alinhamento
-
-Por padrão, **flexDirection** é **'column'** (de cima para baixo). Para uma “linha” horizontal use **'row'**.
-
-Exemplo com duas caixas em linha:
-
-```javascript
-<View style={styles.linha}>
-  <View style={[styles.caixa, { backgroundColor: '#4CAF50' }]} />
-  <View style={[styles.caixa, { backgroundColor: '#2196F3' }]} />
-</View>
-```
-
-```javascript
-linha: {
-  flexDirection: 'row',
-  justifyContent: 'space-around',
-  alignItems: 'center',
-  padding: 20,
-},
-caixa: {
-  width: 80,
-  height: 80,
-  borderRadius: 8,
-},
-```
-
-- **flexDirection: 'row'** – elementos um ao lado do outro.
-- **justifyContent: 'space-around'** – espaço entre os itens.
-- **alignItems: 'center'** – centraliza na vertical (em relação à linha).
-
----
-
-## Parte 3 – Prática guiada
-
-1. Abra o projeto `OláMobile` (ou crie um novo com `npx create-expo-app@latest LayoutDemo --template blank`).
-2. Em `App.js`, substitua o conteúdo por um layout com:
-   - Um container principal (flex: 1, fundo claro).
-   - Um título no topo (Text com "Meu layout").
-   - Uma “linha” com duas Views coloridas (ex.: verde e azul), como no exemplo acima.
-3. Salve e veja no emulador/Expo Go. Ajuste padding, tamanhos e cores até ficar como desejar.
-
----
-
-## Checklist
-
-- [ ] Usou View e StyleSheet.create.
-- [ ] Entendeu flex: 1, alignItems, justifyContent.
-- [ ] Testou flexDirection: 'row' com pelo menos dois blocos.
+## Checklist da Aula 03
+- [ ] Criação de um Componente customizado com `<Image>`.
+- [ ] Entendimento prático de *Props* (variáveis injetáveis no componente Pai).
+- [ ] O `Flex: 1` faz a *View* container esticar ocupando 100% da proporção local restante.

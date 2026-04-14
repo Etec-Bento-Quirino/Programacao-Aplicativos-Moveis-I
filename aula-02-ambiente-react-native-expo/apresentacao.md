@@ -1,44 +1,24 @@
-# Aula 02 - Ambiente React Native (Expo) e primeiro app
+# Apresentação: O Big Bang do seu App 💥
 
 **Data:** 23/02/2026
 
 ---
 
-## Apresentação
+## 1. A Ferramenta de Criação Universal
+Lembra do `npx` da primeira aula? Aquele delivery virtual? Hoje nós acionaremos ele para encomendar `create-expo-app`. Esse é um robô gigante. Ele baixa silenciosamente as pontes nativas do Google (Android) e da Apple (iOS) pra você, configura o Babel (um tradutor de código), junta o React, e monta uma Estrutura de Pastas robusta. 
 
-Configuração do ambiente com Expo; criação do primeiro projeto (npx create-expo-app); estrutura de pastas; execução no emulador ou no celular com Expo Go.
+## 2. A Anatomia do que Acabou de Nascer
+Se você olhar a pasta que o robô cria, pode se assustar com a quantidade de arquivos. Mas como desenvolvedor/arquiteto, existem três guardiões que você precisa conhecer hoje:
 
----
+- `node_modules`: É o buraco negro. Lá dentro moram milhares de pastas das bibliotecas de terceiros que usamos (como ícones, o próprio React, etc). **Regra de Ouro: Nunca entre no node_modules. Nunca edite nada dentro do node_modules. Respeite o selo.**
+- `app.json`: É a Certidão de Nascimento do seu App. Lá você diz a cor padrão dele, se a tela de pé/deitada é bloqueada, o Nome Oficial de Loja dele, e coloca um PNG pra ser a fotinho mágica do celular.
+- `/app (Pasta principal)`: Antigamente existia só um `App.js`. Hoje, nós temos o poderoso `Expo Router`. Qualquer arquivo `.tsx` que você criar dentro da pasta `app/` vira magicamente uma tela do seu celular! A primeira tela a ser construída é o nosso sagrado `index.tsx`.
 
-## Slides
+## 3. Expo Go (Sua Televisão ao vivo)
+Você não precisa de um supercomputador para criar apps. O seu celular de bolso possui hardware dezenas de vezes mais forte que as cápsulas que foram pra lua, basta usar o App do **Expo Go** (baixe da PlayStore/AppStore).
 
-### Objetivo
+No terminal, quando você der `npx expo start`, o Metro Bundler aciona uma antena. O aplicativo **Expo Go** do seu celular pega a mesma rede Wi-Fi, puxa seu código para a memória RAM do smartphone e compila visualmente na hora. 
 
-Criar um projeto React Native com Expo; alterar o texto para "Olá, Mobile!"; rodar no emulador ou no celular; conhecer a estrutura do projeto.
+*(E se o Wi-Fi da escola bloquear? Calma, usaremos o salvador `--tunnel` no tutorial)*.
 
-### Criar o projeto
-
-Comando: npx create-expo-app@latest NomeDoApp --template blank. Escolher npm e JavaScript (ou TypeScript).
-
-### Estrutura do projeto
-
-- App.js ou App.tsx: componente principal (o que aparece na tela)
-- package.json: dependências e scripts
-- app.json: configuração do Expo (nome, ícone)
-- node_modules: pacotes instalados
-
-### Rodar o app
-
-npx expo start. No terminal: pressionar 'a' para Android (emulador ou dispositivo); no celular: escanear QR code com Expo Go. O Metro envia o código em tempo real.
-
-### Alterar o texto
-
-Editar App.js: trocar o conteúdo do componente Text por "Olá, Mobile!". Salvar e ver o app atualizar (hot reload).
-
-### Atividade da quinzena
-
-Entregar print do app com "Olá, Mobile!" e documento com o comando usado e onde rodou (emulador ou celular).
-
-### Próxima aula
-
-Layouts em React Native: View, StyleSheet e Flexbox (container, alignItems, justifyContent).
+Vejo você programando a nossa tela escura no tutorial!

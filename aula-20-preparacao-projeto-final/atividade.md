@@ -1,29 +1,27 @@
-# Aula 20 – Atividade
+# Missão 20: Ignição Final 🎓
 
-**Sugestão de entrega:** até o final da quinzena 25 (12/12/2026).
+**Sua Validação Autônoma de Estudo:**
 
----
+No material teórico nós traçamos como a Empresa pede O "Entrega Total". O Check-list final do app (Reunião de todas as malhas de Conhecimento e UI limpa). 
 
-## Objetivo
-
-Elaborar o **documento de escopo** do projeto final (Fase 4) e o **planejamento** para a quinzena de entrega (apresentação e ajustes).
+Esta não é uma tarefa com códigos na Nuvem e Scripts. É o momento Administrativo de Consagrar sua Jornada de Arquiteto React Native.
 
 ---
 
-## Requisitos
+## O Desafio: Acordo de Nível de Serviço (SLA)
 
-1. **Documento de escopo (obrigatório):** arquivo de texto ou markdown com:
-   - **Tipo de projeto:** A, B, C ou D e nome do app.
-   - **O que já está implementado:** listar telas, tabelas SQLite, recurso do dispositivo (notificação, galeria, geolocalização, etc.) e se há loading/empty state/erro.
-   - **O que falta para a Fase 4:** lista curta do que pretende fazer na última quinzena (ex.: "adicionar notificação ao criar tarefa", "revisar mensagens de erro").
-   - **Forma de entrega:** como vai entregar (ZIP do código, link do repositório, APK ou link Expo) e data em que fará a apresentação.
-2. **Checklist pessoal:** percorrer o checklist do tutorial (SQLite como fonte, recurso do dispositivo, UX, organização do código) e anotar o que já está ok e o que falta.
-3. (Opcional) Esboço do **roteiro da apresentação** (ordem das telas que vai mostrar e o que vai dizer em 1–2 frases por tela).
+Um desenvolvedor forte sabe O Que Vai entregar e Que Dia. Seu Trabalho é subir o Documento Definitivo pra avaliação dos Orientadores Técnicos deste Semestre. 
 
-**Entrega:** documento de escopo (e checklist preenchido, se o professor pedir). O projeto em si será entregue e apresentado na quinzena 26, conforme calendário.
+Crie um documento (Pode ser Doc/Texto, PDF ou o Próprio Arquivo README final zipado).
+Nele constará a Resposta Oficial às avaliações:
 
----
+1. **Tipificação:** "Meu projeto baseia-se num Gerenciador X de Cadastro".
+2. **Defesa do Software:** Mostre para nós, usando prints lindos atrelados, ou apenas texto persuasivo: "Meu Aplicativo usa o SQLite com uma Tabela Categoria que cruza em JOIN com o Formulario", e "Eu escolhi instalar Câmera de Hardware e já está ativa".
+3. **Perspectiva "Feature Freeze":** O que a sua Equipe decidiu Arrumar Visualmente / Bugs Finais que fará na última quinzena pra gente não se preocupar? 
 
-## Critérios de avaliação
+## A Entrega: 
+Anexe esse manifesto Absoluto (O Planejamento da Fase 4) e assine seu nome. Encaminhe pro orientador via Plataforma.
 
-- Documento de escopo claro; planejamento da Fase 4 coerente com o tipo de projeto; forma e data de entrega definidas.
+**É isso.** 
+Você montou botões cegos. Aprendeu roteamento com Estações de Magia pelo Router. Acordou satélites usando Geolocalização de GPS e forjou Cofres Eternos com C++ SQL.
+Foi uma Honra ter lhe moldado num Desenvolvedor Mobile Imbatível. As portas estão abertas. Mostre Seu Trabalho Supremo ao Mundo! Obrigado.

@@ -1,225 +1,79 @@
-# Aula 02 – Ambiente React Native (Expo) e primeiro app
+# Aula 02 – Ambiente React Native (Expo) e Primeiro App
 
-**Sugestão de execução:** quinzena 2 (23/02/2026 a 06/03/2026).
-
-**Base tecnológica:** Conceitos do modelo e plataforma de desenvolvimento; filosofia e arquitetura; fundamentos da plataforma; ciclo de vida e processo de desenvolvimento; ferramentas (SDK, IDE/CLI, emuladores); configuração do aplicativo e permissões.
+**Sugestão de execução:** quinzena 2.
+**Base tecnológica:** Conceitos do modelo e plataforma de desenvolvimento; ferramentas (SDK, CLI); criação do app; roteamento básico.
 
 ---
 
 ## Objetivo da aula
-
-Ao final você terá:
-- Um projeto React Native criado com **Expo** (CLI).
-- O app rodando no **emulador** ou no **celular** (Expo Go).
-- A tela exibindo a mensagem **"Olá, Mobile!"**.
-- Noção da **estrutura de pastas** do projeto e do **ciclo de vida** (Metro + app).
-
-**Pré-requisito:** Aula 01 concluída (Node, npm e npx instalados).
+Nesta aula, começaremos nosso curso mergulhando no **StickerSmash**, um projeto universal usando Expo. Ao final, você terá o ambiente rodando sem erros de proxy e uma tela escurecida inicial.
 
 ---
 
-## Parte 1 – Criar o projeto com Expo
+## Parte 1: Inicializando o Cérebro do App
 
-### Passo 1 – Abrir o terminal na pasta do curso
-
-**Windows (PowerShell):**
-```bash
-cd $env:USERPROFILE\Desktop\PAM1-2026
-```
-
-**macOS/Linux:**
-```bash
-cd ~/Desktop/PAM1-2026
-```
-
-(Ajuste o caminho se você tiver criado a pasta em outro lugar.)
-
-### Passo 2 – Criar o app com o template padrão
-
-Execute **um** dos comandos abaixo. O primeiro usa o template "blank" (mais simples).
+O projeto será criado usando a ferramenta de linha de comando `create-expo-app`. Ela gera a espinha dorsal de um aplicativo nativo que funciona em sistemas diferentes.
+No terminal, execute:
 
 ```bash
-npx create-expo-app@latest OláMobile --template blank
+npx create-expo-app@latest StickerSmash
+cd StickerSmash
 ```
 
-Durante a criação podem aparecer perguntas:
-- **"Would you like to use TypeScript?"** – Pode responder **No** (N) para usar só JavaScript, ou **Yes** (Y) se quiser TypeScript.
-- **"Which package manager do you want to use?"** – Escolha **npm** (já que usamos npm no curso).
-
-Se aparecer algum aviso sobre versão do npm ou do Node, anote e avise o professor; em geral o projeto é criado mesmo assim.
-
-### Passo 3 – Entrar na pasta do projeto
-
-```bash
-cd OláMobile
-```
-
-A partir daqui, todos os comandos serão **dentro** da pasta `OláMobile`.
-
-### Passo 4 – Conferir a estrutura de pastas
-
-No terminal (Windows):
-```bash
-dir
-```
-
-No terminal (macOS/Linux):
-```bash
-ls -la
-```
-
-Você deve ver, entre outros:
-- **`App.js`** (ou `App.tsx`) – componente principal que aparece na tela.
-- **`package.json`** – lista de dependências e scripts (npm usa isso).
-- **`node_modules/`** – pasta com as bibliotecas instaladas (não edite).
-- **`app.json`** – configuração do Expo (nome do app, ícone, etc.).
+> [!WARNING]
+> **DICA DE OURO DA REDE:** O Wi-Fi da escola ou de empresas geralmente possui um Firewall / Proxy rígido, o que bloqueia o seu celular de achar o Notebook na mesma rede para espelhar o app.
+> Para driblar esse bloqueio, inicie o app usando o comando especial abaixo:
+> ```bash
+> npx expo start --tunnel
+> ```
+> O `--tunnel` cria uma URL pública temporária (ngrok) que fura o bloqueio, permitindo que seu celular carregue o app por 4G ou por qualquer rede!
 
 ---
 
-## Parte 2 – Alterar o texto para "Olá, Mobile!"
+## Parte 2: A Primeira Limpeza e a Estilização (Dark Mode)
 
-### Passo 1 – Abrir o arquivo principal
+A pasta principal que manda em tudo nos apps modernos do Expo chama-se `/app`.
+Todo arquivo lá dentro vira uma Tela automaticamente graças ao `Expo Router` (o maquinista de trens do seu app).
 
-Abra o arquivo **`App.js`** (ou **`App.tsx`**) no editor de código (VS Code, Cursor, etc.).
+### 1. Limpando o terreno
+Abra o arquivo gerado de fábrica `app/index.tsx`. Ele vem com códigos padrão e ícones que não precisamos.
+A imagem central e a lógica inicial do aplicativo começam exigindo que a cor de fundo seja esteticamente polida, para dar a ideia de tela nativa.
 
-O conteúdo inicial pode ser algo assim (Expo SDK 50+):
+### 2. O Código do Index Modificado
+No React Native, não usamos HTML `<div>` ou `<p>`. Usamos tags nativas empacotadas do próprio aparelho: `<View>` e `<Text>`.
+Substitua TODO o código do seu `app/index.tsx` pelo código cru abaixo:
 
-```javascript
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+```tsx
+import { Text, View, StyleSheet } from 'react-native';
 
-export default function App() {
+export default function Index() {
   return (
+    // A View funciona como uma caixa limitadora. A prop "style" chama o designer.
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+      <Text style={styles.text}>Bem-vindo ao StickerSmash! 🚀</Text>
     </View>
   );
 }
 
+// O StyleSheet.create é o "CSS" do React Native! 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flex: 1, // Faz a View ocupar 100% da página puxando elásticamente.
+    backgroundColor: '#25292e', // Aplica o Background Escuro Sombrio (Dark Mode base).
+    alignItems: 'center', // Alinha tudo no eixo Horizontal (Eixo X) bem no meio!
+    justifyContent: 'center', // Alinha tudo no eixo Vertical (Eixo Y) bem no meio!
+  },
+  text: {
+    color: '#fff',
   },
 });
 ```
 
-### Passo 2 – Trocar o texto
-
-Substitua a linha do `<Text>` por:
-
-```javascript
-<Text>Olá, Mobile!</Text>
-```
-
-Ou, para um texto um pouco maior e centralizado:
-
-```javascript
-<Text style={styles.titulo}>Olá, Mobile!</Text>
-```
-
-E adicione o estilo `titulo` no `StyleSheet.create`:
-
-```javascript
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  titulo: {
-    fontSize: 24,
-    fontWeight: 'bold',
-  },
-});
-```
-
-Salve o arquivo (Ctrl+S ou Cmd+S).
-
----
-
-## Parte 3 – Rodar o app
-
-### Opção A – Emulador Android (recomendado se tiver Android Studio)
-
-1. Instale o **Android Studio** e, pelo AVD Manager, crie um dispositivo virtual (emulador).
-2. Inicie o emulador (abrir o Android Studio e dar "Play" no dispositivo).
-3. No terminal, na pasta `OláMobile`, execute:
-
-```bash
-npx expo start
-```
-
-4. Quando abrir o menu no terminal, pressione **`a`** para abrir no Android (emulador). O app será instalado e aberto no emulador; você deve ver "Olá, Mobile!".
-
-### Opção B – Celular físico com Expo Go
-
-1. Instale o app **Expo Go** na loja (Google Play ou App Store).
-2. No terminal, na pasta `OláMobile`:
-
-```bash
-npx expo start
-```
-
-3. Aparecerá um **QR code** no terminal (e às vezes no navegador).
-4. **Android:** abra o Expo Go e escaneie o QR code.
-5. **iPhone:** abra o app Câmera e aponte para o QR code; toque na notificação para abrir no Expo Go.
-
-O app "OláMobile" será carregado e você verá "Olá, Mobile!" no celular.
-
-### Comandos úteis durante o desenvolvimento
-
-- **`npx expo start`** – inicia o servidor Metro e mostra o QR code / menu.
-- **`npx expo start --clear`** – inicia limpando o cache (use se algo travar).
-- No terminal onde o Expo está rodando:
-  - **`a`** – abre no Android (emulador ou dispositivo conectado).
-  - **`i`** – abre no simulador iOS (apenas macOS com Xcode).
-  - **`r`** – recarrega o app.
-  - **`m`** – abre o menu de desenvolvimento.
-
----
-
-## Parte 4 – Estrutura do projeto (resumo)
-
-| Item | Função |
-|------|--------|
-| `App.js` / `App.tsx` | Componente raiz; o que aparece na tela. |
-| `package.json` | Dependências e scripts (ex.: `expo start`). |
-| `app.json` | Nome do app, slug, ícone, splash (configuração Expo). |
-| `node_modules/` | Pacotes instalados pelo npm; não editar. |
-| `babel.config.js` | Configuração do Babel (transpilação). |
-
-O **Metro** (servidor que sobe com `npx expo start`) lê seu código, empacota e envia para o app. Por isso, ao salvar `App.js`, o app atualiza sozinho (hot reload).
-
----
-
-## Parte 5 – Documentar os passos (para a atividade)
-
-Para a **atividade da Aula 02** você precisará entregar um pequeno documento com os passos que seguiu. Anote:
-
-1. Comando exato que usou para criar o projeto (`npx create-expo-app@latest ...`).
-2. Onde você rodou o app (emulador Android, iPhone, celular físico com Expo Go).
-3. Se apareceu algum erro, qual foi e como resolveu (ou que ainda não resolveu).
-
-Exemplo de redação:
-
-- "Criei o projeto com: npx create-expo-app@latest OláMobile --template blank. Rodei no emulador Android. Alterei o texto em App.js para 'Olá, Mobile!' e salvei; o app atualizou sozinho."
+Olhe no emulador ou no celular! A mágica do *Fast Refresh* alterou as cores em Tempo Real!
 
 ---
 
 ## Checklist da Aula 02
-
-- [ ] Projeto criado com `npx create-expo-app@latest` (template blank).
-- [ ] Pasta do projeto aberta no editor; `App.js` (ou `App.tsx`) alterado para exibir "Olá, Mobile!".
-- [ ] App rodando em emulador ou no celular (Expo Go).
-- [ ] Anotados os passos para o documento da atividade.
-
----
-
-## Próxima aula
-
-Na **Aula 03** você verá **layouts** em React Native: `View`, `StyleSheet`, Flexbox (container, alignItems, justifyContent), para organizar textos e botões na tela.
+- [ ] Aplicativo criado via Npx.
+- [ ] Execução bem sucedida via `npx expo start --tunnel` rompendo o proxy local.
+- [ ] Tela do `index.tsx` alterada e conceito de CSS/StyleSheet absorvido.

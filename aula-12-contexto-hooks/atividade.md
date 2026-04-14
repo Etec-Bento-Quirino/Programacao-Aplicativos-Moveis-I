@@ -1,26 +1,22 @@
-# Aula 12 – Atividade
+# Missão 12: A Prova dos Nove na Nuvem ⛅
 
-**Sugestão de entrega:** até o final da quinzena 15 (22/08/2026).
+**Sua Validação Autônoma de Estudo:**
 
----
+No tutorial desta aula, ensinei como injetar um `Context` Universal para lidar com Temas e ler os dados usando `useContext`. E testamos em uma tela única.
 
-## Objetivo
-
-Criar um app que usa **Context** para um **tema** (claro/escuro) ou outra **preferência** (ex.: nome do usuário) compartilhada entre telas; uma tela permite alterar e outra (ou a mesma) exibe o valor atual.
+Seu aprendizado não será validado se você não provar para se mesmo que o Prop Drilling foi contornado em Multi-Telas.
 
 ---
 
-## Requisitos
+## O Desafio: Compartilhar Informações em Quartos Diferentes
 
-1. **Contexto:** criar um Context (ex.: TemaContext ou PreferenciasContext) com um valor no estado (ex.: tema: 'claro' | 'escuro', ou nomeUsuario: string).
-2. **Provider:** envolver o app (ou o Navigator) com o Provider desse contexto.
-3. **Tela 1:** usar useContext para **ler** o valor e **exibir** (ex.: "Tema: claro") e ter um **botão** que altera o valor (ex.: alternar tema ou salvar nome).
-4. **Tela 2:** usar o mesmo useContext e exibir o valor atual (ou aplicar cor de fundo conforme o tema). Ao alterar na Tela 1 e voltar/navegar para Tela 2, a Tela 2 deve mostrar o valor atualizado.
+Seu desafio da Quinzena:
+1. Copie rigorosamente o código do tutorial do Botão Amarelo e coloque na sua tela *Configurações* (Ou Tela 1).
+2. Acesse sua *Tela "Home" Inicial* (Totalmente separada por Rotas diferentes no Expo). Use a ponte Context lá! NELA não existirá Botão. Só existirá um Texto Absurdo dizendo *"Eu detesto o Modo Claro"* ou *"Eu detesto o Modo Escuro"*, de acordo com o estado do soluto capturado pela Nuvem do Arquivo 1!
 
-**Entrega:** print das duas telas mostrando o valor do contexto e, se possível, um print após alterar (ex.: tema escuro aplicado).
+## A Extração da Conquista
+Abra o seu Expo Go.
+Acesse a tela 1 (Configs). Clique no botão e ative o famigerado modo Escuro! (A tela 1 repintará preta).
+Deslize o seu menu nativo e navegue pra tela 2 (A Home isolada). Se você fez tudo certo, a Tela 2, Mágicamente, SEM PASSAGEM de propriedades de parâmetros, nascerá e estará perfeitamente ESCURA e o texto dizendo "Eu detesto modo Escuro". O Universo Global de Nuvem venceu.
 
----
-
-## Critérios de avaliação
-
-- Context e Provider implementados; useContext em pelo menos duas telas; alteração no contexto refletida na interface.
+Fotografe/Printe a "Tela 2 Ciente do estado do Mundo Escuro" e anexe como Missão Cumprida na Plataforma! Agora o seu app tem memória inter-telas universal.

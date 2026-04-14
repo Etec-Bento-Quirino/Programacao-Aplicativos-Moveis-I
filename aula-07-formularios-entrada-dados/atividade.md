@@ -1,26 +1,24 @@
-# Aula 07 – Atividade
+# Missão 7: Enganando o Porteiro Eletrônico 🕵️‍♂️
 
-**Sugestão de entrega:** até o final da quinzena 8 (08/05/2026).
+**Sua Validação Autônoma de Estudo:**
 
----
+No material teórico nós construímos uma cortina de teatro (`Splash Screen`) baseada em SetTimeout de 2 segundos, e um Porteiro Eletrônico Validador.
 
-## Objetivo
-
-Criar um app com **splash inicial**, **tela de cadastro** (nome e e-mail) com **validação** e **diálogo de confirmação** ao salvar.
+Sua tarefa de campo é comprovar que você subiu e compreendeu a lógica militar de "Retornos Falsos" na arquitetura de submissão Nativa.
 
 ---
 
-## Requisitos
+## O Desafio: A Multa do Usuário Inconveniente
 
-1. **Splash:** tela exibida ao abrir o app por 2 a 3 segundos (pode ser só texto "Bem-vindo" ou nome do app); depois navega para a tela de cadastro (ou substitui pelo formulário).
-2. **Formulário:** campos Nome e E-mail (TextInput); botão "Cadastrar" ou "Enviar".
-3. **Validação:** nome não vazio; e-mail não vazio e contendo "@". Se falhar, exibir Alert com mensagem clara.
-4. **Confirmação:** ao passar na validação, exibir Alert com mensagem tipo "Cadastro realizado!" e, ao confirmar, limpar os campos (ou voltar à tela anterior).
+Implemente o layout de captação (`TextInput` com placeholder, borderRadius e botões charmosos) num ambiente Expo Snack ou no seu celular via Expo Go.
 
-**Entrega:** print do splash, da tela de cadastro e do Alert de confirmação (ou do Alert de erro em um caso de validação).
+O desafio está nas defesas ativas.
 
----
+1. Faça uma submissão apertando o botão tentando enviar todos os campos **absolutamente vazios**.
+2. Eu quero que você exija que a Senha digitada tenha *no mínimo* 6 caracteres (Apenas use `senha.length < 6` na lógica de Validação!).
+3. Acione propositalmente o erro de *E-mail Impossível* digitando `joao.com.br` (Sem o @).
 
-## Critérios de avaliação
+## Extração do Trófeu:
+Capture uma Screenshot visualizando claramente o gigantesco Pop-up do `Alert.alert` NATIVO (Se estiver no iOS ele brotará do meio translúcido da tela, se no Android, como um prompt material design central branco) gritando exatamente qual foi o erro do seu E-mail, enquanto sua tela negra de Splash Inicial aguarda ansiosa nos bastidores. 
 
-- Splash exibido; formulário com nome e e-mail; validação funcionando; diálogo de confirmação; campos limpos após sucesso.
+Você agora domina TextInputs na sua base. Anexe nosso ".PNG" de comprovação na caçamba da escola!

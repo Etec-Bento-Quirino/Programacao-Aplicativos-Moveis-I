@@ -1,126 +1,111 @@
-# Aula 07 – Formulários e entrada de dados (TextInput, validação)
+# Tutorial: O Cofre de Informações e o Splash Screen
 
-**Sugestão de execução:** quinzena 8 (27/04/2026 a 08/05/2026).
+**Sugestão de execução:** Quinzena 8.
 
-**Base tecnológica:** Layouts e estilização; componentes para entrada de dados (campo de texto, seleção); splash; diálogos.
-
----
-
-## Objetivo
-
-Criar um **formulário** com campos de texto (nome, e-mail), **validação** básica e **diálogo de confirmação** (Alert). Opcional: tela de **splash** ao abrir o app.
+Sente-se à mesa, prepare o café. Hoje construiremos um formulário que seria digno de tela inicial de e-mail e amarraremos uma pequena introdução cinematográfica para quando as portas abrirem.
 
 ---
 
-## Parte 1 – TextInput
+## Passo 1: Construindo o Splash Screen (A Cortina do Teatro)
+Antes de pedir os dados, é legal que a Logo da sua empresa apareça por 2 segundos e depois passe o controle para a área de Login.
 
-Importe **TextInput** de `react-native`:
+Crie no seu `index.tsx` fundamental um temporizador de montagem.
 
-```javascript
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
-```
+```tsx
+import { useState, useEffect } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
 
-Exemplo de campo controlado (valor no estado):
+export default function AppForm() {
+  const [splashSeca, setSplashSeca] = useState(true);
 
-```javascript
-const [nome, setNome] = useState('');
-const [email, setEmail] = useState('');
+  // O "Guarda Noturno" (useEffect) roda essa lógica ao iniciar:
+  useEffect(() => {
+    // Liga o cronômetro nuclear para 2000 milissegundos
+    const timer = setTimeout(() => setSplashSeca(false), 2000);
+    return () => clearTimeout(timer); // Prevenção de lixo de memória
+  }, []);
 
-<TextInput
-  style={styles.input}
-  placeholder="Digite seu nome"
-  value={nome}
-  onChangeText={setNome}
-  autoCapitalize="words"
-/>
-<TextInput
-  style={styles.input}
-  placeholder="Digite seu e-mail"
-  value={email}
-  onChangeText={setEmail}
-  keyboardType="email-address"
-  autoCapitalize="none"
-/>
-```
-
-Estilo do input:
-
-```javascript
-input: {
-  borderWidth: 1,
-  borderColor: '#ccc',
-  borderRadius: 8,
-  paddingHorizontal: 12,
-  paddingVertical: 10,
-  fontSize: 16,
-  marginBottom: 12,
-  width: '100%',
-},
-```
-
----
-
-## Parte 2 – Validação simples
-
-Antes de enviar, verifique se os campos estão preenchidos e se o e-mail tem "@":
-
-```javascript
-const validar = () => {
-  if (!nome.trim()) {
-    Alert.alert('Erro', 'Preencha o nome.');
-    return false;
+  if (splashSeca) {
+    return (
+      <View style={styles.splash}>
+        <Text style={styles.tituloSplash}>Iniciando Matrix...</Text>
+      </View>
+    );
   }
-  if (!email.trim()) {
-    Alert.alert('Erro', 'Preencha o e-mail.');
-    return false;
-  }
-  if (!email.includes('@')) {
-    Alert.alert('Erro', 'E-mail inválido.');
-    return false;
-  }
-  return true;
-};
 
-const handleEnviar = () => {
-  if (!validar()) return;
-  Alert.alert('Confirmação', `Olá, ${nome}! Cadastro recebido.`, [
-    { text: 'OK', onPress: () => { setNome(''); setEmail(''); } },
-  ]);
-};
-```
-
-No botão: `onPress={handleEnviar}`.
-
----
-
-## Parte 3 – Splash (opcional)
-
-Para uma tela de splash que some após 2 segundos:
-
-```javascript
-const [mostrarSplash, setMostrarSplash] = useState(true);
-
-useEffect(() => {
-  const timer = setTimeout(() => setMostrarSplash(false), 2000);
-  return () => clearTimeout(timer);
-}, []);
-
-if (mostrarSplash) {
-  return (
-    <View style={styles.splash}>
-      <Text style={styles.splashTexto}>Meu App</Text>
-    </View>
-  );
+  // Se passou de 2 segundos... Ele ignora o if acima e devolve o resto do app!
+  return <MeuFormulario />
 }
 ```
 
-Depois renderize o formulário normalmente.
+---
+
+## Passo 2: O Componente Controlado de Input
+
+Para o formulário, importamos o `TextInput`:
+
+```tsx
+import { TextInput, Alert, TouchableOpacity } from 'react-native';
+
+function MeuFormulario() {
+  const [nome, setNome] = useState('');
+  const [email, setEmail] = useState('');
+
+// ...
+```
+E nós os montamos na `View` ordenando que os Teclados assumam caras diferentes. (Repare abaixo que nós desligamos a primeira letra maiúscula automática para E-mails, pois as vezes atazana o cliente).
+
+```tsx
+  <TextInput
+    style={styles.caixaTexto}
+    placeholder="Seu nome glorioso"
+    value={nome}
+    onChangeText={setNome}
+    autoCapitalize="words" // Faz de Fábio junior virar Fábio Junior sozinho!
+  />
+
+  <TextInput
+    style={styles.caixaTexto}
+    placeholder="e-mail de contato"
+    value={email}
+    onChangeText={setEmail}
+    keyboardType="email-address" // Adiciona um enorme @ no teclado.
+    autoCapitalize="none"
+  />
+```
 
 ---
 
-## Checklist
+## Passo 3: O Porteiro de Validação (O Gatilho do Botão)
 
-- [ ] TextInput com value e onChangeText (estado controlado).
-- [ ] Validação: nome e e-mail obrigatórios; e-mail com "@".
-- [ ] Alert de confirmação ao enviar.
-- [ ] (Opcional) Splash exibido ao abrir.
+Se você colocar um botão de envio agora, ele engolirá tudo. Precisamos criar o funil lógico:
+
+```tsx
+  const validarTudo = () => {
+    // 1. O Trim() decepa espaços puros do lado esquerdo e direito.
+    if (!nome.trim()) {
+      Alert.alert('Erro Primário', 'Nós precisamos do seu nome, amigo!');
+      return false; // Mata o ciclo.
+    }
+    
+    // 2. Se o Email não contiver a arroba, é fraude.
+    if (!email.includes('@')) {
+      Alert.alert('Erro Primário', 'Este E-mail é inválido. Aonde está a arroba?');
+      return false; // Mata o ciclo.
+    }
+    
+    return true; // Se o cara foi perfeito, retorna True!
+  };
+
+  const handleEnviar = () => {
+    // Se a validação bater no "return false", esse 'if' barra o script.
+    if (!validarTudo()) return;
+    
+    // SE NÃO FOI BARRADO:
+    Alert.alert('Glória', `Bem vindo à base de dados, ${nome}!`);
+    setNome(''); // Limpamos a gaveta por educação.
+    setEmail('');
+  };
+```
+
+Anexe `handleEnviar` ao `onPress` do seu botão e observe esse guardião barrar usuários teimosos!

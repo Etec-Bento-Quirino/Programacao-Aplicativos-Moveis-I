@@ -1,37 +1,25 @@
-# Aula 15 - SQLite: CRUD completo
+# Apresentação: C.R.U.D - Os Quatro Cavaleiros do Software 🛡️
 
-**Data:** 21/09/2026
+**Leitura Autônoma de Engenharia Front-End e Banco Local**
 
----
-
-## Apresentação
-
-Listar registros (SELECT) na FlatList; formulário para INSERT; botão excluir (DELETE) e opcional editar (UPDATE). Recarregar lista após cada operação.
+Se você dominar isso, metade de todos os empregos em Startups de Produto Mínimo Viável serão compreendidos por você de imediato. Sistemas de Banco no Brasil são todos baseados em CRUD.
 
 ---
 
-## Slides
+## 1. O Que É CRUD?
+Não importa se você trabalha na NASA ou numa mercearia. Dados comportam-se da mesma maneira física no Universo da programação:
+- **C** (Create): O poder de forjar dados novos no banco. No SQL chamamos isso formalmente de instrução `INSERT INTO ...`. (Aprendemos a soltar isso nos botões da aula 14).
+- **R** (Read): A fita de leitura. O ato de perguntar ao Cofre "Quem está aí embaixo?". A intrução formal no SQL é a malha `SELECT * FROM...`.
+- **U** (Update): Alterar o tempo e a realidade editando informações passadas. No SQL operamos o cirúrgico `UPDATE X SET Y`.
+- **D** (Delete): A Marreta Final. Excluir completamente os dados do SSD permanentemente. Operado via `DELETE FROM X`.
 
-### Objetivo
+## 2. A Ponte Invisível (O Sincronismo)
+Em um projeto sujo feito por amadores, o cara salva uma tarefa no banco usando o botão (CREATE). A resposta bate no SQLite... mas a Tela do React continua a mesma! O cliente precisa fechar e reabrir o app na marra pro dado brotar. Por quê? **Porque o SQLite e a Árvore do React são vizinhos surdos.** O banco de dados só lê. Ele não empurra a resposta ativando o Re-paint da UI. 
 
-App tipo lista de tarefas ou caderno: listar do SQLite, adicionar, excluir e (opcional) editar. Interface coerente com as operações.
+**Como solucionar esta deficiência nativa? (O Callback Perfeito)**
+Em engenharia boa, assim que a operação do botão CRUD terminar de bater no Hardware (`runSync()`), nós chamaremos NA PRÓXIMA LINHA a nossa velha função Mestra  `verTudo() / carregarItens()` (SELECT) de novo.
+Ela vai invadir o Sqlite instantaneamente, captar os Arrays Novinhos que entraram e injetar com o gancho (`useState`) devolta no React, alertando o "Pintor Autista", forçando um Refresh visual imbatível de milissegundos que o cliente mal notará! 
 
-### Read
+Isso é um Full Loop Perfeito.
 
-SELECT * FROM tarefas ORDER BY id DESC. Guardar resultado em estado; FlatList com data={itens}. Carregar no useEffect e após cada alteração.
-
-### Create
-
-Formulário: TextInput + botão. onPress: INSERT INTO tarefas (titulo) VALUES (?); em seguida recarregar a lista (nova consulta SELECT).
-
-### Delete e Update
-
-DELETE FROM tarefas WHERE id = ?. UPDATE tarefas SET titulo = ? WHERE id = ?. Confirmar exclusão com Alert; edição em modal ou tela.
-
-### Atividade da quinzena
-
-App lista de tarefas ou caderno com listar, adicionar e excluir (obrigatório); editar (opcional).
-
-### Projeto Bimestre 3
-
-Quinzenas seguintes: extensão e Projeto Fase 3 (SQLite com CRUD e filtros ou duas tabelas).
+👉 **Expanda sua Cabeça Estudando a Documentação Base:** [O Mestre do SQLite Nativo](https://docs.expo.dev/versions/latest/sdk/sqlite/)

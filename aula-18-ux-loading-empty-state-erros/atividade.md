@@ -1,25 +1,26 @@
-# Aula 18 – Atividade
+# Missão 18: Capturando Feras Vivas 🐅
 
-**Sugestão de entrega:** até o final da quinzena 23 (19/11/2026).
+**Sua Validação Autônoma de Estudo:**
 
----
+No material teórico nós criamos as bolinhas nativas do motor React usando States, acionamos um "Componente Fantasma" para o Status Vazio da Lista (Que só aparece pro Ser humano se não houver dados preenchidos no Sqlite)...
 
-## Objetivo
-
-Melhorar um app anterior (ou o projeto em andamento) com **feedback visual**: **loading** durante carregamento, **empty state** quando não houver itens e **mensagem de erro** amigável quando uma operação falhar.
+Mas o terceiro pilar do UX é O Tratamento de Erros de Input. E você o desenvolverá.
 
 ---
 
-## Requisitos
+## O Desafio: Falhando com Dignidade
 
-1. **Loading:** em alguma tela que carrega dados (lista do SQLite ou AsyncStorage), exibir **ActivityIndicator** (ou texto "Carregando...") até os dados chegarem; depois esconder e mostrar o conteúdo.
-2. **Empty state:** quando a lista estiver vazia, exibir uma **mensagem** (ex.: "Nenhum item cadastrado" ou "Lista vazia – adicione um item"). Pode usar ListEmptyComponent da FlatList ou uma View condicional.
-3. **Erro:** em alguma operação que pode falhar (salvar no banco, carregar dados), usar **try/catch** e, em caso de erro, exibir uma **mensagem na tela** (não só no console), em estilo que destaque (ex.: texto vermelho ou caixa de aviso).
+1. Num Componente isolado ou Formulario da sua escolha, adicione um terceiro `useState` Base, por exemplo `[erroVermelhoVisivel, setErro] = useState('')`.
+2. Adicione a barreira Mestra defensiva de JavaScript que os Sêniors usam em todos os formulários. O famoso modelo mental da Tentativa/Morte (`try` & `catch`). Dê uma olhada de pesquisa aliada (Na Web ou na Documentação se achar necessário) e faça um bloco Try.
+   - Envolva qualquer coisa que force SQLite dentro do Try. (Por exemplo um `runSync`).  
+   - Se o Try passar da linha 2 ileso, a Lista atualizará com sucesso.
+   - Forçe um absurdo. Insira ali no Catch um `setErro('Houve Destruição no Processador Central. Entre em Contato')`.
 
-**Entrega:** print do loading, do empty state e (se possível) da mensagem de erro na tela; ou descrição de onde cada um foi implementado.
+3. Lá embaixão no Render, onde tem o form, você adiciona O Conditional Render Base para só aparecer em tela caso a Variável contenha letras: `{erroVermelhoVisivel && <Text style={{color: 'red'}}>{erroVermelhoVisivel}</Text>}`
 
----
+## Extração do Trófeu:
+Selecione o Terminal onde o `try catch` forçado está operando. No seu botão, force a falha colocando sintaxe de banco de dados esburacada (ex: `SELECT * FFROM taba Errada`).
+O App vai tentar processar, a placa de memoria negará, o bloco de execução cairá direto no Catch engolindo o NullPointer e enviando texto lindo em vermelho para o form na face do cliente: 
 
-## Critérios de avaliação
-
-- Presença de loading, empty state e tratamento de erro na UI; mensagens claras e coerentes.
+Tire uma Screenshot dessa TELA TRATANDO ERRO com o texto bonito "Houve destruição...". 
+Sua maturidade técnica atingiu níveis gigantescos validando exceções nativas. Mande print na submissão de atividade!

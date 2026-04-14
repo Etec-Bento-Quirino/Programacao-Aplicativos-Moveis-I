@@ -1,26 +1,20 @@
-# Aula 11 – Atividade
+# Missão 11: Provocando o Repaint Imutável 🎨
 
-**Sugestão de entrega:** até o final da quinzena 14 (08/08/2026).
+**Sua Validação Autônoma de Estudo:**
 
----
-
-## Objetivo
-
-Criar um app com uma **lista** que é **carregada ao abrir** a tela (useEffect) e que **atualiza** quando o usuário **adiciona** um item (useState + formulário).
+No tutorial desta aula, apresentamos o fluxo exato das metáforas que operam a API do React Native. Vimos que o "Pintor" Mestre só responde se você der à ele uma tela nova, disparando a função `Set` sem modificar o array antigo usando velharias como `lista.push(`.
 
 ---
 
-## Requisitos
+## O Desafio: A Gestão de Múltiplos Estados Perfeitos
 
-1. **Ao abrir a tela:** exibir uma lista com pelo menos 2 itens iniciais (pode ser fixo no useEffect, ex.: "Item A" e "Item B").
-2. **Formulário:** um campo de texto e um botão "Adicionar". Ao clicar, o novo item deve aparecer na lista (estado atualizado com setState).
-3. **Lista:** usar FlatList (ou ScrollView com map) ligada ao estado; cada item deve ser exibido (nome ou id).
-4. (Opcional) Botão para **remover** um item da lista (chamar setState com filter).
+Você criará um bloco autônomo (Pode usar um App provisório como o Expo Snack) focado unicamente na lógica da Re-renderização e do "Guarda Noturno das Inicializações".
 
-**Entrega:** print do app com a lista inicial e, em outro print, a lista após adicionar um ou mais itens.
+1. Logo no topo do componente, crie um **`useEffect`** isolado contendo uma caixa restrita (array denotado ali nas aspas finais `[]`). Instrua seu Guarda Noturno à preencher sua lista mestre `useState` com 2 Emojis ou Pessoas por padrão no exato instante em que o laboratório nascer. (Ex: "Item Alpha" e "Item Bravo"). Isto provará se ele entende de nascimentos de Lifecycle.
+2. Invoque o poder da mutação. Construa um botão chamativo "Testar Gatilho" + Uma Cesta (input).
+3. Ao pressionar, instrua sua função de envio à anexar o Conteúdo da Cesta com a **Extinção Total/Espalhamento dos Clones** (Sintaxe ES6 Destrutiva: `...dados_antigos`) na lista mãe, resetando a cesta em seguida perfeitamente ao limbo (`''`).
 
----
+## Extração Final: Dominância da RAM
+Role no seu Expo Go. Mostre na tela do "Print" que o React reconstruiu a interface instantaneamente sem piscar com 3, 4 ou mais componentes empilhados por pura reatividade do motor JavaScript, tudo puxando perfeitamente pela lista clonada. Sem pushs fajutos.
 
-## Critérios de avaliação
-
-- Lista carregada ao montar (useEffect); adicionar item atualiza a lista (useState); código organizado.
+Concluída a dominação dos Hooks de Mente Central... Nós agora ligaremos a mente das Telas de fora na *Aula 12*. Nos vemos lá.

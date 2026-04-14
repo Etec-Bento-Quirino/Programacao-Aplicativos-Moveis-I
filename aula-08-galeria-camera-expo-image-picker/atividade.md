@@ -1,26 +1,23 @@
-# Aula 08 – Atividade
+# Missão 8: A Substituição Crítica (State Mutation) 🎭
 
-**Sugestão de entrega:** até o final da quinzena 9 (22/05/2026).
+**Sua Validação Autônoma de Estudo:**
 
----
+No tutorial desta aula, instalamos o tradutor Expo-image-picker no seu StickerSmash, e colocamos as amarras da arquitetura assíncrona para segurar o processamento de código.
 
-## Objetivo
-
-Criar um app que **abre a galeria**, permite **escolher uma foto** e **exibe na tela**, com **tratamento de permissão** quando o usuário nega.
+Nesta Missão nós vamos aferir a sua capacidade lógica de lidar com o estado. Você vai ter que jogar fora o coelho branco estático `require(...)` na tela e substituir pela foto viva em tempo real vinda da Galeria.
 
 ---
 
-## Requisitos
+## O Desafio: Acoplar as Pontes da Variável Mestra
 
-1. **Botão** (ex.: "Escolher foto") que abre a galeria (launchImageLibraryAsync).
-2. **Permissão:** antes de abrir a galeria, solicitar permissão (requestMediaLibraryPermissionsAsync). Se negada, exibir mensagem na tela ou em Alert (ex.: "É necessário permitir acesso à galeria para escolher uma foto.").
-3. **Exibição:** após escolher, exibir a imagem na tela (Image com a URI retornada). Tamanho e estilo livres.
-4. (Opcional) Incluir também botão para **tirar foto** com a câmera; mesmo fluxo: permissão, captura, exibição.
+A foto da galeria virá de volta pro Javascript na nossa variável constante ali do *ImagePicker* que diz `result.assets[0].uri`. Só que como já aprendemos, atribuir variável não repinta o React.
 
-**Entrega:** print do app com a imagem escolhida exibida; se possível, print ou descrição do que acontece quando a permissão é negada.
+Sua Missão:
+1. Revise sua Tela Raiz (`index.tsx`). Crie um hook guardião `useState` que aceita a tipagem em string na parte superior. 
+2. Dentro do IF positivo do seu Async (`if (!result.canceled)`), você fará o Berrante (*O Set state do arquivo*) apontar para a URI da foto do cliente e explodir a tela com Alarme.
+3. Edite nosso componente importado no View principal, para que ele condicionalmente mude. Ou seja, repare que no StickerSmash você configurou que o seu ImageViewer consiga receber duas fotos diferentes dinâmicas! Então mude injetando a URI viva.
 
----
+## A Regra Sagrada:
+A tela do seu Expo Go não deve travar! Ao clicar, ela congela a aplicação sem erros, a sua ponte Nativa subindo a tela pedindo as fotos. Escolha qualquer "print" ou foto engraçada da sua Galeria real do celular físico. O Celular voltará para o app onde Mágicamente as coisas rolaram!
 
-## Critérios de avaliação
-
-- Acesso à galeria funcionando; imagem exibida na tela; tratamento de permissão implementado (mensagem clara quando negada).
+Você domina o Tempo (Hardware Assíncrono). Colhe aquele glorioso screenshot (PrintScreen) dessa proeza tecnológica do seu sticker e deixe no ambiente da aula para garantir XP.

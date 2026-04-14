@@ -1,92 +1,93 @@
-# Aula 09 – Geolocalização (expo-location)
+# Tutorial: Capturando um Satélite com seu Código
 
-**Sugestão de execução:** quinzena 10 (25/05/2026 a 03/06/2026).
+**Sugestão de execução:** Quinzena 10.
 
-**Base tecnológica:** Manipulando recursos do dispositivo – geolocation.
-
----
-
-## Objetivo
-
-Usar **expo-location** para obter a **localização atual** (latitude e longitude) e **exibir** em texto na tela. Tratar **permissão** de localização.
+Vamos colocar a mão na graxa. Se você estava brincando no seu StickerSmash, abra uma nova tela secundária (Como a Tela de `About` que fizemos no Expo Router) para abrigar nossa engenhoca de captura, ou crie isso num novo App via Expo Snack.
 
 ---
 
-## Parte 1 – Instalar
+## Passo 1: Injetando a Livraria de Georreferenciamento
 
+Nós precisamos do tradutor de hardware. No terminal rodando, pressione Control+C para fechar temporariamente, e baixe o conector.
 ```bash
 npx expo install expo-location
 ```
+Ligue novamente o servidor `npx expo start --tunnel`.
 
----
+## Passo 2: O Estado Duplo e a Lógica Assíncrona
 
-## Parte 2 – Pedir permissão e obter localização
+No seu arquivo (`index.tsx` se for novo, ou `.tsx` qualquer do seu estudo), precisamos salvar 3 coisas fundamentais na nossa memória do frontend. A Latitude/Longitude, os erros (se o cliente não deixar rodar e teremos que avisar) e o Spinner Gráfico de Carga! 
 
-```javascript
-import * as Location from 'expo-location';
+```tsx
 import { useState } from 'react';
-import { ActivityIndicator, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native';
+import * as Location from 'expo-location';
 
-const [localizacao, setLocalizacao] = useState(null);
-const [carregando, setCarregando] = useState(false);
-const [erro, setErro] = useState(null);
+export default function RastreioMobile() {
+  const [coordenadas, setCoordenadas] = useState(null);
+  const [motorRodando, setMotorRodando] = useState(false);
+  const [mensagemErro, setMensagemErro] = useState(null);
 
-const obterLocalizacao = async () => {
-  setCarregando(true);
-  setErro(null);
-  try {
-    const { status } = await Location.requestForegroundPermissionsAsync();
-    if (status !== 'granted') {
-      setErro('Permissão de localização negada.');
-      setCarregando(false);
-      return;
+  // A Função de tempo congelado!
+  const puxarSatelite = async () => {
+    setMotorRodando(true);
+    setMensagemErro(null);
+
+    try {
+      // 1. Pare. Abra o pop-up Oficial de IOS/Android e peça licença para monitorar.
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      
+      if (status !== 'granted') {
+        setMensagemErro('Você nos negou o acesso. O GPS falhou miseravelmente.');
+        setMotorRodando(false);
+        return; // Interrompe a execução aqui!
+      }
+
+      // 2. Se a permissão passou... Pare de novo. Acorde a Placa-mãe de GPS do Celular 
+      // e diga a ela extrair a Geometria num esfoço balanceado de processamento/bateria.
+      const sinal = await Location.getCurrentPositionAsync({
+        accuracy: Location.Accuracy.Balanced,
+      });
+
+      // 3. Devolva pego a variável final em formato matemático.
+      setCoordenadas(sinal.coords);
+
+    } catch (e) {
+      setMensagemErro('Erro brutal da placa: ' + e.message);
     }
-    const loc = await Location.getCurrentPositionAsync({
-      accuracy: Location.Accuracy.Balanced,
-    });
-    setLocalizacao(loc.coords);
-  } catch (e) {
-    setErro('Não foi possível obter a localização: ' + e.message);
-  }
-  setCarregando(false);
-};
+    setMotorRodando(false);
+  };
 ```
 
-- **requestForegroundPermissionsAsync** – pede permissão para usar a localização com o app em primeiro plano.
-- **getCurrentPositionAsync** – retorna um objeto com **coords**: latitude, longitude, altitude, etc.
+## Passo 3: O Render Final Visual
 
----
+Agora conecte o seu estado (que estava em `null`) e exploda na tela usando `&&` (Mágica React pra exibir as coisas se elas baterem positivos):
 
-## Parte 3 – Exibir na tela
+```tsx
+  return (
+    <View style={styles.corpo}>
+      <TouchableOpacity onPress={puxarSatelite} disabled={motorRodando}>
+         <Text style={styles.titulos}> 
+            {motorRodando ? 'Buscando satélites...' : 'Descobrir Onde Estou'}
+         </Text>
+      </TouchableOpacity>
+      
+      {/* Esse Componente é a Bolinha de Carregamento Nativa */}
+      {motorRodando && <ActivityIndicator size="large" color="#0000ff" />}
+      
+      {/* Se o erro foi setado para Cima... Exibe Vermelho! */}
+      {mensagemErro && <Text style={{color: 'red'}}>{mensagemErro}</Text>}
 
-```javascript
-<View style={styles.container}>
-  <TouchableOpacity style={styles.botao} onPress={obterLocalizacao} disabled={carregando}>
-    <Text style={styles.textoBotao}>
-      {carregando ? 'Obtendo...' : 'Obter minha localização'}
-    </Text>
-  </TouchableOpacity>
-  {carregando && <ActivityIndicator size="large" style={{ marginTop: 16 }} />}
-  {erro && <Text style={styles.erro}>{erro}</Text>}
-  {localizacao && (
-    <View style={styles.caixa}>
-      <Text>Latitude: {localizacao.latitude}</Text>
-      <Text>Longitude: {localizacao.longitude}</Text>
+      {/* Se ele conseguiu enxergar coordenadas, Puf! A Parede do React cai e o bloco compila! */}
+      {coordenadas && (
+        <View style={styles.respostas}>
+          <Text>🌐 Latitude: {coordenadas.latitude}</Text>
+          <Text>🌐 Longitude: {coordenadas.longitude}</Text>
+        </View>
+      )}
     </View>
-  )}
-</View>
+  );
+}
 ```
 
----
-
-## Parte 4 – Mapa (opcional)
-
-Para exibir em mapa, use **react-native-maps** ou **expo** com mapa. No Expo, pode usar um WebView com URL do Google Maps estática passando lat e lng, ou instalar `react-native-maps` (requer configuração). Para esta aula, exibir em texto é suficiente.
-
----
-
-## Checklist
-
-- [ ] expo-location instalado; permissão solicitada.
-- [ ] getCurrentPositionAsync chamado; latitude e longitude exibidas.
-- [ ] Tratamento de erro e de permissão negada; loading durante a obtenção.
+Faça a CSS à sua moda. Rode essa obra prima e prepare-se pra Atividade dessa semana!

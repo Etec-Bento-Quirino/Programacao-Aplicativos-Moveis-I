@@ -1,26 +1,22 @@
-# Aula 10 – Atividade
+# Missão 10: Cruzando as Fronteiras (Minimização) 🌌
 
-**Sugestão de entrega:** até o final da quinzena 11 (20/06/2026).
+**Sua Validação Autônoma de Estudo:**
 
----
-
-## Objetivo
-
-Criar um app que **agenda uma notificação local** (ex.: após X segundos ou em um horário) e trata **permissão** de notificação.
+No material teórico nós criamos a Engrenagem de Disparo Remoto engatilhada em Assincronismo de 5 a 10 Segundos e setamos um canal no Google Android contendo Nível `MAXIMUM` de importância para sobrepor até as notificações do Whatsapp!
 
 ---
 
-## Requisitos
+## O Desafio: Acordando Fantasmas!
 
-1. **Botão** (ex.: "Agendar notificação") que agenda uma notificação (pode ser para 10 segundos depois, para facilitar o teste).
-2. **Conteúdo:** título e corpo da notificação visíveis quando ela aparecer (ex.: "Meu App" e "Lembrete agendado!").
-3. **Permissão:** solicitar permissão antes de agendar; se negada, exibir mensagem (Alert ou texto na tela).
-4. (Opcional) Permitir que o usuário escolha os segundos (TextInput) antes de agendar.
+Sua tarefa de campo é comprovar que você subiu e compreendeu as hierarquias.
+Quero provar na prática que ela não é uma caixinha fajuta, mas sim um Sistema Embutido real no seu Smartphone de mão!
 
-**Entrega:** print do app com o botão e, se possível, print da notificação aparecendo no dispositivo (ou descrição de que a notificação foi exibida).
+1. Clique com gosto no seu botão do aplicativo de teste Expo Go recém criadão! Assista a sua mensagem de notificação de segurança do Passaporte saltar na tela *("Deseja Ativar?" > Allow)*.
+2. Seu botijão de tempo de 5 segundos via disparar. O Alert do App aparece lhe informando. 
+3. **Seja Rápido:** Aperte o botão HOME (ou deslize a barrinha Apple inferior pro celular) do físico, minimizando TOTALMENTE nosso Expo Go, indo olhar a tela Inicial com seus relógios e apps nativos abertos. E segure. Espere os milissegundos restantes esgotarem na escuridão.
 
----
+## Extração do Trófeu:
+Com o Bip/Sino soando, você perceberá o "Push Notification" despencando da barra do topo do celular, mostrando com destaque `Bem Vindos ao Submundo!`. 
 
-## Critérios de avaliação
-
-- Notificação local criada/agendada; permissão tratada; notificação exibida no dispositivo no momento configurado.
+Como um ninja, capture o maldito "ScreenShot" (Print Screen do Volume Baixo + Tela do Celular) EXATAMENTE no segundo que ele descer minimizado e enviar para comprovação.
+Você superou a Fase 2, Integrando todas as pontas essenciais Front-End de Hardware Intermediário! Nos vemos na Fase 3, na área de Arquitetura de Banco de Dados de Cérebros Virtuais!

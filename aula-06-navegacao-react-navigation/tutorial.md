@@ -1,147 +1,69 @@
-# Aula 06 – Navegação de telas (React Navigation)
+# Aula 06 – Navegação (Abas e Expo Router)
 
-**Sugestão de execução:** quinzena 7 (17/04/2026 a 24/04/2026).
-
-**Base tecnológica:** Navegação de telas; passagem de dados entre telas.
-
----
-
-## Objetivo
-
-Usar **React Navigation** (stack) para ter duas ou mais telas e **passar parâmetros** de uma tela para outra (ex.: lista → detalhe).
+**Sugestão de execução:** quinzena 6.
+**Base tecnológica:** App Routing (Substituto Nativo Inteligente do React Navigation).
 
 ---
 
-## Parte 1 – Instalar React Navigation
+## O Poder do Roteamento de Arquivos
+Nós usaremos o **Expo Router** ao invés do React Navigation manual. Se você cria um arquivo, ele virou a tela e a teia de rotas no background já amarra e injeta o `Header` por conta própria! Não tem linhas confusas de configuração.
 
-No terminal, na pasta do seu projeto Expo:
+1. Baixamos nossa página oficial para uma sub-pasta chamada Tab, que controla um Footer embaixo pra navegar entre telas de forma bonita.
 
-```bash
-npx expo install @react-navigation/native @react-navigation/native-stack
-npx expo install react-native-screens react-native-safe-area-context
-```
+- Crie uma pasta `(tabs)` dentro de `app/`. (Sim, o nome precisa ter os parênteses, pois no Roteador, Parênteses oculta o nome e transforma aquilo num Layout de Casca).
+- Arraste `index.tsx` lá para dentro.
+- Crie a tela Extra `about.tsx`:
 
----
+```tsx
+import { Text, View, StyleSheet } from 'react-native';
 
-## Parte 2 – Estrutura: Navigator e Screens
-
-1. Crie uma pasta **screens** (se ainda não tiver): dentro do projeto, crie `screens/`.
-2. Crie dois arquivos de tela, por exemplo:
-   - **screens/ListaScreen.js** – tela com uma lista de itens.
-   - **screens/DetalheScreen.js** – tela que recebe um item (por parâmetro) e exibe o nome.
-
-Exemplo **ListaScreen.js**:
-
-```javascript
-import { TouchableOpacity, FlatList, StyleSheet, Text, View } from 'react-native';
-
-const ITENS = [
-  { id: '1', nome: 'Item Um' },
-  { id: '2', nome: 'Item Dois' },
-  { id: '3', nome: 'Item Três' },
-];
-
-export default function ListaScreen({ navigation }) {
+export default function AboutScreen() {
   return (
     <View style={styles.container}>
-      <FlatList
-        data={ITENS}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <TouchableOpacity
-            style={styles.linha}
-            onPress={() => navigation.navigate('Detalhe', { item })}
-          >
-            <Text style={styles.texto}>{item.nome}</Text>
-          </TouchableOpacity>
-        )}
-      />
+      <Text style={styles.text}>Tela Sobre! Feito via Tabs!</Text>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: { flex: 1, padding: 16 },
-  linha: { padding: 16, borderBottomWidth: 1, borderBottomColor: '#eee' },
-  texto: { fontSize: 16 },
-});
+const styles = StyleSheet.create({ container: { flex: 1, backgroundColor: '#25292e', justifyContent: 'center', alignItems: 'center' }, text: { color: '#fff' } });
 ```
 
-Exemplo **DetalheScreen.js**:
+### O Cérebro das Abas: _layout.tsx
+Sempre que uma pasta tem o arquivo mágico `_layout.tsx`, todo componente daquela pasta veste as propriedades dele invés de rodar pelado.
+Crie `app/(tabs)/_layout.tsx`:
 
-```javascript
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+```tsx
+import { Tabs } from 'expo-router';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
-export default function DetalheScreen({ route, navigation }) {
-  const { item } = route.params || {};
-
+export default function TabLayout() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.titulo}>Detalhe</Text>
-      <Text style={styles.nome}>{item?.nome || 'Sem nome'}</Text>
-      <TouchableOpacity style={styles.botao} onPress={() => navigation.goBack()}>
-        <Text style={styles.textoBotao}>Voltar</Text>
-      </TouchableOpacity>
-    </View>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: { flex: 1, padding: 20, justifyContent: 'center' },
-  titulo: { fontSize: 20, fontWeight: 'bold', marginBottom: 8 },
-  nome: { fontSize: 16, marginBottom: 24 },
-  botao: { backgroundColor: '#2196F3', padding: 12, borderRadius: 8, alignSelf: 'flex-start' },
-  textoBotao: { color: '#fff', fontWeight: '600' },
-});
-```
-
-- **navigation.navigate('Detalhe', { item })** – vai para a tela "Detalhe" e passa o objeto **item**.
-- **route.params** – na tela Detalhe, os parâmetros vêm em **route.params** (aqui, **item**).
-- **navigation.goBack()** – volta para a tela anterior.
-
----
-
-## Parte 3 – Configurar o Navigator em App.js
-
-No **App.js** (ou **App.tsx**), importe o Navigator e as telas e monte a pilha:
-
-```javascript
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import ListaScreen from './screens/ListaScreen';
-import DetalheScreen from './screens/DetalheScreen';
-
-const Stack = createNativeStackNavigator();
-
-export default function App() {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Lista">
-        <Stack.Screen name="Lista" component={ListaScreen} options={{ title: 'Lista' }} />
-        <Stack.Screen name="Detalhe" component={DetalheScreen} options={{ title: 'Detalhe' }} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    // Transformamos a Root desta pasta em um Elemento TABS:
+    <Tabs
+      screenOptions={{
+        tabBarActiveTintColor: '#ffd33d', // Amarelo chique quando selecionado
+        headerStyle: { backgroundColor: '#25292e' }, // Topo negro
+        headerShadowVisible: false,
+        headerTintColor: '#fff',
+        tabBarStyle: { backgroundColor: '#25292e' },
+      }}
+    >
+      <Tabs.Screen name="index" options={{ title: 'Início', tabBarIcon: ({ color, focused }) => ( <Ionicons name={focused ? 'home-sharp' : 'home-outline'} color={color} size={24} /> ) }} />
+      <Tabs.Screen name="about" options={{ title: 'Sobre', tabBarIcon: ({ color, focused }) => ( <Ionicons name={focused ? 'information-circle' : 'information-circle-outline'} color={color} size={24} /> ) }} />
+    </Tabs>
   );
 }
 ```
 
-- **Stack.Navigator** – define a pilha de telas (voltar com gesto ou botão).
-- **Stack.Screen** – cada tela: **name** (usado em navigate), **component**, **options** (título, etc.).
-
----
-
-## Parte 4 – Testar
-
-1. Rode o app: `npx expo start`.
-2. Na tela Lista, toque em um item: deve abrir a tela Detalhe com o nome do item.
-3. Toque em "Voltar": deve retornar à lista.
-
----
-
-## Checklist
-
-- [ ] Instalou @react-navigation/native e native-stack (e dependências).
-- [ ] Criou pelo menos duas telas (lista e detalhe).
-- [ ] Passou parâmetro com navigation.navigate('NomeTela', { ... }).
-- [ ] Leu o parâmetro em route.params na tela de destino.
-- [ ] Botão ou gesto "Voltar" funcionando (goBack).
+E no seu App Master `app/_layout.tsx`, garantimos que o NotFound não mate seu app e carregue as Tabs primeiro:
+```tsx
+import { Stack } from 'expo-router';
+export default function RootLayout() {
+  return (
+    <Stack>
+      <Stack.Screen name="(tabs)" options={{ headerShown: false }} /> 
+      <Stack.Screen name="+not-found" options={{ title: 'Oops!' }} />
+    </Stack>
+  );
+}
+```
+Massa, não?

@@ -1,39 +1,41 @@
-# Aula 05 - Imagens e listas (Image, FlatList)
+# Apresentação: O Desempenho Importa (Over-Rendering) 🏁
 
-**Data:** 06/04/2026
+**Leitura Autônoma de Arquitetura de Interface**
 
----
-
-## Apresentação
-
-Exibir imagem (URL ou local) com Image; criar lista com FlatList (data, renderItem, keyExtractor); reagir ao toque em um item.
+Hoje nós abordamos o gargalo número um da indústria Mobile: O desempenho gráfico ao lidar com Arrays e Listas de dados.
 
 ---
 
-## Slides
+## 1. O Problema da `<ScrollView>`
+Lembra como colocamos algumas caixas coloridas e imagens estáticas? Se o usuário precisar descer a tela, ele usa o seu polegar. Para ativar a rolagem no celular, costumamos agrupar os elementos dentro de uma `<ScrollView>`.
 
-### Objetivo
+O problema é que a `ScrollView` carrega TODOS os elementos (milhares deles) e processa os gráficos localmente escondidos abaixo da borda física da tela de vidro. Ela afoga o celular. Isso é péssimo se sua lista for de contatos, ou produtos de e-commerce!
 
-Exibir uma imagem e uma lista de itens; ao tocar em um item, executar uma ação (Alert ou navegar para detalhe).
+## 2. A Glória da `<FlatList>`
+Uma FlatList é uma lista burra e incrivelmente astuta. 
+- Ela pega um array cru de tamanho M (Imaginemos, 1.000 imagens).
+- Ela olha o tamanho da sua tela, e percebe que só cabem 4 Fotos por vizualização natural.
+- Então a `FlatList` carrega APENAS as 4 Fotos. As outras 996 continuam puramente como pequenos códigos letárgicos.
+- Quando o usuário enrolar o dedão para baixo, a `FlatList` destrói (via *Garbage Collector*) a foto número 1 que subiu pra fora da borda e não é mais visível, recicla a casca/pixels dela, e envelopa ela com a foto de número 5!
 
-### Image
+Ou seja, no seu aplicativo só existirão 4 fotos carregadas para o resto da vida. Rendendo taxa constante e inabalável de **60 a 120 FPS**.
 
-source={{ uri: 'URL' }} ou source={require('./assets/logo.png')}. Estilo: width, height, resizeMode, borderRadius.
+### Componentes Chave da `<FlatList>`:
+Você não pode colocar os `<Text>` direto nela de forma normal. Ela exige as Props matemáticas:
+- `data`: Quem me alimenta? A Array (uma varíável em array simples)!
+- `renderItem`: Como eu vomito e projeto na tela os dados que estão lá? Aqui você cria um loop desenhando suas *Views* e *Images*.
+- `keyExtractor`: Eu exijo saber como não processar elementos duas vezes. Diga qual é a variável secreta única, como um "id" pra cada linha.
 
-### FlatList
+👉 [Mergulhe no abismo na Documentação Exaustiva da Flatlist](https://reactnative.dev/docs/flatlist)
 
-- data: array de objetos
-- keyExtractor: (item) => item.id
-- renderItem: ({ item }) => ... retorna o componente de cada linha
 
-### Toque no item
+## 3. `<Modal>`: Telas sobre Telas
 
-Envolver cada item em TouchableOpacity; onPress chama função que recebe o item (ex.: Alert com item.nome). Prepara a navegação da Aula 06.
+No seu StickerSmash do tutorial de hoje, nós não vamos exibir um milhão de figurinhas direto na tela na cara do cliente. Vamos pedir pra uma Gaveta Flutuante brotar do piso.
+É o component `<Modal>`. 
 
-### Atividade da quinzena
+Com a tag Modal, tudo que você escrevi ali ganha o que chamamos de "**Z-Index Absoluto Elevado**". Ele escapa do Flexbox que criamos, salta da formatação, domina 100% da sua tela e trava embaixo todas as operações de botões subjacentes, forçando total e absoluta atenção do usuário para responder a sua janela flutuante!
 
-App com duas telas: lista de 3 itens + tela de detalhe ao tocar (ou estado no mesmo App.js). Incluir uma imagem.
+Ele ativa uma Prop `visible={true|false}`, e o Expo faz a animação fluída com maestria baseado no sistema nativo (Deslizando pelo Topo no Android, ou como Card pelo iOS).
 
-### Projeto Bimestre 1
-
-Na próxima quinzena: Projeto Fase 1 (escolher tipo A, B, C ou D). Mínimo 2 telas, lista ou imagem, navegação.
+Bora meter a mão no Código e desenhar esse Gavetão no **Tutorial**.
