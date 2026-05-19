@@ -143,6 +143,13 @@ Cada tipo tem um `README.md` e as fases em `fase1-bimestre1.md` a `fase4-bimestr
 
 ---
 
+## Dúvidas Frequentes e Erros Comuns
+
+O aplicativo parou de rodar no seu celular? O `--tunnel` da escola travou? 
+Consulte o nosso [Guia de Erros Comuns e Troubleshooting](docs/GUIA-DE-ERROS-COMUNS.md) para resolver rapidamente sem precisar parar o seu projeto.
+
+---
+
 ## Calendário
 
 26 quinzenas: 20 aulas de conteúdo + 4 quinzenas de projeto (1 por bimestre) + 2 de extensão. Datas sugeridas e detalhes em [docs/calendario-aulas.md](docs/calendario-aulas.md).

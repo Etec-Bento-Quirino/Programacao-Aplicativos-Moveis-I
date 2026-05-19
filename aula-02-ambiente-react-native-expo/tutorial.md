@@ -29,6 +29,9 @@ cd StickerSmash
 >     // ...
 >   }
 > ```
+> 🚑 **Seu Terminal deu erro ou travou ao tentar rodar com `--tunnel`?**
+> Acesse o nosso [Guia de Erros Comuns](../../docs/GUIA-DE-ERROS-COMUNS.md) para forçar a instalação do `ngrok` ou rodar offline via cabo USB!
+>
 > Depois disso, basta iniciar o app rodando:
 > ```bash
 > npm start
