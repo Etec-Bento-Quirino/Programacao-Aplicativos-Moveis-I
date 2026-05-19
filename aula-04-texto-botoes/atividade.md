@@ -1,25 +1,45 @@
-# Missão 4: Disparando o Gatilho (O Alarme Visual) 🚨
+# Atividade 4: Eventos e Botões 🚨
 
-**Sua Validação Autônoma de Estudo:**
+**Objetivo da Atividade:**
 
-No tutorial inserimos a arquitetura condicional nos botões do StickerSmash.
-Mas um botão não passa de um enfeite se você não conseguir extrair dados ou realizar ações quando o evento principal ("*O Dedo Humano Tocou no Vidro do Celular*") acontece.
+Criar botões interativos e capturar eventos de toque (`onPress`) do usuário. Um botão não tem utilidade sem uma ação vinculada a ele.
 
 ---
 
-## O Desafio: A Comunicação do Front-End
+## O Desafio: Interatividade Básica
 
-Para validar o aprendizado desta Quinzena de forma independente, você deverá interagir ativamente com o fluxo central criando uma ação `onPress` no seu Botão Amarelo do StickerSmash que não quebre e mostre Vida.
+Adicione um evento de clique no botão principal do seu aplicativo que dispare um alerta nativo na tela.
 
-1. Navegue até o coração do seu App (o arquivo `index.tsx`).
-2. Garanta que você chamou os dois tipos de `<Button>` customizados de acordo com as diretrizes do tutorial, passando a string de Texto Dinâmico via parâmetro `<Button label="Usar essa foto" />`.
-3. Garanta que você conectou a prop estática dentro da injeção do botão primário para o alerta ensinado em aula:
-   ```jsx
-   onPress={() => alert('Em Breve: Acesso a Câmera!')}
-   ```
-   *(Nota: Se houver problemas ao chamar alert na plataforma Web/Windows, estude o import via `Alert.alert()` importada diretamente do 'react-native' ao invés da função pura)*.
+1. No seu arquivo principal (ex: `index.tsx`), adicione um botão utilizando o componente `<Button>` ou uma implementação customizada.
+2. Passe a propriedade `onPress` para acionar um alerta no dispositivo.
 
-## A Entrega Tática:
-Tire um print/fotografia no exato milissegundo de glória em que o usuário toca no novíssimo botão estendido contendo os Ícones (FontAwesome) injetados, e o pop-up de aviso brota no meio do celular (provando que a ponte do `Pressable` acionou o motor JavaScript via prop).
+### 💡 Dica de como iniciar:
 
-Com isso engatilhado, você estará 100% preparado para acoplar uma Câmera Fotográfica REAL dentro desse mesmo Botão. Envie na nossa plataforma de notas!
+Para criar a interatividade, passe uma função anônima ou uma referência de função para a propriedade `onPress`. Importe o `Alert` nativo do `react-native` em vez da função `alert()` tradicional do navegador.
+
+```tsx
+import { View, Button, Alert, StyleSheet } from 'react-native';
+
+export default function App() {
+  const exibirAlerta = () => {
+    Alert.alert("Aviso", "Em Breve: Acesso à Câmera!");
+  };
+
+  return (
+    <View style={styles.container}>
+      {/* Botão simples que chama a função */}
+      <Button 
+        title="Usar essa foto" 
+        onPress={exibirAlerta} 
+      />
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: { flex: 1, justifyContent: 'center', padding: 20 },
+});
+```
+
+## Entrega:
+Tire uma captura de tela (print) no exato momento em que o aviso (Pop-up do `Alert.alert`) aparecer no centro da tela após você tocar no botão. Envie a imagem na plataforma.

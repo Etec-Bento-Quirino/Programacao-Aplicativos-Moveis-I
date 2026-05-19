@@ -1,22 +1,63 @@
-# Missão 10: Cruzando as Fronteiras (Minimização) 🌌
+# Atividade 10: Notificações em Background 🌌
 
-**Sua Validação Autônoma de Estudo:**
+**Objetivo da Atividade:**
 
-No material teórico nós criamos a Engrenagem de Disparo Remoto engatilhada em Assincronismo de 5 a 10 Segundos e setamos um canal no Google Android contendo Nível `MAXIMUM` de importância para sobrepor até as notificações do Whatsapp!
+Comprovar o funcionamento prático de notificações locais do `expo-notifications`, demonstrando que elas funcionam mesmo se o aplicativo estiver minimizado ou rodando em segundo plano.
 
 ---
 
-## O Desafio: Acordando Fantasmas!
+## O Desafio: A Notificação Fora do App
 
-Sua tarefa de campo é comprovar que você subiu e compreendeu as hierarquias.
-Quero provar na prática que ela não é uma caixinha fajuta, mas sim um Sistema Embutido real no seu Smartphone de mão!
+Sua tarefa é testar o fluxo completo do *Push Notification Local* disparado via Timeout, comprovando que o alerta chega mesmo que o usuário não esteja olhando ativamente para a tela do aplicativo.
 
-1. Clique com gosto no seu botão do aplicativo de teste Expo Go recém criadão! Assista a sua mensagem de notificação de segurança do Passaporte saltar na tela *("Deseja Ativar?" > Allow)*.
-2. Seu botijão de tempo de 5 segundos via disparar. O Alert do App aparece lhe informando. 
-3. **Seja Rápido:** Aperte o botão HOME (ou deslize a barrinha Apple inferior pro celular) do físico, minimizando TOTALMENTE nosso Expo Go, indo olhar a tela Inicial com seus relógios e apps nativos abertos. E segure. Espere os milissegundos restantes esgotarem na escuridão.
+1. Implemente a função que agenda uma notificação para ocorrer em 5 ou 10 segundos, conforme visto no tutorial.
+2. Inicie o teste clicando no botão do aplicativo recém-criado. Permita o envio de notificações se for solicitado pelo celular.
+3. Após acionar o temporizador clicando no botão, aperte a tecla `Home` (ou deslize o dedo da parte inferior para cima na tela inicial) minimizando totalmente o aplicativo Expo Go.
+4. Aguarde na tela de início do seu sistema (ou na tela de bloqueio).
 
-## Extração do Trófeu:
-Com o Bip/Sino soando, você perceberá o "Push Notification" despencando da barra do topo do celular, mostrando com destaque `Bem Vindos ao Submundo!`. 
+### 💡 Dica de como iniciar:
 
-Como um ninja, capture o maldito "ScreenShot" (Print Screen do Volume Baixo + Tela do Celular) EXATAMENTE no segundo que ele descer minimizado e enviar para comprovação.
-Você superou a Fase 2, Integrando todas as pontas essenciais Front-End de Hardware Intermediário! Nos vemos na Fase 3, na área de Arquitetura de Banco de Dados de Cérebros Virtuais!
+Para garantir a permissão das notificações, utilize as configurações padrão do expo-notifications no início do arquivo, fora do seu componente. Para agendar, invoque `Notifications.scheduleNotificationAsync`.
+
+```tsx
+import * as Notifications from 'expo-notifications';
+import { View, Button, StyleSheet } from 'react-native';
+
+// 1. Define o comportamento global do Notification (Obrigatório)
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: false,
+  }),
+});
+
+export default function App() {
+  
+  const dispararNotificacao = async () => {
+    // 2. Agenda a notificação
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title: "Bem-vindo ao Submundo! 🕵️‍♂️",
+        body: "Sua notificação local chegou via Background.",
+      },
+      trigger: {
+        seconds: 5, // Notifica em exatos 5 segundos
+      },
+    });
+  };
+
+  return (
+    <View style={styles.container}>
+      <Button title="Notificar em 5 Segundos" onPress={dispararNotificacao} />
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: { flex: 1, justifyContent: 'center', alignItems: 'center' },
+});
+```
+
+## Entrega:
+Ao aguardar com o aplicativo minimizado, a notificação deve surgir no topo do celular. Capture uma captura de tela (print) nesse exato instante, exibindo a notificação "Push" caindo sobre a tela inicial nativa do dispositivo. Envie na plataforma!

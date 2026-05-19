@@ -1,27 +1,31 @@
-# Missão 20: Ignição Final 🎓
+# Atividade 20: Projeto Final - Escopo e Planejamento 🎓
 
-**Sua Validação Autônoma de Estudo:**
+**Objetivo da Atividade:**
 
-No material teórico nós traçamos como a Empresa pede O "Entrega Total". O Check-list final do app (Reunião de todas as malhas de Conhecimento e UI limpa). 
-
-Esta não é uma tarefa com códigos na Nuvem e Scripts. É o momento Administrativo de Consagrar sua Jornada de Arquiteto React Native.
+Formalizar o escopo do Projeto Final da disciplina, declarando quais funcionalidades estarão ativas, como os recursos vistos nas aulas foram integrados e definindo o "SLA" (Service Level Agreement) para a entrega final do projeto.
 
 ---
 
-## O Desafio: Acordo de Nível de Serviço (SLA)
+## O Desafio: A Declaração do Projeto
 
-Um desenvolvedor forte sabe O Que Vai entregar e Que Dia. Seu Trabalho é subir o Documento Definitivo pra avaliação dos Orientadores Técnicos deste Semestre. 
+Sua última atividade não exige o envio do código-fonte ainda, mas sim de um documento formal explicando como as tecnologias aprendidas no semestre estão integradas no seu App Final.
 
-Crie um documento (Pode ser Doc/Texto, PDF ou o Próprio Arquivo README final zipado).
-Nele constará a Resposta Oficial às avaliações:
+Crie um documento (PDF, arquivo DOC/Texto ou utilize o próprio `README.md` do seu repositório) descrevendo os seguintes pontos:
 
-1. **Tipificação:** "Meu projeto baseia-se num Gerenciador X de Cadastro".
-2. **Defesa do Software:** Mostre para nós, usando prints lindos atrelados, ou apenas texto persuasivo: "Meu Aplicativo usa o SQLite com uma Tabela Categoria que cruza em JOIN com o Formulario", e "Eu escolhi instalar Câmera de Hardware e já está ativa".
-3. **Perspectiva "Feature Freeze":** O que a sua Equipe decidiu Arrumar Visualmente / Bugs Finais que fará na última quinzena pra gente não se preocupar? 
+1. **Tipificação:** Qual é o tema/tipo do projeto? (ex: "O projeto será do Tipo B: Controle de Inventário").
+2. **Defesa do Software:** Declare como os recursos principais foram usados. 
+   - Qual tabela foi criada no SQLite?
+   - A Câmera ou as Notificações vão ser utilizadas? 
+   - Você utilizou o React Navigation / Expo Router para navegar entre as telas?
+3. **Escopo Final:** O que a sua equipe focará no ajuste visual ou de usabilidade nessa reta final antes da apresentação ou submissão do código?
 
-## A Entrega: 
-Anexe esse manifesto Absoluto (O Planejamento da Fase 4) e assine seu nome. Encaminhe pro orientador via Plataforma.
+### 💡 Dica de como iniciar:
 
-**É isso.** 
-Você montou botões cegos. Aprendeu roteamento com Estações de Magia pelo Router. Acordou satélites usando Geolocalização de GPS e forjou Cofres Eternos com C++ SQL.
-Foi uma Honra ter lhe moldado num Desenvolvedor Mobile Imbatível. As portas estão abertas. Mostre Seu Trabalho Supremo ao Mundo! Obrigado.
+Não precisa ser um documento longo de várias páginas. Seja conciso e direto. Este planejamento ajuda os professores a entenderem a magnitude do seu projeto e se os requisitos de aprovação do curso (como banco de dados relacional e hooks fundamentais) foram contemplados na sua arquitetura. 
+
+Escreva o documento na perspectiva de um desenvolvedor apresentando o sistema para um cliente ou avaliador sênior.
+
+## Entrega: 
+Anexe esse manifesto de entrega (seu "Planejamento" contendo os tópicos acima respondidos de forma elaborada e coerente) na plataforma, não esquecendo de colocar o seu nome (ou da equipe). 
+
+Parabéns por completar o ciclo! Aguardamos o envio final do sistema no repositório geral.

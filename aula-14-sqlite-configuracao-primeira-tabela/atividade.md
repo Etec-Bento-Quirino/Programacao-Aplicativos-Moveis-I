@@ -1,32 +1,52 @@
-# Missão 14: Rompendo o Escudo de Integridade ⚔️
+# Atividade 14: Primeira Tabela e Inspect SQLite ⚔️
 
-**Sua Validação Autônoma de Estudo:**
+**Objetivo da Atividade:**
 
-No material teórico nós acionamos o motor C++ Nativão do SQLite dentro do JavaScript, usamos a instrução "DDL `CREATE`" para erguer uma matriz estrutural limpa (`id, descricao, status`), e usamos um Alert para aferir a injeção do Insert.
-
-Mas se nós não colocamos View de LEITURA de SQL no tutorial atual, como vamos provar que ela está funcionando lá dentro?
-Pelo Terminal de Debug!
+Criar sua primeira tabela no banco de dados SQLite (`CREATE TABLE`) e comprovar que as inserções de dados estão ocorrendo perfeitamente lendo o retorno bruto no console de debug.
 
 ---
 
-## O Desafio: A Inspeção de Raio-X do Servidor
+## O Desafio: Raio-X do Banco de Dados
 
-Implemente na sua tela a lógica exata de abertura do SQLite demonstrada.
-Mas para validar sua nota, eu exijo que você veja o sangue da máquina rolando no console negro do PowerShell do Metro Bundler (Seu PC)!
+Neste desafio, você não precisará criar uma visualização bonitinha (FlatList) ainda. A intenção é confirmar via terminal do VS Code (ou do Metro Bundler) que o SQLite responde adequadamente.
 
-1. Insira duas "Metas" clicando no Botão "Simular um Insert".
-2. Crie uma Nova Função na sua tela chamada `verTudo`! Ela vai pegar os dados e CUSPIR no Log negro de compilação sem jogar pro React ainda.
-   ```js
-   const verTudo = () => {
-      // O getAllSync roda o query SQL de seleção massivo de dados do banco.
-      const linhasVivas = bancoDados.getAllSync('SELECT * FROM metas');
-      console.log("Raio X Do Servidor Nativo Retornou: ", linhasVivas);
-   }
-   ```
-3. Chame essa função por um Outro Botãozinho no seu componente. 
+1. Configure o banco de dados e insira dois registros (ex: Metas).
+2. Crie uma função na sua tela chamada `verDadosBanco`. Essa função utilizará o método do expo-sqlite para buscar todos os registros e fará um `console.log` para exibir no terminal.
+3. Adicione um botão na tela que chame a função `verDadosBanco`.
 
-## Extração do Trófeu:
-Selecione o Terminal onde o `npm start` está rodando.
-Clique no "Ver Tudo" no seu celular virtual. Em seguida, tire uma Screenshot com seu `Print Screen` da Janela de Comando do PC evidenciando a matriz amarela esmagada do Objeto JSON que o Banco devolveu listando suas *"Metas dominar o mundo!"*! 
+### 💡 Dica de como iniciar:
 
-Prove que as tubulações DDL estão fluindo e mande pra escola. Na próxima Aula, os traremos diretamente para a Visão final e ativaremos a opção Morte (Delete).
+Depois que o banco estiver configurado usando a instrução de inicialização padrão, você pode buscar os dados utilizando `getAllSync` (se estiver no formato síncrono do novo Expo SQLite) e logar o resultado.
+
+```tsx
+import React from 'react';
+import { View, Button } from 'react-native';
+// Lembre-se de importar o hook do seu banco (ex: useSQLiteContext)
+
+export default function RaioX() {
+  // const db = useSQLiteContext(); // Hook dependendo de como você montou o provider
+
+  const verDadosBanco = () => {
+    try {
+      // Puxa massivamente todos os registros
+      // const registros = db.getAllSync('SELECT * FROM metas');
+      
+      // Imprime o resultado no terminal negro do Node/Expo
+      // console.log("Dados do SQLite:", registros);
+      
+      console.log("Simulação: Lógica de buscar no banco está montada.");
+    } catch (error) {
+      console.log("Erro ao buscar", error);
+    }
+  };
+
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Button title="Inspecionar Banco no Terminal" onPress={verDadosBanco} />
+    </View>
+  );
+}
+```
+
+## Entrega:
+Rode a aplicação e clique no botão de inspecionar. Selecione o Terminal do VS Code onde o Expo está sendo executado e tire uma captura de tela (print) evidenciando o array de objetos JSON retornado pelo SQLite (mostrando as suas "Metas"). Envie a imagem na plataforma.

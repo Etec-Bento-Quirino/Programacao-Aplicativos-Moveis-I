@@ -1,20 +1,46 @@
-# Missão 3: Arquitetura Sem Margens de Erro 🏗️
+# Atividade 3: Dominando o Flexbox 
 
-**Sua Validação Autônoma de Estudo:**
+**Objetivo da Atividade:**
 
-No tutorial desta semana desenvolvemos o StickerSmash puxando um arquivo embutido estático em `ImageViewer` envolto em Flexbox para empurrar. Para fixar a geometria de eixos, desafio você num teste secundário de "sandbox" em seu PC!
+Neste desafio, você irá praticar o uso do Flexbox para criar layouts responsivos no React Native. Em vez de usar medidas fixas, você utilizará as propriedades do Flexbox para alinhar e distribuir elementos na tela.
 
 ---
 
-## O Desafio do Alinhador (Flexbox Test)
+## O Desafio do Alinhamento
 
-Crie num canto escondido do seu Arquivo ou no site (https://snack.expo.dev) um layout contendo 3 blocos/Views altamente brilhantes coloridos.
+Crie um novo projeto no VS Code (ou utilize um projeto de testes existente) e desenvolva um layout contendo 3 blocos (`Views`) com cores distintas.
 
-Mas atente-se às Ordens Restritas de Engenharia:
-1. Você não pode usar coordenadas cegas em polegadas/pixels (Ex: Sem Height manual como 200 ou 400). Quero todo poder do *Flex* puro.
-2. Seu aplicativo deve ter uma "Mãe" e os "Filhos Coloridos".
-3. O Bloco A **OBRIGACIONALMENTE** deve dominar *Metade da Tela de Cima*. Os Blocos B e C **OBRIGACIONALMENTE** devem dividir rigorosamente a metade exata da *Tela de Baixo*, flutuando um do lado do outro simetricamente (Como um belo painel). 
-*(Dica de Mestre: Envolva irmãos em caixas mães usando 'row').*
+Siga estas instruções:
+1. **Não utilize larguras ou alturas fixas (pixels)**. O layout deve ser construído inteiramente utilizando as propriedades de `flex`.
+2. O seu componente principal deve conter uma `View` contêiner e 3 `Views` filhas coloridas.
+3. **Bloco A:** Deve ocupar toda a metade superior da tela.
+4. **Blocos B e C:** Devem dividir igualmente a metade inferior da tela, ficando posicionados lado a lado.
+*(Dica: Para posicionar os blocos B e C lado a lado, você pode colocá-los dentro de uma nova `View` contêiner com `flexDirection: 'row'`).*
 
-## O Processo de Envio:
-Assim que as 3 caixas genéricas perfeitamente calculadas aparecerem sem erros em seu celular via Expo Go, puxe aquele fabuloso "Print", dê o nome de FlexTest e anexe no diretório de entregas para sabermos que a gravidade nativa do iOS/Android agora trabalha pra você!
+### 💡 Dica de como iniciar:
+
+Para começar, crie um componente funcional básico. Lembre-se de que a `View` principal precisa ter `flex: 1` para ocupar toda a tela do dispositivo.
+
+```tsx
+import React from 'react';
+import { View, StyleSheet } from 'react-native';
+
+export default function App() {
+  return (
+    <View style={styles.container}>
+      {/* Adicione o Bloco A aqui */}
+      {/* Adicione o contêiner para os Blocos B e C aqui */}
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1, // Faz a View principal ocupar a tela inteira
+  },
+  // Crie os estilos para os blocos usando flex: 1, flexDirection: 'row', etc.
+});
+```
+
+## Entrega:
+Quando o layout estiver funcionando corretamente no seu emulador ou dispositivo físico via Expo Go, tire uma captura de tela (print) e envie na plataforma com o nome `FlexTest`.

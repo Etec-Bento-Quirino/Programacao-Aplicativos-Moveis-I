@@ -1,25 +1,36 @@
-# Missão 17: O Elo Perfeito 🔗
+# Atividade 17: Consultas Relacionais (JOINs) 🔗
 
-**Sua Validação Autônoma de Estudo:**
+**Objetivo da Atividade:**
 
-No tutorial desta semana usamos o Poderoso `LEFT JOIN` atrelado a um `GROUP BY` e a Função C++ embutida de Matemática do Banco `COUNT()`. Mostrei pra vocês na teoria o milagre do "App devolver números perfeitos como um sistema bancário de Dashboard profissional".
-
-Seu desafio não exige a criação de belos layouts, e sim provar a sanidade da Extração Relacional.
+Nesta atividade, você aplicará os conceitos de consultas relacionais com o SQLite. Utilizaremos o `LEFT JOIN` associado à cláusula `GROUP BY` e a função agregadora `COUNT()` para retornar o número total de itens dentro de cada categoria.
 
 ---
 
-## O Desafio: Construa Sua Própria Teia
-Se você está no Expo Snack ou nos seus códigos Cobaia da Plataforma, você engatou a Lista Inteira.
+## O Desafio: Relatórios com JOIN
 
-Execute seu Construtor para possuir Pelo menos Três elementos:
-- Categoria 1 (Hortifruti)
-- Categoria 2 (Limpeza)
+Desenvolva e teste a seguinte lógica no seu projeto local utilizando o VS Code:
 
-Insira um ou dois Itens lá dentro do Banco em Hortifruti e nenhum na Limpeza.
-Sua Tela Inicial vai puxar a Câmbio Relacional do `LEFT JOIN` e processará na tela ou no LOG de Print essas estruturas prontas (`item.nome` | `item.total_itens_nessa_linha_aqui`).
+1. No seu banco de dados, certifique-se de que existam pelo menos duas categorias (por exemplo: "Hortifruti" e "Limpeza").
+2. Adicione um ou dois itens atrelados à Categoria 1 (Hortifruti) e não insira nenhum item na Categoria 2 (Limpeza).
+3. Na sua tela (ou no log do console), execute uma consulta SQL utilizando `LEFT JOIN` e `COUNT()` para retornar os nomes das categorias e a contagem de itens em cada uma delas.
 
-## Extração do Trófeu:
-Selecione Sua Tela Final de Dashboard. 
-Eu quero ver (e seus professores também) uma Listagem dizendo `Hortifruti (2 Itens)` e `Limpeza (0 Itens)`. E isso precisa ter vindo do Banco usando o agrupamento count do tutorial. Não serve contar isso na unha pelo Front-End!
+### 💡 Dica de como iniciar:
 
-Bata o `Print Screen` Supremo dos Contadores Operando via Consulta de Múltiplos Joins do SQLite e jogue no nosso cofre de submissão! Nós completamos com sucesso a arquitetura lógica e crua do Software de Nível Sênior. Entraremos nos refinamentos Visuais e Éticos nas Próximas duas Rodadas!
+Para realizar a contagem usando o banco de dados, você precisa agrupar os resultados (`GROUP BY`) e usar a função `COUNT()`. Aqui está um exemplo de como seria a estrutura da sua Query (Consulta SQL) para passar pro método que acessa o banco do Expo:
+
+```sql
+-- Exemplo do Comando SQL para extrair as categorias e contar os itens
+SELECT 
+  categorias.nome AS categoria_nome, 
+  COUNT(itens.id) AS total_itens
+FROM categorias
+LEFT JOIN itens ON categorias.id = itens.categoria_id
+GROUP BY categorias.id;
+```
+
+Lembre-se de rodar essa consulta usando o cliente do `expo-sqlite`. O retorno dessa consulta será um array (onde cada linha encontrada pela tabela será um objeto contendo `categoria_nome` e `total_itens`), que você pode colocar no seu estado (`useState`) para exibir na sua interface.
+
+## Entrega:
+A interface deve apresentar uma lista de categorias com as quantidades, por exemplo: `Hortifruti (2 Itens)` e `Limpeza (0 Itens)`. O contador de itens deve ser processado diretamente pela consulta SQL, e não calculado manualmente no frontend.
+
+Tire uma captura de tela demonstrando o resultado (a lista com os totais exibida na tela) e envie na plataforma.

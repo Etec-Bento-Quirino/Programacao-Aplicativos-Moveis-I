@@ -1,22 +1,63 @@
-# Missão 12: A Prova dos Nove na Nuvem ⛅
+# Atividade 12: Context API (Variáveis Globais) ⛅
 
-**Sua Validação Autônoma de Estudo:**
+**Objetivo da Atividade:**
 
-No tutorial desta aula, ensinei como injetar um `Context` Universal para lidar com Temas e ler os dados usando `useContext`. E testamos em uma tela única.
-
-Seu aprendizado não será validado se você não provar para se mesmo que o Prop Drilling foi contornado em Multi-Telas.
+Aplicar o conceito de injeção de dependências em nuvem usando a `Context API`. Você provará que uma variável global pode contornar o problema de "Prop Drilling" (passagem infinita de propriedades) ao ser lida por componentes distintos e separados pela navegação.
 
 ---
 
-## O Desafio: Compartilhar Informações em Quartos Diferentes
+## O Desafio: Compartilhar Dados Entre Telas Isoladas
 
-Seu desafio da Quinzena:
-1. Copie rigorosamente o código do tutorial do Botão Amarelo e coloque na sua tela *Configurações* (Ou Tela 1).
-2. Acesse sua *Tela "Home" Inicial* (Totalmente separada por Rotas diferentes no Expo). Use a ponte Context lá! NELA não existirá Botão. Só existirá um Texto Absurdo dizendo *"Eu detesto o Modo Claro"* ou *"Eu detesto o Modo Escuro"*, de acordo com o estado do soluto capturado pela Nuvem do Arquivo 1!
+Você deve criar duas telas completamente distintas usando rotas e permitir que elas consumam o mesmo estado global.
 
-## A Extração da Conquista
-Abra o seu Expo Go.
-Acesse a tela 1 (Configs). Clique no botão e ative o famigerado modo Escuro! (A tela 1 repintará preta).
-Deslize o seu menu nativo e navegue pra tela 2 (A Home isolada). Se você fez tudo certo, a Tela 2, Mágicamente, SEM PASSAGEM de propriedades de parâmetros, nascerá e estará perfeitamente ESCURA e o texto dizendo "Eu detesto modo Escuro". O Universo Global de Nuvem venceu.
+1. Construa e envolva sua aplicação com um `Context` (Nuvem Global) que mantenha o estado do tema (ex: claro ou escuro) e forneça também uma função de troca (`toggleTheme`).
+2. Acesse sua "Tela 1" (ex: Configurações). Esta tela terá um botão que irá acionar a função que alterna o estado do tema contido no contexto.
+3. Acesse sua "Tela 2" (ex: Home). **Sem enviar a variável via parâmetro de navegação**, puxe os dados usando `useContext` diretamente do Context global. Renderize nela uma mensagem condicional como *"Modo Escuro Ativado"* ou *"Modo Claro Ativado"*, juntamente com o fundo modificado correspondente.
 
-Fotografe/Printe a "Tela 2 Ciente do estado do Mundo Escuro" e anexe como Missão Cumprida na Plataforma! Agora o seu app tem memória inter-telas universal.
+### 💡 Dica de como iniciar:
+
+Para utilizar o `Context`, você precisará criar um arquivo para instanciar a "Nuvem". Envolva o `_layout.tsx` (ou o `App.js` base) com o `<ThemeProvider>` criado. Use `useContext(ThemeContext)` dentro das telas-filha para consumir ou modificar os dados.
+
+```tsx
+// 1. Exemplo do Arquivo de Contexto (ThemeContext.tsx)
+import React, { createContext, useState } from 'react';
+
+// Exportando o "Mapa/Nuvem" vazio
+export const ThemeContext = createContext();
+
+// Componente englobador responsável pelo estado
+export function ThemeProvider({ children }) {
+  const [isDark, setIsDark] = useState(false);
+
+  const toggleTheme = () => setIsDark(!isDark);
+
+  return (
+    <ThemeContext.Provider value={{ isDark, toggleTheme }}>
+      {children}
+    </ThemeContext.Provider>
+  );
+}
+```
+
+```tsx
+// 2. Exemplo da sua Tela "Home" que lê do Contexto
+import React, { useContext } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import { ThemeContext } from './ThemeContext'; // Ajuste o caminho
+
+export default function Home() {
+  // Puxa a variável diretamente da nuvem
+  const { isDark } = useContext(ThemeContext);
+
+  return (
+    <View style={{ flex: 1, backgroundColor: isDark ? '#222' : '#FFF', justifyContent: 'center', alignItems: 'center' }}>
+      <Text style={{ color: isDark ? '#FFF' : '#222' }}>
+        {isDark ? "Modo Escuro Ativado 🌙" : "Modo Claro Ativado ☀️"}
+      </Text>
+    </View>
+  );
+}
+```
+
+## Entrega:
+Navegue para a Tela 1, alterne o botão mudando para o tema desejado, e depois vá para a Tela 2. Tire um print da Tela 2 mostrando que o tema e o texto refletiram corretamente o valor global recém alterado, provando que as rotas estão devidamente integradas à Nuvem (`Context`). Envie na plataforma!

@@ -2,7 +2,7 @@
 
 **Sugestão de execução:** Quinzena 10.
 
-Vamos colocar a mão na graxa. Se você estava brincando no seu StickerSmash, abra uma nova tela secundária (Como a Tela de `About` que fizemos no Expo Router) para abrigar nossa engenhoca de captura, ou crie isso num novo App via Expo Snack.
+Vamos colocar a mão na graxa. Se você estava brincando no seu StickerSmash, abra uma nova tela secundária (como a Tela de `About` que fizemos no Expo Router) para abrigar nossa engenhoca de captura, ou crie um novo projeto no VS Code para este teste.
 
 ---
 

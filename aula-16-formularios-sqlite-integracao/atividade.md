@@ -1,21 +1,63 @@
-# Missão 16: O Formulário Tático 📝
+# Atividade 16: Integração de Formulários e Banco 📝
 
-**Sua Validação Autônoma de Estudo:**
+**Objetivo da Atividade:**
 
-No material teórico ensinamos o Conceito Magnífico de usar a Rota do aplicativo para ditar os Filtros SQL de Listagem.
-O Front-End envia o ID da listagem, e o DB só exibe aquilo. Se estivermos na Categoria "Roupas", abrimos o Formulario, salvamos um "Casaco", o Router nos rebobina usando `router.back()` (ou `navigate.goBack`), e a tela de listagem renasce sozinha via Effect.
+Integrar um formulário à sua tabela do banco de dados, e provar que a lista de dados principal atualiza automaticamente após um novo cadastro, graças à navegação reversa (GoBack/Router.back).
 
 ---
 
-## O Desafio: A Ponte sem Quebra
+## O Desafio: Cadastrando Itens Dinâmicos
 
-Sua tarefa de validação:
+Nesta etapa, você deve criar uma tela separada apenas para preencher o formulário, e após salvar no banco, retornar para a listagem para ver o item novo.
 
-Você vai montar as Duas Telas operacionais mostradas no tutorial: A tela de **Listagem**, e a tela secundária de **Formulário de Cadastro_Novo**.
-1. Abra a tela de Listagem da Categoria "Alimentos". 
-2. Aperte um botão nela ("Adicionar +"). Ela deve carregar a tela Formulário e travar seu contexto do Expo para Inserção limpa.
-3. Insira o termo "Miojo da Madrugada". Clique no Button que Ativa o Insert e chama a GoBack().
+1. Abra ou crie sua tela de "Listagem". Nela, coloque um botão "Adicionar Novo" que navegue (via Expo Router ou React Navigation) para a tela de Formulário.
+2. Na tela de Formulário, receba os dados (ex: Nome do Produto) no estado e salve no banco de dados SQLite (`INSERT`).
+3. Logo após o `INSERT` ser executado com sucesso no banco, chame a função de voltar à tela anterior (`router.back()` ou `navigation.goBack()`).
+4. Ao retornar à listagem, o aplicativo deve buscar os dados atualizados novamente no banco (usando, por exemplo, o evento `useFocusEffect` do React Navigation).
 
-## Extração do Trófeu:
-Se tudo se conectou de forma perfeita e limpa... O Formulário vai fechar, e a Listagem nascerá atualizando automaticamente em Re-paint pra englobar seu "Miojo da madrugada".
-Tire um belíssimo ScreenShot da Listagem Recarregada comprovando que o Input de texto do seu Form preencheu corretamente um campo Variável da string Relacional e mande seu artefato via entrega!
+### 💡 Dica de como iniciar:
+
+Para salvar e voltar, vincule a lógica de "fechar" diretamente dentro do método de salvamento, mas apenas após confirmar o `runSync`.
+
+```tsx
+import React, { useState } from 'react';
+import { View, TextInput, Button, StyleSheet } from 'react-native';
+import { useRouter } from 'expo-router';
+// Importe a lógica do seu banco
+
+export default function TelaFormulario() {
+  const [nome, setNome] = useState('');
+  const router = useRouter();
+  // const db = useSQLiteContext();
+
+  const salvarItem = () => {
+    if (nome.trim() === '') return;
+
+    // 1. Executa a inserção
+    // db.runSync('INSERT INTO itens (nome) VALUES (?)', [nome]);
+
+    // 2. Após salvar, obriga o celular a voltar pra tela anterior de listagem
+    router.back();
+  };
+
+  return (
+    <View style={styles.container}>
+      <TextInput 
+        style={styles.input} 
+        placeholder="Nome do Item..." 
+        value={nome}
+        onChangeText={setNome} 
+      />
+      <Button title="Salvar e Voltar" onPress={salvarItem} />
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: { flex: 1, padding: 20 },
+  input: { borderWidth: 1, padding: 10, marginBottom: 15 }
+});
+```
+
+## Entrega:
+Grave um pequeno vídeo, ou tire duas capturas de tela (uma preenchendo o formulário e outra mostrando o item já listado na tela anterior após o app fechar o formulário). Envie na plataforma para avaliação.

@@ -1,20 +1,51 @@
-# Missão 11: Provocando o Repaint Imutável 🎨
+# Atividade 11: Gestão de Estados e Re-renderização 🎨
 
-**Sua Validação Autônoma de Estudo:**
+**Objetivo da Atividade:**
 
-No tutorial desta aula, apresentamos o fluxo exato das metáforas que operam a API do React Native. Vimos que o "Pintor" Mestre só responde se você der à ele uma tela nova, disparando a função `Set` sem modificar o array antigo usando velharias como `lista.push(`.
+Compreender o fluxo de atualização de tela no React Native. A interface só é atualizada se você fornecer um novo estado através da função `set` correspondente, sem modificar diretamente o array ou objeto anterior.
 
 ---
 
-## O Desafio: A Gestão de Múltiplos Estados Perfeitos
+## O Desafio: Atualização de Listas
 
-Você criará um bloco autônomo (Pode usar um App provisório como o Expo Snack) focado unicamente na lógica da Re-renderização e do "Guarda Noturno das Inicializações".
+Você criará um componente autônomo focado unicamente na lógica de re-renderização e do ciclo de vida, utilizando o VS Code.
 
-1. Logo no topo do componente, crie um **`useEffect`** isolado contendo uma caixa restrita (array denotado ali nas aspas finais `[]`). Instrua seu Guarda Noturno à preencher sua lista mestre `useState` com 2 Emojis ou Pessoas por padrão no exato instante em que o laboratório nascer. (Ex: "Item Alpha" e "Item Bravo"). Isto provará se ele entende de nascimentos de Lifecycle.
-2. Invoque o poder da mutação. Construa um botão chamativo "Testar Gatilho" + Uma Cesta (input).
-3. Ao pressionar, instrua sua função de envio à anexar o Conteúdo da Cesta com a **Extinção Total/Espalhamento dos Clones** (Sintaxe ES6 Destrutiva: `...dados_antigos`) na lista mãe, resetando a cesta em seguida perfeitamente ao limbo (`''`).
+1. No seu componente, crie um **`useEffect`** com um array de dependências vazio `[]`. Configure-o para preencher o seu estado inicial (um `useState` contendo uma lista) com 2 itens (Ex: "Item 1" e "Item 2") assim que o componente for carregado pela primeira vez.
+2. Adicione na interface um botão ("Adicionar") e um campo de entrada de texto (`TextInput`).
+3. Ao pressionar o botão, a função responsável deve adicionar o texto que foi digitado à lista. Para isso, utilize a sintaxe de espalhamento (spread operator: `...lista_antiga`) criando um novo array contendo os dados anteriores mais o novo item. Em seguida, limpe o valor do campo de texto (`''`).
 
-## Extração Final: Dominância da RAM
-Role no seu Expo Go. Mostre na tela do "Print" que o React reconstruiu a interface instantaneamente sem piscar com 3, 4 ou mais componentes empilhados por pura reatividade do motor JavaScript, tudo puxando perfeitamente pela lista clonada. Sem pushs fajutos.
+### 💡 Dica de como iniciar:
 
-Concluída a dominação dos Hooks de Mente Central... Nós agora ligaremos a mente das Telas de fora na *Aula 12*. Nos vemos lá.
+No React, você nunca deve alterar um estado diretamente (como `lista.push(novoItem)`). Para adicionar um novo item, use a função do `useState` e desestruture a lista antiga com `...`.
+
+```tsx
+import React, { useState, useEffect } from 'react';
+import { View, TextInput, Button } from 'react-native';
+
+export default function App() {
+  const [lista, setLista] = useState([]);
+  const [novoItem, setNovoItem] = useState('');
+
+  // 1. O useEffect carrega dados na inicialização
+  useEffect(() => {
+    setLista(["Item 1", "Item 2"]);
+  }, []); // O array vazio [] significa que roda apenas 1 vez ao carregar a tela
+
+  const adicionarItem = () => {
+    // 2. Usando o Spread Operator (...) para criar uma cópia e adicionar o novo item
+    setLista([...lista, novoItem]);
+    
+    // 3. Limpando o input
+    setNovoItem('');
+  };
+
+  return (
+    <View style={{ flex: 1, padding: 50 }}>
+      {/* Construa a interface aqui: TextInputs, Button e faça um .map() na lista para exibir cada texto na tela */}
+    </View>
+  );
+}
+```
+
+## Entrega:
+Rode a aplicação no seu emulador ou via Expo Go. Verifique se os itens aparecem corretamente e se a tela atualiza na hora em que o novo item é adicionado à lista. Tire capturas de tela (ou grave um pequeno vídeo) comprovando o funcionamento e envie na plataforma.

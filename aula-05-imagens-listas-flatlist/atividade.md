@@ -1,23 +1,55 @@
-# Missão 5: Abrindo a Mente e a Gaveta
+# Atividade 5: Trabalhando com FlatList e Imagens 🖼️
 
-**Sua Validação Autônoma de Estudo:**
+**Objetivo da Atividade:**
 
-Muitos tentam fugir do módulo de `<FlatList>` pelo simples fato dela ser ligeiramente complexa em sua chamada matemática (o uso do looping desestruturado `({ item }) => ...`).
-Mas uma lista inútil onde a pessoa rola infinitamente e não consegue clicar em absolutamente nada para abrir não tem valor no mercado real!
+Implementar uma lista de imagens renderizada eficientemente utilizando o componente `FlatList`, permitindo a interação do usuário na seleção de um item específico.
 
 ---
 
-## O Desafio: Componentes Acoplados!
+## O Desafio: Lista Interativa
 
-No tutorial base nós adicionamos nossa `EmojiList` (Contendo as fotos Horizontalmente pela nossa Flatlist maravilhosamente performática), dentro da barriga do `<EmojiPicker>` (O gigante engolidor flutuante de Z-index).
+Crie um componente que contenha uma `FlatList` na posição horizontal exibindo uma lista de emojis ou imagens curtas. 
 
-Sua Missão será comprovar para você mesmo que você consegue capturar interações da Lista Dinâmica que nós injetamos.
+1. Garanta que cada item da sua lista possa ser tocado (clicado).
+2. O botão (`Pressable` ou `TouchableOpacity`) que envolve cada item deve chamar uma função `onSelect` passando a imagem clicada como parâmetro.
 
-1. Implemente rigorosamente a estrutura modular ensinada!
-2. Repare que o Prop `renderItem` da lista de sticker está passando o parâmetro `onSelect(item.foto)`. Eu quero uma comprovação de que o botão no "onPress" realmente está selecionando emojis individuais.
+### 💡 Dica de como iniciar:
 
-## A Extração Final
+A `FlatList` requer duas propriedades principais: `data` (o array de itens) e `renderItem` (como cada item deve ser desenhado). Use o componente `Pressable` para detectar toques e o `<Image>` para exibir a foto.
 
-Bata o "Print" (Captura de Tela) com seu celular (Expo Go) demonstrando os emojis estourando na tela limpos de fundo (A Rolagem Horizontal visível da FlatList, dentro da aba inferior branca deslizável englobada perfeitamente na "UI/Caixa" do **EmojiPicker**). 
+```tsx
+import { FlatList, Pressable, Image, StyleSheet, View, Alert } from 'react-native';
 
-Tendo entendido essas "Telas sobre telas e Listas sobre Menus", você subiu seu level de Design Native pra Pleno. Anexe o JPEG e poste sua vitória na plataforma!
+export default function EmojiList({ onSelect }) {
+  // Lista de dados fictícios com arquivos locais ou URLs
+  const emojis = [
+    { id: '1', imagem: require('../assets/images/emoji1.png') },
+    { id: '2', imagem: require('../assets/images/emoji2.png') },
+  ];
+
+  return (
+    <FlatList
+      horizontal={true} // Define a rolagem para a horizontal
+      showsHorizontalScrollIndicator={false}
+      data={emojis}
+      keyExtractor={(item) => item.id}
+      renderItem={({ item }) => {
+        return (
+          <Pressable onPress={() => onSelect(item.imagem)}>
+            <Image source={item.imagem} style={styles.image} />
+          </Pressable>
+        );
+      }}
+    />
+  );
+}
+
+const styles = StyleSheet.create({
+  image: { width: 100, height: 100, marginHorizontal: 10 },
+});
+```
+
+*(Lembre-se de passar uma função para o prop `onSelect` onde esse componente é invocado para que ele exiba um Alert ou mude o estado do app).*
+
+## Entrega:
+Tire um print do aplicativo (no emulador ou Expo Go) que mostre a lista de imagens com rolagem horizontal aparecendo corretamente na tela inferior. Envie a imagem na plataforma.

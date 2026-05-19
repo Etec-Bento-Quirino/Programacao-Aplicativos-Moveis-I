@@ -1,24 +1,54 @@
-# Missão 15: A Marreta de Ouro 🔨
+# Atividade 15: Exclusão de Dados (DELETE) 🔨
 
-**Sua Validação Autônoma de Estudo:**
+**Objetivo da Atividade:**
 
-No tutorial atual operamos toda a malha cruzada CRUD usando `runSync`, invocamos uma `FlatList` conectada ao Hook dinâmico do `useState`, e amarramos a Lógica de Deleção (`DELETE FROM`) passando os parêmtros `?` na query.
-
-O mundo relacional não abriga erros lógicos.
+Concluir as operações de CRUD integrando a ação de Exclusão (DELETE) juntamente com a visualização dos dados em uma lista.
 
 ---
 
-## O Desafio: Decepando Variáveis da Própria Tabela
+## O Desafio: Deletando Itens Dinâmicos
 
-Conecte as engrenagens criadas na "Painel de Testes". 
-Seu desafio final não envolve inserir mil dados felizes. Envolve executar a Lógica de Exclusão Física.
+Nesta etapa, os itens do banco de dados já estarão renderizados na tela (através de uma `FlatList`). Você precisa implementar o fluxo correto para excluir um item pelo ID.
 
-1. Como eu ensinei no passo 3, O "renderItem" do React na Listagem desenhará o botão de "EXCLUIR_ITEM()" exatamente ao lado de toda santa Tarefa que retornar do Selecionador Global.
-2. Certifique-se que você apontou o evento `onPress` do touchable para engolir em anônimo o id exato daquela repetição: `() => sumirComMetaNoSQL(item.id)`. Sem isso, o banco apagará os itens errados ou não saberá quem é quem.
-3. Ligue, abra o App e crie dados no Hardware C++ (Dando Insert). Você verá magicamente a lista brotar via Auto-Atualização. 
+1. Na sua visualização dos itens da lista, adicione um botão de "Excluir" ao lado do nome da tarefa.
+2. O botão de "Excluir" deve disparar a query `DELETE FROM` utilizando o ID específico do item (`item.id`).
+3. Após o comando de delete ocorrer com sucesso no SQLite, o sistema deve automaticamente buscar novamente a lista no banco e atualizar o estado do React, para que o item suma instantaneamente da tela.
 
-## A Purga 
-Crie 3 ou 4 itens. Agora, atente contra todos eles.
-Pressione com fúria os botões vermelhos "Excluir_Item()", que estão atrelados ao componente gerado pela Flatlist. Na hora em que a requisição atingir a placa-mãe, o SSD executará o Dump dos dados irrevogávelmente. A função `rebobinarServidor` forçará a listagem atualizar no Frame Seguinte em branco provando que O Banco Secou. 
+### 💡 Dica de como iniciar:
 
-Bata a ScreenShot do seu app limpíssimo no Expo Go apões "matar os dados", finalizando seu módulo. Bem vindo à Fase 4 do Desenvolvimento Profissional! Estaremos no Acabamento Pleno usando Rotas Otimizadas.
+Garanta que no `renderItem` o botão chame a função passando corretamente o id do `item`. A query SQL deve utilizar parâmetros dinâmicos (`?`).
+
+```tsx
+import React from 'react';
+import { View, Text, Button, FlatList, StyleSheet } from 'react-native';
+
+export default function ListaMetas({ metas_do_banco, apagarMetaSQL }) {
+  
+  const deletarItem = (id) => {
+    // 1. Você executaria db.runSync('DELETE FROM metas WHERE id = ?', [id]);
+    // 2. Em seguida, faria o setMetas(bancoDeDadosNovo) para limpar a tela
+    apagarMetaSQL(id);
+  };
+
+  return (
+    <FlatList 
+      data={metas_do_banco}
+      keyExtractor={item => String(item.id)}
+      renderItem={({ item }) => (
+        <View style={styles.linha}>
+          <Text>{item.nome}</Text>
+          {/* Botão de Excluir consumindo o ID em uma função anônima */}
+          <Button title="Excluir" color="red" onPress={() => deletarItem(item.id)} />
+        </View>
+      )}
+    />
+  );
+}
+
+const styles = StyleSheet.create({
+  linha: { flexDirection: 'row', justifyContent: 'space-between', padding: 10, borderBottomWidth: 1 }
+});
+```
+
+## Entrega: 
+No seu emulador ou aparelho real, adicione alguns registros e, logo depois, apague-os através do seu novo botão. Tire uma captura de tela (print) da interface provando que a lista está sem os itens removidos. Envie na plataforma.

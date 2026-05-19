@@ -1,25 +1,58 @@
-# Missão 13: A Resistência Final 🗡️
+# Atividade 13: Persistência de Dados Básica 🗡️
 
-**Sua Validação Autônoma de Estudo:**
+**Objetivo da Atividade:**
 
-No tutorial desta aula, equipamos seu dispositivo com as funções `JSON.stringify()` e `JSON.parse` atreladas a uma chave mestra para dominar a memória interna além do fechamento da RAM.
-
-Nós agora vamos invocar e testar a famosa "Persistência".
+Provar que o armazenamento no dispositivo (via `AsyncStorage`) funciona mesmo após o aplicativo ser completamente fechado pelo sistema operacional.
 
 ---
 
-## O Desafio: Mate-me Se Puder
+## O Desafio: A Lista Que Não Morre
 
-Você montou O Layout contendo o Botão "Add" que salva itens Aleatórios no array, e ativou a renderização usando a técnica do Guarda Noturno (useEffect) na Inicialização...
+Você deve montar uma tela com um botão e um input para adicionar itens em uma lista, e salvar essa lista no `AsyncStorage` (transformando os dados usando `JSON.stringify()`).
 
-O momento da comprovação de que o Storage nativo funcionou é cruel.
-1. Abra o App no Expo Go e clique várias e várias vezes até preencher a lista com meia dúzia de itens!
-2. **Saia e Feche o Expo Go Totalmente!**. Abra a lista de multitarefas recente do seu Smartphone nativo, ache o Expo Go lá e DESLIZE para cima "matando/Forcando Fechamento Total" da vida do aplicativo do cachê volátil brutalmente.
-3. Clique de novo no ícone do Expo Go e abra o app. Inicie sua compilação.
-4. O seu Guarda Noturno `useEffect` irá brilhar. Nos primeiros milissegundos ele rodará o `getItem()`, passará pelo parser e injetará a lista na mutação via State... Mágica! A Tela vai brilhar contendo TUDO O QUE VOCÊ HAVIA SALVO mesmo com o app tendo morrido!
+O teste de ouro para persistência é fechar o app:
+1. Abra o App no Expo Go e adicione alguns itens na sua lista.
+2. **Saia e Feche o Expo Go Totalmente!** (Abra a lista de multitarefas do seu celular e feche o aplicativo deslizando para cima/lado).
+3. Abra novamente o Expo Go e carregue seu projeto.
+4. A tela deve iniciar com a lista exatamente como você a deixou antes de fechar, resgatada através de um `useEffect` na inicialização.
 
-## Extração do Trófeu:
-Faça essa engenharia provando ter dominado Storage, tire o **Pint Screen da tela Carregada Após Renascer**. Digite um texto no "Notepad" explicando brevemente que *"A Lista não zerou ao fechar"* e envie. 
+### 💡 Dica de como iniciar:
 
-Você está oficialmente legalizado no desenvolvimento Móvel Global de Ponta.
-Na próxima e última etapa dessa área, introduziremos o banco relacional completo. Aguardo você.
+Use o `useEffect` vazio `[]` para resgatar os dados do `AsyncStorage` usando `getItem` e `JSON.parse`. Sempre que modificar a lista, use `setItem` com `JSON.stringify`.
+
+```tsx
+import React, { useState, useEffect } from 'react';
+import { View, Text, Button, AsyncStorage } from 'react-native';
+
+export default function App() {
+  const [lista, setLista] = useState([]);
+
+  // 1. Carrega os dados na inicialização
+  useEffect(() => {
+    const carregarDados = async () => {
+      const dadosSalvos = await AsyncStorage.getItem('minha_lista');
+      if (dadosSalvos) {
+        setLista(JSON.parse(dadosSalvos));
+      }
+    };
+    carregarDados();
+  }, []);
+
+  // 2. Adiciona item e salva
+  const adicionarItem = async () => {
+    const novaLista = [...lista, "Novo Item " + (lista.length + 1)];
+    setLista(novaLista);
+    await AsyncStorage.setItem('minha_lista', JSON.stringify(novaLista));
+  };
+
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      {lista.map((item, index) => <Text key={index}>{item}</Text>)}
+      <Button title="Adicionar Item" onPress={adicionarItem} />
+    </View>
+  );
+}
+```
+
+## Entrega:
+Faça o teste de fechar totalmente o aplicativo e reabri-lo. Tire uma captura de tela (print) comprovando que a lista permaneceu salva após a inicialização. Adicione um breve comentário dizendo que testou o fechamento forçado e envie na plataforma.

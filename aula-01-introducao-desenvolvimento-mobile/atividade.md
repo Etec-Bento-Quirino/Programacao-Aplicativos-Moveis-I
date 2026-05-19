@@ -1,27 +1,28 @@
-# A Sua 1ª Missão de Campo
+# Atividade 1: Preparando o Ambiente 🛠️
 
-**Sugestão de entrega:** Até o final da quinzena 1.
+**Objetivo da Atividade:**
+
+Garantir que as ferramentas básicas para o desenvolvimento Mobile (Node.js e suas dependências) estão corretamente instaladas na sua máquina antes de começarmos a programar.
 
 ---
 
-Você consumiu a teoria do Cross Platform e preparou o setup da sua máquina! Para garantir que não iremos enfrentar problemas técnicos drásticos quando formos criar a aplicação da aula 02, sua missão de validação será dividida em Ativa e Investigativa.
+## O Desafio: Verificação do Ambiente
 
-## Quest 1 (Prática): O Terminal não Mente! 🖥️
-Abra o seu terminal mágico recém-ativado e me prove que o trio de comando nasceu na sua máquina.
+Abra o seu terminal (Prompt de Comando, PowerShell ou terminal do VS Code) e verifique se o ambiente de desenvolvimento está pronto para o uso.
 
-1. Execute `node --version`
-2. Execute `npm --version`
-3. Execute `npx --version`
-4. **Acione a tecla mágica do seu teclado `Print Screen` da Tela toda evidenciando esse Terminal**.
-5. Salve com o título `ambiente-ok.png`.
+1. Execute o comando `node --version` para ver a versão do Node.
+2. Execute o comando `npm --version` para ver a versão do gerenciador de pacotes NPM.
+3. Execute o comando `npx --version` para verificar o executor de pacotes NPX.
 
-## Quest 2 (Teórica): O Relatório Investigativo 🔍
+### 💡 Dica de como iniciar:
 
-Abra o *Notepad* do seu computador e responda diretamente a essas 3 perguntas com suas próprias palavras para firmarmos o entendimento:
+Se algum desses comandos retornar um erro dizendo que o comando "não é reconhecido", significa que a instalação do Node.js não foi concluída corretamente ou não foi adicionada ao PATH do Windows. Reinicie o seu computador ou reinstale o Node.js marcando a opção "Add to PATH".
 
-1. **Defina para sua vó (ou leigo) em 3 linhas o que é desenvolvimento Mobile "*Cross-Platform*"!**
-2. **Sabendo o quão chato era o Java e o C++, de que maneira mágica o React Native beneficia o cofre financeiro e o estresse de uma gigante de Software?** (2 Linhas).
-3. **Explique a diferença bizarra entre um site no navegador normal e o tal do "Ciclo de Vida de Execução do APP" quando ele é fechado/minimizado pelo usuário**.
+## Questão Teórica
 
-## A Entrega
-Pega esse seu PNG das versões confirmadas, e esse `.txt` contendo as respostas espertas, e jogue no canal ou email de devolução de relatórios do seu professor! Nós estamos oficialmente prontos para começar o código de verdade.
+Responda brevemente (em um arquivo `.txt` ou diretamente na plataforma):
+1. **O que é o desenvolvimento Mobile "Cross-Platform" (Multiplataforma)?**
+2. **Qual é a principal vantagem do React Native para o mercado de tecnologia?**
+
+## Entrega:
+Tire um print (captura de tela) do seu terminal mostrando as respostas dos três comandos de versão (`node`, `npm`, `npx`) e envie na plataforma junto com as respostas teóricas.

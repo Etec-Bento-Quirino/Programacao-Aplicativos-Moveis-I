@@ -1,23 +1,62 @@
-# Missão 8: A Substituição Crítica (State Mutation) 🎭
+# Atividade 8: Câmera e Galeria de Fotos 📷
 
-**Sua Validação Autônoma de Estudo:**
+**Objetivo da Atividade:**
 
-No tutorial desta aula, instalamos o tradutor Expo-image-picker no seu StickerSmash, e colocamos as amarras da arquitetura assíncrona para segurar o processamento de código.
-
-Nesta Missão nós vamos aferir a sua capacidade lógica de lidar com o estado. Você vai ter que jogar fora o coelho branco estático `require(...)` na tela e substituir pela foto viva em tempo real vinda da Galeria.
+Nesta atividade, você vai praticar o uso do `expo-image-picker` para abrir a galeria do dispositivo, e também exercitar a alteração de estado (`useState`) substituindo uma imagem estática pela foto selecionada pelo usuário.
 
 ---
 
-## O Desafio: Acoplar as Pontes da Variável Mestra
+## O Desafio: Imagem Dinâmica
 
-A foto da galeria virá de volta pro Javascript na nossa variável constante ali do *ImagePicker* que diz `result.assets[0].uri`. Só que como já aprendemos, atribuir variável não repinta o React.
+Você deve substituir a foto padrão do seu componente por uma imagem que vem diretamente da galeria do celular.
 
-Sua Missão:
-1. Revise sua Tela Raiz (`index.tsx`). Crie um hook guardião `useState` que aceita a tipagem em string na parte superior. 
-2. Dentro do IF positivo do seu Async (`if (!result.canceled)`), você fará o Berrante (*O Set state do arquivo*) apontar para a URI da foto do cliente e explodir a tela com Alarme.
-3. Edite nosso componente importado no View principal, para que ele condicionalmente mude. Ou seja, repare que no StickerSmash você configurou que o seu ImageViewer consiga receber duas fotos diferentes dinâmicas! Então mude injetando a URI viva.
+1. No seu arquivo principal (ex: `index.tsx`), crie um estado (`useState`) para armazenar a URI da foto selecionada. O valor inicial pode ser nulo ou uma imagem padrão usando `require()`.
+2. Dentro da função que processa o resultado do `ImagePicker` (onde você valida `if (!result.canceled)`), atualize esse estado para receber a URI da foto do cliente: `result.assets[0].uri`.
+3. Edite o seu componente de Imagem (ou o componente `ImageViewer` customizado) para receber essa nova imagem dinâmica que está guardada no estado.
 
-## A Regra Sagrada:
-A tela do seu Expo Go não deve travar! Ao clicar, ela congela a aplicação sem erros, a sua ponte Nativa subindo a tela pedindo as fotos. Escolha qualquer "print" ou foto engraçada da sua Galeria real do celular físico. O Celular voltará para o app onde Mágicamente as coisas rolaram!
+### 💡 Dica de como iniciar:
 
-Você domina o Tempo (Hardware Assíncrono). Colhe aquele glorioso screenshot (PrintScreen) dessa proeza tecnológica do seu sticker e deixe no ambiente da aula para garantir XP.
+Para realizar essa troca, o estado deve gerenciar o caminho da imagem. Lembre-se de configurar a propriedade `source` da `<Image>` adequadamente, pois variáveis dinâmicas de URI usam um formato ligeiramente diferente (`{ uri: variavel }`) das imagens estáticas importadas via `require()`.
+
+```tsx
+import { useState } from 'react';
+import { View, Button, Image, StyleSheet } from 'react-native';
+import * as ImagePicker from 'expo-image-picker';
+
+export default function App() {
+  // 1. O estado começa com a foto nula (podemos checar depois para exibir a estática)
+  const [imagemSelecionada, setImagemSelecionada] = useState(null);
+
+  const abrirGaleria = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      quality: 1,
+    });
+
+    // 2. Se o usuário escolheu uma foto, nós jogamos ela pro estado!
+    if (!result.canceled) {
+      setImagemSelecionada(result.assets[0].uri);
+    }
+  };
+
+  return (
+    <View style={styles.container}>
+      {/* 3. Renderizamos a imagem. Se tiver imagem do estado, usa ela. Se não, usa nulo ou uma local. */}
+      {imagemSelecionada && (
+        <Image source={{ uri: imagemSelecionada }} style={styles.image} />
+      )}
+      <Button title="Escolher da Galeria" onPress={abrirGaleria} />
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: { flex: 1, justifyContent: 'center', alignItems: 'center' },
+  image: { width: 200, height: 200, marginBottom: 20 },
+});
+```
+
+## Entrega:
+Rode a aplicação e clique no botão para abrir a galeria nativa. Escolha uma foto do seu dispositivo (ou emulador). Quando voltar ao app, a foto selecionada deve aparecer na tela no lugar da anterior.
+Tire uma captura de tela (print) do aplicativo exibindo a imagem selecionada e envie na plataforma!

@@ -1,23 +1,67 @@
-# Missão 6: A Arquitetura do Casco Direcional ⛴️
+# Atividade 6: Navegação com Expo Router ⛴️
 
-**Sua Validação Autônoma de Estudo:**
+**Objetivo da Atividade:**
 
-No tutorial atual montamos silenciosamente a navegação atrelada a Abas (`Tabs`) usando nosso amado Expo Router e migramos nossa tela raiz pro coração engaiolado do Layout.
-Vamos aferir a habilidade organizacional que trará robustez pra nossa aplicação a nível internacional!
+Configurar a arquitetura de navegação utilizando o Expo Router, estruturando abas interativas (Tabs) para o projeto.
 
 ---
 
-## O Desafio: A Tela do Silêncio!
+## O Desafio: Abas Inferiores (Tabs)
 
-Você viu como declaramos uma cor e ícones maravilhosamente escuros (`#25292e`) na Base Nativa, injetando *FontAwesome* e *Ionicons* no `<Tabs>`. 
+Configure o seu projeto para possuir uma navegação baseada em Tabs (abas) no rodapé da tela.
 
-A missão vai exigir que sua hierarquia de pastas esteja perfeita:
+1. Garanta que o arquivo `app/_layout.tsx` seja o núcleo que invoca as suas rotas.
+2. Crie ou configure os arquivos da pasta `app/(tabs)/` contendo pelo menos duas abas: `index` (página inicial) e `about` (página sobre).
+3. Na sua página "Sobre" (`about.tsx`), adicione uma cor de fundo primária escura e um texto informando a versão do aplicativo (ex: "App v1.0") com o seu nome assinado.
 
-1. Assegure que o arquivo pai superior e intocável seja `app/_layout.tsx` (Ele abriga o Sistema Em caso de Erro `+not-found.tsx` e invoca o Stack).
-2. Assegure que as abas criadas em `(tabs)/_layout.tsx` estão invocando e detectando a `index` e a aba secundária `about` com absoluta harmonia de estilo Dark.
-3. No seu `(tabs)/about.tsx`, eu quero que crie não só texto, mas coloque uma assinatura nele (Pode ser uma `View` amarela e preta com o seu nome gravado e a versão atual do app "v1.0").
+### 💡 Dica de como iniciar:
 
-## Extração do Sucesso:
-No seu Expo Go ativo, clique no botão interativo inferior direito (Sobre / About) feito no Footer das Tabs. Ele fará uma transição suave animada apagando a Imagem de Edição e abrindo sua tela customizada.
+Para criar o Layout de Tabs com estilo customizado, modifique o `_layout.tsx` dentro da pasta `(tabs)` para utilizar o `Tabs` do `expo-router` e especificar as cores base.
 
-**Tire o "Print" espetacular dessa tela secundaria onde eu consiga ver DE FATO a Aba "Sobre" preenchida na cor primária de seleção lá embaixo no rodapé do seu celular.** Anexe e retorne esse artefato. Estamos prontos pra captura pura de dados.
+No arquivo `app/(tabs)/_layout.tsx`:
+```tsx
+import { Tabs } from 'expo-router';
+
+export default function TabLayout() {
+  return (
+    <Tabs
+      screenOptions={{
+        tabBarActiveTintColor: '#ffd33d', // Cor amarela da aba ativa
+        tabBarStyle: {
+          backgroundColor: '#25292e', // Fundo da barra de abas
+        },
+      }}
+    >
+      <Tabs.Screen
+        name="index"
+        options={{ title: 'Início' }}
+      />
+      <Tabs.Screen
+        name="about"
+        options={{ title: 'Sobre' }}
+      />
+    </Tabs>
+  );
+}
+```
+
+No seu arquivo `app/(tabs)/about.tsx`:
+```tsx
+import { View, Text, StyleSheet } from 'react-native';
+
+export default function AboutScreen() {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.text}>App v1.0 - Desenvolvido por [Seu Nome]</Text>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: { flex: 1, backgroundColor: '#25292e', alignItems: 'center', justifyContent: 'center' },
+  text: { color: '#fff', fontSize: 18 },
+});
+```
+
+## Entrega:
+Navegue pelo aplicativo e acesse a aba "Sobre" tocando no botão inferior direito. Tire uma captura de tela garantindo que é possível ver o fundo escuro, a sua assinatura na tela e a aba inferior realçada com a cor ativa. Envie a imagem na plataforma.
