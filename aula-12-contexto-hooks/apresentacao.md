@@ -19,6 +19,50 @@ Para resolver a furação, o React Nativo criou o Padrão do Contexto Mágico de
 - **Passo 2 (`Provider`):** Se a Nuvem chove, ela só molha quem estiver debaixo dela certo? Você envolve Todo o seu aplicativo-raiz (Logo as engrenagens de _layout do Expo Router, ou o NavigationContainer) dentro do Abraço Paterno do `MeuContexto.Provider`. Isso faz a mágica abranger todo mundo.
 - **Passo 3 (`useContext`):** Agora, qualquer component de botão minúsculo escondido no último buraco de seu App pode gritar `useContext(Tema)` e instantâneamente sugar/apontar pra nuvem central puxando ou repintando o quadro!
 
+```mermaid
+graph TD
+    subgraph "O Pesadelo do Prop Drilling"
+        A1[App.tsx] -->|Prop Tema| B1[Router.tsx]
+        B1 -->|Prop Tema| C1[Menu.tsx]
+        C1 -->|Prop Tema| D1[Perfil.tsx]
+    end
+    
+    subgraph "A Mágica da Context API"
+        Nuvem((Nuvem Provedora)) --> A2[App.tsx]
+        Nuvem -->|Chuva Direta| D2[Perfil.tsx <br> useContext]
+        A2 -.-> B2[Router.tsx]
+        B2 -.-> C2[Menu.tsx]
+        C2 -.-> D2
+    end
+```
+
+**Exemplo Prático: Criando e Bebendo da Nuvem**
+```tsx
+import { createContext, useContext, useState } from 'react';
+import { View, Text, Button } from 'react-native';
+
+// PASSO 1: A Nuvem
+const NuvemTema = createContext("claro"); 
+
+// PASSO 2: O Provedor (Envolva seu App com ele)
+function App() {
+  const [temaGlobal, setTemaGlobal] = useState("escuro");
+
+  return (
+    <NuvemTema.Provider value={temaGlobal}>
+      <MinhaTelaProfunda />
+    </NuvemTema.Provider>
+  );
+}
+
+// PASSO 3: O Consumidor (Onde quer que ele esteja)
+function MinhaTelaProfunda() {
+  const temaAtual = useContext(NuvemTema); // 👈 Sugando da Nuvem
+  return <Text>O mundo lá fora está: {temaAtual}</Text>;
+}
+```
+
+
 ## 3. Desafio Frequente de Engenharia: A Otimização
 Toda vez que uma variável dentro da Context API chove (Um Dev mudou para Modo Escuro), **todas as telas que estavam bebendo daquela nuvem recarregam**. Se você colocar um cronômetro de milissegundos num Context global, e 50 telas lerem, seu celular frita.
 

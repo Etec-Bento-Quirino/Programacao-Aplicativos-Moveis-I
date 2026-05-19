@@ -26,6 +26,31 @@ Você não pode colocar os `<Text>` direto nela de forma normal. Ela exige as Pr
 - `renderItem`: Como eu vomito e projeto na tela os dados que estão lá? Aqui você cria um loop desenhando suas *Views* e *Images*.
 - `keyExtractor`: Eu exijo saber como não processar elementos duas vezes. Diga qual é a variável secreta única, como um "id" pra cada linha.
 
+**Exemplo Prático de FlatList:**
+```tsx
+import { FlatList, Text, View } from 'react-native';
+
+const meias = [
+  { id: '1', cor: 'Azul' },
+  { id: '2', cor: 'Vermelha' },
+  { id: '3', cor: 'Amarela' }
+];
+
+export default function GavetaDeMeias() {
+  return (
+    <FlatList 
+      data={meias} // 👈 A array original
+      keyExtractor={(item) => item.id} // 👈 O campo único
+      renderItem={({ item }) => ( // 👈 Como desenhar cada linha
+        <View style={{ padding: 10, borderBottomWidth: 1 }}>
+          <Text>Meia da cor: {item.cor}</Text>
+        </View>
+      )}
+    />
+  );
+}
+```
+
 👉 [Mergulhe no abismo na Documentação Exaustiva da Flatlist](https://reactnative.dev/docs/flatlist)
 
 
@@ -37,5 +62,26 @@ No seu StickerSmash do tutorial de hoje, nós não vamos exibir um milhão de fi
 Com a tag Modal, tudo que você escrevi ali ganha o que chamamos de "**Z-Index Absoluto Elevado**". Ele escapa do Flexbox que criamos, salta da formatação, domina 100% da sua tela e trava embaixo todas as operações de botões subjacentes, forçando total e absoluta atenção do usuário para responder a sua janela flutuante!
 
 Ele ativa uma Prop `visible={true|false}`, e o Expo faz a animação fluída com maestria baseado no sistema nativo (Deslizando pelo Topo no Android, ou como Card pelo iOS).
+
+**Exemplo Básico de Modal:**
+```tsx
+import { Modal, View, Text, Pressable } from 'react-native';
+
+// Dentro do seu componente:
+<Modal
+  animationType="slide"
+  transparent={true} // 👈 Permite ver o fundo meio escurecido
+  visible={isModalVisible} // 👈 true para abrir, false para fechar
+>
+  <View style={{ flex: 1, justifyContent: 'flex-end' }}>
+    <View style={{ height: 300, backgroundColor: 'white', padding: 20 }}>
+      <Text>Este é um gavetão que subiu do chão!</Text>
+      <Pressable onPress={() => setIsModalVisible(false)}>
+        <Text>Fechar</Text>
+      </Pressable>
+    </View>
+  </View>
+</Modal>
+```
 
 Bora meter a mão no Código e desenhar esse Gavetão no **Tutorial**.

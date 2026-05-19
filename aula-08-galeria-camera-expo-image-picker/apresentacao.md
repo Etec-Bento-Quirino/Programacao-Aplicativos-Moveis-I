@@ -27,4 +27,41 @@ Isso tranca telas com `null pointer exception`. Como consertamos? Nós informamo
 
 Quando a pessoa escolhe, o *await* avisa, tira ele da cadeira e a Linha 3 executa recebendo a foto maravilhosa de 5 Megabytes!
 
+**Exemplo Prático: Parando o tempo para a Galeria**
+```tsx
+import * as ImagePicker from 'expo-image-picker';
+import { useState } from 'react';
+import { View, Button, Image } from 'react-native';
+
+export default function MinhaCamera() {
+  const [minhaFoto, setMinhaFoto] = useState(null);
+
+  // 1. A função é async (promete esperar)
+  const abrirGaleria = async () => { 
+    // 2. Pedimos permissão aos Guardas do iOS/Android
+    const permissao = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    
+    if (permissao.granted === false) {
+      alert("Precisamos da permissão para acessar suas fotos!");
+      return;
+    }
+
+    // 3. O Await PARA O TEMPO até o usuário escolher a foto
+    const resultado = await ImagePicker.launchImageLibraryAsync();
+    
+    if (!resultado.canceled) {
+      // 4. Se ele escolheu, joga o caminho da imagem no quadro do React
+      setMinhaFoto(resultado.assets[0].uri);
+    }
+  };
+
+  return (
+    <View style={{ alignItems: 'center' }}>
+      <Button title="Escolher Foto 📸" onPress={abrirGaleria} />
+      {minhaFoto && <Image source={{ uri: minhaFoto }} style={{ width: 200, height: 200 }} />}
+    </View>
+  );
+}
+```
+
 👉 **Expanda sua Cabeça Estudando a Documentação Base:** [A Poderosa API ImagePicker](https://docs.expo.dev/versions/latest/sdk/imagepicker/)

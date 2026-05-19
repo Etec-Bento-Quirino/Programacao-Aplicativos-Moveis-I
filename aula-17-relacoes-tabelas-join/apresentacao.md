@@ -16,6 +16,21 @@ Para fazer isso usamos a Palavra `JOIN`. Ela gruda a `Tabela A` na `Tabela B` de
 Você diz ao motor: "Cruze a tabela ITENS com a CATEGORIAS. Como? Se o `id_categoria` do Item BATER IGUALZINHO (=) com a Chave Mestra `id` das Categorias."
 BOOM. A Matriz retorna casada perfeitamente. Todos os produtos estão colados com os seus respectivos e literais nomes de categoria ao invés de ids cegos.
 
+```mermaid
+erDiagram
+    CATEGORIAS {
+        INTEGER id PK "Chave Mestra"
+        TEXT nome "Ex: Roupas"
+    }
+    ITENS {
+        INTEGER id PK
+        INTEGER id_categoria FK "Elo de Sangue"
+        TEXT nome "Ex: Camiseta Azul"
+    }
+    
+    CATEGORIAS ||--o{ ITENS : "Possui vários"
+```
+
 ## 2. Alias de Nomenclaturas (Apelidos)
 Ao juntar duas coisas, teremos 2 colunas com nome de "ID" grudadas, e 2 colunas com o nome "Nome", a do sapato e a da categoria... Isso causa Crash de Sobreposição.
 Para não bagunçar, usamos os "Apelidos" de Letras e extraímos as palavras chaves separando os clones (`AS`):

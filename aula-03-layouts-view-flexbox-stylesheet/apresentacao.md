@@ -30,6 +30,29 @@ A partir desse momento, ela comanda os dois eixos de gravidade:
 * **`justifyContent` (O Mestre do Fluxo Atual)**: Ele determina como as coisas flutuam pelo rio do Eixo. Se colocar `'center'`, o seu conteúdo deslizará pelo rio da tela e travará 100% estabilizado no meio do túnel (centro exato entre teto e rodapé). Se colocar `'space-between'`, ele vai bizarramente chicotear um componente pro teto e outro pro piso do celular de modo simétrico.
 * **`alignItems` (O Paredão Lateral)**: Equilíbrio lateral no eixo cruzado. Quer que um texto fique encolhido no cantinho esquerdo? `flex-start`. Cantinho direito? `flex-end`. Bem no meio? `center`.
 
+**Exemplo Prático: Centralizando tudo na tela**
+```tsx
+import { View, Text, StyleSheet } from 'react-native';
+
+export default function MinhaTela() {
+  return (
+    <View style={styles.container}>
+      <Text>Estou exatamente no centro da tela!</Text>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1, // 👈 Puxa todo o espaço vertical disponível
+    justifyContent: 'center', // 👈 Centraliza no eixo vertical (Mestre)
+    alignItems: 'center', // 👈 Centraliza no eixo horizontal (Lateral)
+    backgroundColor: '#f0f0f0',
+  }
+});
+```
+
+
 ### Material Oficial para Consulta Secreta 📘
 Se a lógica falhar na hora de criar, abra a Bíblia Nativa (Nesta página incrivelmente lúdica onde a Expo deixa você brincar online trocando de "flex-start" para "center" em tempo real): 
 👉 [Documentação Interativa de Layout com Flexbox](https://reactnative.dev/docs/flexbox)

@@ -24,4 +24,32 @@ Se você tentar mandar: `['Ovo', 'Farinha', 'Leite']`, o sistema colapsa alegand
 ## 3. O Padrão Guardião (`useEffect` de Novo)
 Lembrando da aula 11: Se você quer que o seu App leia as pontuações antigas assim que o usuário ligar o app às 4h da manhã, quem é o melhor encarregado para acionar e gritar pelo Storage? Exato. Nosso Guarda Noturno. Nós colocamos a operação de carregar no `useEffect` Base, e na hora que a tela engatar, a primeira coisa que ela faz na vida é pedir o Storage!
 
+**Exemplo Prático: Salvar e Ler Arrays**
+```tsx
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+// SALVANDO: Derrete o Array pra String
+const salvarItens = async (minhaLista) => {
+  try {
+    const tripaDeTexto = JSON.stringify(minhaLista);
+    await AsyncStorage.setItem('@meuapp_lista', tripaDeTexto);
+  } catch (error) {
+    console.error("Erro ao salvar!", error);
+  }
+};
+
+// LENDO: Puxa o texto e Hidrata de volta pra Array
+const lerItens = async () => {
+  try {
+    const tripaDeTexto = await AsyncStorage.getItem('@meuapp_lista');
+    if (tripaDeTexto !== null) {
+      const arrayOriginal = JSON.parse(tripaDeTexto);
+      return arrayOriginal; // 👈 Pronto para ir pro useState!
+    }
+  } catch (error) {
+    console.error("Erro ao ler!", error);
+  }
+};
+```
+
 👉 **Expanda sua Cabeça Estudando a Documentação Base:** [O Módulo Async Storage Oficial](https://react-native-async-storage.github.io/async-storage/docs/install/)

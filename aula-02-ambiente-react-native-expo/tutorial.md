@@ -13,7 +13,7 @@ Nesta aula, começaremos nosso curso mergulhando no **StickerSmash**, um projeto
 ## Parte 1: Inicializando o Cérebro do App
 
 O projeto será criado usando a ferramenta de linha de comando `create-expo-app`. Ela gera a espinha dorsal de um aplicativo nativo que funciona em sistemas diferentes.
-No terminal, execute:
+Abra o seu **VS Code**. No menu superior, clique em `Terminal -> Novo Terminal`. Com a janela piscando embaixo, execute:
 
 ```bash
 npx create-expo-app@latest StickerSmash
@@ -22,9 +22,16 @@ cd StickerSmash
 
 > [!WARNING]
 > **DICA DE OURO DA REDE:** O Wi-Fi da escola ou de empresas geralmente possui um Firewall / Proxy rígido, o que bloqueia o seu celular de achar o Notebook na mesma rede para espelhar o app.
-> Para driblar esse bloqueio, inicie o app usando o comando especial abaixo:
+> Para driblar esse bloqueio de forma permanente no seu projeto, edite o arquivo `package.json` e altere o script `"start"` adicionando `--tunnel`:
+> ```json
+>   "scripts": {
+>     "start": "expo start --tunnel",
+>     // ...
+>   }
+> ```
+> Depois disso, basta iniciar o app rodando:
 > ```bash
-> npx expo start --tunnel
+> npm start
 > ```
 > O `--tunnel` cria uma URL pública temporária (ngrok) que fura o bloqueio, permitindo que seu celular carregue o app por 4G ou por qualquer rede!
 
@@ -75,5 +82,5 @@ Olhe no emulador ou no celular! A mágica do *Fast Refresh* alterou as cores em 
 
 ## Checklist da Aula 02
 - [ ] Aplicativo criado via Npx.
-- [ ] Execução bem sucedida via `npx expo start --tunnel` rompendo o proxy local.
+- [ ] Execução bem sucedida via `npm start` (com `--tunnel` configurado) rompendo o proxy local.
 - [ ] Tela do `index.tsx` alterada e conceito de CSS/StyleSheet absorvido.

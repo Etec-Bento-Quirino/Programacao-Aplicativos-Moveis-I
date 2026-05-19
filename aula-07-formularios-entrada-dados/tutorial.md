@@ -99,7 +99,7 @@ Se você colocar um botão de envio agora, ele engolirá tudo. Precisamos criar 
 
   const handleEnviar = () => {
     // Se a validação bater no "return false", esse 'if' barra o script.
-    if (!validarTudo()) return;
+    if (!validarTudo()) return; // 👈 EARLY RETURN: Se cair aqui, a execução morre na hora e o app não salva dados furados.
     
     // SE NÃO FOI BARRADO:
     Alert.alert('Glória', `Bem vindo à base de dados, ${nome}!`);

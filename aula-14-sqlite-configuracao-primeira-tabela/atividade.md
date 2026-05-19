@@ -26,7 +26,7 @@ Mas para validar sua nota, eu exijo que você veja o sangue da máquina rolando 
 3. Chame essa função por um Outro Botãozinho no seu componente. 
 
 ## Extração do Trófeu:
-Selecione o Terminal onde o `npx expo start --tunnel` está rolando loucamente.
+Selecione o Terminal onde o `npm start` está rodando.
 Clique no "Ver Tudo" no seu celular virtual. Em seguida, tire uma Screenshot com seu `Print Screen` da Janela de Comando do PC evidenciando a matriz amarela esmagada do Objeto JSON que o Banco devolveu listando suas *"Metas dominar o mundo!"*! 
 
 Prove que as tubulações DDL estão fluindo e mande pra escola. Na próxima Aula, os traremos diretamente para a Visão final e ativaremos a opção Morte (Delete).

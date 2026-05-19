@@ -23,7 +23,7 @@ No arquivo inicial que dispara na Raiz do App (Geralmente no `_layout.tsx` do Ro
        id INTEGER PRIMARY KEY AUTOINCREMENT, 
        id_categoria INTEGER NOT NULL, 
        nome TEXT, 
-       FOREIGN KEY (id_categoria) REFERENCES categorias(id)
+       FOREIGN KEY (id_categoria) REFERENCES categorias(id) -- 👈 ELO DE AÇO: Uma Categoria é a Pai deste item. Sem Pai, ele não nasce.
     );
   `);
 ```

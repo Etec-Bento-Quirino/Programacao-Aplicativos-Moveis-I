@@ -65,11 +65,11 @@ Com isso rodando, abra o código da sua Tela "Configurações.tsx" ou "Home.tsx"
 ```tsx
 import { useContext } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
-import { TemaContext } from '../contexto/TemaContext'; // Puxe sempre quem exportamos
+import { TemaContext } from '../contexts/TemaContext'; // 👈 Importa a estrutura da Nuvem
 
 export default function ConfigScreen() {
   // 1. Invoca a Ponte
-  const { tema, setTema } = useContext(TemaContext);
+  const { tema, setTema } = useContext(TemaContext); // 👈 SUGANDO OS DADOS DA NUVEM: Repare que não há Props enviadas do Pai!
 
   // 2. Condicionais Dinâmicos de Render Baseado na variável suprema:
   const isDark = tema === 'escuro';

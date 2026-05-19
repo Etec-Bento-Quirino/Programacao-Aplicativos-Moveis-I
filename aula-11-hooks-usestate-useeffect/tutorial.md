@@ -61,14 +61,14 @@ export default function Home() {
   // Exemplo A: Roda uma única vez (Ideal para abrir banco de dados nativos, pedir permissão de câmera, etc).
   useEffect(() => {
     alert("Bem-vindo! O App acabou de abrir.");
-  }, []); // <-- Array vazia! Só pisca ao ligar o app.
+  }, []); // 👈 Array VAZIA = O Guarda Noturno vai executar 1x e desligar pra sempre!
 
   // Exemplo B: Roda sempre que a variável dos 'acessos' for alterada via Alarme.
   useEffect(() => {
     if (acessos > 5) {
       alert("Você clicou muitas vezes!");
     }
-  }, [ acessos ]); // <-- O guarda fica vigiando os acessos.
+  }, [ acessos ]); // 👈 O guarda fica vigiando 'acessos'. Se mudar, ele executa o bloco de cima de novo!
 
   return ( ... );
 }

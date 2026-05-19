@@ -21,13 +21,13 @@ type Props = PropsWithChildren<{ isVisible: boolean; onClose: () => void; }>;
 export default function EmojiPicker({ isVisible, children, onClose }: Props) {
   return (
     // animationType='slide' faz ele deslizar perfeitamente ao invocar isVisible = true
-    <Modal animationType="slide" transparent={true} visible={isVisible}>
+    <Modal animationType="slide" transparent={true} visible={isVisible}> {/* 👈 MÁGICA: visible=true faz o Modal brotar! */}
       <View style={styles.modalContent}>
         <View style={styles.titleContainer}>
           <Text style={styles.title}>Menu Especial</Text>
-          <Pressable onPress={onClose}><MaterialIcons name="close" color="#fff" size={22} /></Pressable>
+          <Pressable onPress={onClose}><MaterialIcons name="close" color="#fff" size={22} /></Pressable> {/* 👈 Botão de Fechar escondendo o estado! */}
         </View>
-        {children} {/* Aqui ele vomitará a FlatList que vamos enfiar na barriga dele logo abaixo */}
+        {children} {/* 👈 Aqui ele vomitará a FlatList que vamos enfiar na barriga dele logo abaixo */}
       </View>
     </Modal>
   );
@@ -56,11 +56,11 @@ export default function EmojiList({ onSelect, onCloseModal }) {
 
   return (
     <FlatList horizontal showsHorizontalScrollIndicator={Platform.OS === 'web'}
-      data={emoji} contentContainerStyle={styles.listContainer}
+      data={emoji} contentContainerStyle={styles.listContainer} // 👈 data={emoji}: É aqui que você entrega o Array cru!
       
       // renderItem é um Looping! Para cada foto do "data={emoji}" ele cospe esse desenho:
-      renderItem={({ item, index }) => (
-        <Pressable onPress={() => { onSelect(item); onCloseModal(); }}>
+      renderItem={({ item, index }) => ( // 👈 "item" é a foto atual sendo lida da memória RAM
+        <Pressable onPress={() => { onSelect(item); onCloseModal(); }}> {/* 👈 Ação: Seleciona foto e já fecha a gaveta */}
           <Image source={item} key={index} style={styles.image} />
         </Pressable>
       )}

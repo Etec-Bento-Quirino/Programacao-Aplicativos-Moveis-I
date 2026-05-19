@@ -13,6 +13,22 @@ Não importa se você trabalha na NASA ou numa mercearia. Dados comportam-se da 
 - **U** (Update): Alterar o tempo e a realidade editando informações passadas. No SQL operamos o cirúrgico `UPDATE X SET Y`.
 - **D** (Delete): A Marreta Final. Excluir completamente os dados do SSD permanentemente. Operado via `DELETE FROM X`.
 
+**Exemplos Práticos com Expo SQLite (`db.runSync` / `db.getAllSync`):**
+```tsx
+// [C]REATE: Adicionar novo (Note as Interrogações para proteger contra SQL Injection)
+db.runSync('INSERT INTO carros (modelo, ano) VALUES (?, ?)', ['Fusca', 1978]);
+
+// [R]EAD: Ler todos e devolver em formato Array JavaScript
+const meusCarros = db.getAllSync('SELECT * FROM carros'); 
+// Saída: [{ id: 1, modelo: 'Fusca', ano: 1978 }]
+
+// [U]PDATE: Modificar pelo ID
+db.runSync('UPDATE carros SET ano = ? WHERE id = ?', [1979, 1]);
+
+// [D]ELETE: Marretada
+db.runSync('DELETE FROM carros WHERE id = ?', [1]);
+```
+
 ## 2. A Ponte Invisível (O Sincronismo)
 Em um projeto sujo feito por amadores, o cara salva uma tarefa no banco usando o botão (CREATE). A resposta bate no SQLite... mas a Tela do React continua a mesma! O cliente precisa fechar e reabrir o app na marra pro dado brotar. Por quê? **Porque o SQLite e a Árvore do React são vizinhos surdos.** O banco de dados só lê. Ele não empurra a resposta ativando o Re-paint da UI. 
 

@@ -13,7 +13,7 @@ Feche a conexão do seu terminal por um minuto apertando `Ctrl+C`. Puxe os fios 
 ```bash
 npx expo install expo-notifications
 ```
-Reabra com `npx expo start --tunnel`.
+Reabra executando `npm start`.
 
 ## Passo 2: O Espião Guardião (The Handler)
 

@@ -26,6 +26,40 @@ Em vez de exibir as telas puras e peladas daquela pasta, ele as "Veste". O que t
 ## 3. Parênteses Invisíveis `(tabs)`
 A última mágica sutil do curso de rotas de hoje: Grupos Lógicos.
 No Expo Router, se você der o nome de uma pasta contendo parênteses (exemplo: `(minhasRotas)` e colocar arquivos lá, o maquinista **desconsidera o nome da pasta e lê direto o nome dos arquivos internos**.
-Isso é fenomenal porque te permite esconder `index.tsx` debaixo de uma pasta de navegação `(tabs)` sem estuprar a arquitetura da sua URL de acesso, permitindo a separação limpa do Menu de Base versus Telas Secundárias de Login!
+Isso é fenomenal porque te permite esconder `index.tsx` debaixo de uma pasta de navegação `(tabs)` sem estragar a arquitetura da sua URL de acesso, permitindo a separação limpa do Menu de Base versus Telas Secundárias de Login!
+
+**Exemplo Prático: A Estrutura e o Layout**
+*Como os arquivos ficam organizados:*
+
+```mermaid
+graph TD
+    App[📁 app / Raiz do Roteamento] --> L1(📄 _layout.tsx <br> Vestiário Global)
+    App --> Index(📄 index.tsx <br> Tela Inicial /)
+    App --> Tabs[📁 'tabs' <br> Pasta Invisível]
+    Tabs --> L2(📄 _layout.tsx <br> Menu Inferior Tabs)
+    Tabs --> Perfil(📄 perfil.tsx <br> Tela /perfil)
+    style App fill:#f9f9f9,stroke:#333,stroke-width:2px
+    style Tabs fill:#e1f5fe,stroke:#0288d1,stroke-dasharray: 5 5
+```
+
+*Como é o código de um `_layout.tsx` de Abas (Tabs):*
+```tsx
+import { Tabs } from 'expo-router';
+
+export default function LayoutDasAbas() {
+  return (
+    <Tabs>
+      <Tabs.Screen 
+        name="index" 
+        options={{ title: 'Início', tabBarIcon: () => <IconHome /> }} 
+      />
+      <Tabs.Screen 
+        name="perfil" 
+        options={{ title: 'Meu Perfil', tabBarIcon: () => <IconUser /> }} 
+      />
+    </Tabs>
+  );
+}
+```
 
 👉 **Expanda sua cabeça estudando a Documentação Base:** [A Mágica do Expo Router](https://docs.expo.dev/router/introduction/)

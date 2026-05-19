@@ -35,19 +35,21 @@ Temos a base. Crie as duas funções principais que sofrerão botões da UI. Rep
 ```tsx
   // --- O PADRÃO CREATE
   const injetarMetaNova = (qualquerTextoVindoDeInput) => {
+    // 👈 O "?" salva sua vida! O SQLite embute a variável lá com segurança (Evita Injeção SQL)
     bancoDados.runSync('INSERT INTO metas (descricao) VALUES (?)', [qualquerTextoVindoDeInput]);
     
     // O REFRESH MESTRE ENSINADO NA TEORIA:
-    rebobinarServidor(); 
+    rebobinarServidor(); // 👈 Repinta a UI automaticamente após inserir a meta no SQLite
   };
 
   // --- O PADRÃO DELETE
   const sumirComMetaNoSQL = (ID_Exato_Da_Linha_Que_Cliquei) => {
     // Se o banco achar esse cara... Apague sem perdão.
-    bancoDados.runSync('DELETE FROM metas WHERE id = ?', [ID_Exato_Da_Linha_Que_Cliquei]);
+    bancoDados.runSync('DELETE FROM metas WHERE id = ?', [ID_Exato_Da_Linha_Que_Cliquei]); // 👈 Passamos a variável do ID no Array secundário!
     
     // O REFRESH MESTRE PARA QUE O COMPONENTE DA TELA SUMA:
-    rebobinarServidor();
+    rebobinarServidor(); // 👈 A Meta acabou de morrer do DB, ao rebobinar, ela não existe mais!
+
   };
 ```
 

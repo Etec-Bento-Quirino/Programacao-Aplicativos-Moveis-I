@@ -24,12 +24,29 @@ Por muitos anos, você deve ter ouvido desenvolvedores veteranos falarem sobre e
 A resposta moderna da Meta/Facebook foi criar uma API (Componente) 100% nova chamada **`<Pressable>`**.
 
 ### Qual a vantagem do Pressable?
-O Toque Humano não é um clique de mouse de chumbo, rápido e seco. Tocar em um vidro (Touchscreen) pode ser incrivelmente rico:
-- O usuário encostou devagar? *(Press In)*
-- O usuário deslizou o dedo pra fora enquanto mantinha pressionado? *(Press Out)*
-- O usuário afundou o dedo usando a pressão 3D longa? *(Long Press)*
+O Toque Humano não é um clique de mouse de chumbo, rápido e seco. Tocar em um vidro (Touchscreen) pode ser incrivelmente rico. O `<Pressable>` captura todo o ciclo de vida desse toque através de seus eventos:
 
-A tag `<Pressable onPress={suaFuncao}>` detecta todos os estágios do dedo deslizando pelo vidro e aplica lógicas de estilo em base disso. Ele também traz o famoso fator `Hit Slop`, expandindo invisivelmente a área clicável do seu botão, de forma que usuários com dedos grossos consigam acertar seu botão pequenininho sem erros de acessibilidade!
+1. **`onPressIn`**: Disparado no exato milissegundo em que o dedo encosta na tela. Ideal para iniciar uma animação de "botão sendo pressionado" ou mudar a cor de fundo.
+2. **`onPressOut`**: Disparado quando o dedo é levantado da tela ou desliza para fora da área do botão. Útil para reverter o botão à sua forma original.
+3. **`onPress`**: O clique tradicional. Disparado logo após o `onPressOut`, mas **apenas** se o usuário levantar o dedo ainda dentro da área do botão.
+4. **`onLongPress`**: Disparado quando o dedo é mantido na tela por um tempo (geralmente acima de 500ms). Muito usado para ações extras, como abrir menus de contexto (ex: segurar uma mensagem no WhatsApp para responder).
+
+![Estados do Pressable](../assets/d_pressable_pressing.svg)
+
+**Exemplo Prático de Uso dos Eventos:**
+
+```tsx
+<Pressable
+  onPressIn={() => console.log('👆 Dedo encostou!')}
+  onPressOut={() => console.log('👋 Dedo saiu ou levantou!')}
+  onPress={() => console.log('✅ Clique confirmado!')}
+  onLongPress={() => console.log('⏱️ Pressionamento longo detectado!')}
+>
+  <Text>Interaja Comigo!</Text>
+</Pressable>
+```
+
+Além de capturar toda essa riqueza de eventos, o `<Pressable>` permite estilização condicional automática e traz o famoso fator `Hit Slop`, que expande invisivelmente a área clicável do componente, garantindo que usuários acertem os botões com facilidade, sem sacrificar o design e melhorando a acessibilidade!
 
 👉 [Estudo Profundo na Documentação Oficial: API The Pressable](https://reactnative.dev/docs/pressable)
 

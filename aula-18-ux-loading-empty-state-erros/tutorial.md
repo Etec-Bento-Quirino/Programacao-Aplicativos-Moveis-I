@@ -24,6 +24,9 @@ export default function ListagemDeluxe() {
       setCarregando(true);
       
       try {
+        // 👈 Simulando uma lentidão de rede para que você consiga VER o spinner de carregamento girando!
+        await new Promise(resolve => setTimeout(resolve, 1500)); 
+        
         const dadosDoSQLite = bancoDados.getAllSync("SELECT * FROM metas");
         setItens(dadosDoSQLite)
       } finally {

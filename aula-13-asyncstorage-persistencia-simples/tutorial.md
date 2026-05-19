@@ -11,7 +11,7 @@ Encerre o app temporariamente. Mande o Expo fazer as pontes nativas.
 ```bash
 npx expo install @react-native-async-storage/async-storage
 ```
-Religue o projeto `npx expo start --tunnel`.
+Religue o projeto executando `npm start`.
 
 ## Passo 2: A Forja do Ferreiro (Funções Gêmeas)
 Numa nova arquitetura de Tela Limpa (Pode ser seu bloco de estudos `EstudosMemoria.tsx` ou afins), Crie a "Forja". Crie duas funções Assíncronas (Porque o SSD demora pra salvar e não podemos travar o UI). Nós faremos funções defensivas separadas das setagens de variáveis.

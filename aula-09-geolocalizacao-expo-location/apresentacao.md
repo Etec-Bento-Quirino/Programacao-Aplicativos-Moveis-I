@@ -20,4 +20,42 @@ Ao executarmos o `Wait getCurrentPositionAsync()`, nós recebemos devolta um dic
 Dentro dele vem a joia da coroa: `latitude` (A fatia horizontal do globo) e `longitude` (A fatia vertical do globo). Se juntas, você cruza as linhas do vetor e descobre onde sua cadeira está no mundo num raio de 10 metros de precisão. 
 A API também trará altimetria (altitude) opcional dependendo do celular.
 
+**Exemplo Prático: Capturando as Coordenadas**
+```tsx
+import * as Location from 'expo-location';
+import { useState } from 'react';
+import { View, Text, Button } from 'react-native';
+
+export default function MeuRadar() {
+  const [local, setLocal] = useState(null);
+
+  const rastrear = async () => {
+    // 1. Pede licença explicitamente para rastrear em "Foreground" (Tela ligada)
+    const permissao = await Location.requestForegroundPermissionsAsync();
+    
+    if (permissao.granted === false) {
+      alert("Permissão negada! O app não pode ver onde você está.");
+      return;
+    }
+
+    // 2. Trava o tempo até o GPS dos satélites triangular o celular
+    const triangulacao = await Location.getCurrentPositionAsync({});
+    
+    // 3. Puxa as fatias brutas
+    setLocal(triangulacao.coords); 
+  };
+
+  return (
+    <View>
+      <Button title="Onde Eu Estou?" onPress={rastrear} />
+      {local && (
+        <Text>
+          Estou na Latitude: {local.latitude} e Longitude: {local.longitude}
+        </Text>
+      )}
+    </View>
+  );
+}
+```
+
 👉 **Expanda sua Cabeça Estudando a Documentação Base:** [Ponte Expo Location](https://docs.expo.dev/versions/latest/sdk/location/)

@@ -17,8 +17,8 @@ Se você olhar a pasta que o robô cria, pode se assustar com a quantidade de ar
 ## 3. Expo Go (Sua Televisão ao vivo)
 Você não precisa de um supercomputador para criar apps. O seu celular de bolso possui hardware dezenas de vezes mais forte que as cápsulas que foram pra lua, basta usar o App do **Expo Go** (baixe da PlayStore/AppStore).
 
-No terminal, quando você der `npx expo start`, o Metro Bundler aciona uma antena. O aplicativo **Expo Go** do seu celular pega a mesma rede Wi-Fi, puxa seu código para a memória RAM do smartphone e compila visualmente na hora. 
+No terminal, quando você executar `npm start`, o Metro Bundler aciona uma antena. O aplicativo **Expo Go** do seu celular pega a mesma rede Wi-Fi, puxa seu código para a memória RAM do smartphone e compila visualmente na hora. 
 
-*(E se o Wi-Fi da escola bloquear? Calma, usaremos o salvador `--tunnel` no tutorial)*.
+*(E se o Wi-Fi da escola bloquear? Calma, nós vamos configurar o salvador `--tunnel` no tutorial para furar o bloqueio!)*.
 
 Vejo você programando a nossa tela escura no tutorial!

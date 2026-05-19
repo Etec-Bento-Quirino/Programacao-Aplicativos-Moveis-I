@@ -26,4 +26,30 @@ Desde a SDK 50/51 do Expo (O ano atual deste guia), a manipulação foi reformul
 Operações curtas do SQLite podem ser feitas **sincronamente** `db.execSync()`.
 Isso significa que, diferente da Camera Nativaz, operações de Insert em bases normais são resolvidas tão rápido (5 milissegundos) que não carecem de travar a thread de processamento JS para abrir menus de alerta de permissão!
 
+**Exemplo Prático: Criando e Inserindo num piscar de olhos**
+```tsx
+import * as SQLite from 'expo-sqlite';
+
+export default function BancoDeDados() {
+  // Abre (ou cria) o arquivo do banco no celular
+  const db = SQLite.useSQLiteContext(); 
+
+  const executarCriacao = () => {
+    // Roda instantaneamente
+    db.execSync(`
+      CREATE TABLE IF NOT EXISTS herois (
+        id INTEGER PRIMARY KEY AUTOINCREMENT, 
+        nome TEXT NOT NULL
+      );
+    `);
+    
+    // Inserindo dados direto
+    db.runSync('INSERT INTO herois (nome) VALUES (?)', ['Batman']);
+    console.log("Salvo no SQLite com sucesso!");
+  };
+
+  return <Button title="Criar Banco e Inserir Batman" onPress={executarCriacao} />;
+}
+```
+
 👉 **Expanda sua Cabeça Estudando a Documentação Base:** [Expo SQLite Oficial](https://docs.expo.dev/versions/latest/sdk/sqlite/)

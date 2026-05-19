@@ -23,8 +23,8 @@ import { useState } from 'react'; // Guardião local de variável volátil!
   // Função Assíncrona! 
   const pickImageAsync = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ['images'], 
-      allowsEditing: true, // Libera o Crop de Imagem (Formato Insta)
+      mediaTypes: ['images'], // 👈 Força a galeria a exibir SOMENTE FOTOS (impede vídeos)
+      allowsEditing: true, // 👈 Libera o Crop de Imagem (Formato Instagram)
       quality: 1,
     });
 

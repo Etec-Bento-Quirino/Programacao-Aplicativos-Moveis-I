@@ -112,9 +112,11 @@ Cada aula tem um **índice** (README) com links para: **Apresentação** (slides
 ### 2. Primeiro projeto (Aula 02)
 
 ```bash
+# Abra o VS Code. Clique em 'Terminal' -> 'New Terminal' no menu superior.
+# No terminal que abrir dentro do VS Code, execute:
 npx create-expo-app@latest MeuApp --template blank
 cd MeuApp
-npx expo start
+npm start
 ```
 
 Use o app **Expo Go** no celular para escanear o QR Code e ver o app.

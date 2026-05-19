@@ -31,4 +31,37 @@ Nós usamos filtros lógicos no JavaScript.
 
 Somente depois de passar pelas armadilhas é que liberamos o *Alert.alert()* (O pop-up majestoso Nativo) confirmando o sucesso da operação.
 
+**Exemplo Prático: Um Input Controlado Blindado**
+```tsx
+import { useState } from 'react';
+import { View, TextInput, Button, Alert } from 'react-native';
+
+export default function FormularioSeguro() {
+  const [email, setEmail] = useState('');
+
+  const salvar = () => {
+    // 1. Limpa os espaços fantasmas e valida
+    const emailLimpo = email.trim();
+    if (!emailLimpo.includes('@')) {
+      Alert.alert('Erro', 'Por favor, digite um e-mail válido com @!');
+      return; // 👈 Interrompe a execução aqui, blindando o banco!
+    }
+    Alert.alert('Sucesso', 'E-mail salvo: ' + emailLimpo);
+  };
+
+  return (
+    <View style={{ padding: 20 }}>
+      <TextInput 
+        style={{ borderWidth: 1, padding: 10, marginBottom: 10 }}
+        placeholder="Digite seu e-mail..."
+        keyboardType="email-address" // 👈 Invoca o teclado com "@"
+        value={email}                // 👈 O componente é escravo da memória
+        onChangeText={setEmail}      // 👈 A cada tecla, atualiza a memória
+      />
+      <Button title="Salvar" onPress={salvar} />
+    </View>
+  );
+}
+```
+
 👉 **Expanda sua Cabeça Estudando a Documentação Base:** [A Mágica do TextInput](https://reactnative.dev/docs/textinput)

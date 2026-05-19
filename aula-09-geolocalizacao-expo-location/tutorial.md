@@ -12,7 +12,7 @@ Nós precisamos do tradutor de hardware. No terminal rodando, pressione Control+
 ```bash
 npx expo install expo-location
 ```
-Ligue novamente o servidor `npx expo start --tunnel`.
+Ligue novamente o servidor executando `npm start` (com o tunnel previamente configurado).
 
 ## Passo 2: O Estado Duplo e a Lógica Assíncrona
 

@@ -22,4 +22,38 @@ E se o seu próprio aplicativo (sua tela ali de botão) já estiver aberto nas s
 
 Usamos algo invocado no ínico do código raiz chamado de `setNotificationHandler`. Ele é o espião absoluto. Em milissegundos ele avisa: *"O cara está com os olhos no App? Bip. Sim."*. E aí o React pode decidir silenciar ou explodir tudo com Sound! Ou apenas ativar aquele icone vermelho (`badge`) de mensagem não lida. Sensacional, não?
 
+**Exemplo Prático: Agendando um Alarme**
+```tsx
+import * as Notifications from 'expo-notifications';
+import { Button, View } from 'react-native';
+
+// O "Espião": Avisa que se o app estiver aberto, PODE APITAR e mostrar pop-up!
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: false,
+  }),
+});
+
+export default function TelaLembrete() {
+  const agendarParaDaquiA5Segundos = async () => {
+    // A mágica Local Push
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title: "Beba Água! 💧",
+        body: "Já faz muito tempo que você bebeu água...",
+      },
+      trigger: { seconds: 5 }, // 👈 Vai apitar em exatos 5 segundos
+    });
+  };
+
+  return (
+    <View style={{ marginTop: 50 }}>
+      <Button title="Me avise em 5 seg" onPress={agendarParaDaquiA5Segundos} />
+    </View>
+  );
+}
+```
+
 👉 **Expanda sua Cabeça Estudando a Documentação Base:** [Expo Notifications MasterAPI](https://docs.expo.dev/versions/latest/sdk/notifications/)

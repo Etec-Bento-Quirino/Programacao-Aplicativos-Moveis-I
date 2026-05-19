@@ -38,7 +38,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 export default function TabLayout() {
   return (
     // Transformamos a Root desta pasta em um Elemento TABS:
-    <Tabs
+    <Tabs // 👈 Inicia o Menu Inferior Mágico
       screenOptions={{
         tabBarActiveTintColor: '#ffd33d', // Amarelo chique quando selecionado
         headerStyle: { backgroundColor: '#25292e' }, // Topo negro
@@ -47,6 +47,7 @@ export default function TabLayout() {
         tabBarStyle: { backgroundColor: '#25292e' },
       }}
     >
+      {/* 👈 As Telas: 'name' aponta para index.tsx, 'title' é o texto escrito, 'tabBarIcon' é o desenho. */}
       <Tabs.Screen name="index" options={{ title: 'Início', tabBarIcon: ({ color, focused }) => ( <Ionicons name={focused ? 'home-sharp' : 'home-outline'} color={color} size={24} /> ) }} />
       <Tabs.Screen name="about" options={{ title: 'Sobre', tabBarIcon: ({ color, focused }) => ( <Ionicons name={focused ? 'information-circle' : 'information-circle-outline'} color={color} size={24} /> ) }} />
     </Tabs>

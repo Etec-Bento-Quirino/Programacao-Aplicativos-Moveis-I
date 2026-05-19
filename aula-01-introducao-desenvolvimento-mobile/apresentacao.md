@@ -31,4 +31,13 @@ A diferença principal de um App para um Site, é que o App é vivo. O Sistema O
 Em nosso curso, você terá um aliado chamado **Expo**.
 O Expo funciona como seu co-piloto e permite que você veja tudo que você digita recarregar magicamente em 1 segundo no seu Celular real usando o que chamamos de *Hot Reload*.
 
+```mermaid
+flowchart LR
+    A[VS Code <br> Edição de Código] -->|Salvar| B((Metro Bundler <br> Servidor Local))
+    B -->|Wi-Fi / Hot Reload| C{Expo Go <br> Celular}
+    style A fill:#1e1e1e,color:#fff
+    style B fill:#4630eb,color:#fff
+    style C fill:#000,color:#fff
+```
+
 Na próxima parada (O Tutorial Prático), vamos montar juntos esse ecossistema!

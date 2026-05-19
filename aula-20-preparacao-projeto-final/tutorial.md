@@ -24,6 +24,6 @@ Aquele mesmo `README.md` que te ensinamos a escrever Limpo e majestoso ganha ade
 ## Passo 3: O Build de Arena
 Exiba orgulhosamente que você sabe Operar o Metro Bundler C++.
 Seu Projeto não é uma "Coisa para Rodar no DevMode pra sempre".
-Eis as lógicas para quem irá nos enviar a Solução: Nos envie Seu ZIP do Projeto com NOME BONITO. Inclua as instruções literais de Build nele ("Executar `npm i` E POSTERIORMENTE `npx expo start`"). 
+Eis as lógicas para quem irá nos enviar a Solução: Nos envie Seu ZIP do Projeto com NOME BONITO. Inclua as instruções literais de Build nele ("Executar `npm i` E POSTERIORMENTE `npm start`"). 
 
 Vá para a Missão 20 e nos entregue o Certificado Definitivo Final.
