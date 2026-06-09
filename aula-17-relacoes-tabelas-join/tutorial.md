@@ -1,6 +1,16 @@
 # Tutorial: A Matriz Super-Juntada 🧬
 
-**Sugestão de execução:** Quinzena 22.
+**Sugestão de execução:** Quinzena 22 | **Bimestre:** 4
+
+> **Pré-requisitos:** [Aula 16](../aula-16-formularios-sqlite-integracao/README.md) — duas tabelas relacionadas (`FOREIGN KEY`) criadas e populadas.
+>
+> **O que você vai aprender:**
+> - Usar `INNER JOIN` para buscar dados de duas tabelas em uma única consulta SQL
+> - Usar aliases (`i.nome`, `c.nome AS nome_categoria`) para distinguir colunas de mesmo nome
+> - Usar `LEFT JOIN` com `COUNT` para exibir o total de itens por categoria sem processamento no JavaScript
+> - Entender a diferença entre `INNER JOIN` (só traz registros com par) e `LEFT JOIN` (traz todos, mesmo sem par)
+
+---
 
 Vamos injetar o SQL Bruto com superpoderes no nosso código já existente. Usaremos os Apelidos Aliases para separar as colunas homônimas. 
 
@@ -13,25 +23,24 @@ Se você for fazer listagem na Tela Padrão de "Meus Itens Comprados" e quiser q
 Nós dizemos ao Motor SQLite para unir Tabela B e dizemos QUEM é a ponte `ON`:
 
 ```tsx
-  const rebobinarServidorComplexo = () => {
-    // 1. O Padrão JOIN: Preste atenção no apelido "i" para itens e "c" para Categorias.
-    const consultaGigaBruta = `
+  const carregarItensComCategoria = () => {
+    // INNER JOIN une as duas tabelas pela chave estrangeira
+    // "i" é alias de itens, "c" é alias de categorias
+    const query = `
        SELECT 
            i.id, 
-           i.nome AS nome_do_produto, 
+           i.nome AS nome_produto, 
            i.id_categoria, 
-           c.nome AS super_nome_categoria
+           c.nome AS nome_categoria
        FROM itens i
        INNER JOIN categorias c ON i.id_categoria = c.id
        ORDER BY i.id DESC;
     `;
 
-    // 2. Acorde o motor e execute o tiro relacional cruzado
-    const linhasCasadas = bancoDados.getAllSync(consultaGigaBruta);
-
-    // 3. Sua Memória Viva do Front-End (Use State) recebe O JSON já grudado lindo:
-    // [ {id: 10, nome_do_produto: 'Maça', super_nome_categoria: 'Alimentos'} ]
-    setItensComplexos(linhasCasadas); 
+    const registros = bancoDados.getAllSync(query);
+    // Cada registro agora contém dados das duas tabelas:
+    // [ {id: 10, nome_produto: 'Maçã', nome_categoria: 'Alimentos'} ]
+    setItensComplexos(registros); 
   };
 ```
 
@@ -43,18 +52,20 @@ Usamos um `LEFT JOIN` (Uma junção Cega para a Esquerda) para trazer a categori
 
 Na Tela Mãe dos Menus:
 ```tsx
-const recarregarPainelDashboard = () => {
-   const instrucaoAgrupadora = `
+const carregarCategorias = () => {
+   // LEFT JOIN garante que categorias sem itens também apareçam na lista (com total = 0)
+   // GROUP BY agrupa os itens por categoria para o COUNT funcionar corretamente
+   const query = `
       SELECT 
          c.id, 
          c.nome, 
-         COUNT(i.id) AS total_itens_nessa_linha_aqui
+         COUNT(i.id) AS total_itens
       FROM categorias c
       LEFT JOIN itens i ON c.id = i.id_categoria
-      GROUP BY c.id, c.nome; -- Obriga Ele a somar dentro da Categoria isolada em bolos.
+      GROUP BY c.id, c.nome;
    `
-   const categoriasComCalculoFoda = bancoDados.getAllSync(instrucaoAgrupadora);
-   setCategoriasEstado(categoriasComCalculoFoda);
+   const categorias = bancoDados.getAllSync(query);
+   setCategoriasEstado(categorias);
 }
 ```
 
@@ -72,9 +83,9 @@ Com o resultado perfeito mastigado pelo Servidor Base, você constrói uma Flatl
                  Categoria: {item.nome}
              </Text>
              
-             {/* Note a variável matemática que nós criamos ali em cima no Alias Cuspindo o Count Vivo */}
+             {/* A coluna "total_itens" vem do COUNT no SQL — sem precisar contar no JavaScript */}
              <Text style={{color: 'gray'}}>
-                 Possui ({item.total_itens_nessa_linha_aqui}) Sub-Itens!
+                 {item.total_itens} {item.total_itens === 1 ? 'item' : 'itens'}
              </Text>
           </View>
         )}
@@ -82,4 +93,18 @@ Com o resultado perfeito mastigado pelo Servidor Base, você constrói uma Flatl
   );
 ```
 
-Avance para e dominação definitiva das Relações SQL na Próxima Missão.
+Avance para a atividade desta quinzena e aplique os JOINs no seu projeto!
+
+---
+
+## Como isso se aplica ao seu projeto
+
+O `JOIN` resolve um problema real em todos os projetos que têm tabelas relacionadas:
+
+| Projeto | Consulta com JOIN |
+|---|---|
+| Tipo B | `SELECT itens.*, categorias.nome AS nome_categoria FROM itens INNER JOIN categorias ON itens.id_categoria = categorias.id` |
+| Tipo C | `SELECT notas.*, categorias.nome AS nome_categoria FROM notas INNER JOIN categorias ON notas.id_categoria = categorias.id` |
+| Tipo D | `SELECT gastos.*, categorias.nome AS nome_categoria FROM gastos INNER JOIN categorias ON gastos.id_categoria = categorias.id` |
+
+O `LEFT JOIN + COUNT` resolve o contador de itens na tela inicial de todos os projetos com categorias — sem precisar fazer múltiplas consultas nem calcular no JavaScript.

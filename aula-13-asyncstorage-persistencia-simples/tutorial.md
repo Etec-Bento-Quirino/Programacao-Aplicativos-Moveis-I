@@ -1,6 +1,16 @@
 # Tutorial: Escrevendo com Pedra (Persistência)
 
-**Sugestão de execução:** Quinzena 16.
+**Sugestão de execução:** Quinzena 16 | **Bimestre:** 3
+
+> **Pré-requisitos:** [Aula 12](../aula-12-contexto-hooks/README.md) — `useState` e `useEffect` dominados; `async/await` compreendido desde a Aula 08.
+>
+> **O que você vai aprender:**
+> - Instalar `@react-native-async-storage/async-storage` e salvar dados que persistem ao fechar o app
+> - Converter um array JavaScript para texto com `JSON.stringify` (para salvar) e de volta com `JSON.parse` (para ler)
+> - Criar funções assíncronas separadas de salvar e carregar, com tratamento de erro
+> - Entender a diferença entre AsyncStorage (chave–valor simples) e SQLite (banco relacional)
+
+---
 
 Desta vez, nosso aplicativo não será afetado por botões de fechar. Codificaremos os módulos isolados de Escrita e Leitura em HD físico.
 
@@ -22,34 +32,32 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, FlatList } from 'react-native';
 
-const CHAVE_SECRETA = '@minha_lista_de_desejos';
+const CHAVE_LISTA = '@lista_de_itens';
 
 export default function PersistenciaTest() {
-  const [lista, setLista] = useState([]);
+  const [lista, setLista] = useState<string[]>([]);
 
-  // --- FERRAMENTA DE CIMENTAR (Salva o Array secado no Celular) ---
-  const armazenarNoSSD = async (matrizCompleta) => {
+  // Converte o array para JSON e salva no armazenamento local do dispositivo
+  const salvarLista = async (novaLista: string[]) => {
     try {
-      const tripaTransformada = JSON.stringify(matrizCompleta);
-      await AsyncStorage.setItem(CHAVE_SECRETA, tripaTransformada);
+      const json = JSON.stringify(novaLista);
+      await AsyncStorage.setItem(CHAVE_LISTA, json);
     } catch (e) {
-      console.warn('O HD do cidadão deve estar lotado...', e);
+      console.warn('Erro ao salvar dados:', e);
     }
   };
 
-  // --- FERRAMENTA DE ESCAVAR (Desenterra e hidrata a Lista de volta) ---
-  const escavarDoSSD = async () => {
+  // Lê o JSON salvo e converte de volta para array; retorna [] na primeira execução
+  const carregarLista = async (): Promise<string[]> => {
     try {
-      const textoBoboVindoDoHD = await AsyncStorage.getItem(CHAVE_SECRETA);
+      const dadosSalvos = await AsyncStorage.getItem(CHAVE_LISTA);
       
-      // Se não houver nada (Ex: primeira vez baixando o app), ele retorna Null e nós devolvemos um Array vazio para não quebrar.
-      if (textoBoboVindoDoHD !== null) {
-          const listaVivaMagica = JSON.parse(textoBoboVindoDoHD);
-          return listaVivaMagica;
+      if (dadosSalvos !== null) {
+        return JSON.parse(dadosSalvos);
       }
       return [];
     } catch (e) {
-      console.warn('Erro ao escavar memória local: ', e);
+      console.warn('Erro ao carregar dados:', e);
       return [];
     }
   };
@@ -62,30 +70,41 @@ export default function PersistenciaTest() {
 Temos o martelo e a pá. Mas eles não agem sozinhos. Precisamos ligar o Guarda Noturno para chamar isso na hora em que o app ligar, e setar atualizações ao clicar num botão:
 
 ```tsx
-  // 1. O Guarda Noturno invoca tudo no nascimento da Tela!
+  // Ao abrir a tela, carrega os dados já salvos anteriormente
   useEffect(() => {
-    const batidaPolicialDeRotina = async () => {
-      const dadosRecuperados = await escavarDoSSD();
-      // Joga na memória viva pra tela pintar:
+    const inicializar = async () => {
+      const dadosRecuperados = await carregarLista();
       setLista(dadosRecuperados); 
     };
     
-    batidaPolicialDeRotina();
+    inicializar();
   }, []);
 
-  // 2. A Injeção Humana
-  const acionarBotaoAdd = async () => {
-    const itemEstaticoQualquer = "Item Fixo #" + Math.random().toFixed(2);
+  // Adiciona um item ao array e salva imediatamente no armazenamento local
+  const adicionarItem = async () => {
+    const novoItem = "Item #" + Math.random().toFixed(2);
     
-    // Altera a Morte Antiga recriandos array mutável (Aula 11)
-    const novaVersaoDaLista = [...lista, itemEstaticoQualquer];
+    // Cria novo array com o item adicionado (não altera o array original — padrão React)
+    const novaLista = [...lista, novoItem];
     
-    // Repinta a tela inteira rapidão.
-    setLista(novaVersaoDaLista);
-
-    // E paralelamente escreve com tinta forte no Hardware SSD chamando nossa func!
-    await armazenarNoSSD(novaVersaoDaLista);
+    setLista(novaLista); // atualiza a tela
+    await salvarLista(novaLista); // persiste no dispositivo
   };
 ```
 
-Por conta deste `await`, toda a vez que o Usuário tocar o dedo ele aciona o SSD via JSON. Conecte essas variáveis em Botões em um FlatList no `<View>` renderizado, e parta pro Desafio desta quinzena para testar seu poder!
+Toda vez que o usuário adicionar um item, o app salva automaticamente. Conecte `adicionarItem` a um botão e exiba `lista` em uma `FlatList`, e vá para a atividade desta quinzena!
+
+---
+
+## Como isso se aplica ao seu projeto
+
+O AsyncStorage é a tecnologia de persistência da **Fase 2** do seu projeto — antes do SQLite:
+
+| Projeto | O que salvar no AsyncStorage |
+|---|---|
+| Tipo A | Array de tarefas `[{id, titulo, concluida}]` |
+| Tipo B | Array de itens `[{id, nome, categoria}]` |
+| Tipo C | Array de notas `[{id, titulo, conteudo}]` |
+| Tipo D | Array de gastos `[{id, valor, descricao, data}]` |
+
+**Importante:** Na Fase 3 (Aulas 14–15) você migrará do AsyncStorage para o SQLite. O AsyncStorage fica apenas para preferências simples do usuário (tema claro/escuro, nome do perfil), enquanto o SQLite assume todos os dados principais do app.

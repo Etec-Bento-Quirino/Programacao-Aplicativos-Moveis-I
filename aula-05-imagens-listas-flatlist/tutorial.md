@@ -1,7 +1,17 @@
 # Aula 05 – Lidando com Renderização Extrema (FlatList e Modais)
 
-**Sugestão de execução:** quinzena 5.
+**Sugestão de execução:** Quinzena 5 | **Bimestre:** 1
 **Base tecnológica:** FlatList, Modais Flutuantes, Array e RenderItem.
+
+> **Pré-requisitos:** [Aula 04](../aula-04-texto-botoes/README.md) — botões e eventos de toque funcionando.
+>
+> **O que você vai aprender:**
+> - Usar `FlatList` para renderizar listas longas com alta performance (sem travar o app)
+> - Entender por que `FlatList` é melhor que `ScrollView` para listas de dados
+> - Criar um `Modal` que flutua sobre a tela e exibe uma lista de itens
+> - Passar funções via `props` para comunicação entre componentes pai e filho
+
+---
 
 ---
 
@@ -46,7 +56,13 @@ import { useState } from 'react';
 import { StyleSheet, FlatList, Platform, Pressable } from 'react-native';
 import { Image, type ImageSource } from 'expo-image';
 
-export default function EmojiList({ onSelect, onCloseModal }) {
+// Tipagem das props: onSelect recebe a imagem escolhida; onCloseModal fecha o Modal pai
+type EmojiListProps = {
+  onSelect: (image: ImageSource) => void;
+  onCloseModal: () => void;
+};
+
+export default function EmojiList({ onSelect, onCloseModal }: EmojiListProps) {
   // Os Emoticons baseados nos arquivos do seu projeto.
   const [emoji] = useState<ImageSource[]>([
     require("../assets/images/emoji1.png"),
@@ -56,12 +72,13 @@ export default function EmojiList({ onSelect, onCloseModal }) {
 
   return (
     <FlatList horizontal showsHorizontalScrollIndicator={Platform.OS === 'web'}
-      data={emoji} contentContainerStyle={styles.listContainer} // 👈 data={emoji}: É aqui que você entrega o Array cru!
-      
-      // renderItem é um Looping! Para cada foto do "data={emoji}" ele cospe esse desenho:
-      renderItem={({ item, index }) => ( // 👈 "item" é a foto atual sendo lida da memória RAM
-        <Pressable onPress={() => { onSelect(item); onCloseModal(); }}> {/* 👈 Ação: Seleciona foto e já fecha a gaveta */}
-          <Image source={item} key={index} style={styles.image} />
+      data={emoji} contentContainerStyle={styles.listContainer}
+      // keyExtractor é a forma correta de fornecer chave única para cada item da FlatList:
+      keyExtractor={(_, index) => String(index)}
+      // renderItem é executado para cada item do array "data":
+      renderItem={({ item }) => (
+        <Pressable onPress={() => { onSelect(item); onCloseModal(); }}>
+          <Image source={item} style={styles.image} />
         </Pressable>
       )}
     />
@@ -69,4 +86,16 @@ export default function EmojiList({ onSelect, onCloseModal }) {
 }
 ```
 
-Mestre a Flatlist engolida na barriga da `<EmojiPicker>` na sua ROOT `Index.tsx` e o Modal funcionará com listas de altíssima performance!
+Integre a `EmojiList` dentro do `EmojiPicker` na sua `index.tsx` e o Modal funcionará com listas de alta performance!
+
+---
+
+## Como isso se aplica ao seu projeto
+
+A `FlatList` aprendida nesta aula é o componente central do **Bimestre 1** do seu projeto. É com ela que você exibirá os dados na tela principal:
+- **Tipo A:** `FlatList` de tarefas, cada item mostrando título e status
+- **Tipo B:** `FlatList` de categorias na tela inicial; depois `FlatList` de itens dentro de cada categoria
+- **Tipo C:** `FlatList` de notas ordenadas pela data mais recente
+- **Tipo D:** `FlatList` de gastos com valor e data em cada linha
+
+O `Modal` visto nesta aula também é útil para filtros rápidos e menus de opções sem sair da tela.

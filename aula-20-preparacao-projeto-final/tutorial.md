@@ -1,6 +1,16 @@
 # Tutorial: O Check-list do Arquiteto 📋
 
-**Sugestão de execução:** Quinzena 25.
+**Sugestão de execução:** Quinzena 25 | **Bimestre:** 4
+
+> **Pré-requisitos:** Todas as aulas do Bimestre 4 (16–19) — projeto em estado funcional.
+>
+> **O que você vai aprender:**
+> - Revisar os critérios obrigatórios do projeto final com um checklist objetivo
+> - Identificar o que está faltando antes da apresentação
+> - Organizar e documentar o projeto para entrega (README, instruções de execução)
+> - Preparar o projeto para rodar em outro computador sem erros
+
+---
 
 Isso não é e não deve ser um laboratório de Inserção de Linhas de Código. Nesse estágio do jogo, você já tem as Pastas, as Queries SQL de JOIN, e as Componentizações na mão.
 Nós passaremos a Escova Fina sobre O Escopo Final do seu Projeto. 
@@ -13,17 +23,55 @@ Confira a matriz que a sua aplicação de TCC (Trabalho final ou Bimestral) OBRI
 
 - **1️⃣ Bateria Front-End Controlada:** O formulário da aba nova deve blindar contra dados em branco (`.trim()`) antes de salvar. As `FlatLists` devem estar consumindo de Arrays `useStates()` Limpos e contendo Chaves (`KeyExtractor`). 
 - **2️⃣ O Status Psicológico (UX):** Sua tela é OBRIGADA a ostentar um Empty State Lindo (Seja criativo com Emoticons/Vector) quando as telas carregarem sem Dados Preenchidos. Você DEVE exibir Alertas Catch em erro. 
-- **3️⃣ Integração DDL Relacional:** 100% da vida de Gravação deverá usar o SQLite Nativo (`openDatabaseSync`). Nada do seu TCC pode ficar exclusivamente perdido em Varíaveis do Async Storage (Exceto opções como "Modo Dark" e "Perfil do cara"). O CRUD (Create, Read, Update, Update) tem de rodar macio com Render dinâmico das linhas!
+- **3️⃣ Integração DDL Relacional:** 100% dos dados principais devem usar o SQLite Nativo (`openDatabaseSync`). Nada do projeto pode ficar apenas em variáveis ou AsyncStorage (AsyncStorage é permitido apenas para preferências como tema e nome do perfil). O CRUD (Create, Read, Update, Delete) deve funcionar com render dinâmico dos itens na lista!
 - **4️⃣ Hardware Puro:** A aplicação de nota máxima exige pelo menos UM componente de engenharia bruta testado (Câmera, Geolocalização da Rua Real, ou PushNotification do Google).
 
-## Passo 2: O Fichamento
+## Passo 2: Documentação do Projeto
 
-As 4 regras de Cima foram validadas no seu código das gavetas da semana passada? Então vá para a Aba Lateral e redija A Certidão da Obra!
-Aquele mesmo `README.md` que te ensinamos a escrever Limpo e majestoso ganha adendos. Use Arquivos `.TXT` separados da raiz pra colocar Anotações Físicas, mas o README é o Contrato do Software. Perca 2h enfeitando ele com formatação bonita de Markdown.
+As 4 regras foram validadas no código? Então documente a entrega.
 
-## Passo 3: O Build de Arena
-Exiba orgulhosamente que você sabe Operar o Metro Bundler C++.
-Seu Projeto não é uma "Coisa para Rodar no DevMode pra sempre".
-Eis as lógicas para quem irá nos enviar a Solução: Nos envie Seu ZIP do Projeto com NOME BONITO. Inclua as instruções literais de Build nele ("Executar `npm i` E POSTERIORMENTE `npm start`"). 
+O `README.md` do seu projeto deve conter:
 
-Vá para a Missão 20 e nos entregue o Certificado Definitivo Final.
+```markdown
+# Nome do Projeto
+
+Descrição em 2-3 linhas do que o app faz.
+
+## Como executar
+
+1. Instale as dependências: `npm install`
+2. Inicie o servidor: `npm start`
+3. Abra o app Expo Go no celular e escaneie o QR Code
+
+## Funcionalidades
+
+- [ ] Cadastro de [itens do projeto]
+- [ ] Listagem com filtro
+- [ ] [Recurso do dispositivo: câmera / GPS / notificação]
+- [ ] Loading state e empty state em todas as telas
+```
+
+## Passo 3: Preparando o ZIP de entrega
+
+Antes de zipar o projeto, garanta que a pasta `node_modules` **não está incluída** (ela pesa centenas de MB e o professor executa `npm install` para recriá-la):
+
+1. Delete ou ignore a pasta `node_modules/`
+2. Comprima o projeto com um nome claro: `NomeAluno_TipoB_PAM1.zip`
+3. Inclua no ZIP apenas o código-fonte + o `README.md` com as instruções acima
+
+Parabéns! Você chegou ao final da trilha. Avance para a atividade final.
+
+---
+
+## Como isso se aplica ao seu projeto
+
+Esta aula é a entrega final. Use o checklist do Passo 1 como guia de revisão:
+
+| Critério | Verificar no seu projeto |
+|---|---|
+| Formulário com validação | Campos obrigatórios têm `if (!campo.trim()) return` |
+| FlatList com keyExtractor | Todas as listas têm `keyExtractor={(item) => String(item.id)}` |
+| Empty state | Todas as FlatLists têm `ListEmptyComponent` |
+| Loading state | Telas com banco têm `ActivityIndicator` |
+| SQLite funcionando | CREATE TABLE no `useEffect([], [])`, CRUD completo |
+| Recurso do dispositivo | Câmera, GPS ou notificação integrados e funcionando |

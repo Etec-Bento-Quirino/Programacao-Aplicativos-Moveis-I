@@ -1,7 +1,17 @@
 # Aula 08 – Galeria, Câmera e o Assincronismo
 
-**Sugestão de execução:** quinzena 8.
+**Sugestão de execução:** Quinzena 9 | **Bimestre:** 2
 **Base tecnológica:** expo-image-picker, Image URIs, Async/Await.
+
+> **Pré-requisitos:** [Aula 07](../aula-07-formularios-entrada-dados/README.md) — formulários com `TextInput` e validação funcionando.
+>
+> **O que você vai aprender:**
+> - Instalar `expo-image-picker` e abrir a galeria ou câmera do dispositivo
+> - Entender `async/await`: por que pausar o código sem travar a tela enquanto o usuário escolhe uma foto
+> - Salvar a URI (caminho) da imagem escolhida num `useState` para exibir na tela
+> - Verificar se o usuário cancelou a seleção com `result.canceled`
+
+---
 
 ---
 
@@ -36,4 +46,15 @@ import { useState } from 'react'; // Guardião local de variável volátil!
 ```
 
 E simplesmente ligue isso no construtor do `<Button theme="primary" label="Escolher uma foto" onPress={pickImageAsync} />`.
-Quando você apertar o botão, o sistema nativo bloqueado vai rasgar a sua tela e soltar a ponte pedindo as permissões oficiais pro usuário!
+Quando você apertar o botão, o sistema nativo exibirá a janela de permissão e abrirá a galeria.
+
+---
+
+## Como isso se aplica ao seu projeto
+
+O padrão `async/await` com `expo-image-picker` é usado diretamente em dois tipos de projeto:
+
+- **Tipo C (Diário/Notas):** botão "Adicionar foto à nota" — o usuário escolhe uma imagem da galeria e a URI é salva junto com o texto da nota no SQLite
+- **Tipo D (Controle de Gastos):** botão opcional de "Foto do comprovante" — anexa a imagem ao registro do gasto
+
+Para os tipos A e B, a câmera/galeria é opcional (recurso bônus para a Fase 4). Em todos os casos o padrão é o mesmo: `pickImageAsync()` → verificar `!result.canceled` → salvar `result.assets[0].uri` num `useState` → exibir com `<Image source={{ uri: imagemSelecionada }} />`.

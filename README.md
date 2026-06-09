@@ -65,7 +65,7 @@ Cada aula tem um **índice** (README) com links para: **Apresentação** (slides
 | 03 | Layouts (View, Flexbox, StyleSheet) | [Entrar](aula-03-layouts-view-flexbox-stylesheet/README.md) |
 | 04 | Texto e botões (Text, TouchableOpacity) | [Entrar](aula-04-texto-botoes/README.md) |
 | 05 | Imagens e listas (Image, FlatList) | [Entrar](aula-05-imagens-listas-flatlist/README.md) |
-| 06 | Navegação (React Navigation) | [Entrar](aula-06-navegacao-react-navigation/README.md) |
+| 06 | Navegação com Expo Router (rotas, abas e parâmetros) | [Entrar](aula-06-navegacao-react-navigation/README.md) |
 | 07 | Formulários e entrada de dados | [Entrar](aula-07-formularios-entrada-dados/README.md) |
 | 08 | Galeria e câmera (expo-image-picker) | [Entrar](aula-08-galeria-camera-expo-image-picker/README.md) |
 | 09 | Geolocalização (expo-location) | [Entrar](aula-09-geolocalizacao-expo-location/README.md) |
@@ -80,6 +80,70 @@ Cada aula tem um **índice** (README) com links para: **Apresentação** (slides
 | 18 | UX: loading, empty state e erros | [Entrar](aula-18-ux-loading-empty-state-erros/README.md) |
 | 19 | Revisão e boas práticas | [Entrar](aula-19-revisao-boas-praticas/README.md) |
 | 20 | Preparação do projeto final (Fase 4) | [Entrar](aula-20-preparacao-projeto-final/README.md) |
+
+---
+
+## Trilha de Aprendizado
+
+O curso é dividido em quatro blocos, um por bimestre. Cada bloco termina com a entrega de uma fase do seu projeto.
+
+### Bimestre 1 – Fundamentos (Aulas 01–05)
+> Você parte do zero e aprende a criar, estruturar e exibir dados na tela.
+
+| Aula | Habilidade adquirida |
+|------|----------------------|
+| 01 | Instala Node/npm/npx; entende o ecossistema mobile |
+| 02 | Cria o primeiro app Expo; vê o app no celular via Expo Go |
+| 03 | Organiza layout com Flexbox e cria componentes reutilizáveis |
+| 04 | Cria botões e captura cliques com `Pressable` |
+| 05 | Exibe imagens e renderiza listas com `FlatList` |
+
+**Entrega ao final do B1:** app com 2 telas (lista estática + detalhe), navegação funcionando.
+
+---
+
+### Bimestre 2 – Interação e Recursos do Dispositivo (Aulas 06–10)
+> O app passa a ter múltiplas telas, formulários e acesso ao hardware do celular.
+
+| Aula | Habilidade adquirida |
+|------|----------------------|
+| 06 | Navega entre telas com Expo Router (abas e stack) |
+| 07 | Captura dados do usuário com formulários e validação |
+| 08 | Acessa galeria e câmera com `expo-image-picker` |
+| 09 | Obtém localização GPS com `expo-location` |
+| 10 | Envia notificações locais com `expo-notifications` |
+
+**Entrega ao final do B2:** formulário de cadastro, AsyncStorage e ao menos um recurso do dispositivo (câmera, GPS ou notificação).
+
+---
+
+### Bimestre 3 – Persistência com SQLite (Aulas 11–15)
+> O app ganha banco de dados real: dados sobrevivem ao fechar o app.
+
+| Aula | Habilidade adquirida |
+|------|----------------------|
+| 11 | Domina `useState` e `useEffect` em profundidade |
+| 12 | Compartilha estado entre telas com `useContext` |
+| 13 | Salva e carrega dados simples com `AsyncStorage` |
+| 14 | Configura SQLite e cria a primeira tabela |
+| 15 | Implementa CRUD completo (INSERT, SELECT, UPDATE, DELETE) |
+
+**Entrega ao final do B3:** app com SQLite, CRUD funcionando, filtros na listagem.
+
+---
+
+### Bimestre 4 – Integração e Polimento (Aulas 16–20)
+> O app une tudo e ganha qualidade de produto real.
+
+| Aula | Habilidade adquirida |
+|------|----------------------|
+| 16 | Integra formulários com o banco SQLite |
+| 17 | Relaciona tabelas com `FOREIGN KEY` e `JOIN` |
+| 18 | Adiciona loading, estado vazio e tratamento de erros |
+| 19 | Organiza código com boas práticas e nomenclatura |
+| 20 | Prepara e apresenta o projeto final |
+
+**Entrega ao final do B4:** app completo com SQLite, recurso do dispositivo e UX polida.
 
 ---
 

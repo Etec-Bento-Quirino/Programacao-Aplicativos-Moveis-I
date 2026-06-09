@@ -1,6 +1,16 @@
 # Tutorial: A Pilula de 5 Segundos (Notificações)
 
-**Sugestão de execução:** Quinzena 11.
+**Sugestão de execução:** Quinzena 11 | **Bimestre:** 2
+
+> **Pré-requisitos:** [Aula 09](../aula-09-geolocalizacao-expo-location/README.md) — padrão de solicitação de permissão de hardware compreendido.
+>
+> **O que você vai aprender:**
+> - Instalar `expo-notifications` e configurar o handler de notificações
+> - Solicitar permissão de notificação para Android e iOS
+> - Agendar uma notificação local para disparar após X segundos com `scheduleNotificationAsync`
+> - Entender `trigger` (quando disparar) e `content` (o que mostrar) de uma notificação
+
+---
 
 Chegou o momento que diferencia os homens dos garotos no Dev Mobile. Fazer o celular vibrar pelo seu código Javascript solto.
 
@@ -39,29 +49,29 @@ Como visto no GPS e na Câmera, ninguém emite Notificação sem Passaporte Cari
 ```tsx
 export default function PainelVibrante() {
 
-  const carimbarPassaportePush = async () => {
-    const { status: statusBase } = await Notifications.getPermissionsAsync();
-    let ultimaChanceStatus = statusBase;
+  const solicitarPermissao = async (): Promise<boolean> => {
+    const { status: statusAtual } = await Notifications.getPermissionsAsync();
+    let statusFinal = statusAtual;
 
-    if (statusBase !== 'granted') {
+    if (statusAtual !== 'granted') {
       const { status } = await Notifications.requestPermissionsAsync();
-      ultimaChanceStatus = status;
+      statusFinal = status;
     }
 
-    if (ultimaChanceStatus !== 'granted') {
-      Alert.alert('Travado', 'Permissão para notificações Negada.');
-      return false; // Corta Vôo
+    if (statusFinal !== 'granted') {
+      Alert.alert('Permissão negada', 'Habilite as notificações nas configurações do dispositivo.');
+      return false;
     }
 
-    // Regime Fechado para Androids (The Channel Rule da Google)
+    // Android exige um canal configurado para exibir notificações
     if (Platform.OS === 'android') {
       await Notifications.setNotificationChannelAsync('default', {
-        name: 'Alertas Super Importantes',
-        importance: Notifications.AndroidImportance.MAX, // Sobe com som e tela vermelha
+        name: 'Alertas do App',
+        importance: Notifications.AndroidImportance.MAX,
       });
     }
 
-    return true; // Se desceu até aqui, você está legalizado!
+    return true;
   };
 ```
 
@@ -70,36 +80,45 @@ export default function PainelVibrante() {
 Agora é a hora do show principal. Acenda o pavio.
 
 ```tsx
-  const engatilharNotificacaoLocal = async () => {
-    // 1. Só dispara se a função gigante de aprovação aí de cima Devolver "True".
-    const legalizado = await carimbarPassaportePush();
-    if (!legalizado) return;
+  const agendarNotificacao = async () => {
+    // Só agenda se a permissão for concedida
+    const permissaoOk = await solicitarPermissao();
+    if (!permissaoOk) return;
 
-    // 2. Chame a API de Agendamento Nativa! Se quiser uma data estática (Natal), olhe a Doc!
-    // Usaremos aqui para explodir em 5 seg cronometrados:
+    // Agenda a notificação para disparar daqui a 5 segundos
     await Notifications.scheduleNotificationAsync({
       content: {
-        title: 'Bem Vindos ao Submundo!',
-        body: 'O seu aplicativo aprendeu a comandar a Vibração Materna do OS.',
-        data: { linkMisterioso: '/alguma_tela_magica' }, // Envia dado invisível pra usar dpois
+        title: 'Lembrete do App!',
+        body: 'Seu aplicativo enviou esta notificação com sucesso.',
+        data: { tela: '/inicio' }, // Dado extra que pode ser lido quando o usuário toca a notificação
       },
       trigger: { seconds: 5, type: Notifications.SchedulableTriggerInputTypes.TIME_INTERVAL },
     });
     
-    // Alerte na tela do App provando que ele engatilhou, antes dele minimizar:
-    Alert.alert('Contagem Iniciada', 'Rápido, feche ou minimize o App, você tem 5 segundos.');
+    Alert.alert('Agendado!', 'Minimize o app agora. Em 5 segundos a notificação aparecerá.');
   };
 
-  // ----------------------------------------------------
-  // Abaixo, nosso Retorno do Front-End React de Teste...
   return (
     <View style={{flex:1, justifyContent:'center', alignItems: 'center'}}>
-      <TouchableOpacity onPress={engatilharNotificacaoLocal} style={{padding: 20, backgroundColor: 'purple'}}>
-        <Text style={{color: 'white', fontWeight: 'bold'}}>Ativar Bomba Push</Text>
+      <TouchableOpacity onPress={agendarNotificacao} style={{padding: 20, backgroundColor: 'purple'}}>
+        <Text style={{color: 'white', fontWeight: 'bold'}}>Agendar Notificação</Text>
       </TouchableOpacity>
     </View>
   );
 }
 ```
 
-Nós estrapolamos as barreiras dos Aplicativos Internos da Apple/Google. Avance para a Atividade para me mostrar o resultado dessa mágica em funcionamento.
+Você agora controla o sistema de notificações do Android e iOS diretamente do JavaScript. Avance para a atividade!
+
+---
+
+## Como isso se aplica ao seu projeto
+
+As notificações locais são o recurso obrigatório da **Fase 4** em pelo menos um tipo de projeto:
+
+- **Tipo A (Lista de Tarefas):** notificação disparada ao adicionar uma tarefa com prazo — "Lembrete: sua tarefa vence amanhã!"
+- **Tipo B (Cadastro/Inventário):** notificação de alerta quando um item tem estoque baixo
+- **Tipo C (Diário/Notas):** lembrete diário para escrever uma nova nota
+- **Tipo D (Controle de Gastos):** alerta quando o total de gastos da semana ultrapassa um limite
+
+O padrão `agendarNotificacao()` que você criou aqui é reutilizado diretamente no projeto real — basta mudar o `title`, `body` e o `trigger` para o momento adequado.

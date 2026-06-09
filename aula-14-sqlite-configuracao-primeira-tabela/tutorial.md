@@ -1,6 +1,16 @@
 # Tutorial: A Forja da Tabela de Tarefas
 
-**Sugestão de execução:** Quinzena 17.
+**Sugestão de execução:** Quinzena 17 | **Bimestre:** 3
+
+> **Pré-requisitos:** [Aula 13](../aula-13-asyncstorage-persistencia-simples/README.md) — AsyncStorage compreendido; `useEffect` e `useState` dominados.
+>
+> **O que você vai aprender:**
+> - Instalar e importar o `expo-sqlite` no projeto
+> - Abrir (ou criar) um banco de dados local no dispositivo com `openDatabaseSync`
+> - Criar uma tabela com `CREATE TABLE IF NOT EXISTS` usando SQL
+> - Inserir o primeiro registro com `INSERT INTO` e entender o `?` como proteção contra SQL Injection
+
+---
 
 O StickerSmash foi nosso protótipo de Design. Mas hoje, construiremos as fundações (o Database) para o nosso projeto independente "Tarefas Diárias". Este módulo foca unicamente em construir o cofre do zero, sem construir toda a interface linda ainda. 
 
@@ -19,7 +29,7 @@ No topo, importaremos a ferramenta. Ao invés da complicação de `useState`, us
 
 ```tsx
 import { useEffect, useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Alert } from 'react-native';
 import * as SQLite from 'expo-sqlite';
 
 // ABERTURA IMEDIATA DO ARQUIVO BINÁRIO (Se ikke existir, ele forja no SSD do celular agora).
@@ -51,25 +61,25 @@ export default function BancoTest() {
 Ainda no mesmo arquivo, embaixo do *useEffect*, você vai criar uma função e um *Componente Button* só para socar uma tarefa pra dentro na brutalidade e ver se o banco vai engolir:
 
 ```tsx
-  const socarTarefaNoBanco = () => {
-    // A interrogação previne "SQL Injection Attack" onde hackers escrevem DROPs de BD.
+  const inserirTarefa = () => {
+    // O "?" previne SQL Injection: a variável é passada separadamente, não concatenada na string.
     bancoDados.runSync(
         'INSERT INTO metas (descricao) VALUES (?)', 
-        ['Dominar o mundo hoje.']
+        ['Minha primeira tarefa no SQLite!']
     );
-    alert('Foi para o Cofre de Titânio. Se fechar o app, continuará vivo nos elétrons físicos!');
+    Alert.alert('Sucesso', 'Tarefa salva no banco de dados. Ela persiste mesmo ao fechar o app!');
   };
 
-  // --- Renderização Pobre de Laboratório:
+  // --- Tela de laboratório (sem estilo final — foco na lógica):
   return (
     <View style={styles.container}>
       <Text style={styles.titulos}> 
-        Status do Cofre: { bancoGerado ? "AERTO E OPERACIONAL" : "CONSTRUINDO..."  } 
+        Status do banco: { bancoGerado ? "ABERTO E OPERACIONAL" : "INICIANDO..."  } 
       </Text>
       
       {bancoGerado && (
-         <Text onPress={socarTarefaNoBanco} style={styles.botaoSocar}>
-            [ SIMULAR UM INSERT SQL ]
+         <Text onPress={inserirTarefa} style={styles.botaoInserir}>
+            [ TESTAR INSERT ]
          </Text>
       )}
     </View>
@@ -79,8 +89,23 @@ Ainda no mesmo arquivo, embaixo do *useEffect*, você vai criar uma função e u
 const styles = StyleSheet.create({
   container: { flex: 1, justifyContent: 'center', alignItems: 'center' },
   titulos: { fontSize: 20, color: 'blue', marginBottom: 30 },
-  botaoSocar: { padding: 15, backgroundColor: 'red', color: 'white', fontWeight: 'bold' }
+  botaoInserir: { padding: 15, backgroundColor: '#007AFF', color: 'white', fontWeight: 'bold' }
 });
 ```
 
-Na próxima aula nós faremos o painel majestoso de leitura (SELECT). Avance para a Sua Missão de prova!
+Na próxima aula faremos a leitura com `SELECT` e montaremos o CRUD completo. Avance para a sua atividade!
+
+---
+
+## Como isso se aplica ao seu projeto
+
+A tabela criada nesta aula é o banco de dados do **seu** projeto. Cada projeto tem sua própria estrutura:
+
+| Projeto | Tabela principal | Colunas essenciais |
+|---|---|---|
+| Tipo A | `tarefas` | `id`, `titulo`, `descricao`, `concluida`, `data_criacao` |
+| Tipo B | `itens` | `id`, `nome`, `quantidade`, `categoria_id` |
+| Tipo C | `notas` | `id`, `titulo`, `conteudo`, `data_criacao` |
+| Tipo D | `gastos` | `id`, `valor`, `descricao`, `categoria`, `data` |
+
+O padrão de abrir o banco fora do componente (`const db = SQLite.openDatabaseSync(...)`) e criar a tabela dentro do `useEffect(() => {}, [])` é o padrão que você usará em todo o projeto.

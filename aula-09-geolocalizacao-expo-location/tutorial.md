@@ -1,6 +1,16 @@
 # Tutorial: Capturando um Satélite com seu Código
 
-**Sugestão de execução:** Quinzena 10.
+**Sugestão de execução:** Quinzena 10 | **Bimestre:** 2
+
+> **Pré-requisitos:** [Aula 08](../aula-08-galeria-camera-expo-image-picker/README.md) — `async/await` e permissões de hardware compreendidos.
+>
+> **O que você vai aprender:**
+> - Instalar `expo-location` e solicitar permissão de geolocalização ao usuário
+> - Obter latitude e longitude atuais com `Location.getCurrentPositionAsync()`
+> - Exibir um spinner de carregamento (`ActivityIndicator`) enquanto o GPS processa
+> - Tratar o caso em que o usuário nega a permissão sem travar o app
+
+---
 
 Vamos colocar a mão na graxa. Se você estava brincando no seu StickerSmash, abra uma nova tela secundária (como a Tela de `About` que fizemos no Expo Router) para abrigar nossa engenhoca de captura, ou crie um novo projeto no VS Code para este teste.
 
@@ -23,39 +33,36 @@ import { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native';
 import * as Location from 'expo-location';
 
-export default function RastreioMobile() {
-  const [coordenadas, setCoordenadas] = useState(null);
-  const [motorRodando, setMotorRodando] = useState(false);
-  const [mensagemErro, setMensagemErro] = useState(null);
+export default function TelaLocalizacao() {
+  const [coordenadas, setCoordenadas] = useState<Location.LocationObjectCoords | null>(null);
+  const [carregando, setCarregando] = useState(false);
+  const [erro, setErro] = useState<string | null>(null);
 
-  // A Função de tempo congelado!
-  const puxarSatelite = async () => {
-    setMotorRodando(true);
-    setMensagemErro(null);
+  const obterLocalizacao = async () => {
+    setCarregando(true);
+    setErro(null);
 
     try {
-      // 1. Pare. Abra o pop-up Oficial de IOS/Android e peça licença para monitorar.
+      // 1. Solicita permissão de localização ao usuário (exibe o popup nativo do sistema)
       const { status } = await Location.requestForegroundPermissionsAsync();
       
       if (status !== 'granted') {
-        setMensagemErro('Você nos negou o acesso. O GPS falhou miseravelmente.');
-        setMotorRodando(false);
-        return; // Interrompe a execução aqui!
+        setErro('Permissão de localização negada. Habilite nas configurações do dispositivo.');
+        setCarregando(false);
+        return;
       }
 
-      // 2. Se a permissão passou... Pare de novo. Acorde a Placa-mãe de GPS do Celular 
-      // e diga a ela extrair a Geometria num esfoço balanceado de processamento/bateria.
-      const sinal = await Location.getCurrentPositionAsync({
+      // 2. Com permissão aprovada, lê as coordenadas GPS (usa modo "Balanced" para economizar bateria)
+      const posicao = await Location.getCurrentPositionAsync({
         accuracy: Location.Accuracy.Balanced,
       });
 
-      // 3. Devolva pego a variável final em formato matemático.
-      setCoordenadas(sinal.coords);
+      setCoordenadas(posicao.coords);
 
-    } catch (e) {
-      setMensagemErro('Erro brutal da placa: ' + e.message);
+    } catch (e: any) {
+      setErro('Não foi possível obter a localização: ' + e.message);
     }
-    setMotorRodando(false);
+    setCarregando(false);
   };
 ```
 
@@ -66,23 +73,23 @@ Agora conecte o seu estado (que estava em `null`) e exploda na tela usando `&&` 
 ```tsx
   return (
     <View style={styles.corpo}>
-      <TouchableOpacity onPress={puxarSatelite} disabled={motorRodando}>
+      <TouchableOpacity onPress={obterLocalizacao} disabled={carregando}>
          <Text style={styles.titulos}> 
-            {motorRodando ? 'Buscando satélites...' : 'Descobrir Onde Estou'}
+            {carregando ? 'Buscando localização...' : 'Obter minha localização'}
          </Text>
       </TouchableOpacity>
       
-      {/* Esse Componente é a Bolinha de Carregamento Nativa */}
-      {motorRodando && <ActivityIndicator size="large" color="#0000ff" />}
+      {/* Spinner exibido enquanto o GPS processa */}
+      {carregando && <ActivityIndicator size="large" color="#0000ff" />}
       
-      {/* Se o erro foi setado para Cima... Exibe Vermelho! */}
-      {mensagemErro && <Text style={{color: 'red'}}>{mensagemErro}</Text>}
+      {/* Mensagem de erro caso a permissão seja negada ou ocorra falha */}
+      {erro && <Text style={{color: 'red'}}>{erro}</Text>}
 
-      {/* Se ele conseguiu enxergar coordenadas, Puf! A Parede do React cai e o bloco compila! */}
+      {/* Exibe as coordenadas quando disponíveis */}
       {coordenadas && (
         <View style={styles.respostas}>
-          <Text>🌐 Latitude: {coordenadas.latitude}</Text>
-          <Text>🌐 Longitude: {coordenadas.longitude}</Text>
+          <Text>Latitude: {coordenadas.latitude}</Text>
+          <Text>Longitude: {coordenadas.longitude}</Text>
         </View>
       )}
     </View>
@@ -90,4 +97,15 @@ Agora conecte o seu estado (que estava em `null`) e exploda na tela usando `&&` 
 }
 ```
 
-Faça a CSS à sua moda. Rode essa obra prima e prepare-se pra Atividade dessa semana!
+Ajuste os estilos ao visual do seu projeto e prepare-se para a atividade da quinzena!
+
+---
+
+## Como isso se aplica ao seu projeto
+
+A geolocalização é usada diretamente na **Fase 2** de um tipo e opcionalmente nos demais:
+
+- **Tipo D (Controle de Gastos):** ao registrar um novo gasto, o app salva as coordenadas do local da compra. Na Fase 4, um mapa pode exibir onde cada gasto ocorreu
+- **Tipos A, B e C:** geolocalização é recurso bônus opcional — pode ser usada para registrar onde uma tarefa foi concluída, onde um item foi encontrado, ou onde uma nota foi escrita
+
+O padrão aprendido aqui (solicitar permissão → aguardar com `await` → tratar negativa → usar o resultado) é o mesmo para câmera (Aula 08) e notificações (Aula 10). Você já domina o padrão.

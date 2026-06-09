@@ -1,7 +1,17 @@
 # Aula 11 – Entendendo os "Hooks" (`useState` e `useEffect`)
 
-**Sugestão de execução:** quinzena 11.
+**Sugestão de execução:** Quinzena 14 | **Bimestre:** 3
 **Base tecnológica:** React Hooks, Virtual DOM, Lógica de Renderização.
+
+> **Pré-requisitos:** [Aula 10](../aula-10-notificacoes-locais-expo-notifications/README.md) — recursos do dispositivo utilizados no B2.
+>
+> **O que você vai aprender:**
+> - Por que variáveis comuns (`let`, `var`) **não** atualizam a tela no React Native
+> - Usar `useState` para criar variáveis "reativas" que redesenham a tela quando mudam
+> - Usar `useEffect` para executar código em momentos específicos (ao abrir a tela, ao mudar um valor)
+> - A diferença entre `useEffect(() => {}, [])` (executa 1×) e `useEffect(() => {}, [variavel])` (executa sempre que `variavel` muda)
+
+---
 
 ---
 
@@ -74,4 +84,19 @@ export default function Home() {
 }
 ```
 
-Resumindo para novatos: **Nunca** tente atualizar a tela visualmente usando variáveis normais como `let` e `var`. Use o poder mágico do `useState` para re-renderizar, e do `useEffect` para criar automatizações de background!
+Resumindo para novatos: **Nunca** tente atualizar a tela usando variáveis normais como `let` e `var`. Use `useState` para re-renderizar, e `useEffect` para executar código em momentos específicos.
+
+---
+
+## Como isso se aplica ao seu projeto
+
+`useState` e `useEffect` estão presentes em **todas** as telas do seu projeto:
+
+| Situação no projeto | Hook usado |
+|---|---|
+| Guardar a lista de itens que aparece na tela | `useState` |
+| Marcar uma tarefa como concluída e ver a mudança na tela | `useState` |
+| Carregar os dados do banco assim que a tela abre | `useEffect(() => {}, [])` |
+| Recarregar os itens quando o filtro selecionado muda | `useEffect(() => {}, [filtro])` |
+
+A partir da Aula 14, o `useEffect` com array vazio `[]` será o local padrão onde você criará as tabelas SQLite e carregará os primeiros dados do banco.

@@ -1,7 +1,17 @@
 # Aula 03 – O Poder da Performance (Componentes e Flexbox)
 
-**Sugestão de execução:** quinzena 3.
+**Sugestão de execução:** Quinzena 3 | **Bimestre:** 1
 **Base tecnológica:** Image, Flexbox, Componentização, Props.
+
+> **Pré-requisitos:** [Aula 02](../aula-02-ambiente-react-native-expo/README.md) — app Expo criado e rodando no celular.
+>
+> **O que você vai aprender:**
+> - Criar componentes reutilizáveis em arquivos separados (pasta `components/`)
+> - Passar dados para componentes via `props`
+> - Usar `Flexbox` para posicionar elementos na tela
+> - Entender a diferença entre `alignItems` (eixo horizontal) e `justifyContent` (eixo vertical)
+
+---
 
 ---
 
@@ -76,3 +86,15 @@ const styles = StyleSheet.create({
 - [ ] Criação de um Componente customizado com `<Image>`.
 - [ ] Entendimento prático de *Props* (variáveis injetáveis no componente Pai).
 - [ ] O `Flex: 1` faz a *View* container esticar ocupando 100% da proporção local restante.
+
+---
+
+## Como isso se aplica ao seu projeto
+
+A estrutura de componentes que você aprendeu aqui (pasta `components/`, `props`, `StyleSheet`) é o padrão que usará para criar os blocos visuais do **seu** projeto:
+- **Tipo A:** componente `ItemTarefa.tsx` para cada linha da lista
+- **Tipo B:** componente `CartaoCategoria.tsx` para exibir cada categoria
+- **Tipo C:** componente `CartaoNota.tsx` com título e data da nota
+- **Tipo D:** componente `LinhaGasto.tsx` com valor, categoria e data
+
+O Flexbox com `alignItems` e `justifyContent` centralizará botões e textos em todas essas telas.

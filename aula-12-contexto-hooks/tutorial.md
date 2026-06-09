@@ -1,6 +1,16 @@
 # Tutorial: O Domínio do Sol e da Lua (Dark Mode)
 
-**Sugestão de execução:** Quinzena 15.
+**Sugestão de execução:** Quinzena 15 | **Bimestre:** 3
+
+> **Pré-requisitos:** [Aula 11](../aula-11-hooks-usestate-useeffect/README.md) — `useState` e `useEffect` bem dominados.
+>
+> **O que você vai aprender:**
+> - Entender o problema de "passar props por muitas telas" (prop drilling)
+> - Criar um `Context` para armazenar um estado global acessível por qualquer tela
+> - Usar `createContext` e `useContext` para ler e alterar esse estado de qualquer lugar
+> - Envolver o app com um `Provider` em `_layout.tsx` para distribuir o contexto
+
+---
 
 Nós iremos montar a nuvem de Tema do zero. Esse sistema será seu passaporte base para quando for criar coisas como "*Autenticação em Login*", em que o usuário precisa ser lido no app todo.
 
@@ -92,5 +102,16 @@ export default function ConfigScreen() {
 }
 ```
 
-Mágica? Sim. Engenharia Pura. O botão muda a nuvem. A nuvem muda a propriedade do StyleSheet, que força o motor do celular pintar tudo de preto na mesma hora.
-Prossiga para a atividade!
+O botão altera o contexto global. O contexto alterado faz todas as telas que o consomem se redesenharem automaticamente — sem precisar passar nenhuma prop entre elas.
+
+---
+
+## Como isso se aplica ao seu projeto
+
+O `useContext` é mais útil no projeto quando precisar de dados compartilhados entre telas sem passar props manualmente:
+
+- **Tipo A/B/C/D — Tema do app:** o usuário pode escolher tema claro/escuro nas configurações e o `TemaContext` aplica em todas as telas simultaneamente
+- **Tipo A (Lista de Tarefas):** um contexto de "tarefas" pode tornar a lista acessível na tela principal e na tela de detalhes sem navegação por parâmetros
+- **Tipo D (Controle de Gastos):** um contexto de "categoria selecionada" permite filtrar a lista sem recarregar do banco toda vez que o usuário muda de aba
+
+Para a **Fase 4**, se o projeto crescer em complexidade (múltiplas telas editando o mesmo dado), migrar para um `Context` evita bugs de dados desatualizados entre telas.

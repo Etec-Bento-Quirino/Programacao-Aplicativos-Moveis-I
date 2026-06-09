@@ -1,7 +1,17 @@
-# Aula 06 – Navegação (Abas e Expo Router)
+# Aula 06 – Navegação com Expo Router (Abas e Stack)
 
-**Sugestão de execução:** quinzena 6.
-**Base tecnológica:** App Routing (Substituto Nativo Inteligente do React Navigation).
+**Sugestão de execução:** Quinzena 6 | **Bimestre:** 2
+**Base tecnológica:** Expo Router — File-Based Routing, Tabs, Stack.
+
+> **Pré-requisitos:** [Aula 05](../aula-05-imagens-listas-flatlist/README.md) — FlatList e componentes reutilizáveis compreendidos.
+>
+> **O que você vai aprender:**
+> - Usar o **Expo Router** para criar múltiplas telas sem configuração manual de rotas
+> - Entender "File-Based Routing": criar um arquivo = criar uma tela
+> - Adicionar uma barra de abas (`Tabs`) no rodapé do app
+> - Criar um arquivo `_layout.tsx` para compartilhar cabeçalho e navegação entre telas
+
+---
 
 ---
 
@@ -68,3 +78,15 @@ export default function RootLayout() {
 }
 ```
 Massa, não?
+
+---
+
+## Como isso se aplica ao seu projeto
+
+O sistema de navegação com Expo Router é a espinha dorsal de todas as telas do **seu** projeto. Após esta aula, você já sabe criar quantas telas precisar:
+- **Tipo A:** tela `index` (lista) → tela `detalhe/[id]` (detalhes da tarefa)
+- **Tipo B:** tela `index` (categorias) → tela `categoria/[id]` (itens da categoria)
+- **Tipo C:** tela `index` (notas) → tela `nota/[id]` (leitura/edição da nota)
+- **Tipo D:** tela `index` (gastos) → tela `resumo` (totais por categoria)
+
+O arquivo `_layout.tsx` com `<Tabs>` ou `<Stack>` controla como as telas são empilhadas e como o botão "Voltar" funciona automaticamente.

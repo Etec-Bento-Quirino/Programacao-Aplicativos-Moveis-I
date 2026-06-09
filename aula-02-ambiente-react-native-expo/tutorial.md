@@ -5,6 +5,16 @@
 
 ---
 
+> **Pré-requisitos:** [Aula 01](../aula-01-introducao-desenvolvimento-mobile/README.md) — Node.js instalado e `node --version` retornando um número.
+>
+> **O que você vai aprender:**
+> - Criar um projeto Expo com `create-expo-app`
+> - Entender a estrutura de pastas gerada automaticamente
+> - Rodar o app no celular via Expo Go (e resolver o bloqueio de proxy da escola)
+> - Editar a tela inicial e ver o resultado em tempo real via Hot Reload
+
+---
+
 ## Objetivo da aula
 Nesta aula, começaremos nosso curso mergulhando no **StickerSmash**, um projeto universal usando Expo. Ao final, você terá o ambiente rodando sem erros de proxy e uma tela escurecida inicial.
 
@@ -87,3 +97,13 @@ Olhe no emulador ou no celular! A mágica do *Fast Refresh* alterou as cores em 
 - [ ] Aplicativo criado via Npx.
 - [ ] Execução bem sucedida via `npm start` (com `--tunnel` configurado) rompendo o proxy local.
 - [ ] Tela do `index.tsx` alterada e conceito de CSS/StyleSheet absorvido.
+
+---
+
+## Como isso se aplica ao seu projeto
+
+O projeto StickerSmash é usado como veículo de aprendizagem. O que você aprendeu aqui — criar app, estrutura de pastas, `View`, `Text`, `StyleSheet` — é exatamente o que usará para montar a tela inicial do **seu** projeto:
+- **Tipo A (Lista de Tarefas):** a tela principal será uma lista de tarefas
+- **Tipo B (Cadastro/Inventário):** a tela inicial mostrará categorias
+- **Tipo C (Diário/Notas):** a tela inicial listará as notas
+- **Tipo D (Controle de Gastos):** a tela inicial exibirá os gastos recentes

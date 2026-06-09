@@ -1,6 +1,16 @@
 # Tutorial: Amarrando Input, Picker e Cofre
 
-**Sugestão de execução:** Quinzena 21.
+**Sugestão de execução:** Quinzena 21 | **Bimestre:** 4
+
+> **Pré-requisitos:** [Aula 15](../aula-15-sqlite-crud-completo/README.md) — CRUD básico com SQLite funcionando; [Aula 07](../aula-07-formularios-entrada-dados/README.md) — `TextInput` e validação compreendidos.
+>
+> **O que você vai aprender:**
+> - Unir o formulário (Aula 07) com o banco de dados (Aula 15) numa tela só
+> - Criar duas tabelas relacionadas (`categorias` e `itens`) no mesmo `execSync`
+> - Usar `router.back()` para fechar a tela de cadastro automaticamente após salvar
+> - Filtrar registros pelo parâmetro de rota com `useLocalSearchParams` do Expo Router
+
+---
 
 O objetivo do nosso laboratório não será a tela esteticamente fofa, e sim o Fluxo Perfeito do usuário. 
 Como nós gravamos dados relacionais?
@@ -49,17 +59,15 @@ export default function TelaDeFormulario() {
   const [nomeForm, setNomeForm] = useState('');
   const [categoriaFKEscolhida, setCategoriaFKEscolhida] = useState(1); // Supondo que 1 é "Alimentos"
 
-  const marretarNoBancoEVoltar = () => {
-     // A Validação cega: Não passa campo vazio pro Cofre
-     if(!nomeForm.trim()) return;
+  const salvarItem = () => {
+    if (!nomeForm.trim()) return; // bloqueia campos em branco
 
-     bancoDados.runSync(
-        'INSERT INTO itens (id_categoria, nome) VALUES (?, ?)', 
-        [categoriaFKEscolhida, nomeForm]
-     );
+    bancoDados.runSync(
+      'INSERT INTO itens (id_categoria, nome) VALUES (?, ?)', 
+      [categoriaFKEscolhida, nomeForm]
+    );
 
-     // O Pulo do Gato. O Formulario se fecha após a Missão Cumprida!
-     router.back();
+    router.back(); // fecha o formulário e volta para a listagem
   }
 
   return (
@@ -72,9 +80,9 @@ export default function TelaDeFormulario() {
          
          {/* Em app real você usaria a biblioteca Picker aqui para exibir "Alimentos/Roupas".
             Para o laboratório numérico mental: */}
-         <Button title="Salvar Ferozmente nas Roupas" onPress={() => {
+         <Button title="Salvar em Roupas" onPress={() => {
             setCategoriaFKEscolhida(2);
-            marretarNoBancoEVoltar();
+            salvarItem();
          }} />
 
      </View>
@@ -109,4 +117,19 @@ export default function ListaEspecifica() {
 }
 ```
 
-Este é o poder da Separação por Categoria com Performance Absoluta do SQLite. Não existe lag. Não há queda de Frames. Siga para o Teste Visual!
+Este é o ciclo completo: o usuário preenche o formulário → o app valida → salva no SQLite → volta para a lista que recarrega automaticamente. Siga para a atividade!
+
+---
+
+## Como isso se aplica ao seu projeto
+
+Esta aula é o coração da **Fase 3** do seu projeto. O padrão "tela de lista → tela de formulário → salvar → voltar" se repete em todos os tipos:
+
+| Projeto | Tela lista | Tela formulário | O que salva |
+|---|---|---|---|
+| Tipo A | Lista de tarefas | Nova tarefa | `titulo`, `descricao` |
+| Tipo B | Lista de categorias → lista de itens | Novo item | `nome`, `id_categoria` |
+| Tipo C | Lista de notas | Nova nota | `titulo`, `conteudo` |
+| Tipo D | Lista de gastos | Novo gasto | `valor`, `descricao`, `id_categoria` |
+
+O `useLocalSearchParams` do Expo Router permite que a tela de listagem receba a categoria como parâmetro de URL e filtre o banco automaticamente — sem precisar de um estado global.

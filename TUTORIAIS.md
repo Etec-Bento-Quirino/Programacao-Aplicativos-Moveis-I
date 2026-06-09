@@ -25,7 +25,7 @@ Use o link **Índice** de cada linha para acessar Apresentação, Tutorial e Ati
 | 03 | [Entrar](aula-03-layouts-view-flexbox-stylesheet/README.md) | View, StyleSheet, Flexbox (centralizar, row/column) |
 | 04 | [Entrar](aula-04-texto-botoes/README.md) | Text, TouchableOpacity, onPress, useState |
 | 05 | [Entrar](aula-05-imagens-listas-flatlist/README.md) | Image, FlatList, toque no item |
-| 06 | [Entrar](aula-06-navegacao-react-navigation/README.md) | React Navigation (stack), parâmetros, goBack |
+| 06 | [Entrar](aula-06-navegacao-react-navigation/README.md) | Expo Router: file-based routing, Tabs, Stack, parâmetros entre telas |
 | 07 | [Entrar](aula-07-formularios-entrada-dados/README.md) | TextInput, validação, Alert |
 | 08 | [Entrar](aula-08-galeria-camera-expo-image-picker/README.md) | expo-image-picker (galeria e câmera) |
 | 09 | [Entrar](aula-09-geolocalizacao-expo-location/README.md) | expo-location, permissões, coordenadas |

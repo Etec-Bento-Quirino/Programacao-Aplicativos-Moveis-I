@@ -1,6 +1,16 @@
 # Tutorial: O Cofre de Informações e o Splash Screen
 
-**Sugestão de execução:** Quinzena 8.
+**Sugestão de execução:** Quinzena 8 | **Bimestre:** 2
+
+> **Pré-requisitos:** [Aula 06](../aula-06-navegacao-react-navigation/README.md) — navegação entre telas funcionando.
+>
+> **O que você vai aprender:**
+> - Criar campos de texto (`TextInput`) e capturar o que o usuário digita
+> - Controlar o tipo de teclado exibido (numérico, e-mail, padrão)
+> - Validar dados antes de salvar (verificar campos vazios, formato de e-mail)
+> - Usar `Alert.alert()` para exibir mensagens de erro ou confirmação ao usuário
+
+---
 
 Sente-se à mesa, prepare o café. Hoje construiremos um formulário que seria digno de tela inicial de e-mail e amarraremos uma pequena introdução cinematográfica para quando as portas abrirem.
 
@@ -109,3 +119,15 @@ Se você colocar um botão de envio agora, ele engolirá tudo. Precisamos criar 
 ```
 
 Anexe `handleEnviar` ao `onPress` do seu botão e observe esse guardião barrar usuários teimosos!
+
+---
+
+## Como isso se aplica ao seu projeto
+
+O formulário com `TextInput` e validação é o coração da **Fase 2** do seu projeto (Bimestre 2):
+- **Tipo A:** formulário de nova tarefa (título obrigatório, descrição opcional)
+- **Tipo B:** formulário de novo item no inventário (nome, quantidade, categoria)
+- **Tipo C:** formulário de nova nota (título obrigatório, conteúdo do texto)
+- **Tipo D:** formulário de novo gasto (valor obrigatório em número, categoria, data)
+
+A validação com `if (!campo.trim())` evita que o aluno salve dados em branco no banco de dados — boa prática que você levará para todas as telas de cadastro.

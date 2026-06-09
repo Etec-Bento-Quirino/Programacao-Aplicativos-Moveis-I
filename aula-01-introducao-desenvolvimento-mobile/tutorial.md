@@ -1,6 +1,15 @@
 # Tutorial: Montando a Oficina de Criação (Node, npm, npx)
 
-**Sugestão de execução:** Quinzena 1.
+**Sugestão de execução:** Quinzena 1 | **Bimestre:** 1
+
+> **Pré-requisitos:** Nenhum — esta é a primeira aula do curso.
+>
+> **O que você vai aprender:**
+> - Instalar o Node.js (o motor que roda JavaScript fora do navegador)
+> - Verificar se `node`, `npm` e `npx` estão funcionando no terminal
+> - Entender o papel de cada ferramenta antes de criar o primeiro app
+
+---
 
 Não adianta você querer se tornar um mestre cozinheiro sem antes comprar as vasilhas adequadas e instalar um bom forno. Nesta aula o botão "Criar App" ainda não será apertado. Nós vamos assentar a fundação!
 
@@ -66,3 +75,9 @@ Eles vão ser linkados pelo **Metro Bundler**. Ele é um sistema de empacotament
 Você muda a cor da Interface para *"Vermelho"* na tela preta do VS Code e aperta Control+S do seu Notebook. Em exatos 120 milissegundos o Motor do Metro injeta os pacotes novos pela nuvem no celular que está na sua mão, e ele fica Vermelho! É o que chamamos de desenvolvimento moderno.
 
 Até a próxima aula! A gente se vê lá no código!
+
+---
+
+## Como isso se aplica ao seu projeto
+
+Sem Node.js instalado não é possível criar nenhum dos 4 tipos de projeto. Esta aula é a fundação obrigatória para tudo que virá. Na próxima aula você já cria o esqueleto do seu app (qualquer que seja o tipo escolhido: A, B, C ou D).
