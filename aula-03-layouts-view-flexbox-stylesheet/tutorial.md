@@ -91,10 +91,9 @@ const styles = StyleSheet.create({
 
 ## Como isso se aplica ao seu projeto
 
-A estrutura de componentes que você aprendeu aqui (pasta `components/`, `props`, `StyleSheet`) é o padrão que usará para criar os blocos visuais do **seu** projeto:
-- **Tipo A:** componente `ItemTarefa.tsx` para cada linha da lista
-- **Tipo B:** componente `CartaoCategoria.tsx` para exibir cada categoria
-- **Tipo C:** componente `CartaoNota.tsx` com título e data da nota
-- **Tipo D:** componente `LinhaGasto.tsx` com valor, categoria e data
+A estrutura de componentes que você aprendeu aqui (pasta `components/`, `props`, `StyleSheet`) é o padrão que usará para criar os blocos visuais do **seu** projeto. Crie componentes para o que se repete nas telas do seu tema:
+- um componente para a **linha da lista** (ex.: `ItemRegistro.tsx` mostrando o resumo do registro);
+- um componente para o **cartão de destaque** da tela inicial;
+- um componente para os **campos da tela de detalhe**.
 
 O Flexbox com `alignItems` e `justifyContent` centralizará botões e textos em todas essas telas.

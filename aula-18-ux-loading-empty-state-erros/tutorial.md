@@ -108,10 +108,10 @@ if (carregandoStatus) return <ActivityIndicator />;
 **2. Empty state** — personalizado para o contexto:
 | Projeto | Mensagem do empty state |
 |---|---|
-| Tipo A | "Nenhuma tarefa cadastrada. Adicione a primeira!" |
-| Tipo B | "Esta categoria está vazia. Adicione um item." |
-| Tipo C | "Nenhuma nota ainda. Comece a escrever!" |
-| Tipo D | "Nenhum gasto registrado neste período." |
+| Categoria 1 | "Nenhuma tarefa cadastrada. Adicione a primeira!" |
+| Categoria 2 | "Esta categoria está vazia. Adicione um item." |
+| Categoria 3 | "Nenhuma nota ainda. Comece a escrever!" |
+| Categoria 4 | "Nenhum gasto registrado neste período." |
 
 **3. Exibição dos dados** — a `FlatList` com `keyExtractor` e `renderItem` da Aula 15.
 

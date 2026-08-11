@@ -83,10 +83,6 @@ Massa, não?
 
 ## Como isso se aplica ao seu projeto
 
-O sistema de navegação com Expo Router é a espinha dorsal de todas as telas do **seu** projeto. Após esta aula, você já sabe criar quantas telas precisar:
-- **Tipo A:** tela `index` (lista) → tela `detalhe/[id]` (detalhes da tarefa)
-- **Tipo B:** tela `index` (categorias) → tela `categoria/[id]` (itens da categoria)
-- **Tipo C:** tela `index` (notas) → tela `nota/[id]` (leitura/edição da nota)
-- **Tipo D:** tela `index` (gastos) → tela `resumo` (totais por categoria)
+O sistema de navegação com Expo Router é a espinha dorsal de todas as telas do **seu** projeto. Após esta aula, você já sabe criar quantas telas precisar: a tela `index` (listagem dos registros do seu tema), a tela `detalhe/[id]` (detalhes de um registro) e as telas de formulário de cadastro/edição.
 
 O arquivo `_layout.tsx` com `<Tabs>` ou `<Stack>` controla como as telas são empilhadas e como o botão "Voltar" funciona automaticamente.

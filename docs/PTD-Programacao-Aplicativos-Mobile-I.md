@@ -12,9 +12,9 @@
 1.2 Construir interface gráfica para aplicativos mobile.  
 1.3 Utilizar recursos de aparelhos celulares e tablets.
 
-**Estrutura do plano:** Cada quinzena = 1 aula + 1 atividade. As atividades da quinzena compõem a lista de exercícios. No meio/fim de cada bimestre: projeto integrador. Avaliação do projeto conforme o avanço dos conhecimentos. Público: alunos sem experiência prévia em programação mobile.
+**Estrutura do plano:** Cada quinzena = 1 aula + 1 atividade. As atividades da quinzena compõem a lista de exercícios. Trabalho em Grupo com 4 entregas ao longo do ano. Público: alunos sem experiência prévia em programação mobile.
 
-**Organização dos materiais (React Native + SQLite):** 20 aulas de conteúdo (cada uma com tutorial completo + atividade), 4 aulas exclusivas de projeto (1 por bimestre) e 2 quinzenas de extensão nos bimestres 2 e 3. Stack: React Native (Expo), Node/npm/npx, hooks, SQLite. Quatro tipos de projeto (Lista de Tarefas, Cadastro/Inventário, Diário/Notas, Controle de Gastos), cada um com 4 fases (uma por bimestre), culminando em app completo com SQLite. Índice, calendário e bases tecnológicas: ver **README-MATERIAIS.md** e **calendario-aulas.md**. Pastas: **aulas/** (Aula01 a Aula20), **projetos/** (tipo-a a tipo-d), **plus/** (Storybook opcional).
+**Organização dos materiais (React Native + SQLite):** 20 aulas de conteúdo (cada uma com tutorial completo + atividade), 4 entregas do Trabalho em Grupo e 2 quinzenas de extensão nos bimestres 2 e 3. Stack: React Native (Expo), Node/npm/npx, hooks, SQLite. Trabalho em Grupo com 14 categorias (Educação, Finanças, Pets e Animais, Esportes e Saúde, Alimentação, Organização e Produtividade etc.) e 36 temas sugeridos, cada um com 4 entregas, culminando em app completo com SQLite. Índice, calendário e bases tecnológicas: ver **README.md** e **calendario-aulas.md**. Pastas: **projetos/** (categoria-01-educacao a categoria-14-eventos), **plus/** (Storybook opcional).
 
 ---
 
@@ -81,5 +81,5 @@ A soma das atividades de cada quinzena compõe a lista de exercícios do bimestr
 ## Avaliação
 
 - **Atividades quinzenais:** participação e entrega das atividades (peso na média conforme definição da escola).
-- **Projeto por bimestre:** avaliado conforme o aluno for avançando nos conhecimentos; critérios: atendimento ao escopo, uso correto de layouts e componentes, persistência quando aplicável, uso de recursos do dispositivo, organização do código e apresentação.
+- **Trabalho em Grupo:** avaliado conforme o grupo for avançando nas 4 entregas; critérios: atendimento ao escopo, uso correto de layouts e componentes, persistência quando aplicável, uso de recursos do dispositivo, organização do código e apresentação.
 - **Lista de exercícios:** formada pelas atividades das quinzenas; pode ser usada para recuperação e como evidência de desenvolvimento contínuo.

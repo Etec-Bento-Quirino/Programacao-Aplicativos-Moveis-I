@@ -99,13 +99,13 @@ Na próxima aula faremos a leitura com `SELECT` e montaremos o CRUD completo. Av
 
 ## Como isso se aplica ao seu projeto
 
-A tabela criada nesta aula é o banco de dados do **seu** projeto. Cada projeto tem sua própria estrutura:
+A tabela criada nesta aula é o banco de dados do **seu** projeto. Cada categoria tem sua própria estrutura:
 
-| Projeto | Tabela principal | Colunas essenciais |
+| Categoria | Tabela principal | Colunas essenciais |
 |---|---|---|
-| Tipo A | `tarefas` | `id`, `titulo`, `descricao`, `concluida`, `data_criacao` |
-| Tipo B | `itens` | `id`, `nome`, `quantidade`, `categoria_id` |
-| Tipo C | `notas` | `id`, `titulo`, `conteudo`, `data_criacao` |
-| Tipo D | `gastos` | `id`, `valor`, `descricao`, `categoria`, `data` |
+| Categoria 1 | `tarefas` | `id`, `titulo`, `descricao`, `concluida`, `data_criacao` |
+| Categoria 2 | `itens` | `id`, `nome`, `quantidade`, `categoria_id` |
+| Categoria 3 | `notas` | `id`, `titulo`, `conteudo`, `data_criacao` |
+| Categoria 4 | `gastos` | `id`, `valor`, `descricao`, `categoria`, `data` |
 
 O padrão de abrir o banco fora do componente (`const db = SQLite.openDatabaseSync(...)`) e criar a tabela dentro do `useEffect(() => {}, [])` é o padrão que você usará em todo o projeto.

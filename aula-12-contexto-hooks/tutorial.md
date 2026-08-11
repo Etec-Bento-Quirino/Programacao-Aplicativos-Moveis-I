@@ -110,8 +110,8 @@ O botão altera o contexto global. O contexto alterado faz todas as telas que o 
 
 O `useContext` é mais útil no projeto quando precisar de dados compartilhados entre telas sem passar props manualmente:
 
-- **Tipo A/B/C/D — Tema do app:** o usuário pode escolher tema claro/escuro nas configurações e o `TemaContext` aplica em todas as telas simultaneamente
-- **Tipo A (Lista de Tarefas):** um contexto de "tarefas" pode tornar a lista acessível na tela principal e na tela de detalhes sem navegação por parâmetros
-- **Tipo D (Controle de Gastos):** um contexto de "categoria selecionada" permite filtrar a lista sem recarregar do banco toda vez que o usuário muda de aba
+- **Projetos 1/2/3/4 — Tema do app:** o usuário pode escolher tema claro/escuro nas configurações e o `TemaContext` aplica em todas as telas simultaneamente
+- **Categoria 1 (Lista de Tarefas):** um contexto de "tarefas" pode tornar a lista acessível na tela principal e na tela de detalhes sem navegação por parâmetros
+- **Categoria 4 (Controle de Gastos):** um contexto de "categoria selecionada" permite filtrar a lista sem recarregar do banco toda vez que o usuário muda de aba
 
-Para a **Fase 4**, se o projeto crescer em complexidade (múltiplas telas editando o mesmo dado), migrar para um `Context` evita bugs de dados desatualizados entre telas.
+Para a **Entrega 4**, se o projeto crescer em complexidade (múltiplas telas editando o mesmo dado), migrar para um `Context` evita bugs de dados desatualizados entre telas.

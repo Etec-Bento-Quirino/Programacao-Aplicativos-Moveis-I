@@ -56,7 +56,7 @@ Descrição em 2-3 linhas do que o app faz.
 Antes de zipar o projeto, garanta que a pasta `node_modules` **não está incluída** (ela pesa centenas de MB e o professor executa `npm install` para recriá-la):
 
 1. Delete ou ignore a pasta `node_modules/`
-2. Comprima o projeto com um nome claro: `NomeAluno_TipoB_PAM1.zip`
+2. Comprima o projeto com um nome claro: `NomeAluno_Projeto2_PAM1.zip`
 3. Inclua no ZIP apenas o código-fonte + o `README.md` com as instruções acima
 
 Parabéns! Você chegou ao final da trilha. Avance para a atividade final.

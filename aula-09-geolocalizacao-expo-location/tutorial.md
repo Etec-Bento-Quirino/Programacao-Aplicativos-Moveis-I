@@ -105,7 +105,7 @@ Ajuste os estilos ao visual do seu projeto e prepare-se para a atividade da quin
 
 A geolocalização é usada diretamente na **Fase 2** de um tipo e opcionalmente nos demais:
 
-- **Tipo D (Controle de Gastos):** ao registrar um novo gasto, o app salva as coordenadas do local da compra. Na Fase 4, um mapa pode exibir onde cada gasto ocorreu
+- **Categoria 4 (Controle de Gastos):** ao registrar um novo gasto, o app salva as coordenadas do local da compra. Na Entrega 4, um mapa pode exibir onde cada gasto ocorreu
 - **Tipos A, B e C:** geolocalização é recurso bônus opcional — pode ser usada para registrar onde uma tarefa foi concluída, onde um item foi encontrado, ou onde uma nota foi escrita
 
 O padrão aprendido aqui (solicitar permissão → aguardar com `await` → tratar negativa → usar o resultado) é o mesmo para câmera (Aula 08) e notificações (Aula 10). Você já domina o padrão.

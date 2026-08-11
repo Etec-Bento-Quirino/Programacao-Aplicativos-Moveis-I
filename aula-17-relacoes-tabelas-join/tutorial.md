@@ -103,8 +103,8 @@ O `JOIN` resolve um problema real em todos os projetos que têm tabelas relacion
 
 | Projeto | Consulta com JOIN |
 |---|---|
-| Tipo B | `SELECT itens.*, categorias.nome AS nome_categoria FROM itens INNER JOIN categorias ON itens.id_categoria = categorias.id` |
-| Tipo C | `SELECT notas.*, categorias.nome AS nome_categoria FROM notas INNER JOIN categorias ON notas.id_categoria = categorias.id` |
-| Tipo D | `SELECT gastos.*, categorias.nome AS nome_categoria FROM gastos INNER JOIN categorias ON gastos.id_categoria = categorias.id` |
+| Categoria 2 | `SELECT itens.*, categorias.nome AS nome_categoria FROM itens INNER JOIN categorias ON itens.id_categoria = categorias.id` |
+| Categoria 3 | `SELECT notas.*, categorias.nome AS nome_categoria FROM notas INNER JOIN categorias ON notas.id_categoria = categorias.id` |
+| Categoria 4 | `SELECT gastos.*, categorias.nome AS nome_categoria FROM gastos INNER JOIN categorias ON gastos.id_categoria = categorias.id` |
 
 O `LEFT JOIN + COUNT` resolve o contador de itens na tela inicial de todos os projetos com categorias — sem precisar fazer múltiplas consultas nem calcular no JavaScript.

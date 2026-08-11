@@ -12,7 +12,7 @@ Sua última atividade não exige o envio do código-fonte ainda, mas sim de um d
 
 Crie um documento (PDF, arquivo DOC/Texto ou utilize o próprio `README.md` do seu repositório) descrevendo os seguintes pontos:
 
-1. **Tipificação:** Qual é o tema/tipo do projeto? (ex: "O projeto será do Tipo B: Controle de Inventário").
+1. **Tipificação:** Qual é o tema/tipo do projeto? (ex: "O projeto será da Categoria 9 – Organização e Produtividade, tema Lista de Tarefas").
 2. **Defesa do Software:** Declare como os recursos principais foram usados. 
    - Qual tabela foi criada no SQLite?
    - A Câmera ou as Notificações vão ser utilizadas? 

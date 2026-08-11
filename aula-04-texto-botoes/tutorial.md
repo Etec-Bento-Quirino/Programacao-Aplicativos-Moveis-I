@@ -77,10 +77,8 @@ Conecte os dois botões no final da sua tela `index.tsx` de sempre e divirta-se 
 
 ## Como isso se aplica ao seu projeto
 
-O componente `Button.tsx` que você criou nesta aula é o mesmo padrão que usará em todas as telas do **seu** projeto:
-- **Tipo A:** botão "Adicionar Tarefa" e botão "Marcar como Concluída"
-- **Tipo B:** botão "Novo Item" e botão "Nova Categoria"
-- **Tipo C:** botão "Nova Nota" e botão "Salvar"
-- **Tipo D:** botão "Registrar Gasto" e botão "Ver Resumo"
+O componente `Button.tsx` que você criou nesta aula é o mesmo padrão que usará em todas as telas do **seu** projeto. Exemplos de botões por momento:
+- tela de listagem: botão **"Adicionar"** que abre o formulário de cadastro;
+- tela de detalhe: botões **"Editar"**, **"Excluir"** e de alternar o **status** do registro (ex.: concluído/pendente).
 
 O padrão de receber `theme="primary"` via props permite criar um único componente e reutilizá-lo com aparências diferentes em todo o app.

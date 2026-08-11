@@ -102,9 +102,9 @@ O AsyncStorage é a tecnologia de persistência da **Fase 2** do seu projeto —
 
 | Projeto | O que salvar no AsyncStorage |
 |---|---|
-| Tipo A | Array de tarefas `[{id, titulo, concluida}]` |
-| Tipo B | Array de itens `[{id, nome, categoria}]` |
-| Tipo C | Array de notas `[{id, titulo, conteudo}]` |
-| Tipo D | Array de gastos `[{id, valor, descricao, data}]` |
+| Categoria 1 | Array de tarefas `[{id, titulo, concluida}]` |
+| Categoria 2 | Array de itens `[{id, nome, categoria}]` |
+| Categoria 3 | Array de notas `[{id, titulo, conteudo}]` |
+| Categoria 4 | Array de gastos `[{id, valor, descricao, data}]` |
 
 **Importante:** Na Fase 3 (Aulas 14–15) você migrará do AsyncStorage para o SQLite. O AsyncStorage fica apenas para preferências simples do usuário (tema claro/escuro, nome do perfil), enquanto o SQLite assume todos os dados principais do app.

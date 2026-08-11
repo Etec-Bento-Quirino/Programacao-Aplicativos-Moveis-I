@@ -8,7 +8,7 @@
 
 ## Sumário
 
-Curso completo de desenvolvimento de aplicativos móveis com **React Native (Expo)** e **SQLite**. 20 aulas progressivas (tutorial + atividade por aula), 4 tipos de projeto final (4 fases cada). Ao final do ano o aluno desenvolve um app completo com persistência local.
+Curso completo de desenvolvimento de aplicativos móveis com **React Native (Expo)** e **SQLite**. 20 aulas progressivas (tutorial + atividade por aula) e um **Trabalho em Grupo** com 14 categorias e 36 temas sugeridos (4 entregas). Ao final do ano o aluno desenvolve um app completo com persistência local.
 
 **O que você vai dominar:**
 
@@ -19,7 +19,7 @@ Curso completo de desenvolvimento de aplicativos móveis com **React Native (Exp
 - AsyncStorage e SQLite
 - Projeto completo com CRUD e UX (loading, empty state, erros)
 
-**Tempo estimado:** ano letivo (4 bimestres) | **Aulas:** 20 | **Projetos:** 4 tipos (escolha 1)
+**Tempo estimado:** ano letivo (4 bimestres) | **Aulas:** 20 | **Projetos:** Trabalho em Grupo (14 categorias / 36 temas, escolha 1)
 
 ---
 
@@ -40,7 +40,7 @@ Curso completo de desenvolvimento de aplicativos móveis com **React Native (Exp
 
 ## Objetivo do curso
 
-Este repositório contém o material completo da disciplina **Programação de Aplicativos Móveis I**: tutoriais passo a passo, atividades por quinzena e quatro tipos de projeto final (lista de tarefas, cadastro/inventário, diário de notas, controle de gastos), cada um em 4 fases (uma por bimestre). Ao final, o aluno entrega um app com SQLite, recurso do dispositivo e boa experiência de uso.
+Este repositório contém o material completo da disciplina **Programação de Aplicativos Móveis I**: tutoriais passo a passo, atividades por quinzena e o **Trabalho em Grupo** — 14 categorias de temas (educação, finanças, pets, esportes, alimentação e outras), cada uma em 4 entregas. Ao final, o aluno entrega um app com SQLite, recurso do dispositivo e boa experiência de uso.
 
 ---
 
@@ -49,7 +49,7 @@ Este repositório contém o material completo da disciplina **Programação de A
 1. Use o **índice** acima para ir às seções.
 2. Siga as **aulas em ordem** (aula-01 até aula-20).
 3. Em cada aula: leia o **tutorial** e depois faça a **atividade**.
-4. Escolha **um tipo de projeto** (A, B, C ou D) e desenvolva as 4 fases ao longo do ano.
+4. Escolha **uma das 14 categorias** e desenvolva as 4 entregas do Trabalho em Grupo.
 5. Consulte [TUTORIAIS.md](TUTORIAIS.md) e [INSTRUCOES.md](INSTRUCOES.md) para detalhes.
 
 ---
@@ -79,13 +79,13 @@ Cada aula tem um **índice** (README) com links para: **Apresentação** (slides
 | 17 | Relações entre tabelas (JOIN) | [Entrar](aula-17-relacoes-tabelas-join/README.md) |
 | 18 | UX: loading, empty state e erros | [Entrar](aula-18-ux-loading-empty-state-erros/README.md) |
 | 19 | Revisão e boas práticas | [Entrar](aula-19-revisao-boas-praticas/README.md) |
-| 20 | Preparação do projeto final (Fase 4) | [Entrar](aula-20-preparacao-projeto-final/README.md) |
+| 20 | Preparação do projeto final (Entrega 4) | [Entrar](aula-20-preparacao-projeto-final/README.md) |
 
 ---
 
 ## Trilha de Aprendizado
 
-O curso é dividido em quatro blocos, um por bimestre. Cada bloco termina com a entrega de uma fase do seu projeto.
+O curso é dividido em quatro blocos, um por bimestre. O **Trabalho em Grupo** tem 4 entregas ao longo do ano (datas no [calendário](docs/calendario-aulas.md)).
 
 ### Bimestre 1 – Fundamentos (Aulas 01–05)
 > Você parte do zero e aprende a criar, estruturar e exibir dados na tela.
@@ -152,7 +152,7 @@ O curso é dividido em quatro blocos, um por bimestre. Cada bloco termina com a 
 | Pasta | Conteúdo |
 |-------|----------|
 | **aula-01** a **aula-20** | Em cada pasta: [README](aula-01-introducao-desenvolvimento-mobile/README.md) (índice), [apresentacao.md](aula-01-introducao-desenvolvimento-mobile/apresentacao.md), [tutorial.md](aula-01-introducao-desenvolvimento-mobile/tutorial.md), [atividade.md](aula-01-introducao-desenvolvimento-mobile/atividade.md) |
-| [projetos/](projetos) | 4 tipos de projeto (A, B, C, D), cada um com 4 fases |
+| [projetos/](projetos) | Trabalho em Grupo: 14 categorias / 36 temas, cada um com 4 entregas |
 | [plus/](plus) | Conteúdo opcional (ex.: Storybook) |
 | [docs/](docs) | PTD, calendário e material de apoio |
 
@@ -192,18 +192,28 @@ Use o app **Expo Go** no celular para escanear o QR Code e ver o app.
 
 ---
 
-## Projetos práticos
+## Trabalho em Grupo
 
-O aluno escolhe **um** tipo e desenvolve as 4 fases (uma por bimestre):
+Em grupo (2 a 4 integrantes), o aluno escolhe **uma** das categorias e desenvolve o app em **4 entregas**:
 
-| Tipo | Nome | Descrição resumida |
-|------|------|--------------------|
-| A | [Lista de Tarefas](projetos/tipo-a-listadetarefas) | CRUD de tarefas, SQLite, notificação |
-| B | [Cadastro/Inventário](projetos/tipo-b-cadastro-inventario) | Categorias e itens, SQLite, edição |
-| C | [Diário/Notas](projetos/tipo-c-diario-notas) | Notas, galeria, SQLite, foto |
-| D | [Controle de Gastos](projetos/tipo-d-controle-gastos) | Gastos por categoria, SQLite, geolocalização |
+| Categoria | Nome | Guia |
+|-----------|------|------|
+| 1 | [Educação](projetos/categoria-01-educacao/README.md) | Estudos, tarefas escolares e aprendizado |
+| 2 | [Finanças](projetos/categoria-02-financas/README.md) | Controle financeiro e despesas |
+| 3 | [Pets e Animais](projetos/categoria-03-pets-animais/README.md) | Cuidados com animais |
+| 4 | [Esportes e Saúde](projetos/categoria-04-esportes-saude/README.md) | Hábitos, treinos e competições |
+| 5 | [Veículos e Mobilidade](projetos/categoria-05-veiculos-mobilidade/README.md) | Manutenção de veículos |
+| 6 | [Casa e Meio Ambiente](projetos/categoria-06-casa-meio-ambiente/README.md) | Plantas e consumo consciente |
+| 7 | [Alimentação](projetos/categoria-07-alimentacao/README.md) | Receitas e compras |
+| 8 | [Comércio e Serviços](projetos/categoria-08-comercio-servicos/README.md) | Estoque, catálogo e agendamentos |
+| 9 | [Organização e Produtividade](projetos/categoria-09-organizacao-produtividade/README.md) | Tarefas, compromissos e projetos |
+| 10 | [Entretenimento e Cultura](projetos/categoria-10-entretenimento-cultura/README.md) | Filmes, séries e coleções |
+| 11 | [Comunidade e Solidariedade](projetos/categoria-11-comunidade-solidariedade/README.md) | Doações e voluntariado |
+| 12 | [Gestão e Administração](projetos/categoria-12-gestao-administracao/README.md) | Reservas, empréstimos e equipamentos |
+| 13 | [Viagens e Turismo](projetos/categoria-13-viagens-turismo/README.md) | Planejamento de viagens |
+| 14 | [Eventos](projetos/categoria-14-eventos/README.md) | Organização de eventos |
 
-Cada tipo tem um `README.md` e as fases em `fase1-bimestre1.md` a `fase4-bimestre4.md`.
+Cada categoria tem um `README.md` (temas sugeridos + cronograma). As fichas de entrega são compartilhadas entre todas as categorias (`fase1-bimestre1.md` a `fase4-bimestre4.md`). Cada tema sugerido tem uma subpasta própria (`tema-01-...` a `tema-36-...`) com README, telas e banco de dados — ver o [Índice de Temas](projetos/README.md). Regras completas em [projetos/README.md](projetos/README.md).
 
 ---
 
@@ -216,7 +226,7 @@ Consulte o nosso [Guia de Erros Comuns e Troubleshooting](docs/GUIA-DE-ERROS-COM
 
 ## Calendário
 
-26 quinzenas: 20 aulas de conteúdo + 4 quinzenas de projeto (1 por bimestre) + 2 de extensão. Datas sugeridas e detalhes em [docs/calendario-aulas.md](docs/calendario-aulas.md).
+26 quinzenas: 20 aulas de conteúdo + 4 entregas do Trabalho em Grupo + 2 de extensão. Datas sugeridas e detalhes em [docs/calendario-aulas.md](docs/calendario-aulas.md).
 
 ---
 

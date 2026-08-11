@@ -127,9 +127,9 @@ Esta aula é o coração da **Fase 3** do seu projeto. O padrão "tela de lista 
 
 | Projeto | Tela lista | Tela formulário | O que salva |
 |---|---|---|---|
-| Tipo A | Lista de tarefas | Nova tarefa | `titulo`, `descricao` |
-| Tipo B | Lista de categorias → lista de itens | Novo item | `nome`, `id_categoria` |
-| Tipo C | Lista de notas | Nova nota | `titulo`, `conteudo` |
-| Tipo D | Lista de gastos | Novo gasto | `valor`, `descricao`, `id_categoria` |
+| Categoria 1 | Lista de tarefas | Nova tarefa | `titulo`, `descricao` |
+| Categoria 2 | Lista de categorias → lista de itens | Novo item | `nome`, `id_categoria` |
+| Categoria 3 | Lista de notas | Nova nota | `titulo`, `conteudo` |
+| Categoria 4 | Lista de gastos | Novo gasto | `valor`, `descricao`, `id_categoria` |
 
 O `useLocalSearchParams` do Expo Router permite que a tela de listagem receba a categoria como parâmetro de URL e filtre o banco automaticamente — sem precisar de um estado global.

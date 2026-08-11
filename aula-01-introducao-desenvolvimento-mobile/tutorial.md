@@ -80,4 +80,4 @@ Até a próxima aula! A gente se vê lá no código!
 
 ## Como isso se aplica ao seu projeto
 
-Sem Node.js instalado não é possível criar nenhum dos 4 tipos de projeto. Esta aula é a fundação obrigatória para tudo que virá. Na próxima aula você já cria o esqueleto do seu app (qualquer que seja o tipo escolhido: A, B, C ou D).
+Sem Node.js instalado não é possível criar nenhum app. Esta aula é a fundação obrigatória para tudo que virá. Na próxima aula você já cria o esqueleto do seu app — independentemente da categoria e do tema que seu grupo escolher para o Trabalho em Grupo.

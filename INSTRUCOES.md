@@ -32,9 +32,9 @@ cd pam-i-programacao-aplicativos-moveis
 
 ### 4. Escolher e desenvolver o projeto
 
-- Escolha **um** tipo em [projetos/](projetos): tipo A (Lista de Tarefas), B (Cadastro/Inventário), C (Diário/Notas) ou D (Controle de Gastos).
-- A cada bimestre, implemente a fase correspondente (fase1 no B1, fase2 no B2, etc.).
-- Ao final do 4º bimestre, entregue o app completo com SQLite conforme o README do tipo escolhido.
+- Escolha **uma** das **14 categorias** do [Trabalho em Grupo](projetos/README.md) (Educação, Finanças, Pets, Esportes, Alimentação etc.) e um tema dentre os **36 sugeridos**.
+- Cada entrega tem uma ficha correspondente (`fase1-bimestre1.md` a `fase4-bimestre4.md`), com data no [calendário](docs/calendario-aulas.md).
+- Ao final do Trabalho em Grupo, entregue o app completo com SQLite conforme o README da categoria escolhida.
 
 ### 5. Conteúdo extra
 
@@ -57,10 +57,18 @@ Programacao-Aplicativos-Moveis/
 │   └── atividade.md
 ├── ... (aula-02 até aula-20)
 ├── projetos/
-│   ├── tipo-a-listadetarefas/
-│   ├── tipo-b-cadastro-inventario/
-│   ├── tipo-c-diario-notas/
-│   └── tipo-d-controle-gastos/
+│   ├── README.md                      (regras + índice de 14 categorias / 36 temas)
+│   ├── fase1-bimestre1.md             (fichas de entrega compartilhadas)
+│   ├── fase2-bimestre2.md
+│   ├── fase3-bimestre3.md
+│   ├── fase4-bimestre4.md
+│   ├── categoria-01-educacao/
+│   │   ├── README.md
+│   │   └── tema-04-organizacao-de-estudos/
+│   │   └── ... (temas da categoria)
+│   ├── ... (categoria-02 até categoria-14)
+│   └── categoria-14-eventos/
+│       └── tema-31-gerenciamento-de-eventos/
 ├── plus/
 │   └── storybook-design-system.md
 └── docs/

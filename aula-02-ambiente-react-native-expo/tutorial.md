@@ -40,7 +40,7 @@ cd StickerSmash
 >   }
 > ```
 > 🚑 **Seu Terminal deu erro ou travou ao tentar rodar com `--tunnel`?**
-> Acesse o nosso [Guia de Erros Comuns](../../docs/GUIA-DE-ERROS-COMUNS.md) para forçar a instalação do `ngrok` ou rodar offline via cabo USB!
+> Acesse o nosso [Guia de Erros Comuns](../docs/GUIA-DE-ERROS-COMUNS.md) para forçar a instalação do `ngrok` ou rodar offline via cabo USB!
 >
 > Depois disso, basta iniciar o app rodando:
 > ```bash
@@ -103,7 +103,7 @@ Olhe no emulador ou no celular! A mágica do *Fast Refresh* alterou as cores em 
 ## Como isso se aplica ao seu projeto
 
 O projeto StickerSmash é usado como veículo de aprendizagem. O que você aprendeu aqui — criar app, estrutura de pastas, `View`, `Text`, `StyleSheet` — é exatamente o que usará para montar a tela inicial do **seu** projeto:
-- **Tipo A (Lista de Tarefas):** a tela principal será uma lista de tarefas
-- **Tipo B (Cadastro/Inventário):** a tela inicial mostrará categorias
-- **Tipo C (Diário/Notas):** a tela inicial listará as notas
-- **Tipo D (Controle de Gastos):** a tela inicial exibirá os gastos recentes
+- **Categoria 1 (Lista de Tarefas):** a tela principal será uma lista de tarefas
+- **Categoria 2 (Cadastro/Inventário):** a tela inicial mostrará categorias
+- **Categoria 3 (Diário/Notas):** a tela inicial listará as notas
+- **Categoria 4 (Controle de Gastos):** a tela inicial exibirá os gastos recentes

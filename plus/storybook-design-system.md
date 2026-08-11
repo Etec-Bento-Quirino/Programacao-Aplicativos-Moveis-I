@@ -21,7 +21,7 @@ Em um **design system**, você define um conjunto de componentes reutilizáveis 
 Para React Native existe o **React Native Storybook** (ou addon para Expo). O uso é opcional e pode ser oferecido como:
 
 1. **Aula extra:** uma quinzena ou parte dela para instalar o Storybook no projeto, criar 2–3 componentes (ex.: Botão, Card) e 1–2 stories por componente.
-2. **Projeto integrador:** no projeto final (Tipo A, B, C ou D), o aluno pode criar uma pasta `components` com Botão e Card padronizados e, se quiser, documentar no Storybook.
+2. **Projeto integrador:** no projeto final (Categoria 1, 2, 3 ou 4), o aluno pode criar uma pasta `components` com Botão e Card padronizados e, se quiser, documentar no Storybook.
 
 ---
 

@@ -114,11 +114,11 @@ Você agora controla o sistema de notificações do Android e iOS diretamente do
 
 ## Como isso se aplica ao seu projeto
 
-As notificações locais são o recurso obrigatório da **Fase 4** em pelo menos um tipo de projeto:
+As notificações locais são o recurso obrigatório da **Entrega 4** em pelo menos um projeto:
 
-- **Tipo A (Lista de Tarefas):** notificação disparada ao adicionar uma tarefa com prazo — "Lembrete: sua tarefa vence amanhã!"
-- **Tipo B (Cadastro/Inventário):** notificação de alerta quando um item tem estoque baixo
-- **Tipo C (Diário/Notas):** lembrete diário para escrever uma nova nota
-- **Tipo D (Controle de Gastos):** alerta quando o total de gastos da semana ultrapassa um limite
+- **Categoria 1 (Lista de Tarefas):** notificação disparada ao adicionar uma tarefa com prazo — "Lembrete: sua tarefa vence amanhã!"
+- **Categoria 2 (Cadastro/Inventário):** notificação de alerta quando um item tem estoque baixo
+- **Categoria 3 (Diário/Notas):** lembrete diário para escrever uma nova nota
+- **Categoria 4 (Controle de Gastos):** alerta quando o total de gastos da semana ultrapassa um limite
 
 O padrão `agendarNotificacao()` que você criou aqui é reutilizado diretamente no projeto real — basta mudar o `title`, `body` e o `trigger` para o momento adequado.

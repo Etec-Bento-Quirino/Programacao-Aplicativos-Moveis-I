@@ -39,20 +39,17 @@ Use o link **Índice** de cada linha para acessar Apresentação, Tutorial e Ati
 | 17 | [Entrar](aula-17-relacoes-tabelas-join/README.md) | FOREIGN KEY, JOIN, duas tabelas |
 | 18 | [Entrar](aula-18-ux-loading-empty-state-erros/README.md) | Loading, lista vazia, mensagens de erro |
 | 19 | [Entrar](aula-19-revisao-boas-praticas/README.md) | Organização de código, nomenclatura, revisão |
-| 20 | [Entrar](aula-20-preparacao-projeto-final/README.md) | Escopo da Fase 4, checklist, apresentação |
+| 20 | [Entrar](aula-20-preparacao-projeto-final/README.md) | Escopo da Entrega 4, checklist, apresentação |
 
 ---
 
-## Projetos
+## Trabalho em Grupo
 
-Cada tipo de projeto tem fases documentadas em Markdown:
+O projeto tem **14 categorias** e **36 temas sugeridos**, com entregas documentadas nas fichas compartilhadas:
 
-- [Projeto tipo A – Lista de Tarefas](projetos/tipo-a-listadetarefas)
-- [Projeto tipo B – Cadastro/Inventário](projetos/tipo-b-cadastro-inventario)
-- [Projeto tipo C – Diário/Notas](projetos/tipo-c-diario-notas)
-- [Projeto tipo D – Controle de Gastos](projetos/tipo-d-controle-gastos)
+- [Índice de Categorias e Temas](projetos/README.md) – regras do trabalho e lista completa dos temas.
 
-Use o **README** de cada tipo e as **fase1** a **fase4** como guia de entrega por bimestre.
+Use o **README** de cada categoria e as fichas **fase1** a **fase4** (`projetos/fase1-bimestre1.md` a `projetos/fase4-bimestre4.md`) como guia de cada entrega. Cada categoria reúne **temas sugeridos** em subpastas `tema-01-…` até `tema-36-…`, cada uma com seu próprio README.
 
 ---
 

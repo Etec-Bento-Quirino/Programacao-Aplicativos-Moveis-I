@@ -92,10 +92,6 @@ Integre a `EmojiList` dentro do `EmojiPicker` na sua `index.tsx` e o Modal funci
 
 ## Como isso se aplica ao seu projeto
 
-A `FlatList` aprendida nesta aula é o componente central do **Bimestre 1** do seu projeto. É com ela que você exibirá os dados na tela principal:
-- **Tipo A:** `FlatList` de tarefas, cada item mostrando título e status
-- **Tipo B:** `FlatList` de categorias na tela inicial; depois `FlatList` de itens dentro de cada categoria
-- **Tipo C:** `FlatList` de notas ordenadas pela data mais recente
-- **Tipo D:** `FlatList` de gastos com valor e data em cada linha
+A `FlatList` aprendida nesta aula é o componente central do **Bimestre 1** do seu projeto. É com ela que você exibirá os dados na tela principal: uma `FlatList` dos registros do seu tema (cada item mostrando o resumo, ex.: título + status) e, se fizer sentido, uma segunda lista na tela de detalhe.
 
 O `Modal` visto nesta aula também é útil para filtros rápidos e menus de opções sem sair da tela.

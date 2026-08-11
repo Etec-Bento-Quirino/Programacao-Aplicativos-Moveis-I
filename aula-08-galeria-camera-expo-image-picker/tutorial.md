@@ -52,9 +52,9 @@ Quando você apertar o botão, o sistema nativo exibirá a janela de permissão 
 
 ## Como isso se aplica ao seu projeto
 
-O padrão `async/await` com `expo-image-picker` é usado diretamente em dois tipos de projeto:
+O padrão `async/await` com `expo-image-picker` é usado diretamente em dois projetos:
 
-- **Tipo C (Diário/Notas):** botão "Adicionar foto à nota" — o usuário escolhe uma imagem da galeria e a URI é salva junto com o texto da nota no SQLite
-- **Tipo D (Controle de Gastos):** botão opcional de "Foto do comprovante" — anexa a imagem ao registro do gasto
+- **Categoria 3 (Diário/Notas):** botão "Adicionar foto à nota" — o usuário escolhe uma imagem da galeria e a URI é salva junto com o texto da nota no SQLite
+- **Categoria 4 (Controle de Gastos):** botão opcional de "Foto do comprovante" — anexa a imagem ao registro do gasto
 
-Para os tipos A e B, a câmera/galeria é opcional (recurso bônus para a Fase 4). Em todos os casos o padrão é o mesmo: `pickImageAsync()` → verificar `!result.canceled` → salvar `result.assets[0].uri` num `useState` → exibir com `<Image source={{ uri: imagemSelecionada }} />`.
+Para os projetos 1 e 2, a câmera/galeria é opcional (recurso bônus para a Entrega 4). Em todos os casos o padrão é o mesmo: `pickImageAsync()` → verificar `!result.canceled` → salvar `result.assets[0].uri` num `useState` → exibir com `<Image source={{ uri: imagemSelecionada }} />`.
