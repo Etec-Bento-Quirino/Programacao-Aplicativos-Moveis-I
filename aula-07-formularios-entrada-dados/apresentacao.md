@@ -1,7 +1,3 @@
----
-layout: default
-render_with_liquid: false
----
 # Apresentação: O Tratado de Entrada de Dados ⌨️
 
 **Leitura Autônoma de Arquitetura de Interface**
@@ -37,6 +33,7 @@ Somente depois de passar pelas armadilhas é que liberamos o *Alert.alert()* (O 
 
 **Exemplo Prático: Um Input Controlado Blindado**
 ```tsx
+{% raw %}
 import { useState } from 'react';
 import { View, TextInput, Button, Alert } from 'react-native';
 
@@ -66,6 +63,7 @@ export default function FormularioSeguro() {
     </View>
   );
 }
+{% endraw %}
 ```
 
 👉 **Expanda sua Cabeça Estudando a Documentação Base:** [A Mágica do TextInput](https://reactnative.dev/docs/textinput)

@@ -1,7 +1,3 @@
----
-layout: default
-render_with_liquid: false
----
 # Tutorial: O Refino das Gavetas 🗄️
 
 **Sugestão de execução:** Quinzena 24 | **Bimestre:** 4
@@ -34,6 +30,7 @@ Olhe pro lado Esquerdo do seu Expo. Pare de largar `.js` no root. Nós vamos cri
 Se eu estiver dentro da SubPasta `ui_componentes/BotaoLindoCustomizado.tsx`, Olhe como ele é Limão Puro e Independente (Bate Props que mandaram pra ele sem saber de onde vieram as infos pra renderizar): 
 
 ```tsx
+{% raw %}
 import { TouchableOpacity, Text } from 'react-native';
 import { CORES_BRAND } from '../constantesCores.js'; // Puxando o chefe das constantes!
 
@@ -50,6 +47,7 @@ export default function BotaoAcao({ label, onPress }: Props) {
        </TouchableOpacity>
    )
 }
+{% endraw %}
 ```
 
 ## Passo 3: Invocações dos Pais nas Gavetas

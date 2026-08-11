@@ -1,7 +1,3 @@
----
-layout: default
-render_with_liquid: false
----
 # Tutorial: A Matriz Super-Juntada 🧬
 
 **Sugestão de execução:** Quinzena 22 | **Bimestre:** 4
@@ -77,6 +73,7 @@ const carregarCategorias = () => {
 Com o resultado perfeito mastigado pelo Servidor Base, você constrói uma Flatlist simples para iterar isso gloriosamente:
 
 ```tsx
+{% raw %}
   return (
       <FlatList
         data={categoriasEstado}
@@ -95,6 +92,7 @@ Com o resultado perfeito mastigado pelo Servidor Base, você constrói uma Flatl
         )}
       />
   );
+{% endraw %}
 ```
 
 Avance para a atividade desta quinzena e aplique os JOINs no seu projeto!

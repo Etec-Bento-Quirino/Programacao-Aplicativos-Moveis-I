@@ -1,7 +1,3 @@
----
-layout: default
-render_with_liquid: false
----
 # Tutorial: A Pilula de 5 Segundos (Notificações)
 
 **Sugestão de execução:** Quinzena 11 | **Bimestre:** 2
@@ -84,6 +80,7 @@ export default function PainelVibrante() {
 Agora é a hora do show principal. Acenda o pavio.
 
 ```tsx
+{% raw %}
   const agendarNotificacao = async () => {
     // Só agenda se a permissão for concedida
     const permissaoOk = await solicitarPermissao();
@@ -110,6 +107,7 @@ Agora é a hora do show principal. Acenda o pavio.
     </View>
   );
 }
+{% endraw %}
 ```
 
 Você agora controla o sistema de notificações do Android e iOS diretamente do JavaScript. Avance para a atividade!

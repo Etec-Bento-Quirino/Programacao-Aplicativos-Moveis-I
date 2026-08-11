@@ -1,7 +1,3 @@
----
-layout: default
-render_with_liquid: false
----
 # Apresentação: O Despertar da Tela (Notificações) 🔔
 
 **Leitura Autônoma de Arquitetura de Comunicação em Fundo (Background Service)**
@@ -28,6 +24,7 @@ Usamos algo invocado no ínico do código raiz chamado de `setNotificationHandle
 
 **Exemplo Prático: Agendando um Alarme**
 ```tsx
+{% raw %}
 import * as Notifications from 'expo-notifications';
 import { Button, View } from 'react-native';
 
@@ -58,6 +55,7 @@ export default function TelaLembrete() {
     </View>
   );
 }
+{% endraw %}
 ```
 
 👉 **Expanda sua Cabeça Estudando a Documentação Base:** [Expo Notifications MasterAPI](https://docs.expo.dev/versions/latest/sdk/notifications/)

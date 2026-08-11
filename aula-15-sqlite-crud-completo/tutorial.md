@@ -1,7 +1,3 @@
----
-layout: default
-render_with_liquid: false
----
 # Tutorial: CRUD Completo com SQLite
 
 **Sugestão de execução:** Quinzena 18 | **Bimestre:** 3
@@ -68,6 +64,7 @@ Temos a base. Crie as duas funções principais que sofrerão botões da UI. Rep
 Usamos a Flatlist da Aula 05 para repintar os arrays brutos em Componentes Individuais. Eles terão botões.
 
 ```tsx
+{% raw %}
   return (
     <View style={{ flex: 1, padding: 20 }}>
       {/* Aqui iria um <TextInput /> charmoso apontando para a injeção... */}
@@ -88,6 +85,7 @@ Usamos a Flatlist da Aula 05 para repintar os arrays brutos em Componentes Indiv
       />
     </View>
   );
+{% endraw %}
 ```
 
 Avance para a atividade final do bimestre — você foi exímio!

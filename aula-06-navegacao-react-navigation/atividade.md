@@ -1,7 +1,3 @@
----
-layout: default
-render_with_liquid: false
----
 # Atividade 6: Navegação com Expo Router ⛴️
 
 **Objetivo da Atividade:**
@@ -24,6 +20,7 @@ Para criar o Layout de Tabs com estilo customizado, modifique o `_layout.tsx` de
 
 No arquivo `app/(tabs)/_layout.tsx`:
 ```tsx
+{% raw %}
 import { Tabs } from 'expo-router';
 
 export default function TabLayout() {
@@ -47,6 +44,7 @@ export default function TabLayout() {
     </Tabs>
   );
 }
+{% endraw %}
 ```
 
 No seu arquivo `app/(tabs)/about.tsx`:

@@ -1,7 +1,3 @@
----
-layout: default
-render_with_liquid: false
----
 # Atividade 14: Primeira Tabela e Inspect SQLite ⚔️
 
 **Objetivo da Atividade:**
@@ -23,6 +19,7 @@ Neste desafio, você não precisará criar uma visualização bonitinha (FlatLis
 Depois que o banco estiver configurado usando a instrução de inicialização padrão, você pode buscar os dados utilizando `getAllSync` (se estiver no formato síncrono do novo Expo SQLite) e logar o resultado.
 
 ```tsx
+{% raw %}
 import React from 'react';
 import { View, Button } from 'react-native';
 // Lembre-se de importar o hook do seu banco (ex: useSQLiteContext)
@@ -50,6 +47,7 @@ export default function RaioX() {
     </View>
   );
 }
+{% endraw %}
 ```
 
 ## Entrega:

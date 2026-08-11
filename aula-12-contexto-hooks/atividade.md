@@ -1,7 +1,3 @@
----
-layout: default
-render_with_liquid: false
----
 # Atividade 12: Context API (Variáveis Globais) ⛅
 
 **Objetivo da Atividade:**
@@ -23,6 +19,7 @@ Você deve criar duas telas completamente distintas usando rotas e permitir que 
 Para utilizar o `Context`, você precisará criar um arquivo para instanciar a "Nuvem". Envolva o `_layout.tsx` (ou o `App.js` base) com o `<ThemeProvider>` criado. Use `useContext(ThemeContext)` dentro das telas-filha para consumir ou modificar os dados.
 
 ```tsx
+{% raw %}
 // 1. Exemplo do Arquivo de Contexto (ThemeContext.tsx)
 import React, { createContext, useState } from 'react';
 
@@ -41,9 +38,11 @@ export function ThemeProvider({ children }) {
     </ThemeContext.Provider>
   );
 }
+{% endraw %}
 ```
 
 ```tsx
+{% raw %}
 // 2. Exemplo da sua Tela "Home" que lê do Contexto
 import React, { useContext } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
@@ -61,6 +60,7 @@ export default function Home() {
     </View>
   );
 }
+{% endraw %}
 ```
 
 ## Entrega:

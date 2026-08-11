@@ -1,7 +1,3 @@
----
-layout: default
-render_with_liquid: false
----
 # Aula 06 – Navegação com Expo Router (Abas e Stack)
 
 **Sugestão de execução:** Quinzena 6 | **Bimestre:** 2
@@ -46,6 +42,7 @@ Sempre que uma pasta tem o arquivo mágico `_layout.tsx`, todo componente daquel
 Crie `app/(tabs)/_layout.tsx`:
 
 ```tsx
+{% raw %}
 import { Tabs } from 'expo-router';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
@@ -67,10 +64,12 @@ export default function TabLayout() {
     </Tabs>
   );
 }
+{% endraw %}
 ```
 
 E no seu App Master `app/_layout.tsx`, garantimos que o NotFound não mate seu app e carregue as Tabs primeiro:
 ```tsx
+{% raw %}
 import { Stack } from 'expo-router';
 export default function RootLayout() {
   return (
@@ -80,6 +79,7 @@ export default function RootLayout() {
     </Stack>
   );
 }
+{% endraw %}
 ```
 Massa, não?
 

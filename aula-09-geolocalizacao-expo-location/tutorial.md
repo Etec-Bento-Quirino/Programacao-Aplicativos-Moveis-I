@@ -1,7 +1,3 @@
----
-layout: default
-render_with_liquid: false
----
 # Tutorial: Capturando um Satélite com seu Código
 
 **Sugestão de execução:** Quinzena 10 | **Bimestre:** 2
@@ -75,6 +71,7 @@ export default function TelaLocalizacao() {
 Agora conecte o seu estado (que estava em `null`) e exploda na tela usando `&&` (Mágica React pra exibir as coisas se elas baterem positivos):
 
 ```tsx
+{% raw %}
   return (
     <View style={styles.corpo}>
       <TouchableOpacity onPress={obterLocalizacao} disabled={carregando}>
@@ -99,6 +96,7 @@ Agora conecte o seu estado (que estava em `null`) e exploda na tela usando `&&` 
     </View>
   );
 }
+{% endraw %}
 ```
 
 Ajuste os estilos ao visual do seu projeto e prepare-se para a atividade da quinzena!

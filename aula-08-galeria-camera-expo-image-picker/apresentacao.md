@@ -1,7 +1,3 @@
----
-layout: default
-render_with_liquid: false
----
 # Apresentação: O Assincronismo e a Câmera 📸
 
 **Leitura Autônoma de Arquitetura Dispositivo-Software**
@@ -33,6 +29,7 @@ Quando a pessoa escolhe, o *await* avisa, tira ele da cadeira e a Linha 3 execut
 
 **Exemplo Prático: Parando o tempo para a Galeria**
 ```tsx
+{% raw %}
 import * as ImagePicker from 'expo-image-picker';
 import { useState } from 'react';
 import { View, Button, Image } from 'react-native';
@@ -66,6 +63,7 @@ export default function MinhaCamera() {
     </View>
   );
 }
+{% endraw %}
 ```
 
 👉 **Expanda sua Cabeça Estudando a Documentação Base:** [A Poderosa API ImagePicker](https://docs.expo.dev/versions/latest/sdk/imagepicker/)

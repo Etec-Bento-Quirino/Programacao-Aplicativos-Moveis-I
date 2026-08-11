@@ -1,7 +1,3 @@
----
-layout: default
-render_with_liquid: false
----
 # Apresentação: O Roteamento Dinâmico (Expo Router) 🛣️
 
 **Leitura Autônoma de Arquitetura de Interface**
@@ -48,6 +44,7 @@ graph TD
 
 *Como é o código de um `_layout.tsx` de Abas (Tabs):*
 ```tsx
+{% raw %}
 import { Tabs } from 'expo-router';
 
 export default function LayoutDasAbas() {
@@ -64,6 +61,7 @@ export default function LayoutDasAbas() {
     </Tabs>
   );
 }
+{% endraw %}
 ```
 
 👉 **Expanda sua cabeça estudando a Documentação Base:** [A Mágica do Expo Router](https://docs.expo.dev/router/introduction/)

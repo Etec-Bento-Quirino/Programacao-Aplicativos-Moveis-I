@@ -1,7 +1,3 @@
----
-layout: default
-render_with_liquid: false
----
 # Aula 08 – Galeria, Câmera e o Assincronismo
 
 **Sugestão de execução:** Quinzena 9 | **Bimestre:** 2
@@ -56,9 +52,4 @@ Quando você apertar o botão, o sistema nativo exibirá a janela de permissão 
 
 ## Como isso se aplica ao seu projeto
 
-O padrão `async/await` com `expo-image-picker` é usado diretamente em dois projetos:
-
-- **Categoria 3 (Diário/Notas):** botão "Adicionar foto à nota" — o usuário escolhe uma imagem da galeria e a URI é salva junto com o texto da nota no SQLite
-- **Categoria 4 (Controle de Gastos):** botão opcional de "Foto do comprovante" — anexa a imagem ao registro do gasto
-
-Para os projetos 1 e 2, a câmera/galeria é opcional (recurso bônus para a Entrega 4). Em todos os casos o padrão é o mesmo: `pickImageAsync()` → verificar `!result.canceled` → salvar `result.assets[0].uri` num `useState` → exibir com `<Image source={{ uri: imagemSelecionada }} />`.
+O padrão `async/await` com `expo-image-picker` é usado em vários temas do Trabalho em Grupo (ex.: nota com foto, comprovante de despesa). A câmera/galeria pode ser opcional (recurso bônus para a Entrega 4). Em todos os casos o padrão é o mesmo: `pickImageAsync()` → verificar `!result.canceled` → salvar `result.assets[0].uri` num `useState` → exibir o `Image` passando no atributo `source` o objeto `{ uri: imagemSelecionada }`.

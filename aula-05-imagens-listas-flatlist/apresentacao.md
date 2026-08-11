@@ -1,7 +1,3 @@
----
-layout: default
-render_with_liquid: false
----
 # Apresentação: O Desempenho Importa (Over-Rendering) 🏁
 
 **Leitura Autônoma de Arquitetura de Interface**
@@ -32,6 +28,7 @@ Você não pode colocar os `<Text>` direto nela de forma normal. Ela exige as Pr
 
 **Exemplo Prático de FlatList:**
 ```tsx
+{% raw %}
 import { FlatList, Text, View } from 'react-native';
 
 const meias = [
@@ -53,6 +50,7 @@ export default function GavetaDeMeias() {
     />
   );
 }
+{% endraw %}
 ```
 
 👉 [Mergulhe no abismo na Documentação Exaustiva da Flatlist](https://reactnative.dev/docs/flatlist)
@@ -69,6 +67,7 @@ Ele ativa uma Prop `visible={true|false}`, e o Expo faz a animação fluída com
 
 **Exemplo Básico de Modal:**
 ```tsx
+{% raw %}
 import { Modal, View, Text, Pressable } from 'react-native';
 
 // Dentro do seu componente:
@@ -86,6 +85,7 @@ import { Modal, View, Text, Pressable } from 'react-native';
     </View>
   </View>
 </Modal>
+{% endraw %}
 ```
 
 Bora meter a mão no Código e desenhar esse Gavetão no **Tutorial**.

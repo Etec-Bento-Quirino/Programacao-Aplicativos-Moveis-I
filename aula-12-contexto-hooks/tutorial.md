@@ -1,7 +1,3 @@
----
-layout: default
-render_with_liquid: false
----
 # Tutorial: O Domínio do Sol e da Lua (Dark Mode)
 
 **Sugestão de execução:** Quinzena 15 | **Bimestre:** 3
@@ -26,6 +22,7 @@ Use uma pasta separada no projeto (Por exemplo `/contexts/TemaContext.tsx`).
 Você nunca deve misturar nuvens com arquivos de Rota do Expo.
 
 ```tsx
+{% raw %}
 import { createContext, useState } from 'react';
 
 // O ESQUELETO DA NUVEM (O que tem dentro do buraco?)
@@ -47,6 +44,7 @@ export function TemaProvider({ children }) {
     </TemaContext.Provider>
   );
 }
+{% endraw %}
 ```
 
 ---
@@ -77,6 +75,7 @@ export default function LayoutRaiz() {
 Com isso rodando, abra o código da sua Tela "Configurações.tsx" ou "Home.tsx". Em qualquer botão de profundidade, invoque O Gancho do Contexto:
 
 ```tsx
+{% raw %}
 import { useContext } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { TemaContext } from '../contexts/TemaContext'; // 👈 Importa a estrutura da Nuvem
@@ -104,6 +103,7 @@ export default function ConfigScreen() {
     </View>
   );
 }
+{% endraw %}
 ```
 
 O botão altera o contexto global. O contexto alterado faz todas as telas que o consomem se redesenharem automaticamente — sem precisar passar nenhuma prop entre elas.

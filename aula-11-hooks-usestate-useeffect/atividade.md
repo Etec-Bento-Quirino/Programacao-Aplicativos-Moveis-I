@@ -1,7 +1,3 @@
----
-layout: default
-render_with_liquid: false
----
 # Atividade 11: Gestão de Estados e Re-renderização 🎨
 
 **Objetivo da Atividade:**
@@ -23,6 +19,7 @@ Você criará um componente autônomo focado unicamente na lógica de re-renderi
 No React, você nunca deve alterar um estado diretamente (como `lista.push(novoItem)`). Para adicionar um novo item, use a função do `useState` e desestruture a lista antiga com `...`.
 
 ```tsx
+{% raw %}
 import React, { useState, useEffect } from 'react';
 import { View, TextInput, Button } from 'react-native';
 
@@ -49,6 +46,7 @@ export default function App() {
     </View>
   );
 }
+{% endraw %}
 ```
 
 ## Entrega:

@@ -1,7 +1,3 @@
----
-layout: default
-render_with_liquid: false
----
 # Atividade 13: Persistência de Dados Básica 🗡️
 
 **Objetivo da Atividade:**
@@ -25,6 +21,7 @@ O teste de ouro para persistência é fechar o app:
 Use o `useEffect` vazio `[]` para resgatar os dados do `AsyncStorage` usando `getItem` e `JSON.parse`. Sempre que modificar a lista, use `setItem` com `JSON.stringify`.
 
 ```tsx
+{% raw %}
 import React, { useState, useEffect } from 'react';
 import { View, Text, Button, AsyncStorage } from 'react-native';
 
@@ -56,6 +53,7 @@ export default function App() {
     </View>
   );
 }
+{% endraw %}
 ```
 
 ## Entrega:

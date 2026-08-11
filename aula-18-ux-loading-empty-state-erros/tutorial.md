@@ -1,7 +1,3 @@
----
-layout: default
-render_with_liquid: false
----
 # Tutorial: A Arte do Acolhimento 🎩
 
 **Sugestão de execução:** Quinzena 23 | **Bimestre:** 4
@@ -56,6 +52,7 @@ export default function ListagemDeluxe() {
 Podemos simplesmente esconder a lista se estiver rodando e devolver apenas o Spinner gigante:
 
 ```tsx
+{% raw %}
   // Early return: enquanto carrega, exibe só o spinner e ignora todo o resto do componente
   if (carregandoStatus) {
     return (
@@ -65,6 +62,7 @@ Podemos simplesmente esconder a lista se estiver rodando e devolver apenas o Spi
       </View>
     );
   }
+{% endraw %}
 ```
 
 ## Passo 3: O Fantasma (ListEmptyState)
@@ -72,6 +70,7 @@ Com a Lista Finalmente Baixada. Usaremos um truque majestoso exclusivo da tecnol
 A Extensa propriedade `ListEmptyComponent` aciona na hora uma View Secundária.
 
 ```tsx
+{% raw %}
   return (
       <FlatList
         data={itensArray}
@@ -94,6 +93,7 @@ A Extensa propriedade `ListEmptyComponent` aciona na hora uma View Secundária.
       />
   );
 }
+{% endraw %}
 ```
 
 Esses três estados (carregando / vazio / com dados) fazem seu app parecer profissional. Avance para a atividade desta quinzena!
