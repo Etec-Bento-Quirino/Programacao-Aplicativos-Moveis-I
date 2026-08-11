@@ -4,7 +4,7 @@ Aplicações ligadas a esportes, treinos e saúde: hábitos, exercícios, compet
 
 ## Temas sugeridos
 
-Cada tema tem uma pasta própria com README, telas sugeridas e banco de dados. As fichas de entrega são compartilhadas entre todas as categorias ([fase1](../fase1-bimestre1.md) a [fase4](../fase4-bimestre4.md)).
+Cada tema tem uma pasta própria com README, telas sugeridas e banco de dados. As fichas de entrega são compartilhadas entre todas as categorias ([fase1](../fase1.md) a [fase4](../fase4.md)).
 
 - [Tema 03 – Controle de hábitos](tema-03-controle-de-habitos/README.md) — Acompanhamento de hábitos diários e sequências.
 - [Tema 27 – Diário de Treinos](tema-27-diario-de-treinos/README.md) — Registro de exercícios, séries, repetições, cargas e evolução.
@@ -22,4 +22,4 @@ Cada tema tem uma pasta própria com README, telas sugeridas e banco de dados. A
 | 3 | 19/10/2026 | SQLite com CRUD. |
 | 4 | 16/11/2026 | App completo: SQLite, UX revisada; apresentação. |
 
-Cada entrega tem uma ficha com requisitos e critérios: [fase1-bimestre1.md](../fase1-bimestre1.md) a [fase4-bimestre4.md](../fase4-bimestre4.md).
+Cada entrega tem uma ficha com requisitos e critérios: [fase1.md](../fase1.md) a [fase4.md](../fase4.md).

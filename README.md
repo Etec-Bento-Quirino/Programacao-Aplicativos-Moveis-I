@@ -213,7 +213,7 @@ Em grupo (2 a 4 integrantes), o aluno escolhe **uma** das categorias e desenvolv
 | 13 | [Viagens e Turismo](projetos/categoria-13-viagens-turismo/README.md) | Planejamento de viagens |
 | 14 | [Eventos](projetos/categoria-14-eventos/README.md) | Organização de eventos |
 
-Cada categoria tem um `README.md` (temas sugeridos + cronograma). As fichas de entrega são compartilhadas entre todas as categorias (`fase1-bimestre1.md` a `fase4-bimestre4.md`). Cada tema sugerido tem uma subpasta própria (`tema-01-...` a `tema-36-...`) com README, telas e banco de dados — ver o [Índice de Temas](projetos/README.md). Regras completas em [projetos/README.md](projetos/README.md).
+Cada categoria tem um `README.md` (temas sugeridos + cronograma). As fichas de entrega são compartilhadas entre todas as categorias (`fase1.md` a `fase4.md`). Cada tema sugerido tem uma subpasta própria (`tema-01-...` a `tema-36-...`) com README, telas e banco de dados — ver o [Índice de Temas](projetos/README.md). Regras completas em [projetos/README.md](projetos/README.md).
 
 ---
 

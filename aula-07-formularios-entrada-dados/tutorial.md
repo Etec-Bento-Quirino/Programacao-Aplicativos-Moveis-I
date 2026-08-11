@@ -124,6 +124,6 @@ Anexe `handleEnviar` ao `onPress` do seu botão e observe esse guardião barrar 
 
 ## Como isso se aplica ao seu projeto
 
-O formulário com `TextInput` e validação é o coração da **Fase 2** do seu projeto (Bimestre 2): crie um formulário para adicionar os registros do seu tema, com o campo principal obrigatório e os demais opcionais.
+O formulário com `TextInput` e validação é o coração da **Fase 2** do seu projeto: crie um formulário para adicionar os registros do seu tema, com o campo principal obrigatório e os demais opcionais.
 
 A validação com `if (!campo.trim())` evita que o aluno salve dados em branco no banco de dados — boa prática que você levará para todas as telas de cadastro.

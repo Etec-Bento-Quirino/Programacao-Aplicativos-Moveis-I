@@ -67,7 +67,7 @@ Cada grupo deverá escolher **uma das 14 categorias** e **um tema** para o aplic
 
 ### Índice de Temas
 
-Cada tema tem uma pasta própria (`projetos/<categoria>/tema-NN-*/README.md`) com telas sugeridas e banco de dados. As fichas de entrega são compartilhadas entre todas as categorias ([fase1-bimestre1.md](fase1-bimestre1.md) a [fase4-bimestre4.md](fase4-bimestre4.md)).
+Cada tema tem uma pasta própria (`projetos/<categoria>/tema-NN-*/README.md`) com telas sugeridas e banco de dados. As fichas de entrega são compartilhadas entre todas as categorias ([fase1.md](fase1.md) a [fase4.md](fase4.md)).
 
 | # | Tema | Categoria |
 |---|------|---------|

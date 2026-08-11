@@ -9,7 +9,7 @@ All content is in **Brazilian Portuguese (pt-BR)**. Write new content in pt-BR a
 ## Structure
 
 - `aula-01-…` … `aula-20-…` — one folder per lesson, each with **exactly four files**: `README.md` (index), `apresentacao.md` (slides), `tutorial.md` (step-by-step), `atividade.md` (homework). Follow this pattern for new lessons.
-- `projetos/` — Trabalho em Grupo (final project): `README.md` (index of 14 categories / 36 themes), shared fichas `fase1-bimestre1.md` … `fase4-bimestre4.md`, plus `categoria-NN-<nome>/` — one folder per category (each with its own `README.md` listing themes) and `categoria-NN-<nome>/tema-NN-<slug>/README.md` per suggested theme.
+- `projetos/` — Trabalho em Grupo (final project): `README.md` (index of 14 categories / 36 themes), shared fichas `fase1.md` … `fase4.md`, plus `categoria-NN-<nome>/` — one folder per category (each with its own `README.md` listing themes) and `categoria-NN-<nome>/tema-NN-<slug>/README.md` per suggested theme.
 - `docs/` — `calendario-aulas.md`, `PTD-Programacao-Aplicativos-Mobile-I.md`, `GUIA-DE-ERROS-COMUNS.md` (troubleshooting; referenced from the main README).
 - `plus/` — optional content (e.g. Storybook). `assets/` — images used by lessons.
 - `README.md`, `INSTRUCOES.md`, `TUTORIAIS.md` — course-level entry points.

@@ -4,7 +4,7 @@ Aplicações para o cuidado com pets: cadastro de animais, vacinas, consultas e 
 
 ## Temas sugeridos
 
-Cada tema tem uma pasta própria com README, telas sugeridas e banco de dados. As fichas de entrega são compartilhadas entre todas as categorias ([fase1](../fase1-bimestre1.md) a [fase4](../fase4-bimestre4.md)).
+Cada tema tem uma pasta própria com README, telas sugeridas e banco de dados. As fichas de entrega são compartilhadas entre todas as categorias ([fase1](../fase1.md) a [fase4](../fase4.md)).
 
 - [Tema 16 – Pet Care](tema-16-pet-care/README.md) — Cadastro de animais e controle de vacinas, consultas, medicamentos e alimentação.
 
@@ -19,4 +19,4 @@ Cada tema tem uma pasta própria com README, telas sugeridas e banco de dados. A
 | 3 | 19/10/2026 | SQLite com CRUD. |
 | 4 | 16/11/2026 | App completo: SQLite, UX revisada; apresentação. |
 
-Cada entrega tem uma ficha com requisitos e critérios: [fase1-bimestre1.md](../fase1-bimestre1.md) a [fase4-bimestre4.md](../fase4-bimestre4.md).
+Cada entrega tem uma ficha com requisitos e critérios: [fase1.md](../fase1.md) a [fase4.md](../fase4.md).

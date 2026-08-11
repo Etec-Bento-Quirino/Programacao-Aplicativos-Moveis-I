@@ -4,7 +4,7 @@ Aplicações de gestão e administração: reservas de espaços, empréstimos e 
 
 ## Temas sugeridos
 
-Cada tema tem uma pasta própria com README, telas sugeridas e banco de dados. As fichas de entrega são compartilhadas entre todas as categorias ([fase1](../fase1-bimestre1.md) a [fase4](../fase4-bimestre4.md)).
+Cada tema tem uma pasta própria com README, telas sugeridas e banco de dados. As fichas de entrega são compartilhadas entre todas as categorias ([fase1](../fase1.md) a [fase4](../fase4.md)).
 
 - [Tema 09 – Sistema de Reservas de Espaços](tema-09-reservas-de-espacos/README.md) — Reserva de salas, quadras, laboratórios ou outros espaços.
 - [Tema 12 – Controle de empréstimos de livros ou objetos](tema-12-controle-de-emprestimos/README.md) — Empréstimos, responsáveis e devoluções.
@@ -21,4 +21,4 @@ Cada tema tem uma pasta própria com README, telas sugeridas e banco de dados. A
 | 3 | 19/10/2026 | SQLite com CRUD. |
 | 4 | 16/11/2026 | App completo: SQLite, UX revisada; apresentação. |
 
-Cada entrega tem uma ficha com requisitos e critérios: [fase1-bimestre1.md](../fase1-bimestre1.md) a [fase4-bimestre4.md](../fase4-bimestre4.md).
+Cada entrega tem uma ficha com requisitos e critérios: [fase1.md](../fase1.md) a [fase4.md](../fase4.md).

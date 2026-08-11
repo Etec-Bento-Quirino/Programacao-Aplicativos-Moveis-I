@@ -33,7 +33,7 @@ cd pam-i-programacao-aplicativos-moveis
 ### 4. Escolher e desenvolver o projeto
 
 - Escolha **uma** das **14 categorias** do [Trabalho em Grupo](projetos/README.md) (Educação, Finanças, Pets, Esportes, Alimentação etc.) e um tema dentre os **36 sugeridos**.
-- Cada entrega tem uma ficha correspondente (`fase1-bimestre1.md` a `fase4-bimestre4.md`), com data no [calendário](docs/calendario-aulas.md).
+- Cada entrega tem uma ficha correspondente (`fase1.md` a `fase4.md`), com data no [calendário](docs/calendario-aulas.md).
 - Ao final do Trabalho em Grupo, entregue o app completo com SQLite conforme o README da categoria escolhida.
 
 ### 5. Conteúdo extra
@@ -58,10 +58,10 @@ Programacao-Aplicativos-Moveis/
 ├── ... (aula-02 até aula-20)
 ├── projetos/
 │   ├── README.md                      (regras + índice de 14 categorias / 36 temas)
-│   ├── fase1-bimestre1.md             (fichas de entrega compartilhadas)
-│   ├── fase2-bimestre2.md
-│   ├── fase3-bimestre3.md
-│   ├── fase4-bimestre4.md
+│   ├── fase1.md             (fichas de entrega compartilhadas)
+│   ├── fase2.md
+│   ├── fase3.md
+│   ├── fase4.md
 │   ├── categoria-01-educacao/
 │   │   ├── README.md
 │   │   └── tema-04-organizacao-de-estudos/

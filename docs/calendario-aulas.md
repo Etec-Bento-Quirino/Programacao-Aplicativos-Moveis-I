@@ -93,4 +93,4 @@ Em grupo (2 a 4 integrantes), o aluno escolhe **uma das 14 categorias** e um tem
 | 13 | [Viagens e Turismo](../projetos/categoria-13-viagens-turismo/README.md) | Planejamento de viagens |
 | 14 | [Eventos](../projetos/categoria-14-eventos/README.md) | Organização de eventos |
 
-As entregas 1 a 4 são comuns a todas as categorias (proposta, protótipo/persistência, SQLite + CRUD e versão final). Pastas: `projetos/` com `README.md`, as fichas `fase1-bimestre1.md` a `fase4-bimestre4.md` (compartilhadas) e uma subpasta por categoria (`categoria-01-...` a `categoria-14-...`), cada uma com uma subpasta por tema sugerido (`tema-01-...` a `tema-36-...`).
+As entregas 1 a 4 são comuns a todas as categorias (proposta, protótipo/persistência, SQLite + CRUD e versão final). Pastas: `projetos/` com `README.md`, as fichas `fase1.md` a `fase4.md` (compartilhadas) e uma subpasta por categoria (`categoria-01-...` a `categoria-14-...`), cada uma com uma subpasta por tema sugerido (`tema-01-...` a `tema-36-...`).

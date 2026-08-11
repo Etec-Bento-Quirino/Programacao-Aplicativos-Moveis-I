@@ -2,7 +2,7 @@
 
 Planejamento de destinos, passeios, gastos e reservas.
 
-Categoria: **[Viagens e Turismo](../README.md)** · Fichas: [fase1](../../fase1-bimestre1.md) · [fase2](../../fase2-bimestre2.md) · [fase3](../../fase3-bimestre3.md) · [fase4](../../fase4-bimestre4.md)
+Categoria: **[Viagens e Turismo](../README.md)** · Fichas: [fase1](../../fase1.md) · [fase2](../../fase2.md) · [fase3](../../fase3.md) · [fase4](../../fase4.md)
 
 ## O que o aplicativo faz
 
@@ -49,4 +49,4 @@ Categoria: **[Viagens e Turismo](../README.md)** · Fichas: [fase1](../../fase1-
 | 3 | 19/10/2026 | SQLite + CRUD |
 | 4 | 16/11/2026 | App completo + UX revisada; apresentação |
 
-> Os requisitos e critérios de cada entrega estão nas fichas compartilhadas do Trabalho em Grupo (`fase1-bimestre1.md` a `fase4-bimestre4.md`).
+> Os requisitos e critérios de cada entrega estão nas fichas compartilhadas do Trabalho em Grupo (`fase1.md` a `fase4.md`).

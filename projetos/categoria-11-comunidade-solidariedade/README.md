@@ -4,7 +4,7 @@ Aplicações com foco em comunidade e solidariedade: doações, voluntariado e a
 
 ## Temas sugeridos
 
-Cada tema tem uma pasta própria com README, telas sugeridas e banco de dados. As fichas de entrega são compartilhadas entre todas as categorias ([fase1](../fase1-bimestre1.md) a [fase4](../fase4-bimestre4.md)).
+Cada tema tem uma pasta própria com README, telas sugeridas e banco de dados. As fichas de entrega são compartilhadas entre todas as categorias ([fase1](../fase1.md) a [fase4](../fase4.md)).
 
 - [Tema 14 – Achados e Perdidos](tema-14-achados-e-perdidos/README.md) — Cadastro de objetos encontrados e perdidos, com descrição, local e data.
 - [Tema 15 – Doação de Alimentos](tema-15-doacao-de-alimentos/README.md) — Controle de doações, produtos, quantidades e destinatários.
@@ -22,4 +22,4 @@ Cada tema tem uma pasta própria com README, telas sugeridas e banco de dados. A
 | 3 | 19/10/2026 | SQLite com CRUD. |
 | 4 | 16/11/2026 | App completo: SQLite, UX revisada; apresentação. |
 
-Cada entrega tem uma ficha com requisitos e critérios: [fase1-bimestre1.md](../fase1-bimestre1.md) a [fase4-bimestre4.md](../fase4-bimestre4.md).
+Cada entrega tem uma ficha com requisitos e critérios: [fase1.md](../fase1.md) a [fase4.md](../fase4.md).

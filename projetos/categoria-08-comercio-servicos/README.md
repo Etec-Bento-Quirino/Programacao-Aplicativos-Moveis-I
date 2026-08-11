@@ -4,7 +4,7 @@ Aplicações para comércio e serviços: estoque, catálogo de produtos e agenda
 
 ## Temas sugeridos
 
-Cada tema tem uma pasta própria com README, telas sugeridas e banco de dados. As fichas de entrega são compartilhadas entre todas as categorias ([fase1](../fase1-bimestre1.md) a [fase4](../fase4-bimestre4.md)).
+Cada tema tem uma pasta própria com README, telas sugeridas e banco de dados. As fichas de entrega são compartilhadas entre todas as categorias ([fase1](../fase1.md) a [fase4](../fase4.md)).
 
 - [Tema 08 – Agenda de Serviços](tema-08-agenda-de-servicos/README.md) — Gerenciamento de clientes, serviços agendados, horários e status.
 - [Tema 10 – Controle de estoque](tema-10-controle-de-estoque/README.md) — Produtos, quantidades e movimentação de entrada e saída.
@@ -21,4 +21,4 @@ Cada tema tem uma pasta própria com README, telas sugeridas e banco de dados. A
 | 3 | 19/10/2026 | SQLite com CRUD. |
 | 4 | 16/11/2026 | App completo: SQLite, UX revisada; apresentação. |
 
-Cada entrega tem uma ficha com requisitos e critérios: [fase1-bimestre1.md](../fase1-bimestre1.md) a [fase4-bimestre4.md](../fase4-bimestre4.md).
+Cada entrega tem uma ficha com requisitos e critérios: [fase1.md](../fase1.md) a [fase4.md](../fase4.md).
