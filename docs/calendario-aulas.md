@@ -67,7 +67,7 @@ Total: 26 quinzenas (20 aulas + 4 entregas + 2 extensão).
 
 ## Trabalho em Grupo (4 entregas)
 
-Em grupo (2 a 4 integrantes), o aluno escolhe **uma das 14 categorias** e um tema, e desenvolve o app em 4 entregas. Regras, temas e cronograma: [projetos/README.md](../projetos/README.md).
+Em grupo (2 a 4 integrantes), o aluno escolhe **uma das 14 categorias** e um tema, e desenvolve o app em 4 entregas. Regras, temas e cronograma: [projetos/README.md](../modulo-08-projeto-final/README.md).
 
 | Entrega | Data | Principal objetivo |
 |---------|------|--------------------|
@@ -78,19 +78,19 @@ Em grupo (2 a 4 integrantes), o aluno escolhe **uma das 14 categorias** e um tem
 
 | Categoria | Nome | Guia |
 |-----------|------|------|
-| 1 | [Educação](../projetos/categoria-01-educacao/README.md) | Estudos e aprendizado |
-| 2 | [Finanças](../projetos/categoria-02-financas/README.md) | Controle financeiro e despesas |
-| 3 | [Pets e Animais](../projetos/categoria-03-pets-animais/README.md) | Cuidados com animais |
-| 4 | [Esportes e Saúde](../projetos/categoria-04-esportes-saude/README.md) | Hábitos, treinos e competições |
-| 5 | [Veículos e Mobilidade](../projetos/categoria-05-veiculos-mobilidade/README.md) | Manutenção de veículos |
-| 6 | [Casa e Meio Ambiente](../projetos/categoria-06-casa-meio-ambiente/README.md) | Plantas e consumo consciente |
-| 7 | [Alimentação](../projetos/categoria-07-alimentacao/README.md) | Receitas e compras |
-| 8 | [Comércio e Serviços](../projetos/categoria-08-comercio-servicos/README.md) | Estoque, catálogo e agendamentos |
-| 9 | [Organização e Produtividade](../projetos/categoria-09-organizacao-produtividade/README.md) | Tarefas, compromissos e projetos |
-| 10 | [Entretenimento e Cultura](../projetos/categoria-10-entretenimento-cultura/README.md) | Filmes, séries e coleções |
-| 11 | [Comunidade e Solidariedade](../projetos/categoria-11-comunidade-solidariedade/README.md) | Doações e voluntariado |
-| 12 | [Gestão e Administração](../projetos/categoria-12-gestao-administracao/README.md) | Reservas, empréstimos e equipamentos |
-| 13 | [Viagens e Turismo](../projetos/categoria-13-viagens-turismo/README.md) | Planejamento de viagens |
-| 14 | [Eventos](../projetos/categoria-14-eventos/README.md) | Organização de eventos |
+| 1 | [Educação](../modulo-08-projeto-final/categoria-01-educacao/README.md) | Estudos e aprendizado |
+| 2 | [Finanças](../modulo-08-projeto-final/categoria-02-financas/README.md) | Controle financeiro e despesas |
+| 3 | [Pets e Animais](../modulo-08-projeto-final/categoria-03-pets-animais/README.md) | Cuidados com animais |
+| 4 | [Esportes e Saúde](../modulo-08-projeto-final/categoria-04-esportes-saude/README.md) | Hábitos, treinos e competições |
+| 5 | [Veículos e Mobilidade](../modulo-08-projeto-final/categoria-05-veiculos-mobilidade/README.md) | Manutenção de veículos |
+| 6 | [Casa e Meio Ambiente](../modulo-08-projeto-final/categoria-06-casa-meio-ambiente/README.md) | Plantas e consumo consciente |
+| 7 | [Alimentação](../modulo-08-projeto-final/categoria-07-alimentacao/README.md) | Receitas e compras |
+| 8 | [Comércio e Serviços](../modulo-08-projeto-final/categoria-08-comercio-servicos/README.md) | Estoque, catálogo e agendamentos |
+| 9 | [Organização e Produtividade](../modulo-08-projeto-final/categoria-09-organizacao-produtividade/README.md) | Tarefas, compromissos e projetos |
+| 10 | [Entretenimento e Cultura](../modulo-08-projeto-final/categoria-10-entretenimento-cultura/README.md) | Filmes, séries e coleções |
+| 11 | [Comunidade e Solidariedade](../modulo-08-projeto-final/categoria-11-comunidade-solidariedade/README.md) | Doações e voluntariado |
+| 12 | [Gestão e Administração](../modulo-08-projeto-final/categoria-12-gestao-administracao/README.md) | Reservas, empréstimos e equipamentos |
+| 13 | [Viagens e Turismo](../modulo-08-projeto-final/categoria-13-viagens-turismo/README.md) | Planejamento de viagens |
+| 14 | [Eventos](../modulo-08-projeto-final/categoria-14-eventos/README.md) | Organização de eventos |
 
-As entregas 1 a 4 são comuns a todas as categorias (proposta, protótipo/persistência, SQLite + CRUD e versão final). Pastas: `projetos/` com `README.md`, as fichas `fase1.md` a `fase4.md` (compartilhadas) e uma subpasta por categoria (`categoria-01-...` a `categoria-14-...`), cada uma com uma subpasta por tema sugerido (`tema-01-...` a `tema-36-...`).
+As entregas 1 a 4 são comuns a todas as categorias (proposta, protótipo/persistência, SQLite + CRUD e versão final). Pastas: `modulo-08-projeto-final/` com `README.md`, as fichas `fase1.md` a `fase4.md` (compartilhadas) e uma subpasta por categoria (`categoria-01-...` a `categoria-14-...`), cada uma com uma subpasta por tema sugerido (`tema-01-...` a `tema-36-...`).

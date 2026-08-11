@@ -1,0 +1,41 @@
+{
+  "expo": {
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#25292e",
+        "foregroundImage": "./assets/images/android-icon-foreground.png"
+      },
+      "edgeToEdgeEnabled": true
+    },
+    "web": {
+      "output": "static"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "O app acessa suas fotos para adicionar imagens ao projeto."
+        }
+      ],
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "O app usa sua localização para mostrar onde você está."
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "name": "PAM1 - SQLite",
+    "slug": "pam1-sqlite"
+  }
+}

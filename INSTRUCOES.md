@@ -25,14 +25,17 @@ cd pam-i-programacao-aplicativos-moveis
 
 ### 3. Seguir as aulas
 
-- Aulas estão em pastas `aula-01-introducao-desenvolvimento-mobile` até `aula-20-preparacao-projeto-final`.
-- Em cada pasta:
-  1. Leia e siga o **tutorial.md** (em sala ou em casa).
-  2. Resolva a **atividade.md** e entregue no canal indicado pelo professor.
+- Aulas estão organizadas em **7 módulos temáticos**: `modulo-01-fundamentos-ambiente` até `modulo-07-boas-praticas-ux`.
+- O **Trabalho em Grupo** vive no **Módulo 8 – Projeto Final** (`modulo-08-projeto-final`).
+- Em cada módulo:
+  1. Leia o **README.md** do módulo (visão geral e lista de aulas).
+  2. Siga o **tutorial.md** de cada aula (em sala ou em casa).
+  3. Resolva a **atividade.md** e entregue no canal indicado pelo professor.
+  4. Complete o **projeto Expo** do módulo conforme as `// TAREFA (Aula NN):` indicadas no código.
 
 ### 4. Escolher e desenvolver o projeto
 
-- Escolha **uma** das **14 categorias** do [Trabalho em Grupo](projetos/README.md) (Educação, Finanças, Pets, Esportes, Alimentação etc.) e um tema dentre os **36 sugeridos**.
+- Escolha **uma** das **14 categorias** do [Trabalho em Grupo](modulo-08-projeto-final/README.md) (Educação, Finanças, Pets, Esportes, Alimentação etc.) e um tema dentre os **36 sugeridos**.
 - Cada entrega tem uma ficha correspondente (`fase1.md` a `fase4.md`), com data no [calendário](docs/calendario-aulas.md).
 - Ao final do Trabalho em Grupo, entregue o app completo com SQLite conforme o README da categoria escolhida.
 
@@ -52,11 +55,23 @@ Programacao-Aplicativos-Moveis/
 ├── TUTORIAIS.md
 ├── LICENSE
 ├── .gitignore
-├── aula-01-introducao-desenvolvimento-mobile/
-│   ├── tutorial.md
-│   └── atividade.md
-├── ... (aula-02 até aula-20)
-├── projetos/
+├── modulo-01-fundamentos-ambiente/
+│   ├── README.md                       (índice do módulo)
+│   ├── app/                            (projeto Expo do módulo)
+│   ├── aula-01-introducao-desenvolvimento-mobile/
+│   │   ├── apresentacao.md
+│   │   ├── tutorial.md
+│   │   └── atividade.md
+│   └── aula-02-ambiente-react-native-expo/
+│       ├── apresentacao.md
+│       ├── tutorial.md
+│       └── atividade.md
+├── ... (modulo-02-interface-componentes até modulo-06-banco-dados-sqlite)
+├── modulo-07-boas-praticas-ux/
+│   ├── README.md
+│   ├── app/
+│   └── aula-18-.../ (até aula-20)
+├── modulo-08-projeto-final/
 │   ├── README.md                      (regras + índice de 14 categorias / 36 temas)
 │   ├── fase1.md             (fichas de entrega compartilhadas)
 │   ├── fase2.md
@@ -73,6 +88,7 @@ Programacao-Aplicativos-Moveis/
 │   └── storybook-design-system.md
 └── docs/
     ├── calendario-aulas.md
+    ├── base-javascript-typescript.md
     └── PTD-Programacao-Aplicativos-Mobile-I.md
 ```
 

@@ -14,7 +14,7 @@
 
 **Estrutura do plano:** Cada quinzena = 1 aula + 1 atividade. As atividades da quinzena compõem a lista de exercícios. Trabalho em Grupo com 4 entregas ao longo do ano. Público: alunos sem experiência prévia em programação mobile.
 
-**Organização dos materiais (React Native + SQLite):** 20 aulas de conteúdo (cada uma com tutorial completo + atividade), 4 entregas do Trabalho em Grupo e 2 quinzenas de extensão nos bimestres 2 e 3. Stack: React Native (Expo), Node/npm/npx, hooks, SQLite. Trabalho em Grupo com 14 categorias (Educação, Finanças, Pets e Animais, Esportes e Saúde, Alimentação, Organização e Produtividade etc.) e 36 temas sugeridos, cada um com 4 entregas, culminando em app completo com SQLite. Índice, calendário e bases tecnológicas: ver **README.md** e **calendario-aulas.md**. Pastas: **projetos/** (categoria-01-educacao a categoria-14-eventos), **plus/** (Storybook opcional).
+**Organização dos materiais (React Native + SQLite):** 20 aulas de conteúdo (cada uma com tutorial completo + atividade), 4 entregas do Trabalho em Grupo e 2 quinzenas de extensão nos bimestres 2 e 3. Stack: React Native (Expo), Node/npm/npx, hooks, SQLite. Trabalho em Grupo com 14 categorias (Educação, Finanças, Pets e Animais, Esportes e Saúde, Alimentação, Organização e Produtividade etc.) e 36 temas sugeridos, cada um com 4 entregas, culminando em app completo com SQLite. Índice, calendário e bases tecnológicas: ver **README.md** e **calendario-aulas.md**. Pastas: **modulo-08-projeto-final/** (categoria-01-educacao a categoria-14-eventos), **plus/** (Storybook opcional).
 
 ---
 
