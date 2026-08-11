@@ -48,6 +48,95 @@ import { useState } from 'react'; // Guardião local de variável volátil!
 E simplesmente ligue isso no construtor do `<Button theme="primary" label="Escolher uma foto" onPress={pickImageAsync} />`.
 Quando você apertar o botão, o sistema nativo exibirá a janela de permissão e abrirá a galeria.
 
+> [!TIP]
+> Note que usamos `mediaTypes: ['images']` — **um array** com a string `'images'`. Em tutoriais antigos você verá `mediaTypes: ImagePicker.MediaTypeOptions.Images`, mas essa constante foi **deprecada** e removida no SDK atual. Sempre prefira o array `['images']` (ou `['images', 'videos']` para aceitar os dois tipos).
+
+---
+
+## 1.1 Escolhendo entre Galeria ou Câmera
+
+O `expo-image-picker` expõe **duas** portas: uma para a galeria e outra para a câmera real. O padrão é o mesmo — só muda a função chamada:
+
+```tsx
+import * as ImagePicker from 'expo-image-picker';
+
+// 📁 Abre a GALERIA de fotos do celular:
+const pickImageAsync = async () => {
+  const result = await ImagePicker.launchImageLibraryAsync({
+    mediaTypes: ['images'],
+    allowsEditing: true,
+    quality: 1,
+  });
+  if (!result.canceled) {
+    // result.assets[0].uri → caminho local da foto
+  }
+};
+
+// 📸 Abre a CÂMERA do celular (só Android/iOS físico ou emulador):
+const tirarFotoAsync = async () => {
+  const result = await ImagePicker.launchCameraAsync({
+    mediaTypes: ['images'],
+    allowsEditing: true,
+    quality: 1,
+  });
+  if (!result.canceled) {
+    // result.assets[0].uri → caminho local da foto recém-tirada
+  }
+};
+```
+
+## 1.2 Pedindo Permissão na Mão (opcional, mas didático)
+
+A galeria/câmera pedem permissão automaticamente quando você chama `launchImageLibraryAsync`/`launchCameraAsync`. Mas o SDK também expõe funções próprias de permissão, caso você queira pedir **antes** e reclamar com o usuário educadamente:
+
+```tsx
+// Câmera:
+const cameraPermission = await ImagePicker.requestCameraPermissionsAsync();
+if (!cameraPermission.granted) {
+  Alert.alert('Sem acesso', 'Habilite a câmera nas configurações do dispositivo.');
+}
+
+// Galeria:
+const libraryPermission = await ImagePicker.requestMediaLibraryPermissionsAsync();
+if (!libraryPermission.granted) {
+  Alert.alert('Sem acesso', 'Habilite as fotos nas configurações do dispositivo.');
+}
+```
+
+## 1.3 Opções de picker que você usará no projeto
+
+| Opção | Efeito |
+|---|---|
+| `mediaTypes: ['images']` | Só fotos (bloqueia vídeos) — veio de `['images', 'videos']` se quiser os dois |
+| `allowsEditing: true` | Habilita o recorte (crop) estilo Instagram após selecionar |
+| `aspect: [4, 3]` | Proporção do recorte no Android |
+| `quality: 1` | Qualidade da compressão (de `0` a `1`; `0.5` economiza espaço) |
+| `base64: true` | Inclui os dados da imagem em Base64 no objeto retornado |
+| `allowsMultipleSelection: true` | Permite escolher **várias** fotos de uma vez |
+| `selectionLimit: 5` | Limite de fotos quando a seleção múltipla está ligada |
+
+> [!IMPORTANT]
+> Com `allowsMultipleSelection: true`, o resultado vem em **`result.assets`** (um array) — acesse `result.assets[0].uri` para a primeira foto ou use um loop (`for` / `map`) para percorrer todas. E `allowsEditing` é **ignorado** nesse modo: os dois são mutuamente exclusivos.
+
+## 1.4 O que a função retorna (o troféu do picker)
+
+O objeto `result` tem sempre duas formas, dependendo do que o usuário fez:
+
+- **Cancelou:** `{ canceled: true, assets: null }`
+- **Escolheu:** `{ canceled: false, assets: [{ uri, width, height, fileName, fileSize, ... }] }`
+
+Cada item de `assets` é um `ImagePickerAsset` com campos úteis além do `uri`:
+
+```tsx
+const asset = result.assets[0];
+console.log(asset.uri);          // caminho local: file:///...
+console.log(asset.width);        // largura em pixels
+console.log(asset.height);       // altura em pixels
+console.log(asset.fileName);     // nome do arquivo, ex.: "foto_2026.jpg"
+console.log(asset.fileSize);     // tamanho em bytes
+console.log(asset.type);         // 'image' | 'video'
+```
+
 ---
 
 ## Como isso se aplica ao seu projeto

@@ -85,8 +85,95 @@ Massa, não?
 
 ---
 
+## Navegando na Prática: Link vs useRouter
+
+Existem **duas formas** de navegar entre telas no Expo Router. Ambas estão no `expo-router` (confirmado no SDK atual).
+
+### 1. `<Link>` — o link de tela (declarativo)
+
+O componente `<Link>` funciona como um `<a href>` do HTML: o usuário **toca** nele e vai para outra rota.
+
+```tsx
+{% raw %}
+import { Link } from 'expo-router';
+import { Text, View } from 'react-native';
+
+export default function Inicio() {
+  return (
+    <View>
+      <Text>Esta é a tela Início</Text>
+
+      {/* Link simples: tocou, navegou */}
+      <Link href="/about">Ir para a tela Sobre</Link>
+
+      {/* Link com replace: remove a tela atual do histórico (ex.: pós-login) */}
+      <Link replace href="/about">Sobre (sem voltar para cá)</Link>
+
+      {/* Link com parâmetro de rota: envia o id na URL */}
+      <Link href="/detalhe/42">Ver detalhe do item 42</Link>
+    </View>
+  );
+}
+{% endraw %}
+```
+
+### 2. `useRouter()` — o controle remoto (imperativo)
+
+Quando você precisa navegar **a partir de código** (ex.: ao apertar um botão, após salvar um formulário, após uma validação), use o hook `useRouter()`:
+
+```tsx
+{% raw %}
+import { useRouter } from 'expo-router';
+
+export default function TelaDeCadastro() {
+  const router = useRouter();
+
+  const salvar = () => {
+    // ... valida e salva os dados ...
+    router.back();            // volta uma tela
+    // router.push('/about'); // vai para outra tela (adiciona no histórico)
+    // router.replace('/login'); // troca a tela atual sem manter no histórico
+  };
+
+  return <Botao onPress={salvar} label="Salvar" />;
+}
+{% endraw %}
+```
+
+> [!TIP]
+> - `router.push('/rota')` — empilha a tela (botão voltar funciona);
+> - `router.replace('/rota')` — substitui a tela atual (ideal pós-login, não dá "voltar" para a tela anterior);
+> - `router.back()` — volta para a tela anterior;
+> - `router.dismissAll()` — limpa todo o histórico.
+
+### 3. Rotas dinâmicas: a tela `detalhe/[id]`
+
+Crie uma pasta chamada `app/detalhe/` e dentro um arquivo `[id].tsx`. Os colchetes **não** são enfeite: eles dizem ao Router que tudo que vier em `detalhe/<qualquer-coisa>` abre essa mesma tela. Para ler o valor enviado na URL, use o hook `useLocalSearchParams`:
+
+```tsx
+{% raw %}
+import { useLocalSearchParams } from 'expo-router';
+import { Text, View } from 'react-native';
+
+export default function DetalheItem() {
+  // Lê o valor que veio na rota: /detalhe/42 → { id: '42' }
+  const { id } = useLocalSearchParams<{ id: string }>();
+
+  return (
+    <View>
+      <Text>Detalhes do item #{id}</Text>
+    </View>
+  );
+}
+{% endraw %}
+```
+
+Com isso, uma única tela `[id].tsx` serve para **qualquer** item da sua lista — você só muda o `id` no `href`. Esse padrão é o que você usará na tela de detalhe do **seu** projeto (Ex.: `/detalhe/7` mostra a tarefa 7).
+
+---
+
 ## Como isso se aplica ao seu projeto
 
-O sistema de navegação com Expo Router é a espinha dorsal de todas as telas do **seu** projeto. Após esta aula, você já sabe criar quantas telas precisar: a tela `index` (listagem dos registros do seu tema), a tela `detalhe/[id]` (detalhes de um registro) e as telas de formulário de cadastro/edição.
+O sistema de navegação com Expo Router é a espinha dorsal de todas as telas do **seu** projeto. Após esta aula, você já sabe criar quantas telas precisar: a tela `index` (listagem dos registros do seu tema), a tela `detalhe/[id]` (detalhes de um registro — lendo o `id` com `useLocalSearchParams`) e as telas de formulário de cadastro/edição (abertas com `Link` ou `router.push` e fechadas com `router.back()`).
 
 O arquivo `_layout.tsx` com `<Tabs>` ou `<Stack>` controla como as telas são empilhadas e como o botão "Voltar" funciona automaticamente.

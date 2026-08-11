@@ -114,6 +114,108 @@ Você agora controla o sistema de notificações do Android e iOS diretamente do
 
 ---
 
+## Passo 4.1: Os Gatilhos (Triggers) do Agendamento
+
+O trigger `TIME_INTERVAL` (dispara daqui a X segundos) é só **um** dos tipos que o SDK oferece. Todos vivem no enumerador `SchedulableTriggerInputTypes`:
+
+| Tipo | O que faz |
+|---|---|
+| `TIME_INTERVAL` | Dispara **uma vez**, X segundos após agendar (`seconds`) |
+| `DATE` | Dispara **uma vez**, em uma data/hora exata (`date`) |
+| `DAILY` | Dispara **todos os dias** em um horário (`hour`, `minute`) |
+| `WEEKLY` | Dispara **toda semana** em um dia/hora (`weekday` 1=domingo, `hour`, `minute`) |
+| `MONTHLY` | Dispara **todo mês** em um dia/hora (`day`, `hour`, `minute`) |
+| `YEARLY` | Dispara **todo ano** em um dia/mês/hora (`day`, `month`, `hour`, `minute`) |
+
+Exemplos práticos (compare com o trigger de 5 segundos do Passo 4):
+
+```tsx
+// 🔔 Lembrete diário às 07h30 — perfeito para o diário de notas (Categoria 3)
+const triggerDiario = {
+  type: Notifications.SchedulableTriggerInputTypes.DAILY,
+  hour: 7,
+  minute: 30,
+};
+
+// 🔔 Alerta toda segunda-feira (2) às 08h00 — para o planejamento semanal (Categoria 1)
+const triggerSemanal = {
+  type: Notifications.SchedulableTriggerInputTypes.WEEKLY,
+  weekday: 2,
+  hour: 8,
+  minute: 0,
+};
+
+// 🔔 Data exata no calendário — por exemplo, a véspera de uma prova (Dia 14/09 às 18h)
+const triggerData = {
+  type: Notifications.SchedulableTriggerInputTypes.DATE,
+  date: new Date(2026, 8, 13, 18, 0, 0),
+};
+```
+
+Basta trocar o campo `trigger` dentro do `scheduleNotificationAsync`:
+
+```tsx
+await Notifications.scheduleNotificationAsync({
+  content: { title: 'Hora de estudar!', body: 'Não esqueça da matéria de hoje.' },
+  trigger: triggerDiario, // ← substitua pelo trigger desejado
+});
+```
+
+> [!NOTE]
+> No iOS, `TIME_INTERVAL` com `repeats: true` exige intervalo **mínimo de 60 segundos**. No Android, para notificações funcionarem, o app precisa estar rodando na versão com Expo Go ou um build de desenvolvimento.
+
+## Passo 4.2: Cancelando e Listando Agendamentos
+
+Agendou errado? O SDK permite desfazer:
+
+```tsx
+// Cancela UMA notificação específica (pelo id retornado no agendamento)
+const identifier = await Notifications.scheduleNotificationAsync({
+  content: { title: 'Tarefa vencida', body: 'Finalize hoje!' },
+  trigger: triggerDiario,
+});
+// ... depois ...
+await Notifications.cancelScheduledNotificationAsync(identifier);
+
+// Cancela TODAS as notificações agendadas
+await Notifications.cancelAllScheduledNotificationsAsync();
+
+// Lista as notificações ainda pendentes (útil para mostrar "próximos lembretes")
+const pendentes = await Notifications.getAllScheduledNotificationsAsync();
+console.log(pendentes.length); // quantas ainda estão agendadas
+```
+
+## Passo 4.3: Reagindo Quando o Usuário Toca
+
+Notificação só é útil se o app **responder** ao toque. Quando o usuário toca, o app recebe um `response` — e o `data` que você colocou no `content` vem junto:
+
+```tsx
+import { useEffect } from 'react';
+import * as Notifications from 'expo-notifications';
+
+// 1. Ao tocar na notificação, navegue para a tela guardada no `data`
+useEffect(() => {
+  const subscription = Notifications.addNotificationResponseReceivedListener((response) => {
+    const { tela } = response.notification.request.content.data;
+    console.log('Usuário tocou a notificação que pedia a tela:', tela);
+    // router.push(tela); // ← aqui você navega com o Expo Router!
+  });
+
+  return () => subscription.remove();
+}, []);
+
+// 2. Se o app foi ABERTO pelo toque (não em execução), use o hook:
+const ultimaResposta = Notifications.useLastNotificationResponse();
+if (ultimaResposta) {
+  console.log('App aberto pela notificação:', ultimaResposta.notification.request.content.title);
+}
+```
+
+> [!TIP]
+> Combine este `data` com o Expo Router da Aula 06: coloque `data: { tela: '/detalhe/7' }` no agendamento e navegue direto para a tela do item na hora do toque — um app de lembretes de verdade!
+
+---
+
 ## Como isso se aplica ao seu projeto
 
 As notificações locais são o recurso obrigatório da **Entrega 4** em pelo menos um projeto:

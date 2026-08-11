@@ -66,6 +66,92 @@ export default function TelaLocalizacao() {
   };
 ```
 
+---
+
+## Passo 2.1: A Localização que Você Já Tinha (`getLastKnownPositionAsync`)
+
+`getCurrentPositionAsync` **ativa o GPS** e espera o chip calcular sua posição — isso demora (e gasta bateria). O SDK também expõe `getLastKnownPositionAsync()`, que devolve a **última posição conhecida** do aparelho, de forma quase instantânea:
+
+```tsx
+const posicao = await Location.getLastKnownPositionAsync();
+
+if (posicao) {
+  setCoordenadas(posicao.coords); // Mesmo formato: coords.latitude / coords.longitude
+} else {
+  // Nunca tivemos uma posição salva — aí sim chamamos o GPS de verdade
+  const atual = await Location.getCurrentPositionAsync({});
+  setCoordenadas(atual.coords);
+}
+```
+
+> [!TIP]
+> Use `getLastKnownPositionAsync` quando o app abre e você quer mostrar um mapa **na hora** (sem spinner), e só depois acione o GPS para refinar. É o padrão usado por apps de entrega e clima.
+
+## Passo 2.2: Rastreando o Movimento (`watchPositionAsync`)
+
+Quer um app que **acompanha** o usuário enquanto ele se move (ex.: trilha de corrida, entrega, pet em roaming)? Use `watchPositionAsync` — ele registra um "vigiador" que chama sua função a cada mudança de posição:
+
+```tsx
+import { useEffect } from 'react';
+
+useEffect(() => {
+  const inscricao = Location.watchPositionAsync(
+    {
+      accuracy: Location.Accuracy.High,
+      timeInterval: 1000,        // a cada 1 segundo
+      distanceInterval: 5,       // ou a cada 5 metros
+    },
+    (novaPosicao) => {
+      console.log('Você se moveu!', novaPosicao.coords.latitude, novaPosicao.coords.longitude);
+      setCoordenadas(novaPosicao.coords);
+    }
+  );
+
+  return () => {
+    // Ao sair da tela, cancelamos a inscrição para não drenar a bateria
+    inscricao.then((sub) => sub.remove());
+  };
+}, []);
+```
+
+## Passo 2.3: Transformando Coordenadas em Endereço (Geocoding)
+
+Latitude e longitude são números "crus" para o usuário. O `expo-location` converte isso em endereço humano com `reverseGeocodeAsync`:
+
+```tsx
+const endereco = await Location.reverseGeocodeAsync({
+  latitude: coordenadas.latitude,
+  longitude: coordenadas.longitude,
+});
+
+if (endereco.length > 0) {
+  const rua = endereco[0];
+  console.log(rua.street);         // "Rua Bento Quirino"
+  console.log(rua.city);           // "Campinas"
+  console.log(rua.region);         // "São Paulo"
+  console.log(rua.postalCode);     // "13020-180"
+  console.log(rua.country);        // "Brasil"
+}
+```
+
+> [!NOTE]
+> O geocoding reverso depende de rede e do serviço de mapas do aparelho. Nem todo dispositivo/emulador tem resultado — sempre trate o caso de array vazio.
+
+## Passo 2.4: O Enumerador de Precisão (`Location.Accuracy`)
+
+O campo `accuracy` não é um número mágico — é um enumerador (`enum`) do próprio SDK. Na prática, você vai usar três valores:
+
+| Valor | Quando usar |
+|---|---|
+| `Location.Accuracy.Low` | Economizar bateria; aproximação é suficiente |
+| `Location.Accuracy.Balanced` | Padrão razoável — cidade, sem pressa (usado no Passo 2) |
+| `Location.Accuracy.High` | Precisa ser preciso (ex.: rastreamento, entrega) |
+
+> [!IMPORTANT]
+> Quanto **mais precisa** a leitura, **mais tempo** o GPS leva e **mais bateria** gasta. Nunca deixe tudo em `High` por padrão.
+
+---
+
 ## Passo 3: O Render Final Visual
 
 Agora conecte o seu estado (que estava em `null`) e exploda na tela usando `&&` (Mágica React pra exibir as coisas se elas baterem positivos):

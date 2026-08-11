@@ -30,6 +30,22 @@ npx create-expo-app@latest StickerSmash
 cd StickerSmash
 ```
 
+### 1.1 O template padrão e a limpeza (`reset-project`)
+
+O template **padrão** do Expo já vem com **Expo Router** (a pasta `app/`) e um exemplo de demonstração com abas. Para começarmos do zero, o próprio Expo cria um roteiro de limpeza para nós. Execute:
+
+```bash
+npm run reset-project
+```
+
+Quando o script perguntar *"Do you want to move existing files to /app-example instead of deleting them? (Y/n)"*, digite **n** e dê Enter. Ele vai apagar o exemplo e criar uma pasta `app/` limpa com apenas dois arquivos:
+
+- `app/index.tsx` — a tela inicial (o que abrimos primeiro);
+- `app/_layout.tsx` — o esqueleto de navegação do app (mais sobre ele na Aula 06).
+
+> [!TIP]
+> O antigo `App.js` de projetos React Native "na unha" ainda existe em alguns tutoriais na internet. Hoje o Expo usa a pasta `app/` com o **Expo Router**: **cada arquivo `.tsx` dentro dela vira uma tela do celular automaticamente**. É esse padrão que seguimos no curso inteiro.
+
 > [!WARNING]
 > **DICA DE OURO DA REDE:** O Wi-Fi da escola ou de empresas geralmente possui um Firewall / Proxy rígido, o que bloqueia o seu celular de achar o Notebook na mesma rede para espelhar o app.
 > Para driblar esse bloqueio de forma permanente no seu projeto, edite o arquivo `package.json` e altere o script `"start"` adicionando `--tunnel`:

@@ -178,8 +178,10 @@ O curso é dividido em quatro blocos, um por bimestre. O **Trabalho em Grupo** t
 ```bash
 # Abra o VS Code. Clique em 'Terminal' -> 'New Terminal' no menu superior.
 # No terminal que abrir dentro do VS Code, execute:
-npx create-expo-app@latest MeuApp --template blank
+npx create-expo-app@latest MeuApp
 cd MeuApp
+# O template padrão vem com um exemplo cheio de abas. Limpe com:
+npm run reset-project   # responde "n" quando perguntar se quer apagar
 npm start
 ```
 

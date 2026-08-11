@@ -97,6 +97,77 @@ Na próxima aula faremos a leitura com `SELECT` e montaremos o CRUD completo. Av
 
 ---
 
+## Passo 3.1: O Que o `runSync` Devolve (o recibo do INSERT)
+
+O `runSync` **não devolve `undefined`** — ele devolve um objeto com duas informações valiosas: o `lastInsertRowId` (o `id` que o SQLite acabou de gerar) e o `changes` (quantas linhas foram afetadas):
+
+```tsx
+const resultado = bancoDados.runSync(
+  'INSERT INTO metas (descricao) VALUES (?)',
+  ['Minha primeira tarefa no SQLite!']
+);
+
+console.log('Novo id criado:', resultado.lastInsertRowId); // ex.: 1
+console.log('Linhas afetadas:', resultado.changes);        // ex.: 1
+```
+
+> [!TIP]
+> Guarde o `lastInsertRowId` quando o usuário cadastrar algo e você poderá navegar direto para o detalhe daquele registro: `router.push('/detalhe/' + resultado.lastInsertRowId)`.
+
+## Passo 3.2: `SQLiteProvider` e `useSQLiteContext` (a forma React de usar banco)
+
+No Passo 2 abrimos o banco com `SQLite.openDatabaseSync(...)` num arquivo e usamos ele direto. Existe outra forma **mais "React"**: o componente `<SQLiteProvider>` abre o banco uma vez no topo do app e o hook `useSQLiteContext()` entrega a mesma conexão a **qualquer** tela, sem repetir `openDatabaseSync` em cada arquivo:
+
+```tsx
+// app/_layout.tsx — o App Master: abre o banco UMA vez para o app inteiro
+import { SQLiteProvider } from 'expo-sqlite';
+import { Stack } from 'expo-router';
+
+export default function RootLayout() {
+  return (
+    <SQLiteProvider databaseName="aplicativo_v1.db">
+      <Stack />
+    </SQLiteProvider>
+  );
+}
+```
+
+```tsx
+// Qualquer tela filha — por exemplo, app/index.tsx
+import { useSQLiteContext } from 'expo-sqlite';
+
+export default function Inicio() {
+  // A conexão já veio pronta do SQLiteProvider — use sem medo!
+  const banco = useSQLiteContext();
+
+  const inserirTarefa = () => {
+    banco.runSync('INSERT INTO metas (descricao) VALUES (?)', ['Tarefa via contexto!']);
+  };
+
+  // ... render ...
+}
+```
+
+> [!NOTE]
+> - `SQLiteProvider` recebe `databaseName` (nome do arquivo `.db`) e opcionalmente `onError`, `useSuspense`, `onInit` e `directory`.
+> - Você **não precisa** chamar `openDatabaseSync` nas telas filhas: `useSQLiteContext()` já devolve a conexão pronta.
+> - As duas formas (abrir no arquivo ou usar o Provider) coexistem no SDK — a do Provider é a recomendada quando o app tem várias telas usando o mesmo banco (o caso do **seu** projeto!).
+
+## Passo 3.3: Apagando o Banco (`deleteDatabaseAsync`)
+
+Errou na estrutura da tabela e quer **zerar tudo** (banco inteiro apagado)? O SDK expõe:
+
+```tsx
+import * as SQLite from 'expo-sqlite';
+
+await SQLite.deleteDatabaseAsync('aplicativo_v1.db');
+```
+
+> [!WARNING]
+> `deleteDatabaseAsync` apaga **o banco inteiro** — todas as tabelas e dados vão embora. Use apenas em testes/desenvolvimento (ex.: quando você mudou uma coluna da tabela e quer recomeçar do zero).
+
+---
+
 ## Como isso se aplica ao seu projeto
 
 A tabela criada nesta aula é o banco de dados do **seu** projeto. Cada categoria tem sua própria estrutura:

@@ -12,7 +12,7 @@ Se você olhar a pasta que o robô cria, pode se assustar com a quantidade de ar
 
 - `node_modules`: É o buraco negro. Lá dentro moram milhares de pastas das bibliotecas de terceiros que usamos (como ícones, o próprio React, etc). **Regra de Ouro: Nunca entre no node_modules. Nunca edite nada dentro do node_modules. Respeite o selo.**
 - `app.json`: É a Certidão de Nascimento do seu App. Lá você diz a cor padrão dele, se a tela de pé/deitada é bloqueada, o Nome Oficial de Loja dele, e coloca um PNG pra ser a fotinho mágica do celular.
-- `/app (Pasta principal)`: Antigamente existia só um `App.js`. Hoje, nós temos o poderoso `Expo Router`. Qualquer arquivo `.tsx` que você criar dentro da pasta `app/` vira magicamente uma tela do seu celular! A primeira tela a ser construída é o nosso sagrado `index.tsx`.
+- `/app (Pasta principal)`: Antigamente existia só um `App.js`. Hoje, nós temos o poderoso `Expo Router`. Qualquer arquivo `.tsx` que você criar dentro da pasta `app/` vira magicamente uma tela do seu celular! A primeira tela a ser construída é o nosso sagrado `index.tsx`. O template padrão do Expo já nasce com um exemplo de demonstração — por isso rodamos `npm run reset-project` no tutorial para limpar e ficar só com `app/index.tsx` e `app/_layout.tsx`.
 
 ## 3. Expo Go (Sua Televisão ao vivo)
 Você não precisa de um supercomputador para criar apps. O seu celular de bolso possui hardware dezenas de vezes mais forte que as cápsulas que foram pra lua, basta usar o App do **Expo Go** (baixe da PlayStore/AppStore).

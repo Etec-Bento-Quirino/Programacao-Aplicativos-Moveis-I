@@ -14,12 +14,12 @@ Validar que você consegue executar o aplicativo gerado pelo Expo na sua máquin
 
 ### 💡 Dica de como iniciar:
 
-Para alterar o texto e o estilo do fundo, modifique o arquivo principal do projeto (geralmente `App.js` ou `index.tsx`). Encontre o componente `<Text>` e o contêiner `<View>` principal. Lembre-se de utilizar a folha de estilos `StyleSheet`.
+Para alterar o texto e o estilo do fundo, modifique o arquivo principal do projeto: `app/index.tsx`. Encontre o componente `<Text>` e o contêiner `<View>` principal. Lembre-se de utilizar a folha de estilos `StyleSheet`.
 
 ```tsx
 import { StyleSheet, Text, View } from 'react-native';
 
-export default function App() {
+export default function Index() {
   return (
     // Aplique o estilo de fundo aqui
     <View style={styles.container}>
