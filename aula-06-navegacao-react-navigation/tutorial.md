@@ -1,3 +1,7 @@
+---
+layout: default
+render_with_liquid: false
+---
 # Aula 06 – Navegação com Expo Router (Abas e Stack)
 
 **Sugestão de execução:** Quinzena 6 | **Bimestre:** 2

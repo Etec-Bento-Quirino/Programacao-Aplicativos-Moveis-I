@@ -1,3 +1,7 @@
+---
+layout: default
+render_with_liquid: false
+---
 # Tutorial: A Matriz Super-Juntada 🧬
 
 **Sugestão de execução:** Quinzena 22 | **Bimestre:** 4

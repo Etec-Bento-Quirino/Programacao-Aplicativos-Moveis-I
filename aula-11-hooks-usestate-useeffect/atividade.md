@@ -1,3 +1,7 @@
+---
+layout: default
+render_with_liquid: false
+---
 # Atividade 11: Gestão de Estados e Re-renderização 🎨
 
 **Objetivo da Atividade:**

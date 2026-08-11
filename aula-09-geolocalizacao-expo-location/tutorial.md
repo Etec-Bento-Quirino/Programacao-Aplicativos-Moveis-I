@@ -1,3 +1,7 @@
+---
+layout: default
+render_with_liquid: false
+---
 # Tutorial: Capturando um Satélite com seu Código
 
 **Sugestão de execução:** Quinzena 10 | **Bimestre:** 2

@@ -1,3 +1,7 @@
+---
+layout: default
+render_with_liquid: false
+---
 # Atividade 8: Câmera e Galeria de Fotos 📷
 
 **Objetivo da Atividade:**

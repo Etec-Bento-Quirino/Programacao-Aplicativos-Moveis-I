@@ -1,3 +1,7 @@
+---
+layout: default
+render_with_liquid: false
+---
 # Aula 08 – Galeria, Câmera e o Assincronismo
 
 **Sugestão de execução:** Quinzena 9 | **Bimestre:** 2

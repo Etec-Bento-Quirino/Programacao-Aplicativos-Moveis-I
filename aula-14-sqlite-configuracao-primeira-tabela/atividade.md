@@ -1,3 +1,7 @@
+---
+layout: default
+render_with_liquid: false
+---
 # Atividade 14: Primeira Tabela e Inspect SQLite ⚔️
 
 **Objetivo da Atividade:**

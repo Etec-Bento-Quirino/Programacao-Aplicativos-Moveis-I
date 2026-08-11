@@ -1,3 +1,7 @@
+---
+layout: default
+render_with_liquid: false
+---
 # Atividade 13: Persistência de Dados Básica 🗡️
 
 **Objetivo da Atividade:**

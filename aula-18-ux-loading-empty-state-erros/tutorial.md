@@ -1,3 +1,7 @@
+---
+layout: default
+render_with_liquid: false
+---
 # Tutorial: A Arte do Acolhimento 🎩
 
 **Sugestão de execução:** Quinzena 23 | **Bimestre:** 4

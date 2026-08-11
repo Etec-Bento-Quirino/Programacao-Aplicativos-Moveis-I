@@ -1,3 +1,7 @@
+---
+layout: default
+render_with_liquid: false
+---
 # Tutorial: O Domínio do Sol e da Lua (Dark Mode)
 
 **Sugestão de execução:** Quinzena 15 | **Bimestre:** 3

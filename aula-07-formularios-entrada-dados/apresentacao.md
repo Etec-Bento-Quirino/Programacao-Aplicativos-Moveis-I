@@ -1,3 +1,7 @@
+---
+layout: default
+render_with_liquid: false
+---
 # Apresentação: O Tratado de Entrada de Dados ⌨️
 
 **Leitura Autônoma de Arquitetura de Interface**

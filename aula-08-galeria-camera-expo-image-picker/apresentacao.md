@@ -1,3 +1,7 @@
+---
+layout: default
+render_with_liquid: false
+---
 # Apresentação: O Assincronismo e a Câmera 📸
 
 **Leitura Autônoma de Arquitetura Dispositivo-Software**

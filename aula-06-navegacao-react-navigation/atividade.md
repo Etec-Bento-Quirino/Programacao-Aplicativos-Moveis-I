@@ -1,3 +1,7 @@
+---
+layout: default
+render_with_liquid: false
+---
 # Atividade 6: Navegação com Expo Router ⛴️
 
 **Objetivo da Atividade:**

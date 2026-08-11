@@ -1,3 +1,7 @@
+---
+layout: default
+render_with_liquid: false
+---
 # Tutorial: O Refino das Gavetas 🗄️
 
 **Sugestão de execução:** Quinzena 24 | **Bimestre:** 4

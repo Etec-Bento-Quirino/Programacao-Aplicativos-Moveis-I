@@ -1,3 +1,7 @@
+---
+layout: default
+render_with_liquid: false
+---
 # Tutorial: CRUD Completo com SQLite
 
 **Sugestão de execução:** Quinzena 18 | **Bimestre:** 3

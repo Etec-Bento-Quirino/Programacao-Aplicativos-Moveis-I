@@ -1,3 +1,7 @@
+---
+layout: default
+render_with_liquid: false
+---
 # Apresentação: O Despertar da Tela (Notificações) 🔔
 
 **Leitura Autônoma de Arquitetura de Comunicação em Fundo (Background Service)**

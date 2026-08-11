@@ -1,3 +1,7 @@
+---
+layout: default
+render_with_liquid: false
+---
 # Atividade 12: Context API (Variáveis Globais) ⛅
 
 **Objetivo da Atividade:**

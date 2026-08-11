@@ -1,3 +1,7 @@
+---
+layout: default
+render_with_liquid: false
+---
 # Tutorial: A Pilula de 5 Segundos (Notificações)
 
 **Sugestão de execução:** Quinzena 11 | **Bimestre:** 2

@@ -1,3 +1,7 @@
+---
+layout: default
+render_with_liquid: false
+---
 # Apresentação: O Roteamento Dinâmico (Expo Router) 🛣️
 
 **Leitura Autônoma de Arquitetura de Interface**

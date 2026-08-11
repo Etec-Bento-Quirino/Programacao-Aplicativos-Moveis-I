@@ -1,3 +1,7 @@
+---
+layout: default
+render_with_liquid: false
+---
 # Apresentação: O Desempenho Importa (Over-Rendering) 🏁
 
 **Leitura Autônoma de Arquitetura de Interface**
