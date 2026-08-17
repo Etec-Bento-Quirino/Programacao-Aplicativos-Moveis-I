@@ -1,23 +1,25 @@
-# Aula 16 – Engenharia de Interação: Forms e SQLite
+# Aula 16 – Formulários e SQLite: Integração
 
 [Voltar ao curso](../../README.md) | [Calendário](../../docs/calendario-aulas.md) | [Tutoriais](../../TUTORIAIS.md)
 
 ---
 
-## O Desafio Prático
-Temos o poder do Banco de Dados oculto nas nossas funções. Mas os usuários não rodam funções no terminal, eles tocam na tela! Como ligamos um Teclado Numérico ou um Picker de Categorias diretamente no coração do SQLite, blindando entradas vazias e injeções acidentais?
+Até agora, você criou tabelas e manipulou dados pelo código. Mas seus usuários não rodam comandos no terminal — eles tocam na tela! Hoje vamos unir o **formulário** (Aula 07) com o **banco de dados** (Aula 15) numa telinha só.
 
-Nossa reta final do Acabamento Pro foca exatamente no Refino. Nós criaremos o fluxo de navegação perfeito e amarraremos dois mundos em Formulários Controlados Ativos. 
+> [!IMPORTANT]
+> **Meta da aula:** criar duas tabelas relacionadas (`categorias` e `itens`), um formulário que insira dados e a tela de listagem que atualize automaticamente. 🎯
+
+## 🧳 O Seu Inventário de Aula
 
 | Material | O que você vai encontrar lá dentro? |
-|----------|-----------|
-| [Apresentação](apresentacao.md) | A Teoria do Fluxo. Como formulários impedem acidentes através de controle central, e a apresentação do conceito relacional Base: O Foreing Key (Chave Estrangeira). |
-| [Tutorial](tutorial.md) | O Guia Prático: Um arquiteto não cria tabelas soltas. Criaremos uma arquitetura de "Itens pertencentes à Categorias". |
-| [Atividade](atividade.md) | Missão 16: O Intermediador de Telas. Navegue, insira o item pelo formulário, e volte provando que a ponte relacional operou com sucesso! |
+|----------|-------------------------------------|
+| [Apresentação](apresentacao.md) | O que é uma **Foreign Key**? Por que separar categorias e itens em tabelas diferentes evita dados duplicados. |
+| [Tutorial](tutorial.md) | Passo a passo para criar tabelas relacionadas, formulário com `TextInput` e listagem parametrizada com `useLocalSearchParams`. |
+| [Atividade](atividade.md) | Sua Missão 16: cadastre um item pelo formulário, volte para a lista e comprove que apareceu. Valendo XP e nota! |
+
+> [!TIP]
+> **Ordem sugerida:** leia a Apresentação (5 minutos), siga o Tutorial no computador (30–40 minutos) e por último resolva a Atividade. Não pule o tutorial — a atividade cobra exatamente o que ele ensina.
 
 ---
 
-## Navegação
-
-- **Anterior (Fase 3):** [Aula 15 – A Fúria do CRUD Absoluto](../aula-15-sqlite-crud-completo/README.md)
-- **Próxima:** [Aula 17 – O Casamento de Matrizes (SQL JOIN)](../aula-17-relacoes-tabelas-join/README.md)
+**Próxima Parada:** 👉 [Aula 17 – Relações entre Tabelas e SQL JOIN](../aula-17-relacoes-tabelas-join/README.md)

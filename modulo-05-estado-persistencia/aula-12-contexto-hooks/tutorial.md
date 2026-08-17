@@ -1,121 +1,204 @@
-# Tutorial: O Domínio do Sol e da Lua (Dark Mode)
+# Tutorial: Montando um Dark Mode com Context API
 
 **Sugestão de execução:** Quinzena 15 | **Bimestre:** 3
 
-> **Pré-requisitos:** [Aula 11](../aula-11-hooks-usestate-useeffect/README.md) — `useState` e `useEffect` bem dominados.
->
-> **O que você vai aprender:**
+> [!NOTE]
+> **O que você vai aprender hoje:**
 > - Entender o problema de "passar props por muitas telas" (prop drilling)
 > - Criar um `Context` para armazenar um estado global acessível por qualquer tela
 > - Usar `createContext` e `useContext` para ler e alterar esse estado de qualquer lugar
 > - Envolver o app com um `Provider` em `_layout.tsx` para distribuir o contexto
+>
+> **Pré-requisitos:** [Aula 11](../aula-11-hooks-usestate-useeffect/README.md) — `useState` e `useEffect` bem dominados.
 
 ---
 
-Nós iremos montar a nuvem de Tema do zero. Esse sistema será seu passaporte base para quando for criar coisas como "*Autenticação em Login*", em que o usuário precisa ser lido no app todo.
+Vamos usar uma analogia: a **Context API** é como um quadro de avisos na sala da escola. Todo mundo pode ler e escrever no quadro, sem precisar pedir ao colega da frente que repasse a informação. Nesta aula, vamos montar um quadro de avisos que guarda o **tema** do app (claro/escuro).
 
 ---
 
-## Passo 1: Construindo o Céu (A Arquitetura de Nuvem)
+## Passo 1: Criando a Nuvem (o Quadro de Avisos)
 
-Use uma pasta separada no projeto (Por exemplo `/contexts/TemaContext.tsx`).
-Você nunca deve misturar nuvens com arquivos de Rota do Expo.
+Crie uma pasta `contexts/` na raiz do seu projeto. Dentro dela, crie o arquivo `TemaContext.tsx`:
 
 ```tsx
-{% raw %}
 import { createContext, useState } from 'react';
 
-// O ESQUELETO DA NUVEM (O que tem dentro do buraco?)
-export const TemaContext = createContext({ 
-    tema: 'claro', 
-    setTema: (novo_tema: string) => {} // Tipagem TS de brincadeira só pra prever as coisas
+// Cria o "quadro de avisos" com valores padrão
+export const TemaContext = createContext({
+  tema: 'claro',
+  setTema: (novo_tema: string) => {}
 });
 
-// A NUVEM MATERNA QUE ENVOLVERÁ O APLICATIVO
+// O Provider = o quadro de avisos envolvendo todas as telas
 export function TemaProvider({ children }) {
-  
-  // Esse será o cérebro Oficial e único de pintura deste tema!
   const [tema, setTema] = useState('claro');
-  
+
   return (
     <TemaContext.Provider value={{ tema, setTema }}>
-      {/* Esse "Children" mágico é o Seu App Inteiro injetado no meio do Provider! */}
       {children}
     </TemaContext.Provider>
   );
 }
-{% endraw %}
 ```
+
+> [!NOTE]
+> **O que é `createContext`?** É como criar um link compartilhado no Google Drive. O link existe, mas ainda não tem nada dentro. O `Provider` é quem coloca o conteúdo (o valor de `tema`) nesse link.
+
+> [!TIP]
+> Mantenha os arquivos de contexto numa pasta separada (`contexts/`). Nunca misture com arquivos de rota do Expo Router — isso organiza o projeto e evita confusão.
 
 ---
 
-## Passo 2: O Guarda-Chuva (Provider Injetado)
+## Passo 2: Envolvendo o App com o Provider (o Guarda-Chuva)
 
-Agora nós precisamos garantir que todas as coisas operam embaixo da Nuvem do Passo 1.
-Vá na Raíz máxima da sua compilação. (No Expo Router seria seu famigerado `app/_layout.tsx`, ou `App.tsx` global).
+Agora precisamos garantir que **todas** as telas ficam "debaixo do guarda-chuva". Vá no arquivo `_layout.tsx` (ou `App.tsx`) e envolva tudo com o `TemaProvider`:
 
 ```tsx
-// O topo
 import { TemaProvider } from '../contexts/TemaContext';
+import { Stack } from 'expo-router';
 
-// A injeção em volta do roteador:
 export default function LayoutRaiz() {
   return (
-    <TemaProvider>  { /* Aqui, abraçamos forte */ }
-        <Stack> ... </Stack>
+    <TemaProvider>
+      <Stack>
+        {/* Suas rotas aqui */}
+      </Stack>
     </TemaProvider>
   );
 }
 ```
 
+> [!IMPORTANT]
+> O `<TemaProvider>` precisa envolver **tudo** que deve ter acesso ao tema. Se você colocar ele apenas dentro de uma tela, as outras não vão enxergar o contexto.
+
+### O que acontece agora
+
+O quadro de avisos está montado e cobrindo todas as telas. Qualquer componente filho pode ler o tema — sem precisar que o pai passe nada via props.
+
 ---
 
-## Passo 3: Sugando a Água da Nuvem das Telas
+## Passo 3: Bebendo da Nuvem (useContext)
 
-Com isso rodando, abra o código da sua Tela "Configurações.tsx" ou "Home.tsx". Em qualquer botão de profundidade, invoque O Gancho do Contexto:
+Agora vamos criar uma tela de Configurações que alterna o tema, e uma tela Home que reflete a mudança.
+
+### Tela de Configurações (ConfigScreen.tsx)
 
 ```tsx
-{% raw %}
 import { useContext } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import { TemaContext } from '../contexts/TemaContext'; // 👈 Importa a estrutura da Nuvem
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { TemaContext } from '../contexts/TemaContext';
 
 export default function ConfigScreen() {
-  // 1. Invoca a Ponte
-  const { tema, setTema } = useContext(TemaContext); // 👈 SUGANDO OS DADOS DA NUVEM: Repare que não há Props enviadas do Pai!
+  // Puxa dados do quadro de avisos — sem props!
+  const { tema, setTema } = useContext(TemaContext);
 
-  // 2. Condicionais Dinâmicos de Render Baseado na variável suprema:
   const isDark = tema === 'escuro';
 
   return (
-    <View style={{ flex: 1, backgroundColor: isDark ? '#111' : '#fff' }}>
-      
-      <Text style={{ color: isDark ? '#fff' : '#000' }}>
-         Tema Cósmico atual: {tema}
+    <View style={{ flex: 1, backgroundColor: isDark ? '#111' : '#fff', justifyContent: 'center', alignItems: 'center' }}>
+      <Text style={{ color: isDark ? '#fff' : '#000', fontSize: 24 }}>
+        Tema atual: {tema}
       </Text>
-      
-      <TouchableOpacity 
-         onPress={() => setTema(isDark ? 'claro' : 'escuro')}
-         style={{ padding: 15, backgroundColor: 'blue'}}
+
+      <TouchableOpacity
+        onPress={() => setTema(isDark ? 'claro' : 'escuro')}
+        style={{ padding: 15, backgroundColor: 'blue', borderRadius: 8, marginTop: 20 }}
       >
-        <Text>Alternar Modo do Computador</Text>
+        <Text style={{ color: '#fff' }}>
+          Alternar para {isDark ? 'Claro' : 'Escuro'}
+        </Text>
       </TouchableOpacity>
     </View>
   );
 }
-{% endraw %}
 ```
 
-O botão altera o contexto global. O contexto alterado faz todas as telas que o consomem se redesenharem automaticamente — sem precisar passar nenhuma prop entre elas.
+> [!TIP]
+> Repare que não há nenhuma prop vindo do componente pai. O `useContext` puxa o dado diretamente do quadro de avisos. É como ir ao quadro e ler — não precisa que o professor grite a informação para você.
+
+### Tela Home (HomeScreen.tsx)
+
+```tsx
+import { useContext } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import { TemaContext } from '../contexts/TemaContext';
+
+export default function HomeScreen() {
+  const { tema } = useContext(TemaContext);
+
+  const isDark = tema === 'escuro';
+
+  return (
+    <View style={{ flex: 1, backgroundColor: isDark ? '#111' : '#fff', justifyContent: 'center', alignItems: 'center' }}>
+      <Text style={{ color: isDark ? '#fff' : '#000', fontSize: 28 }}>
+        {isDark ? 'Modo Escuro Ativado' : 'Modo Claro Ativado'}
+      </Text>
+    </View>
+  );
+}
+```
+
+> [!WARNING]
+> Se a Home não mudar quando você alterna o tema na Configurações, verifique se o `TemaProvider` está envolvendo **todas** as rotas no `_layout.tsx`. Se ele estiver apenas dentro de uma rota, as outras não vão enxergar o contexto.
+
+---
+
+## Passo 4: Testando a Mágica
+
+1. Salve todos os arquivos.
+2. Rode `npm start` no terminal.
+3. Abra a tela de Configurações no Expo Go e toque no botão "Alternar".
+4. Navegue até a Home — o fundo e o texto devem mudar instantaneamente.
+
+> [!NOTE]
+> **O que aconteceu?** Você alterou o tema na Tela de Configurações. O `setTema` atualizou o valor na "nuvem" (o Context). A Home, que estava "bebendo" da mesma nuvem via `useContext`, redesenhou automaticamente — sem nenhuma prop sendo passada entre elas.
+
+### O que você deve ver
+
+```
+Tela Configurações:                    Tela Home:
+┌─────────────────────┐               ┌─────────────────────┐
+│ Tema atual: claro   │  → toque →    │ Modo Claro Ativado  │
+│ [Alternar para      │               │ (fundo branco)      │
+│  Escuro]            │               │                     │
+└─────────────────────┘               └─────────────────────┘
+
+Tela Configurações:                    Tela Home:
+┌─────────────────────┐               ┌─────────────────────┐
+│ Tema atual: escuro  │  → volta →   │ Modo Escuro Ativado │
+│ [Alternar para      │               │ (fundo preto)       │
+│  Claro]             │               │                     │
+└─────────────────────┘               └─────────────────────┘
+```
+
+---
+
+## Checklist da Aula 12
+
+Marque cada item quando conseguir fazer:
+
+- [ ] Criei o arquivo `TemaContext.tsx` com `createContext` e o Provider
+- [ ] Envolvei o app com `<TemaProvider>` no `_layout.tsx`
+- [ ] Usei `useContext(TemaContext)` na tela de Configurações
+- [ ] Usei `useContext(TemaContext)` na tela Home
+- [ ] Ao trocar o tema na Configurações, a Home muda sozinha
+- [ ] O app roda sem erros no Expo Go
+
+> [!NOTE]
+> Se algum item ficou sem marcar, volte no passo correspondente. O Context API é uma das ferramentas mais poderosas do React — domine-a aqui e o resto do curso fica mais fácil.
 
 ---
 
 ## Como isso se aplica ao seu projeto
 
-O `useContext` é mais útil no projeto quando precisar de dados compartilhados entre telas sem passar props manualmente:
+O `useContext` é mais útil quando você precisa de dados compartilhados entre telas sem passar props manualmente:
 
-- **Projetos 1/2/3/4 — Tema do app:** o usuário pode escolher tema claro/escuro nas configurações e o `TemaContext` aplica em todas as telas simultaneamente
-- **Categoria 1 (Lista de Tarefas):** um contexto de "tarefas" pode tornar a lista acessível na tela principal e na tela de detalhes sem navegação por parâmetros
-- **Categoria 4 (Controle de Gastos):** um contexto de "categoria selecionada" permite filtrar a lista sem recarregar do banco toda vez que o usuário muda de aba
+| Situação no projeto | Como o Context ajuda |
+|---------------------|----------------------|
+| Tema do app (claro/escuro) | `TemaContext` aplica em todas as telas |
+| Usuário logado | `AuthContext` mantém o nome/foto acessível em qualquer tela |
+| Lista de tarefas | `TarefasContext` permite editar na Home e nos Detalhes |
+| Categoria selecionada | Filtra a lista sem recarregar do banco a cada troca de aba |
 
-Para a **Entrega 4**, se o projeto crescer em complexidade (múltiplas telas editando o mesmo dado), migrar para um `Context` evita bugs de dados desatualizados entre telas.
+Para a **Entrega 4** do projeto, se o app crescer em complexidade (múltiplas telas editando o mesmo dado), migrar para um `Context` evita bugs de dados desatualizados entre telas. Vejo você na Aula 13! 🚀

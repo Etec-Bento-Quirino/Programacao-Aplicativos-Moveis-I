@@ -1,55 +1,112 @@
-# Apresentação: Cimentando Variáveis na Memória Flash 💾
+# Apresentação: Salvando Dados no Celular (AsyncStorage) 💾
 
-**Leitura Autônoma de Engenharia Front-End Avançada**
-
-Se você tentar usar os métodos de leitura de arquivo em txt normal da Web, seu app móvel dará Crash por infração de privacidade e IO. O Celular opera em silos fechados. Cada App tem seu feudo.
+**Sugestão de uso:** slides da Aula 13 (leia em voz alta antes do tutorial).
 
 ---
 
-## 1. O Local Storage do Mundo Mobile
-Na Web temos o `localStorage`. No mundo nativo, a Meta(Facebook) forjou a api **AsyncStorage**. Ela é uma camada não-SQL de Arquitetura de "Chave-Valor". O que isso significa? Significa que não existem "Tabelas e Colunas" robustas. Existe apenas um baú (Chave) e o conteúdo (Valor).
+## 1. O Que É AsyncStorage?
 
-Exemplo: Você cria a chave `@meuapp_tema`. E dentro dela você guarda a string `"escuro"`. Toda vez que você pedir pra Plataforma (iOS ou Android) trazer quem está dentro de `@meuapp_tema`, ele devolverá a palavra `"escuro"`.
+Na web temos o `localStorage`. No mundo mobile, a Meta (Facebook) criou o **AsyncStorage** — uma "gaveta" permanente dentro do celular.
 
-## 2. O Calcanhar de Aquiles: Tudo ou Nada (String Only)
-O Storage não aceita Matrizes (Arrays), não aceita Listas dinâmicas ou Booleanos Puros! Ele é um burro de carga que só carrega Texto Puro Mudo (`Strings`).
-Se você tentar mandar: `['Ovo', 'Farinha', 'Leite']`, o sistema colapsa alegando violação de tipo primitivo.
+Funciona como um **dicionário**: você guarda um **chave** (o nome do documento) e um **valor** (o conteúdo). Toda vez que pedir a chave de volta, o conteúdo retorna.
 
-### Como salvar Listas então? (A Secagem JSON)
-É aqui que usamos a mágica de compressão de Internet. Se o banco Storage só aceita String (Água Pura em estado Líquido), e nosso Array é feito de Objetos lógicos (Gelo Sólido Complexo), nós derretemos!
+> [!NOTE]
+> **Analogia:** pense num armário com gavetas rotuladas. Cada gaveta tem um nome (a chave) e guarda algo dentro (o valor). Você pode escrever "tema" numa gaveta e colocar "escuro" lá dentro. Depois, quando abrir a gaveta "tema", vai encontrar "escuro".
 
-- Ao Enviar Pro Storage: Nós acionamos **`JSON.stringify(lista)`**. Isso instantaneamente pega a Lista Mágica Dinâmica JavaScript e esmaga ela secando-a em uma Tripa Imensa de puro TEXTO Bobo. O Storage engole perfeitamente.
-- Ao Puxar de Volta (Ler o Storage): Nós ordenamos `await AsyncStorage.getItem`. O banco Cospe a tripa de texto cega. Nós imediatamente jogamos ela dentro de um **`JSON.parse(tripa)`**. O código reconstrói hidrata perfeitamente a matriz array viva de novo na tela!
+### Exemplo simples
 
-## 3. O Padrão Guardião (`useEffect` de Novo)
-Lembrando da aula 11: Se você quer que o seu App leia as pontuações antigas assim que o usuário ligar o app às 4h da manhã, quem é o melhor encarregado para acionar e gritar pelo Storage? Exato. Nosso Guarda Noturno. Nós colocamos a operação de carregar no `useEffect` Base, e na hora que a tela engatar, a primeira coisa que ela faz na vida é pedir o Storage!
-
-**Exemplo Prático: Salvar e Ler Arrays**
 ```tsx
-import AsyncStorage from '@react-native-async-storage/async-storage';
+// Salvar
+await AsyncStorage.setItem('@meuapp_tema', 'escuro');
 
-// SALVANDO: Derrete o Array pra String
-const salvarItens = async (minhaLista) => {
-  try {
-    const tripaDeTexto = JSON.stringify(minhaLista);
-    await AsyncStorage.setItem('@meuapp_lista', tripaDeTexto);
-  } catch (error) {
-    console.error("Erro ao salvar!", error);
-  }
-};
+// Ler
+const tema = await AsyncStorage.getItem('@meuapp_tema');
+// tema === "escuro"
+```
 
-// LENDO: Puxa o texto e Hidrata de volta pra Array
-const lerItens = async () => {
-  try {
-    const tripaDeTexto = await AsyncStorage.getItem('@meuapp_lista');
-    if (tripaDeTexto !== null) {
-      const arrayOriginal = JSON.parse(tripaDeTexto);
-      return arrayOriginal; // 👈 Pronto para ir pro useState!
-    }
-  } catch (error) {
-    console.error("Erro ao ler!", error);
-  }
+---
+
+## 2. O Problema: Só Aceita Texto (Strings)
+
+O AsyncStorage é um "burro de carga" — ele só carrega **texto puro**. Não aceita arrays, objetos, booleanos ou números diretamente.
+
+Se você tentar mandar um array:
+
+```tsx
+// ❌ NÃO FUNCIONA!
+await AsyncStorage.setItem('@lista', ['Ovo', 'Leite']);
+```
+
+O celular vai reclamar. A solução é **transformar o array em texto** antes de salvar, e **transformar de volta** ao ler.
+
+### A mágica: `JSON.stringify` e `JSON.parse`
+
+| O que fazer | Função | Analogia |
+|-------------|--------|----------|
+| Array → Texto (para salvar) | `JSON.stringify(lista)` | Derreter o gelo complexo em água |
+| Texto → Array (para ler) | `JSON.parse(texto)` | Reconstruir o gelo a partir da água |
+
+```tsx
+// SALVAR: array vira texto
+const texto = JSON.stringify(['Ovo', 'Leite', 'Farinha']);
+await AsyncStorage.setItem('@lista', texto);
+
+// LER: texto volta a ser array
+const textoDeVolta = await AsyncStorage.getItem('@lista');
+const array = JSON.parse(textoDeVolta); // ['Ovo', 'Leite', 'Farinha']
+```
+
+> [!IMPORTANT]
+> **Sempre use `JSON.stringify` para salvar** e **`JSON.parse` para ler**. Esquecer um dos dois é o erro nº 1 de iniciantes com AsyncStorage.
+
+---
+
+## 3. O Guarda Noturno de Volta (useEffect)
+
+Lembra da Aula 11? O `useEffect` com `[]` roda quando a tela abre. Perfeito para carregar dados salvos do AsyncStorage!
+
+```tsx
+useEffect(() => {
+  const carregar = async () => {
+    const dados = await AsyncStorage.getItem('@lista');
+    if (dados) setLista(JSON.parse(dados));
+  };
+  carregar();
+}, []); // Roda uma vez ao abrir
+```
+
+E quando o usuário adicionar um item, você salva imediatamente:
+
+```tsx
+const adicionarItem = async (novoItem) => {
+  const novaLista = [...lista, novoItem];
+  setLista(novaLista);          // atualiza a tela
+  await AsyncStorage.setItem('@lista', JSON.stringify(novaLista)); // salva no celular
 };
 ```
 
-👉 **Expanda sua Cabeça Estudando a Documentação Base:** [O Módulo Async Storage Oficial](https://react-native-async-storage.github.io/async-storage/docs/install/)
+> [!TIP]
+> **Padrão completo:** `useEffect` carrega ao abrir → `useState` guarda o estado → ao modificar, `setLista` atualiza a tela e `AsyncStorage.setItem` salva no celular. São 3 peças trabalhando juntas.
+
+---
+
+## 4. AsyncStorage vs SQLite
+
+| | AsyncStorage | SQLite |
+|---|---|---|
+| **Formato** | Chave-valor (texto) | Tabelas com colunas |
+| **Complexo** | Simples (listas, preferências) | Complexo (relações, consultas) |
+| **Performance** | Rápido para poucos dados | Rápido para muitos dados |
+| **Quando usar** | Tema, nome, preferências | Listas grandes, dados relacionados |
+
+> [!NOTE]
+> **No curso:** usamos AsyncStorage nas Aulas 13 (este módulo) para dados simples. A partir da Aula 14, migramos para SQLite — que é o banco de dados "de verdade" para apps maiores.
+
+---
+
+## Como isso se aplica ao seu projeto
+
+- **Fase 2 do projeto:** AsyncStorage para dados simples (tema, nome do perfil, configurações)
+- **Fase 3 (Aulas 14–15):** migração para SQLite para os dados principais (listas, itens, gastos)
+
+O AsyncStorage continua sendo útil para **preferências do usuário** mesmo depois de ter SQLite — coisas que não precisam de tabelas complexas.

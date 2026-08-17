@@ -5,15 +5,22 @@
 ---
 
 ## O Desafio Prático
-Se parássemos o curso aqui, você saberia construir uma televisão: um aparelho lindo que transmite imagens incríveis. Mas nós não fazemos televisões. Nós fazemos computadores. O App precisa escutar o usuário, receber textos dele, senhas, e-mails e CPFs.
 
-Na Quinzena de hoje, vamos aprender a dominar o Teclado Nativo do celular do usuário. Ensinaremos você a abrir a caixa de texto perfeita usando **TextInput**, além de aplicar a sagrada arte da **Validação** (Não confiar cegamente no que o cliente digita).
+Se parássemos o curso aqui, você saberia construir uma televisão: um aparelho lindo que mostra imagens incríveis. Mas nós não fazemos televisões. Nós fazemos **computadores**. O app precisa escutar o usuário, receber textos dele, senhas, e-mails e muito mais.
+
+Nesta aula, vamos aprender a dominar o teclado nativo do celular do usuário. Você vai criar campos de texto com **TextInput**, escolher o teclado certo para cada situação e aplicar a arte da **validação** — ou seja, não confiar cegamente no que o cliente digita.
+
+> [!IMPORTANT]
+> **Validação** é o processo de verificar se os dados que o usuário digitou são realmente o que esperamos. Por exemplo: um e-mail precisa ter `@`, uma senha precisa ter no mínimo 6 caracteres. Validar antes de salvar é o que separa um app amador de um profissional.
 
 | Material | O que você vai encontrar lá dentro? |
 |----------|-----------|
-| [Apresentação](apresentacao.md) | A Teoria do Input: Por que teclados de celular mudam de rosto e como o Estado Controlado garante que o app não seja hackeado. |
-| [Tutorial](tutorial.md) | O Guia Prático: Construindo um formulário profissional e criando lógicas defensivas de envio (O porteiro eletrônico). |
-| [Atividade](atividade.md) | Missão 7: Prove que seu formulário impede que usuários preguiçosos enviem campos em branco. |
+| [Apresentação](apresentacao.md) | A teoria: por que teclados de celular mudam de cara, e como o Estado Controlado garante dados confiáveis. |
+| [Tutorial](tutorial.md) | O Guia Prático: construa um formulário completo com validação e Alert. |
+| [Atividade](atividade.md) | Missão 7: prove que seu formulário impede que usuários enviem campos em branco. |
+
+> [!TIP]
+> **Ordem sugerida:** leia a Apresentação primeiro, depois siga o Tutorial no computador e por último resolva a Atividade.
 
 ---
 

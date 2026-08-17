@@ -1,29 +1,35 @@
-# Atividade 13: Persistência de Dados Básica 🗡️
+# Atividade 13: A Lista Que Não Morre (AsyncStorage) 🗡️
 
-**Objetivo da Atividade:**
-
-Provar que o armazenamento no dispositivo (via `AsyncStorage`) funciona mesmo após o aplicativo ser completamente fechado pelo sistema operacional.
+**Sugestão de execução:** Quinzena 16 | **Bimestre:** 3 | **Valendo XP e nota**
 
 ---
 
-## O Desafio: A Lista Que Não Morre
+**Objetivo da Atividade:** provar que o armazenamento no dispositivo funciona mesmo após o aplicativo ser completamente fechado pelo sistema operacional.
 
-Você deve montar uma tela com um botão e um input para adicionar itens em uma lista, e salvar essa lista no `AsyncStorage` (transformando os dados usando `JSON.stringify()`).
+> [!NOTE]
+> Se você ainda não fez o [Tutorial da Aula 13](tutorial.md), faça primeiro. Esta atividade cobra exatamente os passos de lá — só com um desafio extra.
 
-O teste de ouro para persistência é fechar o app:
-1. Abra o App no Expo Go e adicione alguns itens na sua lista.
-2. **Saia e Feche o Expo Go Totalmente!** (Abra a lista de multitarefas do seu celular e feche o aplicativo deslizando para cima/lado).
-3. Abra novamente o Expo Go e carregue seu projeto.
-4. A tela deve iniciar com a lista exatamente como você a deixou antes de fechar, resgatada através de um `useEffect` na inicialização.
+---
 
-### 💡 Dica de como iniciar:
+## O Desafio: O Teste de Fechamento
 
-Use o `useEffect` vazio `[]` para resgatar os dados do `AsyncStorage` usando `getItem` e `JSON.parse`. Sempre que modificar a lista, use `setItem` com `JSON.stringify`.
+Crie uma tela com um botão e um input para adicionar itens em uma lista, e salve essa lista no `AsyncStorage` (usando `JSON.stringify`).
+
+O teste de ouro é o **fechamento**:
+
+1. Abra o app no Expo Go e adicione alguns itens.
+2. **Feche o Expo Go totalmente** (abra o multitarefa e deslize para cima).
+3. Reabra o Expo Go e carregue seu projeto.
+4. A tela deve iniciar com a lista exatamente como você a deixou.
+
+### Dica de como iniciar
+
+Use o `useEffect` vazio `[]` para resgatar os dados com `getItem` e `JSON.parse`. Sempre que modificar a lista, use `setItem` com `JSON.stringify`.
 
 ```tsx
-{% raw %}
 import React, { useState, useEffect } from 'react';
-import { View, Text, Button, AsyncStorage } from 'react-native';
+import { View, Text, Button } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function App() {
   const [lista, setLista] = useState([]);
@@ -53,8 +59,33 @@ export default function App() {
     </View>
   );
 }
-{% endraw %}
 ```
 
-## Entrega:
+> [!TIP]
+> Não esqueça de importar `AsyncStorage` de `@react-native-async-storage/async-storage`. Se esquecer, o app vai travar com um erro de "módulo não encontrado".
+
+> [!WARNING]
+> Se o `JSON.parse` receber `null` (primeira vez que o app roda), ele vai dar erro. Por isso, sempre verifique `if (dadosSalvos !== null)` antes de fazer o parse.
+
+---
+
+## Entrega
+
 Faça o teste de fechar totalmente o aplicativo e reabri-lo. Tire uma captura de tela (print) comprovando que a lista permaneceu salva após a inicialização. Adicione um breve comentário dizendo que testou o fechamento forçado e envie na plataforma.
+
+---
+
+## Checklist de Entrega
+
+- [ ] A tela tem input + botão para adicionar itens
+- [ ] A lista é salva no AsyncStorage com `JSON.stringify`
+- [ ] A lista é carregada com `JSON.parse` ao abrir a tela
+- [ ] Fechei o Expo Go completamente e reabri — os dados persistiram
+- [ ] Print comprovando a persistência
+- [ ] Comentário sobre o teste de fechamento
+
+---
+
+## Como isso se aplica ao seu projeto
+
+O AsyncStorage é a primeira camada de persistência do seu app. Na Fase 2 do Trabalho em Grupo, ele guarda os dados enquanto o usuário usa o app. Na Fase 3 (SQLite), você migra os dados principais — mas o AsyncStorage continua útil para preferências simples (tema, idioma, nome). É como ter um caderno pequeno para anotações rápidas e um arquivo robusto para documentos importantes. 🚀

@@ -1,53 +1,85 @@
-# Atividade 11: Gestão de Estados e Re-renderização 🎨
+# Atividade 11: Domine o useState e o useEffect 🧠
 
-**Objetivo da Atividade:**
-
-Compreender o fluxo de atualização de tela no React Native. A interface só é atualizada se você fornecer um novo estado através da função `set` correspondente, sem modificar diretamente o array ou objeto anterior.
+**Sugestão de execução:** Quinzena 14 | **Bimestre:** 3 | **Valendo XP e nota**
 
 ---
 
-## O Desafio: Atualização de Listas
+**Objetivo da Atividade:** provar que você entende como o React redesenha a tela — e que `useState` e `useEffect` são os responsáveis por isso.
 
-Você criará um componente autônomo focado unicamente na lógica de re-renderização e do ciclo de vida, utilizando o VS Code.
+> [!NOTE]
+> Se você ainda não fez o [Tutorial da Aula 11](tutorial.md), faça primeiro. Esta atividade cobra exatamente os passos de lá — só com um desafio extra.
 
-1. No seu componente, crie um **`useEffect`** com um array de dependências vazio `[]`. Configure-o para preencher o seu estado inicial (um `useState` contendo uma lista) com 2 itens (Ex: "Item 1" e "Item 2") assim que o componente for carregado pela primeira vez.
-2. Adicione na interface um botão ("Adicionar") e um campo de entrada de texto (`TextInput`).
-3. Ao pressionar o botão, a função responsável deve adicionar o texto que foi digitado à lista. Para isso, utilize a sintaxe de espalhamento (spread operator: `...lista_antiga`) criando um novo array contendo os dados anteriores mais o novo item. Em seguida, limpe o valor do campo de texto (`''`).
+---
 
-### 💡 Dica de como iniciar:
+## O Desafio: Lista que Cresce com Input
 
-No React, você nunca deve alterar um estado diretamente (como `lista.push(novoItem)`). Para adicionar um novo item, use a função do `useState` e desestruture a lista antiga com `...`.
+Crie um componente com as seguintes funcionalidades:
+
+1. Um **`useState`** com uma lista (array) que começa vazia.
+2. Um **`useEffect`** com array vazio `[]` que, ao carregar a tela, preenche a lista com 2 itens iniciais (ex.: "Item 1" e "Item 2").
+3. Um campo de texto (`TextInput`) e um botão ("Adicionar").
+4. Ao pressionar o botão, adicione o texto digitado à lista usando o operador **spread** (`...`). Em seguida, limpe o campo de texto.
+
+### Dica de como iniciar
 
 ```tsx
-{% raw %}
 import React, { useState, useEffect } from 'react';
-import { View, TextInput, Button } from 'react-native';
+import { View, Text, TextInput, Button } from 'react-native';
 
 export default function App() {
   const [lista, setLista] = useState([]);
   const [novoItem, setNovoItem] = useState('');
 
-  // 1. O useEffect carrega dados na inicialização
+  // 1. Carrega dados na inicialização
   useEffect(() => {
     setLista(["Item 1", "Item 2"]);
-  }, []); // O array vazio [] significa que roda apenas 1 vez ao carregar a tela
+  }, []); // Array vazio = roda 1 vez ao carregar
 
   const adicionarItem = () => {
-    // 2. Usando o Spread Operator (...) para criar uma cópia e adicionar o novo item
+    // 2. Spread para criar cópia + novo item
     setLista([...lista, novoItem]);
-    
-    // 3. Limpando o input
+    // 3. Limpa o input
     setNovoItem('');
   };
 
   return (
     <View style={{ flex: 1, padding: 50 }}>
-      {/* Construa a interface aqui: TextInputs, Button e faça um .map() na lista para exibir cada texto na tela */}
+      {/* Construa a interface: TextInput, Button e .map() na lista */}
     </View>
   );
 }
-{% endraw %}
 ```
 
-## Entrega:
-Rode a aplicação no seu emulador ou via Expo Go. Verifique se os itens aparecem corretamente e se a tela atualiza na hora em que o novo item é adicionado à lista. Tire capturas de tela (ou grave um pequeno vídeo) comprovando o funcionamento e envie na plataforma.
+> [!TIP]
+> Use `.map()` para percorrer a lista e exibir cada item num `<Text>`. Lembre-se: a cada item do `.map()`, passe uma `key` única (o `index` serve para-listas simples).
+
+> [!WARNING]
+> Não use `lista.push(novoItem)` — isso não funciona no React. Use **sempre** `setLista([...lista, novoItem])`.
+
+---
+
+## Entrega
+
+Rode a aplicação no Expo Go. Verifique se:
+
+- Os 2 itens iniciais aparecem ao carregar a tela.
+- O campo de texto limpa após adicionar.
+- A tela atualiza instantaneamente a cada novo item.
+
+Tire uma captura de tela (ou grave um pequeno vídeo) comprovando o funcionamento e envie na plataforma.
+
+---
+
+## Checklist de Entrega
+
+- [ ] A lista começa com 2 itens ao abrir a tela (`useEffect` com `[]`)
+- [ ] O botão adiciona o item digitado à lista (usando spread)
+- [ ] O campo de texto é limpo após a adição
+- [ ] A tela redesenha sozinha a cada clique (sem `.push()`)
+- [ ] Print ou vídeo comprovando o funcionamento
+
+---
+
+## Como isso se aplica ao seu projeto
+
+Todo app do Trabalho em Grupo vai ter listas — de tarefas, notas, gastos, itens… O padrão `useState` + `useEffect` + spread é a base de **qualquer** tela que mostre dados dinâmicos. Domine aqui, e as aulas seguintes ficam muito mais fáceis! 🚀

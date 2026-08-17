@@ -1,23 +1,25 @@
-# Aula 10 – O Toque Cibernético: Notificações Push Locais
+# Aula 10 – Notificações Locais com expo-notifications
 
 [Voltar ao curso](../../README.md) | [Calendário](../../docs/calendario-aulas.md) | [Tutoriais](../../TUTORIAIS.md)
 
 ---
 
-## O Desafio Prático
-Como você faz com que o usuário lembre que o seu aplicativo existe se o celular dele estiver bloqueado em cima de uma mesa? A resposta é a engenhosidade mais lucrativa do século XXI: A Notificação Push. Fazer a tela negra do celular acender com uma mensagem do seu app.
+Nesta aula você vai fazer o celular **apitar** com uma mensagem do seu app — mesmo que o app esteja minimizado. Vamos usar o `expo-notifications` para agendar notificações locais: sem servidor, sem nuvem, sem custo. Só o seu código JavaScript mandando um "lembrete" direto para a tela do usuário.
 
-Desta vez exploraremos o **expo-notifications**, aprenderemos a domar os canais do Android, e agendaremos alarmes de tela que acordam o celular do usuário no momento exato em que você decretar.
+> [!IMPORTANT]
+> **Meta da aula:** terminar com um botão que agenda uma notificação para disparar em 5 segundos. Você vai minimizar o app e ver a notificação surgir na tela inicial do celular. 🔔
+
+## 🧳 O Seu Inventário de Aula
 
 | Material | O que você vai encontrar lá dentro? |
-|----------|-----------|
-| [Apresentação](apresentacao.md) | A Teoria da Ansiedade Padrão: Qual a diferença bizarra entre Notificação remota (Servidor) vs Notificação Local (Celular)? E por que o Android exige os famigerados "Canais"? |
-| [Tutorial](tutorial.md) | O Guia Prático: Um botão que cria uma bomba relógio. Seu celular apitará fora do app em exatos 5 segundos contados pelo JavaScript. |
-| [Atividade](atividade.md) | Missão 10: Prove que seu PushNotification chegou minimizando o app temporariamente e tirando foto do seu Padrão Deslizante. |
+|----------|-------------------------------------|
+| [Apresentação](apresentacao.md) | A diferença entre notificação remota e local, por que o Android exige "Canais", e o que é o Handler de notificações. |
+| [Tutorial](tutorial.md) | O Guia Prático: um botão que cria uma "bomba relógio" de 5 segundos — seu celular apitará fora do app! |
+| [Atividade](atividade.md) | Sua Missão 10: prove que a notificação chegou mesmo com o app minimizado. |
+
+> [!TIP]
+> **Ordem sugerida:** leia a Apresentação (5 minutos), faça o Tutorial no computador (30–40 minutos) e por último resolva a Atividade. Você já domina `async/await` e permissões — agora é só mais um passo!
 
 ---
 
-## Navegação
-
-- **Anterior:** [Aula 09 – A Bússola Oculta](../aula-09-geolocalizacao-expo-location/README.md)
-- **Próxima (O Cérebro):** [Aula 11 – Dominando o Tempo (Hooks e UseState)](../../modulo-05-estado-persistencia/aula-11-hooks-usestate-useeffect/README.md)
+**Próxima Parada:** 👉 [Aula 11 – Hooks: useState e useEffect](../../modulo-05-estado-persistencia/aula-11-hooks-usestate-useeffect/README.md)

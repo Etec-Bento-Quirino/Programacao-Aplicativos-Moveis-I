@@ -52,9 +52,3 @@ O projeto tem **14 categorias** e **36 temas sugeridos**, com entregas documenta
 - [Índice de Categorias e Temas](modulo-08-projeto-final/README.md) – regras do trabalho e lista completa dos temas.
 
 Use o **README** de cada categoria e as fichas **fase1** a **fase4** (`modulo-08-projeto-final/fase1.md` a `modulo-08-projeto-final/fase4.md`) como guia de cada entrega. Cada categoria reúne **temas sugeridos** em subpastas `tema-01-…` até `tema-36-…`, cada uma com seu próprio README.
-
----
-
-## Conteúdo plus
-
-- [Storybook para design system](plus/storybook-design-system.md) – Opcional; uso em aula extra ou aprofundamento.

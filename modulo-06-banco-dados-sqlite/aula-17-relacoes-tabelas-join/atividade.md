@@ -1,36 +1,60 @@
-# Atividade 17: Consultas Relacionais (JOINs) 🔗
+# Atividade 17: Consultas Relacionais com JOIN 🔗
 
-**Objetivo da Atividade:**
+**Sugestão de execução:** Quinzena 22 | **Bimestre:** 4 | **Valendo XP e nota**
 
-Nesta atividade, você aplicará os conceitos de consultas relacionais com o SQLite. Utilizaremos o `LEFT JOIN` associado à cláusula `GROUP BY` e a função agregadora `COUNT()` para retornar o número total de itens dentro de cada categoria.
+---
+
+**Objetivo da Atividade:** aplicar consultas relacionais com SQLite usando `LEFT JOIN` associado a `GROUP BY` e `COUNT()` para retornar o número total de itens dentro de cada categoria.
+
+> [!NOTE]
+> Se você ainda não fez o [Tutorial da Aula 17](tutorial.md), faça primeiro. Esta atividade cobra exatamente os passos de lá — só com uma pitada extra de desafio.
 
 ---
 
 ## O Desafio: Relatórios com JOIN
 
-Desenvolva e teste a seguinte lógica no seu projeto local utilizando o VS Code:
+Desenvolva e teste a seguinte lógica no seu projeto local:
 
-1. No seu banco de dados, certifique-se de que existam pelo menos duas categorias (por exemplo: "Hortifruti" e "Limpeza").
-2. Adicione um ou dois itens atrelados à Categoria 1 (Hortifruti) e não insira nenhum item na Categoria 2 (Limpeza).
-3. Na sua tela (ou no log do console), execute uma consulta SQL utilizando `LEFT JOIN` e `COUNT()` para retornar os nomes das categorias e a contagem de itens em cada uma delas.
+1. No banco de dados, certifique-se de que existam pelo menos **duas categorias** (por exemplo: "Hortifruti" e "Limpeza").
+2. Adicione um ou dois itens atrelados à Categoria 1 (Hortifruti) e **não insira nenhum** item na Categoria 2 (Limpeza).
+3. Execute uma consulta SQL utilizando `LEFT JOIN` e `COUNT()` para retornar os nomes das categorias e a contagem de itens em cada uma.
 
 ### 💡 Dica de como iniciar:
 
-Para realizar a contagem usando o banco de dados, você precisa agrupar os resultados (`GROUP BY`) e usar a função `COUNT()`. Aqui está um exemplo de como seria a estrutura da sua Query (Consulta SQL) para passar pro método que acessa o banco do Expo:
+Aqui está a estrutura da query para passar pro método que acessa o banco:
 
 ```sql
--- Exemplo do Comando SQL para extrair as categorias e contar os itens
-SELECT 
-  categorias.nome AS categoria_nome, 
+SELECT
+  categorias.nome AS categoria_nome,
   COUNT(itens.id) AS total_itens
 FROM categorias
 LEFT JOIN itens ON categorias.id = itens.categoria_id
 GROUP BY categorias.id;
 ```
 
-Lembre-se de rodar essa consulta usando o cliente do `expo-sqlite`. O retorno dessa consulta será um array (onde cada linha encontrada pela tabela será um objeto contendo `categoria_nome` e `total_itens`), que você pode colocar no seu estado (`useState`) para exibir na sua interface.
+> [!TIP]
+> Lembre-se de rodar essa consulta usando o cliente do `expo-sqlite`. O retorno será um array onde cada objeto contém `categoria_nome` e `total_itens`.
 
-## Entrega:
-A interface deve apresentar uma lista de categorias com as quantidades, por exemplo: `Hortifruti (2 Itens)` e `Limpeza (0 Itens)`. O contador de itens deve ser processado diretamente pela consulta SQL, e não calculado manualmente no frontend.
+> [!WARNING]
+> Se você esquecer o `GROUP BY`, o `COUNT` vai retornar um número errado — ele conta **todas** as linhas juntas, sem separar por categoria. Sempre agrupe!
 
-Tire uma captura de tela demonstrando o resultado (a lista com os totais exibida na tela) e envie na plataforma.
+---
+
+## Checklist de Entrega
+
+Antes de enviar, confira:
+
+- [ ] Pelo menos 2 categorias criadas no banco
+- [ ] Pelo menos 1 item na Categoria 1, nenhum na Categoria 2
+- [ ] Consulta com `LEFT JOIN` + `COUNT` + `GROUP BY` rodando
+- [ ] Tela exibindo: `Hortifruti (2 Itens)` e `Limpeza (0 Itens)`
+- [ ] O contador foi processado pelo **SQL**, não calculado no JavaScript
+- [ ] Print da tela mostrando o resultado
+
+---
+
+## Como isso se aplica ao seu projeto
+
+O `LEFT JOIN + COUNT` é usado em **toda** tela inicial que mostra categorias com contagem de itens. É o equivalente a perguntar ao banco: "me diga quantos produtos tem em cada prateleira" — e o banco responde numa única operação, sem você precisar contar manualmente!
+
+Parabéns por completar o Módulo 06 — Banco de Dados SQLite! Você agora domina a criação de tabelas, CRUD completo, integração com formulários e consultas com JOIN. Na próxima aula, vamos turbinar o visual do seu app com UX profissional!

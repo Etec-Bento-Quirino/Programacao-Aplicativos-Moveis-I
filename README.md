@@ -225,7 +225,6 @@ O curso é dividido em **7 módulos temáticos**, distribuídos em quatro bimest
 | [modulo-06-banco-dados-sqlite/](modulo-06-banco-dados-sqlite/README.md) | Aulas 14–17 + projeto Expo do módulo |
 | [modulo-07-boas-praticas-ux/](modulo-07-boas-praticas-ux/README.md) | Aulas 18–20 + projeto Expo do módulo |
 | [modulo-08-projeto-final/](modulo-08-projeto-final/README.md) | Trabalho em Grupo: 14 categorias / 36 temas, cada um com 4 entregas |
-| [plus/](plus) | Conteúdo opcional (ex.: Storybook) |
 | [docs/](docs) | PTD, calendário e material de apoio |
 
 Cada pasta de aula (`aula-NN-...`) contém: [README](modulo-01-fundamentos-ambiente/aula-01-introducao-desenvolvimento-mobile/README.md) (índice), [apresentacao.md](modulo-01-fundamentos-ambiente/aula-01-introducao-desenvolvimento-mobile/apresentacao.md), [tutorial.md](modulo-01-fundamentos-ambiente/aula-01-introducao-desenvolvimento-mobile/tutorial.md), [atividade.md](modulo-01-fundamentos-ambiente/aula-01-introducao-desenvolvimento-mobile/atividade.md). Cada módulo traz ainda um **projeto Expo incompleto** com `// TAREFA (Aula NN):` — o aluno completa as telas do app conforme avança pelas aulas.

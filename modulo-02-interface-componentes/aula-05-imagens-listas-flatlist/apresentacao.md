@@ -1,34 +1,44 @@
 # Apresentação: O Desempenho Importa (Over-Rendering) 🏁
 
-**Leitura Autônoma de Arquitetura de Interface**
+**Sugestão de uso:** slides da Aula 05 (leia em voz alta, ou leia sozinho antes do tutorial).
 
-Hoje nós abordamos o gargalo número um da indústria Mobile: O desempenho gráfico ao lidar com Arrays e Listas de dados.
+Hoje vamos atacar o gargalo número um da indústria mobile: o **desempenho gráfico** ao lidar com arrays e listas de dados.
 
 ---
 
 ## 1. O Problema da `<ScrollView>`
-Lembra como colocamos algumas caixas coloridas e imagens estáticas? Se o usuário precisar descer a tela, ele usa o seu polegar. Para ativar a rolagem no celular, costumamos agrupar os elementos dentro de uma `<ScrollView>`.
 
-O problema é que a `ScrollView` carrega TODOS os elementos (milhares deles) e processa os gráficos localmente escondidos abaixo da borda física da tela de vidro. Ela afoga o celular. Isso é péssimo se sua lista for de contatos, ou produtos de e-commerce!
+Lembra como colocamos caixas coloridas e imagens estáticas? Se o usuário precisa descer a tela, ele usa o polegar. Para ativar a rolagem, costumamos agrupar os elementos dentro de uma **`ScrollView`**.
+
+> [!CAUTION]
+> O problema é que a `ScrollView` **carrega TODOS os elementos de uma vez** — até os milhares que estão escondidos abaixo da borda da tela. Ela processa todos os gráficos, mesmo os invisíveis, e "afoga" o celular. Isso é péssimo se a sua lista for de contatos ou de produtos de e-commerce!
+
+---
 
 ## 2. A Glória da `<FlatList>`
-Uma FlatList é uma lista burra e incrivelmente astuta. 
-- Ela pega um array cru de tamanho M (Imaginemos, 1.000 imagens).
-- Ela olha o tamanho da sua tela, e percebe que só cabem 4 Fotos por vizualização natural.
-- Então a `FlatList` carrega APENAS as 4 Fotos. As outras 996 continuam puramente como pequenos códigos letárgicos.
-- Quando o usuário enrolar o dedão para baixo, a `FlatList` destrói (via *Garbage Collector*) a foto número 1 que subiu pra fora da borda e não é mais visível, recicla a casca/pixels dela, e envelopa ela com a foto de número 5!
 
-Ou seja, no seu aplicativo só existirão 4 fotos carregadas para o resto da vida. Rendendo taxa constante e inabalável de **60 a 120 FPS**.
+A `FlatList` é uma lista "burra e incrivelmente astuta". Veja o truque:
 
-### Componentes Chave da `<FlatList>`:
-Você não pode colocar os `<Text>` direto nela de forma normal. Ela exige as Props matemáticas:
-- `data`: Quem me alimenta? A Array (uma varíável em array simples)!
-- `renderItem`: Como eu vomito e projeto na tela os dados que estão lá? Aqui você cria um loop desenhando suas *Views* e *Images*.
-- `keyExtractor`: Eu exijo saber como não processar elementos duas vezes. Diga qual é a variável secreta única, como um "id" pra cada linha.
+1. Ela recebe um array cru de tamanho M (imaginemos **1.000 imagens**).
+2. Ela olha o tamanho da sua tela e percebe que só cabem **4 fotos** por visualização.
+3. Então a `FlatList` carrega **APENAS as 4 fotos**. As outras 996 continuam como simples códigos adormecidos.
+4. Quando o usuário rola o dedo para baixo, a `FlatList` **destrói** (via *Garbage Collector*) a foto que saiu da borda, recicla a "casca"/pixels dela e a reaproveita para a foto de número 5!
+
+> [!IMPORTANT]
+> Ou seja: no seu aplicativo só existem **4 fotos carregadas por vez**, para a vida toda. Resultado: taxa de quadros constante e inabalável, de **60 a 120 FPS** — tela lisinha, sem travar.
+
+### Componentes Chave da `<FlatList>`
+
+Você não pode colocar os `<Text>` soltos dentro dela. A `FlatList` exige três **props**:
+
+- **`data`**: Quem me alimenta? O **array** de dados (uma variável com várias "caixas").
+- **`renderItem`**: Como eu desenho cada item na tela? Aqui você cria uma função que desenha as `Views` e `Images` de cada linha.
+- **`keyExtractor`**: Eu exijo saber como não processar elementos repetidos. Diga qual é a **variável única** (um "id") de cada linha.
 
 **Exemplo Prático de FlatList:**
-```tsx
+
 {% raw %}
+```tsx
 import { FlatList, Text, View } from 'react-native';
 
 const meias = [
@@ -39,7 +49,7 @@ const meias = [
 
 export default function GavetaDeMeias() {
   return (
-    <FlatList 
+    <FlatList
       data={meias} // 👈 A array original
       keyExtractor={(item) => item.id} // 👈 O campo único
       renderItem={({ item }) => ( // 👈 Como desenhar cada linha
@@ -50,24 +60,30 @@ export default function GavetaDeMeias() {
     />
   );
 }
-{% endraw %}
 ```
+{% endraw %}
 
-👉 [Mergulhe no abismo na Documentação Exaustiva da Flatlist](https://reactnative.dev/docs/flatlist)
+> [!NOTE]
+> O `renderItem` é uma **função seta** que recebe `{ item }` e devolve o "desenho" da linha. O React Native chama essa função para **cada** item do array — uma vez por linha da lista. Revisite as arrow functions no [guia de JS/TS](../../docs/base-javascript-typescript.md).
 
+> [!TIP]
+> Mergulhe no assunto na documentação oficial: [FlatList no React Native](https://reactnative.dev/docs/flatlist)
+
+---
 
 ## 3. `<Modal>`: Telas sobre Telas
 
-No seu StickerSmash do tutorial de hoje, nós não vamos exibir um milhão de figurinhas direto na tela na cara do cliente. Vamos pedir pra uma Gaveta Flutuante brotar do piso.
-É o component `<Modal>`. 
+No StickerSmash do tutorial, não vamos exibir um milhão de figurinhas direto na cara do cliente. Vamos pedir que uma **gaveta flutuante** brote do piso. É o componente **`<Modal>`**.
 
-Com a tag Modal, tudo que você escrevi ali ganha o que chamamos de "**Z-Index Absoluto Elevado**". Ele escapa do Flexbox que criamos, salta da formatação, domina 100% da sua tela e trava embaixo todas as operações de botões subjacentes, forçando total e absoluta atenção do usuário para responder a sua janela flutuante!
+Com a tag `Modal`, tudo o que você escreve ali ganha o chamado **"Z-Index Absoluto Elevado"**: ele **escapa do Flexbox**, salta da formatação, domina 100% da tela e **trava embaixo** todas as operações dos botões de trás — forçando total atenção do usuário para a sua janela flutuante.
 
-Ele ativa uma Prop `visible={true|false}`, e o Expo faz a animação fluída com maestria baseado no sistema nativo (Deslizando pelo Topo no Android, ou como Card pelo iOS).
+> [!IMPORTANT]
+> O `<Modal>` tem a prop **`visible`**: `true` para abrir, `false` para fechar. O sistema operacional cuida da animação de abertura com maestria (deslizando pelo topo no Android, como um card no iOS).
 
 **Exemplo Básico de Modal:**
-```tsx
+
 {% raw %}
+```tsx
 import { Modal, View, Text, Pressable } from 'react-native';
 
 // Dentro do seu componente:
@@ -85,7 +101,10 @@ import { Modal, View, Text, Pressable } from 'react-native';
     </View>
   </View>
 </Modal>
-{% endraw %}
 ```
+{% endraw %}
 
-Bora meter a mão no Código e desenhar esse Gavetão no **Tutorial**.
+> [!TIP]
+> O `transparent={true}` deixa o fundo da tela aparecendo **escurinho** atrás da gaveta — assim o usuário entende que o foco agora é o modal. E o `justifyContent: 'flex-end'` "cola" a gaveta embaixo, como se ela subisse do chão.
+
+Bora meter a mão no código e desenhar esse gavetão no **Tutorial**! 🚀

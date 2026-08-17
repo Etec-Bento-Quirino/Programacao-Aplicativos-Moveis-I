@@ -1,25 +1,67 @@
 # Apresentação: O Bisturi Funcional 🔪
 
-**Leitura Autônoma de Engenharia de Clean Code**
-
-Arquitetos Juniores resolvem o problema adicionando Componentes. Seniors resolvem os mesmos problemas *apagando* componentes repetitivos.
+**Sugestão de uso:** slides da Aula 19 (leia em voz alta, ou leia sozinho antes do tutorial).
 
 ---
 
-## 1. Nomenclatura Constante (The Variable Dictator)
-Escrever o Hexadecimal Azul da Logo da empresa na marra (Hardcoded) no StyleSheet da Home `#2a8bf2` e depois na tela Menus `#2a8bf2` e na tela Final `#2a8bf2` significa cometer suicídio estrutural.
+## 1. Nomenclatura Constante (O Ditador das Variáveis)
 
-Se um dia a Empresa Mudar A Paleta de Cores do Brand Book pra Verde? E você tiver 10 Telas com o Hex Azul Marrom Hardcoded?
-Crie 1 arquivo no topo do projeto. Chamado `tema.ts`. Exporte Constants imutáveis com **SNAKE_UPPERCASE** `COR_MASTER='#2a8bf2'`.
-Chame a Variável Mestra e aplique nas 10 telas. Fica Lindo. Fica modular. Tudo troca batendo em uma fonte única da verdade!
+Escrever a cor hexadecimaz da logo da empresa na marra (`#2a8bf2`) no StyleSheet da Home, depois na tela Menos, e na tela Final, tudo hardcoded — isso é suicídio estrutural.
 
-## 2. A Ilusão das Pasta Única
-Uma Aplicação React que se respeita não deixa seus botões dentro do `app/Index.tsx`. Se um `Botão Azul Quadrado Super Legal` existe numa de suas telas, ele possivelmente vai existir na tela B também.
-Crie a malha da pasta raiz `/components/BotaoAzulPoderoso.tsx` Fatiado sem nada em volta dele!
-E passe os textos via "Props(Parametros)". No JSX ele brota lindo `<BotaoAzulPoderoso titulo="Comprar" />` e na Home `<BotaoAzulPoderoso titulo="Salvar Form" />`. Zero linhas de estilo re-escritas. Componente Master puro e orgulhoso.
+E se um dia a empresa mudar a paleta de cores do Brand Book pra Verde? E você tiver 10 telas com o hex azul marrom hardcoded?
 
-## 3. O Ciclo Vital Revisto 
-- **Persistência Base:** A Verdade mora no Banco SQL no hardware Android, e AsyncStorage (Nuvem em arquivo JSON seco) apenas coisas Bestas de Configurações do Sistema.
-- **Memória Front/Nuvem:** Context API. Se não flui pra multiplas telas, destrói e deixe num Guarda Noturno com `useState` local isolado na tela pra economizar recargas e Repaints que fritam baterias. O Segredo é focar os re-paints pro menor Componente Possível e não recarregar toda a Home Tela Gigante inteira de uma vez.
+> [!NOTE]
+> **O que são Constantes?**
+> São valores que **não mudam** ao longo do programa. Pense numa placa de "Velocidade Máxima: 60". Ela não muda de acordo com o motorista. No código, constantes são como essas placas — valores fixos que ficam num arquivo central.
 
-👉 **Expanda sua Cabeça Estudando a Documentação Base:** [O Mestre Padrão React Clean Architecture](https://react.dev/learn/understanding-your-ui-as-a-tree)
+A solução: crie **1 arquivo** no topo do projeto, chamado `tema.ts`. Exporte constantes imutáveis com `SNAKE_UPPERCASE`:
+
+```ts
+export const COR_MASTER = '#2a8bf2';
+```
+
+Chame a variável mestra e aplique nas 10 telas. Tudo troca batendo em uma **única fonte da verdade**.
+
+---
+
+## 2. A Ilusão da Pasta Única
+
+Uma aplicação React que se respeita **não** deixa seus botões dentro do `app/Index.tsx`. Se um "Botão Azul Super Legal" existe numa das suas telas, ele provavelmente vai existir na tela B também.
+
+> [!IMPORTANT]
+> **Princípio da Reutilização:**
+> Se você vai usar o mesmo componente em 2+ telas, ele **precisa** estar num arquivo separado. Copiar e colar o mesmo código em 3 arquivos diferentes é pecado mortal no mundo da programação.
+
+Crie a pasta `/components/BotaoAzulPoderoso.tsx` — fatiado, sem nada em volta dele. E passe os textos via **Props** (Parâmetros). No JSX ele brota lindo:
+
+```tsx
+<BotaoAzulPoderoso titulo="Comprar" />
+```
+
+E na Home:
+
+```tsx
+<BotaoAzulPoderoso titulo="Salvar Form" />
+```
+
+Zero linhas de estilo re-escritas. Componente puro e orgulhoso.
+
+---
+
+## 3. O Ciclo Vital Revisto
+
+| Tipo de dado | Onde mora | Analogia |
+|---|---|---|
+| **Persistência** (dados reais) | SQLite no hardware | O cofre forte da empresa |
+| **Configurações leves** | AsyncStorage | Um post-it na parede (tema, nome) |
+| **Estado compartilhado** | Context API | O quadro branco que todos veem |
+| **Estado local** | `useState` na tela | O caderninho do funcionário |
+
+> [!WARNING]
+> **Erro comum de iniciante:** usar AsyncStorage para guardar dados do banco de dados. AsyncStorage é para coisas bestas como "tema escuro ligado" ou "nome do perfil". Dados reais (tarefas, notas, gastos) **sempre** vão pro SQLite.
+
+> [!TIP]
+> Se o estado **não** flui para múltiplas telas, destrua o Context e deixe num `useState` local isolado na tela. Isso economiza recargas e repaints que fritam baterias. O segredo é focar os repaints no menor componente possível — não recarregar a Home inteira de uma vez.
+
+> [!NOTE]
+> **Expanda sua Cabeça:** [O Mestre Padrão React Clean Architecture](https://react.dev/learn/understanding-your-ui-as-a-tree)

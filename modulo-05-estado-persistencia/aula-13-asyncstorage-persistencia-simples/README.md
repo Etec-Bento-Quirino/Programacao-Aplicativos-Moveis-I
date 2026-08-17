@@ -1,23 +1,28 @@
-# Aula 13 – O Diário Blindado (AsyncStorage)
+# Aula 13 – AsyncStorage: Salvando Dados que Sobrevivem ao Fechar o App
 
 [Voltar ao curso](../../README.md) | [Calendário](../../docs/calendario-aulas.md) | [Tutoriais](../../TUTORIAIS.md)
 
 ---
 
-## O Desafio Prático
-Tudo o que construímos até hoje sofre de "Amnésia". Se montarmos o melhor app de Tarefas do mundo usando listas React e fecharmos o aplicativo limpando ele da RAM, quando abrirmos de novo... Tudo se apagou. A memória Volátil morre. Como salvamos a Pontuação de um Jogo diretamente na Memória Flash Física do celular do usuário?
+Até agora seus apps tinham um grave problema: **amnésia**. Você criava uma lista, fechava o app e… tudo sumia. O `useState` guarda dados apenas na memória volátil (enquanto o app está aberto). Nesta aula você aprende a salvar dados de verdade no celular do usuário — dados que sobrevivem ao fechar e reabrir o app.
 
-Bem-vindos ao submundo da Persistência de Dados. Aprenderemos a acessar a gaveta permanente do Android e iOS usando a biblioteca padrão mestre de mercado: O **Async Storage**.
+> [!IMPORTANT]
+> **Meta da aula:** criar uma lista que persiste após o app ser fechado. Se você adicionar 3 itens, fechar o Expo Go, reabrir e ver os 3 itens ainda lá, a missão está cumprida.
+
+## Seu Inventário de Aula
 
 | Material | O que você vai encontrar lá dentro? |
-|----------|-----------|
-| [Apresentação](apresentacao.md) | Leitura Base: O que é NoSQL Local (Dictionary Format)? Por que o componente só bebe Água (String) e como transformar gelo complexo em água usando a magia do `JSON.stringify`. |
-| [Tutorial](tutorial.md) | O Guia Prático: Codificando os verbos da Persistência (`setItem` e `getItem`) numa tela tática, salvando suas listas no abismo do Storage nativo. |
-| [Atividade](atividade.md) | Missão 13: Mate o aplicativo na raiz pelo Gerenciador de Tarefas do celular... Cumpra o teste definitivo de sanidade do Dev Mobile. |
+|----------|-------------------------------------|
+| [Apresentação](apresentacao.md) | O que é AsyncStorage, por que ele só aceita texto, e como transformar listas em texto com `JSON.stringify` e `JSON.parse`. |
+| [Tutorial](tutorial.md) | O Guia Prático! Vamos criar funções de salvar e carregar, ligar o `useEffect` e testar a persistência. |
+| [Atividade](atividade.md) | Sua Missão da Quinzena (Valendo XP e nota). Feche o app, reabra e prove que os dados sobreviveram. |
+
+> [!TIP]
+> **Ordem sugerida:** leia a Apresentação (5 minutos), depois faça o Tutorial no computador (30–40 minutos) e por último resolva a Atividade.
 
 ---
 
 ## Navegação
 
-- **Anterior:** [Aula 12 – A Nuvem do App (Contexto)](../aula-12-contexto-hooks/README.md)
-- **Próxima:** [Aula 14 – O Banco de Dados Primordial (SQLite)](../../modulo-06-banco-dados-sqlite/aula-14-sqlite-configuracao-primeira-tabela/README.md)
+- **Anterior:** [Aula 12 – Context API](../aula-12-contexto-hooks/README.md)
+- **Próxima:** [Aula 14 – SQLite (Banco de Dados)](../../modulo-06-banco-dados-sqlite/aula-14-sqlite-configuracao-primeira-tabela/README.md)

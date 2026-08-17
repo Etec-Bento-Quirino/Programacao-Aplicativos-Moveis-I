@@ -1,35 +1,45 @@
-# Apresentação: O Roteamento Dinâmico (Expo Router) 🛣️
+# Apresentação: O Roteamento Dinâmico (Expo Router)
 
-**Leitura Autônoma de Arquitetura de Interface**
-
-Se você já usou a Web (Next.js), a premissa será similar, mas os nomes e a física nativa mudam muito. Até poucos anos atrás, programadores de React Native gastavam centenas de linhas fazendo o clássico `navigation.navigate("MinhaTela")` manualmente usando livrarias chamadas React Navigation. Agora, o maquinista de trens evoluiu.
+**Sugestão de uso:** slides da Aula 06 (leia em voz alta antes do tutorial).
 
 ---
 
-## 1. File-Based Routing (O Nome do Arquivo Vira Rota)
-A pasta `/app` do Expo não é uma pasta comum. Ela é vigiada ativamente por um maquinista silencioso chamado **Expo Router**.
-Isso significa que, se você criar um arquivo chamado `configuracoes.tsx` e exportar nele um elemento usando `export default function Configs()`, O expo router vai detectar isso.
+## 1. File-Based Routing: o Nome do Arquivo Vira Rota
 
-Magicamente, o sistema vai gerar uma rota chamada invisivelmente de `"/configuracoes"`, e a Inserção de Link nativo no App será instantânea. Se você mudar a tela de nome as coisas se organizam. Nomes viram Rotas.
+Até poucos anos atrás, programadores de React Native tinham que escrever várias linhas de código para configurar a navegação entre telas. Hoje, o **Expo Router** faz isso de forma automática.
+
+A mágica é simples: a pasta `/app` do seu projeto é vigiada por um "maquinista silencioso". Se você criar um arquivo chamado `perfil.tsx` dentro dela e exportar uma função React, o Expo Router **automaticamente** gera uma rota chamada `/perfil`. Sem configurar nada.
+
+Pense assim: na cozinha que você montou nas aulas anteriores, cada arquivo é uma "receita". O Expo Router é o cardápio que mostra todas as receitas disponíveis — você só precisa nomear os arquivos direito.
+
+> [!NOTE]
+> **File-Based Routing** significa "roteamento baseado em arquivos". O nome do arquivo = o caminho da tela. Crie `configuracoes.tsx` → rota `/configuracoes`. Simples assim.
+
+---
 
 ## 2. A Casca da Cebola: os `_layout.tsx`
-Só há um problema de criar arquivos soltos que viram tela: Telas soltas são "peladas". Elas nascem batendo nas bordas da bateria do celular, não possuem Menus Inferiores nem Header em Cima (O cabeçalho do celular no Android e no iOS).
 
-É aqui que mora o segundo segredo supremo: O arquivo mestre chamado **`_layout.tsx`**.
-Toda vez que você coloca um arquivo com _ (underline) no começo do nome `_layout.tsx` dentro de uma pasta, o maquinista (Expo Router) intercepta tudo.
+Aqui vem o segundo segredo supremo. Telas soltas criadas direto na pasta `/app` ficam "peladas" — sem cabeçalho, sem menu, sem nada. Elas batem direto nas bordas da tela do celular.
 
-Em vez de exibir as telas puras e peladas daquela pasta, ele as "Veste". O que tiver escrito no `_layout.tsx` envelopa TODAS as telas da pasta.
+É aí que entra o arquivo especial chamado **`_layout.tsx`**. Toda vez que você coloca um arquivo com underline `_` no começo do nome dentro de uma pasta, o Expo Router intercepta tudo.
 
-- Se fizermos um Layout tipo **`Stack`**, as telas serão empilhadas umas sobre as outras, herdando a famosa "Setinha de Voltar (<)" no Header superior.
-- Se fizermos um Layout usando **`Tabs`**, ele vestirá as suas telas colocando um lindo Menu Inferior com ícones interativos. E é exatamente isso que faremos no nosso StickerSmash!
+Em vez de mostrar as telas cruas, ele as "veste" com o que estiver escrito no `_layout.tsx`:
 
-## 3. Parênteses Invisíveis `(tabs)`
-A última mágica sutil do curso de rotas de hoje: Grupos Lógicos.
-No Expo Router, se você der o nome de uma pasta contendo parênteses (exemplo: `(minhasRotas)` e colocar arquivos lá, o maquinista **desconsidera o nome da pasta e lê direto o nome dos arquivos internos**.
-Isso é fenomenal porque te permite esconder `index.tsx` debaixo de uma pasta de navegação `(tabs)` sem estragar a arquitetura da sua URL de acesso, permitindo a separação limpa do Menu de Base versus Telas Secundárias de Login!
+- **Layout tipo `Stack`:** as telas são empilhadas umas sobre as outras, como pilha de pratos. Aparece automaticamente a "setinha de voltar" no cabeçalho.
+- **Layout tipo `Tabs`:** aparece um menu inferior com ícones, igual o Instagram ou o WhatsApp.
 
-**Exemplo Prático: A Estrutura e o Layout**
-*Como os arquivos ficam organizados:*
+> [!IMPORTANT]
+> O arquivo `_layout.tsx` é o "cérebro" de cada pasta. Ele define **como** as telas daquela pasta vão se comportar. Sem ele, as telas funcionam, mas ficam sem identidade.
+
+---
+
+## 3. Parênteses Invisíveis: o Grupo Lógico `(tabs)`
+
+A última mágica de hoje: no Expo Router, se você der o nome de uma pasta com parênteses — por exemplo, `(tabs)` — o Router **desconsidera o nome da pasta** e lê direto o nome dos arquivos de dentro.
+
+Isso é fenomenal porque permite separar as telas principais (do menu inferior) das telas secundárias (como login ou configurações) sem estragar o endereço do app.
+
+**Exemplo: a estrutura de arquivos**
 
 ```mermaid
 graph TD
@@ -42,7 +52,8 @@ graph TD
     style Tabs fill:#e1f5fe,stroke:#0288d1,stroke-dasharray: 5 5
 ```
 
-*Como é o código de um `_layout.tsx` de Abas (Tabs):*
+**Código de um `_layout.tsx` de Abas (Tabs):**
+
 ```tsx
 {% raw %}
 import { Tabs } from 'expo-router';
@@ -50,13 +61,13 @@ import { Tabs } from 'expo-router';
 export default function LayoutDasAbas() {
   return (
     <Tabs>
-      <Tabs.Screen 
-        name="index" 
-        options={{ title: 'Início', tabBarIcon: () => <IconHome /> }} 
+      <Tabs.Screen
+        name="index"
+        options={{ title: 'Início', tabBarIcon: () => <IconHome /> }}
       />
-      <Tabs.Screen 
-        name="perfil" 
-        options={{ title: 'Meu Perfil', tabBarIcon: () => <IconUser /> }} 
+      <Tabs.Screen
+        name="perfil"
+        options={{ title: 'Meu Perfil', tabBarIcon: () => <IconUser /> }}
       />
     </Tabs>
   );
@@ -64,4 +75,20 @@ export default function LayoutDasAbas() {
 {% endraw %}
 ```
 
-👉 **Expanda sua cabeça estudando a Documentação Base:** [A Mágica do Expo Router](https://docs.expo.dev/router/introduction/)
+> [!NOTE]
+> Repare que `<Tabs.Screen>` tem uma prop `name`. Esse `name` deve ser **exatamente** o nome do arquivo da tela (sem a extensão `.tsx`). Se o arquivo se chama `index.tsx`, o `name` é `"index"`.
+
+---
+
+## 4. Resumo Visual
+
+| Conceito | Analogia | O que faz |
+|----------|----------|-----------|
+| **Expo Router** | O GPS do app | Cria rotas automaticamente a partir dos arquivos |
+| **`_layout.tsx`** | O uniforme do garçom | Veste todas as telas da pasta com estilo |
+| **`Stack`** | Pilha de pratos | Empilha telas, botão "voltar" automático |
+| **`Tabs`** | Menu inferior | Mostra abas com ícones no rodapé |
+| **`(tabs)`** | Sala reservada | Agrupa telas sem aparecer no endereço |
+
+> [!TIP]
+> Quer se aprofundar? Leia a documentação oficial: [A Mágica do Expo Router](https://docs.expo.dev/router/introduction/)

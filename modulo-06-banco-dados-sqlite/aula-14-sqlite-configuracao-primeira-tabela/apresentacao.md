@@ -1,49 +1,93 @@
 # Apresentação: Cimentando a Segurança de Dados 🛡️
 
-**Leitura Autônoma de Engenharia Front-End e Banco Local**
-
-Se você já estudou MySQL ou Postgres em servidores remotos, você deve estar pensando: "Onde ficam as credenciais de Root e Senha do SQLite no Celular?". A mágica é que elas não existem.
+**Aula 14 — Leitura antes do Tutorial**
 
 ---
 
-## 1. A Filosofia Server-less do SQLite
-A regra do SQLite é imutável: **O Banco de Dados Inteiro é 1 único Arquivo Físico (`.db`)**.
-O motor relacional que processa as consultas não roda num servidor AWS Cloud; ele é compilado junto com as bibliotecas do SQLite no nativo do Celular C do React. Isso gera segurança impossível de penetrar. O arquivo `.db` mora num diretório SandBox (Protegido à sete chaves) que só o App do usuário tem acesso. Nenhum outro app do celular consegue ler isso.
+## 1. O Que é um Banco de Dados?
 
-## 2. Tabelas vs Arquivos Texto (Storage)
-No Async Storage podíamos socar "Tripas de Texto com E-mail".
-No SQLite, precisamos de um martelo muito mais denso chamado de `DDL` (Data Definition Language). Antes de você salvar o E-mail de alguém, você PRECISA, obrigatoriamente, criar um esquema esqueleto sólido:
+Antes de tudo, vamos falar com calma.
+
+Um **banco de dados** é um arquivo especial que guarda informações de forma organizada. Pense numa planilha com várias abas: cada aba é uma **tabela**, cada linha da aba é um **registro** e cada coluna é um **campo**.
+
+| Conceito | Analogia com planilha |
+|----------|----------------------|
+| **Banco de dados** | O arquivo Excel inteiro (`.xlsx`) |
+| **Tabela** | Uma aba dentro do arquivo |
+| **Registro** | Uma linha da aba |
+| **Campo** | Uma coluna da aba |
+
+> [!NOTE]
+> No SQLite, o banco inteiro é **um único arquivo** (extensão `.db`). Ele mora numa pasta protegida do seu celular — nem outro app consegue ler!
+
+---
+
+## 2. Por Que o SQLite e Não Outro?
+
+Existem bancos enormes como MySQL e PostgreSQL que rodam em servidores na internet. Mas o **SQLite** é diferente: ele roda **dentro** do celular, sem precisar de servidor, sem login, sem senha.
+
+| Banco | Onde roda | Precisa de internet? |
+|-------|-----------|---------------------|
+| MySQL / PostgreSQL | Servidor remoto (cloud) | Sim |
+| **SQLite** | Dentro do celular (local) | **Não** |
+
+> [!IMPORTANT]
+> **SQLite** = banco de dados local, sem servidor, que grava tudo num arquivo `.db`. É o mais usado do mundo — está dentro de 100% dos smartphones, laptops e até carros!
+
+---
+
+## 3. Tabelas: Organizando os Dados
+
+No Async Storage (Aula 13), você jogava tudo numa "sopa de texto JSON". Com SQLite, precisamos criar uma **estrutura** antes — como desenhar o layout da planilha antes de escrever nela.
+
+Essa estrutura se chama **DDL** (*Data Definition Language* — Linguagem de Definição de Dados). É o SQL que **cria** tabelas:
+
 ```sql
 CREATE TABLE IF NOT EXISTS usuarios (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      nome TEXT NOT NULL
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  nome TEXT NOT NULL
 );
 ```
-O "Esquema" significa robustez. Se algum Dev júnior no Frontend tentar injetar um cara sem "nome" (violando o NOT NULL)... o banco Rejeita e cospe o erro protegendo a integridade dos dados locais do cliente.
 
-## 3. O Dilema Operacional: Synchronous vs Asynchronous
-Desde a SDK 50/51 do Expo (O ano atual deste guia), a manipulação foi reformulada.
-Operações curtas do SQLite podem ser feitas **sincronamente** `db.execSync()`.
-Isso significa que, diferente da Camera Nativaz, operações de Insert em bases normais são resolvidas tão rápido (5 milissegundos) que não carecem de travar a thread de processamento JS para abrir menus de alerta de permissão!
+Explicando linha por linha:
 
-**Exemplo Prático: Criando e Inserindo num piscar de olhos**
+- `CREATE TABLE IF NOT EXISTS` → "Crie uma tabela, mas só se ela ainda não existir" (seguro!)
+- `id INTEGER PRIMARY KEY AUTOINCREMENT` → coluna numérica que o SQLite cria sozinha (1, 2, 3…)
+- `nome TEXT NOT NULL` → coluna de texto que **não pode ficar vazia**
+
+> [!WARNING]
+> Se alguém tentar salvar um registro sem `nome`, o SQLite **rejeita** e mostra erro. Isso protege a integridade dos dados — não entra lixo no banco!
+
+---
+
+## 4. Síncrono vs Assíncrono: Qual Usar?
+
+O Expo SQLite moderno (SDK 50+) oferece dois jeitos de rodar comandos:
+
+| Método | Quando usar |
+|--------|-------------|
+| `db.runSync(...)` | Comandos rápidos (INSERT, UPDATE, DELETE) — resolve em milissegundos |
+| `db.execSync(...)` | Comandos de criação de tabela (DDL) — também rápido |
+
+> [!TIP]
+> Operações de banco são tão rápidas que quase sempre podemos usar o modo **síncrono** (`runSync`). Não precisa de `async/await` para a maioria dos casos!
+
+Aqui está um exemplo completo — imagine um app de heróis:
+
 ```tsx
 import * as SQLite from 'expo-sqlite';
 
 export default function BancoDeDados() {
-  // Abre (ou cria) o arquivo do banco no celular
-  const db = SQLite.useSQLiteContext(); 
+  const db = SQLite.useSQLiteContext();
 
   const executarCriacao = () => {
-    // Roda instantaneamente
     db.execSync(`
       CREATE TABLE IF NOT EXISTS herois (
-        id INTEGER PRIMARY KEY AUTOINCREMENT, 
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
         nome TEXT NOT NULL
       );
     `);
-    
-    // Inserindo dados direto
+
     db.runSync('INSERT INTO herois (nome) VALUES (?)', ['Batman']);
     console.log("Salvo no SQLite com sucesso!");
   };
@@ -52,4 +96,29 @@ export default function BancoDeDados() {
 }
 ```
 
-👉 **Expanda sua Cabeça Estudando a Documentação Base:** [Expo SQLite Oficial](https://docs.expo.dev/versions/latest/sdk/sqlite/)
+Explicando:
+
+- `SQLite.useSQLiteContext()` → pega a conexão do banco que já foi aberta
+- `db.execSync(...)` → cria a tabela
+- `db.runSync('... VALUES (?)', ['Batman'])` → insere um registro; o `?` protege contra ataques
+
+> [!NOTE]
+> O `?` na query é chamado de **parâmetro vinculado**. O SQLite junta o valor separadamente, como se você entregasse o ingrediente numa panela distinta — nunca mistura direto na string. Isso evita o famoso **SQL Injection** (injeção de código malicioso).
+
+---
+
+## 5. Por Que Isso Importa Para o Seu Projeto?
+
+Cada categoria do Trabalho em Grupo vai ter sua própria tabela:
+
+| Categoria | Tabela sugerida |
+|-----------|----------------|
+| Tarefas | `tarefas` (id, titulo, descricao, concluida) |
+| Itens/Compras | `itens` (id, nome, quantidade, categoria_id) |
+| Notas | `notas` (id, titulo, conteudo, data_criacao) |
+| Gastos | `gastos` (id, valor, descricao, data) |
+
+A estrutura que você aprender hoje é exatamente a que vai usar em qualquer uma dessas tabelas.
+
+> [!TIP]
+> Se quiser se aprofundar, confira a documentação oficial: [Expo SQLite](https://docs.expo.dev/versions/latest/sdk/sqlite/)

@@ -1,78 +1,147 @@
-# Aula 08 – Galeria, Câmera e o Assincronismo
+# Tutorial: Instalando a Câmera no StickerSmash
 
 **Sugestão de execução:** Quinzena 9 | **Bimestre:** 2
-**Base tecnológica:** expo-image-picker, Image URIs, Async/Await.
 
-> **Pré-requisitos:** [Aula 07](../../modulo-03-navegacao-formularios/aula-07-formularios-entrada-dados/README.md) — formulários com `TextInput` e validação funcionando.
->
-> **O que você vai aprender:**
+> [!NOTE]
+> **O que você vai aprender hoje:**
 > - Instalar `expo-image-picker` e abrir a galeria ou câmera do dispositivo
 > - Entender `async/await`: por que pausar o código sem travar a tela enquanto o usuário escolhe uma foto
 > - Salvar a URI (caminho) da imagem escolhida num `useState` para exibir na tela
 > - Verificar se o usuário cancelou a seleção com `result.canceled`
+>
+> **Pré-requisitos:** [Aula 07](../../modulo-03-navegacao-formularios/aula-07-formularios-entrada-dados/README.md) — formulários com `TextInput` e validação funcionando.
 
 ---
 
+Vamos usar uma analogia: até agora você montou a tela do app como um quadro vazio. Hoje você vai **colocar uma foto nesse quadro** — mas não qualquer foto: uma que o **usuário escolhe** direto da galeria do celular dele. É como transformar seu app num Instagram rudimentar.
+
+Para isso, precisamos de um tradutor: o JavaScript fala uma coisa, o hardware fala outra, e o `expo-image-picker` faz a ponte.
+
 ---
 
-## 1. Abrindo a Ponte de Câmera Oficial
-O React Native não fala direto de forma tão fácil com a Galeria porque Android e iOS funcionam muito diferente sob o capô. A livraria `expo-image-picker` é a "tradutora".
-No terminal, adicione: `npx expo install expo-image-picker`
+## Passo 1: Instalando o Tradutor (expo-image-picker)
 
-## 2. A Mágica de "Parar o Tempo": async / await
+Abra o terminal e **pare o servidor** do Expo (se estiver rodando) com `Ctrl+C`. Agora instale o pacote:
 
-Para garantir que o Celular não vai travar enquanto o cara demora pra escolher a foto na gaveta dele, nós abrimos a ponte com o comando `async` numa variável Assíncrona.
-Volte ao seu Botão Genérico Yellow em `components/Button.tsx` e passe uma Arrow Function dinâmica que ele receberá nas Props! `onPress?: () => void`. Abrace isso no onPress.
-
-Em seguida, na `(tabs)/index.tsx`:
-
-```tsx
-import * as ImagePicker from 'expo-image-picker';
-import { useState } from 'react'; // Guardião local de variável volátil!
-
-  // Função Assíncrona! 
-  const pickImageAsync = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ['images'], // 👈 Força a galeria a exibir SOMENTE FOTOS (impede vídeos)
-      allowsEditing: true, // 👈 Libera o Crop de Imagem (Formato Instagram)
-      quality: 1,
-    });
-
-    if (!result.canceled) {
-      // SALVAR A VARIÁVEL DE ESTADO SE TIVER SUCESSO AQUI:
-      // result.assets[0].uri = O Caminho Absoluto local do disco da foto do cara (file:///C:/Users...)
-    }
-  };
+```bash
+npx expo install expo-image-picker
 ```
 
-E simplesmente ligue isso no construtor do `<Button theme="primary" label="Escolher uma foto" onPress={pickImageAsync} />`.
-Quando você apertar o botão, o sistema nativo exibirá a janela de permissão e abrirá a galeria.
-
 > [!TIP]
-> Note que usamos `mediaTypes: ['images']` — **um array** com a string `'images'`. Em tutoriais antigos você verá `mediaTypes: ImagePicker.MediaTypeOptions.Images`, mas essa constante foi **deprecada** e removida no SDK atual. Sempre prefira o array `['images']` (ou `['images', 'videos']` para aceitar os dois tipos).
+> O `npx expo install` é diferente do `npm install`. Ele escolhe automaticamente a versão compatível com o Expo SDK do seu projeto. Sempre use esse quando for instalar pacotes Expo!
+
+O terminal vai mostrar algo parecido com:
+
+```
+✔ Installed expo-image-picker
+```
+
+Ligue o servidor novamente:
+
+```bash
+npm start
+```
+
+> [!WARNING]
+> Se o terminal mostrar um erro de "version mismatch", pare o servidor, delete a pasta `node_modules` e rode `npm install` antes de tentar de novo.
 
 ---
 
-## 1.1 Escolhendo entre Galeria ou Câmera
+## Passo 2: O Estado para Guardar a Foto
 
-O `expo-image-picker` expõe **duas** portas: uma para a galeria e outra para a câmera real. O padrão é o mesmo — só muda a função chamada:
+Abra o arquivo `index.tsx` (ou o componente principal do seu projeto). Vamos criar um **estado** para guardar o caminho da foto escolhida.
+
+> [!NOTE]
+> **Lembrete rápido:** `useState` é como um **guardião de variável** — ele guarda um valor e avisa o React quando esse valor muda, para que a tela repinte.
+
+No topo do arquivo, adicione a importação:
 
 ```tsx
+import { useState } from 'react';
 import * as ImagePicker from 'expo-image-picker';
+```
 
-// 📁 Abre a GALERIA de fotos do celular:
+Dentro do componente, crie o estado:
+
+```tsx
+const [imagemSelecionada, setImagemSelecionada] = useState(null);
+```
+
+**O que acontece aqui:** criamos uma caixa chamada `imagemSelecionada`. Ela começa vazia (`null`). Quando o usuário escolher uma foto, jogamos o caminho da foto dentro dela — e a tela repinta sozinha.
+
+---
+
+## Passo 3: A Função que Abre a Galeria (async/await)
+
+Agora vem a mágica. Vamos criar uma função que:
+1. Pedir **permissão** ao sistema
+2. **Esperar** o usuário escolher a foto
+3. **Guardar** o caminho da foto no estado
+
+```tsx
 const pickImageAsync = async () => {
-  const result = await ImagePicker.launchImageLibraryAsync({
-    mediaTypes: ['images'],
-    allowsEditing: true,
+  let result = await ImagePicker.launchImageLibraryAsync({
+    mediaTypes: ['images'], // Só fotos (bloqueia vídeos)
+    allowsEditing: true, // Libera o recorte estilo Instagram
     quality: 1,
   });
+
   if (!result.canceled) {
-    // result.assets[0].uri → caminho local da foto
+    // result.assets[0].uri = caminho local da foto no celular
+    setImagemSelecionada(result.assets[0].uri);
   }
 };
+```
 
-// 📸 Abre a CÂMERA do celular (só Android/iOS físico ou emulador):
+> [!IMPORTANT]
+> **Por que `async` e `await`?**
+> Porque o JavaScript é impatient — ele roda em milissegundos. Sem `await`, o código tentaria pintar a foto **antes** de o usuário escolher. O `await` diz: "para aqui, senta nessa cadeira, e só volte quando o usuário decidir". O app não trava porque o React continua gerenciando a tela normalmente.
+
+> [!TIP]
+> Note que usamos `mediaTypes: ['images']` — um array com a string `'images'`. Em tutoriais antigos você verá `ImagePicker.MediaTypeOptions.Images`, mas essa constante foi **deprecada** (removida) no SDK atual. Sempre prefira o array `['images']`.
+
+---
+
+## Passo 4: Conectando o Botão à Função
+
+Agora ligue o `pickImageAsync` no botão do seu app. Dentro do return, coloque:
+
+```tsx
+<Button title="Escolher uma foto" onPress={pickImageAsync} />
+```
+
+**O que acontece quando o usuário aperta o botão:**
+1. O sistema nativo (Android ou iOS) mostra um popup pedindo permissão
+2. Se o usuário conceder, a galeria abre
+3. O usuário escolhe uma foto
+4. O código continua do `await` e joga o caminho da foto no estado
+5. A tela repinta com a foto exibida
+
+---
+
+## Passo 5: Exibindo a Foto na Tela
+
+Para mostrar a imagem, use o componente `<Image>` do React Native. A chave está no formato do `source`:
+
+```tsx
+{imagemSelecionada && (
+  <Image source={{ uri: imagemSelecionada }} style={{ width: 200, height: 200 }} />
+)}
+```
+
+> [!WARNING]
+> **Atenção no formato!** Quando a imagem vem de uma variável dinâmica (URI), o `source` é **um objeto** `{ uri: variavel }`. Quando a imagem é um arquivo importado (`require('./foto.png')`), o `source` é direto o `require`. Não troque os dois formatos — é o erro mais comum de iniciantes!
+
+> [!CAUTION]
+> Se você esquecer o `{}` em `{ uri: imagemSelecionada }`, o app vai crashar com um erro vermelho. Sempre lembre: URI dinâmica = objeto com chave `uri`.
+
+---
+
+## Passo 6: Abrindo a Câmera (Opcional, mas Diferente)
+
+O `expo-image-picker` também abre a câmera real. A lógica é idêntica, só muda a função:
+
+```tsx
 const tirarFotoAsync = async () => {
   const result = await ImagePicker.launchCameraAsync({
     mediaTypes: ['images'],
@@ -80,14 +149,19 @@ const tirarFotoAsync = async () => {
     quality: 1,
   });
   if (!result.canceled) {
-    // result.assets[0].uri → caminho local da foto recém-tirada
+    setImagemSelecionada(result.assets[0].uri);
   }
 };
 ```
 
-## 1.2 Pedindo Permissão na Mão (opcional, mas didático)
+> [!NOTE]
+> A câmera só funciona em **dispositivo físico** ou **emulador com câmera**. No Expo Go do computador, `launchCameraAsync` pode não funcionar — use a galeria para testar.
 
-A galeria/câmera pedem permissão automaticamente quando você chama `launchImageLibraryAsync`/`launchCameraAsync`. Mas o SDK também expõe funções próprias de permissão, caso você queira pedir **antes** e reclamar com o usuário educadamente:
+---
+
+## Passo 7: Pedindo Permissão Antecipadamente (Opcional)
+
+A galeria pede permissão automaticamente quando você chama `launchImageLibraryAsync`. Mas se quiser pedir **antes** (por exemplo, para mostrar uma mensagem explicativa), use:
 
 ```tsx
 // Câmera:
@@ -103,42 +177,67 @@ if (!libraryPermission.granted) {
 }
 ```
 
-## 1.3 Opções de picker que você usará no projeto
+> [!TIP]
+> Pedir permissão antecipadamente é uma boa prática de UX: em vez de o popup aparecer de surpresa, você explica ao usuário **por que** precisa do acesso antes de ele ver o pedido. Isso aumenta a chance de concessão!
+
+---
+
+## Resumo das Opções do Picker
 
 | Opção | Efeito |
 |---|---|
-| `mediaTypes: ['images']` | Só fotos (bloqueia vídeos) — veio de `['images', 'videos']` se quiser os dois |
-| `allowsEditing: true` | Habilita o recorte (crop) estilo Instagram após selecionar |
+| `mediaTypes: ['images']` | Só fotos (bloqueia vídeos) |
+| `allowsEditing: true` | Habilita o recorte (crop) estilo Instagram |
 | `aspect: [4, 3]` | Proporção do recorte no Android |
-| `quality: 1` | Qualidade da compressão (de `0` a `1`; `0.5` economiza espaço) |
-| `base64: true` | Inclui os dados da imagem em Base64 no objeto retornado |
-| `allowsMultipleSelection: true` | Permite escolher **várias** fotos de uma vez |
-| `selectionLimit: 5` | Limite de fotos quando a seleção múltipla está ligada |
+| `quality: 1` | Qualidade da compressão (0 a 1; 0.5 economiza espaço) |
+| `base64: true` | Inclui dados da imagem em Base64 no retorno |
+| `allowsMultipleSelection: true` | Permite escolher várias fotos de uma vez |
 
 > [!IMPORTANT]
-> Com `allowsMultipleSelection: true`, o resultado vem em **`result.assets`** (um array) — acesse `result.assets[0].uri` para a primeira foto ou use um loop (`for` / `map`) para percorrer todas. E `allowsEditing` é **ignorado** nesse modo: os dois são mutuamente exclusivos.
+> Com `allowsMultipleSelection: true`, o resultado vem em `result.assets` (um array). Acesse `result.assets[0].uri` para a primeira foto ou use um laço `for` / `map` para percorrer todas. E `allowsEditing` é **ignorado** nesse modo: os dois são mutuamente exclusivos.
 
-## 1.4 O que a função retorna (o troféu do picker)
+---
 
-O objeto `result` tem sempre duas formas, dependendo do que o usuário fez:
+## O que a Função Retorna?
 
-- **Cancelou:** `{ canceled: true, assets: null }`
-- **Escolheu:** `{ canceled: false, assets: [{ uri, width, height, fileName, fileSize, ... }] }`
+O objeto `result` tem duas formas possíveis:
 
-Cada item de `assets` é um `ImagePickerAsset` com campos úteis além do `uri`:
+- **Usuário cancelou:** `{ canceled: true, assets: null }`
+- **Usuário escolheu:** `{ canceled: false, assets: [{ uri, width, height, fileName, fileSize, ... }] }`
+
+Cada item de `assets` é um objeto com campos úteis:
 
 ```tsx
 const asset = result.assets[0];
-console.log(asset.uri);          // caminho local: file:///...
-console.log(asset.width);        // largura em pixels
-console.log(asset.height);       // altura em pixels
-console.log(asset.fileName);     // nome do arquivo, ex.: "foto_2026.jpg"
-console.log(asset.fileSize);     // tamanho em bytes
-console.log(asset.type);         // 'image' | 'video'
+console.log(asset.uri);        // caminho local: file:///...
+console.log(asset.width);      // largura em pixels
+console.log(asset.height);     // altura em pixels
+console.log(asset.fileName);   // nome do arquivo, ex.: "foto_2026.jpg"
+console.log(asset.fileSize);   // tamanho em bytes
+console.log(asset.type);       // 'image' | 'video'
 ```
+
+---
+
+## Checklist da Aula 08
+
+Marque cada item quando conseguir fazer:
+
+- [ ] Instalei o `expo-image-picker` com `npx expo install`
+- [ ] Criei o estado `imagemSelecionada` com `useState`
+- [ ] Criei a função `pickImageAsync` com `async` e `await`
+- [ ] Conectei o botão ao `onPress={pickImageAsync}`
+- [ ] A galeria abre ao apertar o botão
+- [ ] A foto escolhida aparece na tela com `<Image>`
+- [ ] (Opcional) Testei `launchCameraAsync` para abrir a câmera
+
+> [!NOTE]
+> Se algum item ficou sem marcar, volte no passo correspondente. Não siga em frente com pendências — a próxima aula usa o padrão `async/await` com permissões de novo!
 
 ---
 
 ## Como isso se aplica ao seu projeto
 
-O padrão `async/await` com `expo-image-picker` é usado em vários temas do Trabalho em Grupo (ex.: nota com foto, comprovante de despesa). A câmera/galeria pode ser opcional (recurso bônus para a Entrega 4). Em todos os casos o padrão é o mesmo: `pickImageAsync()` → verificar `!result.canceled` → salvar `result.assets[0].uri` num `useState` → exibir o `Image` passando no atributo `source` o objeto `{ uri: imagemSelecionada }`.
+O padrão `async/await` com `expo-image-picker` é usado em vários temas do Trabalho em Grupo: nota com foto, comprovante de despesa, perfil de usuário. A câmera/galeria pode ser opcional (recurso bônus para a Entrega 4).
+
+O fluxo é sempre o mesmo: `pickImageAsync()` → verificar `!result.canceled` → salvar `result.assets[0].uri` num `useState` → exibir o `<Image source={{ uri: imagemSelecionada }} />`. Esse padrão aparece de novo na Aula 09 (GPS) e na Aula 10 (notificações) — permissão, await, resultado. Você já está ficando especialista nisso! 🚀

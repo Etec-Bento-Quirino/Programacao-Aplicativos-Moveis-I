@@ -1,23 +1,27 @@
-# Aula 19 – Mente Limpa, Código Limpo (Clean-Code)
+# Aula 19 – Mente Limpa, Código Limpo (Clean-Code) 🧹
 
 [Voltar ao curso](../../README.md) | [Calendário](../../docs/calendario-aulas.md) | [Tutoriais](../../TUTORIAIS.md)
 
 ---
 
-## O Desafio Prático
-Passamos as últimas Semanas engolindo as API C++ Nativas Brutas e Hooks Cerebrais em Velocidade Extrema. É comum e aceitável nós criarmos o que se chama na área de "*Spaghetti Code*" (Código Macarrão) - Um Frankenstein de UI, Queries de Banco e Arrays numa única Tela Gigante de 600 linhas.
+Bem-vindo à Aula 19! Nas últimas semanas você engoliu Hooks, Queries de Banco e Components numa velocidade absurde. É comum e aceitável ter criado o que se chama na área de **Spaghetti Code** (Código Macarrão) — um Frankenstein de UI, Queries de Banco e Arrays numa única Tela Gigante de 600 linhas.
 
-O código de 600 funciona pro Cliente, mas ele assassina você, o Engenheiro. Hoje mergulheremos nos preceitos de Refatoração ("Clean Code"). Fatiar o mamute mental nas suas gavetas isoladissímas.
+O código de 600 funciona pro cliente, mas ele assassina **você**, o Engenheiro. Hoje vamos mergulhar nos preceitos de **Refatoração** ("Clean Code") — fatiar o mamute nas suas gavetas isoladas.
+
+> [!IMPORTANT]
+> **Meta da Aula:** terminar sabendo separar seu projeto em pastas por responsabilidade, criar componentes reutilizáveis via props, e centralizar constantes. Se o seu projeto tiver uma estrutura de pastas organizada, a missão está cumprida. 🎯
+
+## 🧳 O Seu Inventário de Aula
 
 | Material | O que você vai encontrar lá dentro? |
-|----------|-----------|
-| [Apresentação](apresentacao.md) | Os Muros da Separação - Entenda Módulos de Contexto versus Componentes e por que PascalCase importa. |
-| [Tutorial](tutorial.md) | O Guia das Gavetas - Separando em arquivos puros aquilo que parecia impossível desvincular, a regra do *One component per file*. |
-| [Atividade](atividade.md) | Missão 19: Construa o Documenté. Faça seu MD final pra provar o projeto do seu arquiteto interior, rumo de colar Grau Técnico. |
+|----------|-------------------------------------|
+| [Apresentação](apresentacao.md) | Os Muros da Separação — entenda Módulos de Contexto versus Componentes e por que PascalCase importa. |
+| [Tutorial](tutorial.md) | O Guia das Gavetas — separando em arquivos puros aquilo que parecia impossível de desvincular. |
+| [Atividade](atividade.md) | Missão 19: Construa o README do seu projeto e prove que seu código está organizado. |
+
+> [!TIP]
+> **Ordem sugerida:** leia a Apresentação (5 minutos), siga o Tutorial no computador (30–40 minutos) e por último resolva a Atividade. Não pule o tutorial — a atividade cobra exatamente o que ele ensina.
 
 ---
 
-## Navegação
-
-- **Anterior:** [Aula 18 – O Tapete Vermelho (UX/Loading)](../aula-18-ux-loading-empty-state-erros/README.md)
-- **Próxima (A Conclusão Absoluta):** [Aula 20 – Lançamento das Turbinas (O Projeto Final)](../aula-20-preparacao-projeto-final/README.md)
+**Próxima Parada:** 👉 [Aula 20 – Últimas Pinceladas e Projeto Final](../aula-20-preparacao-projeto-final/README.md)

@@ -2,39 +2,50 @@
 
 **Sugestão de execução:** Quinzena 24 | **Bimestre:** 4
 
-> **Pré-requisitos:** [Aula 18](../aula-18-ux-loading-empty-state-erros/README.md) — UX de loading e empty state aplicados.
->
-> **O que você vai aprender:**
+> [!NOTE]
+> **O que você vai aprender hoje:**
 > - Organizar arquivos do projeto em pastas por responsabilidade (`components/`, `database/`, `contexts/`)
-> - Criar componentes reutilizáveis que recebem dados via props sem conhecer a origem
+> - Criar componentes reutilizáveis que recebem dados via **props** sem conhecer a origem
 > - Centralizar constantes (cores, chaves, textos fixos) num arquivo único
-> - Entender o princípio de responsabilidade única: cada arquivo faz uma coisa só
+> - Entender o princípio de **responsabilidade única**: cada arquivo faz uma coisa só
+>
+> **Pré-requisitos:** [Aula 18](../aula-18-ux-loading-empty-state-erros/README.md) — UX de loading e empty state aplicados.
 
 ---
 
-O tutorial de hoje não engloba um gigantesco e imersivo "novo pacote NPM e banco de dados C++" que trincará nossos crânios.
-Nós só englobaremos e separaremos em Pastas as bases de Ouro. Organize sua vida para entregar o App Final.
+O tutorial de hoje não vai ser um gigantesco laboratório com novo pacote NPM e banco de dados C++. Nós vamos **organizar** o que já temos. É como arrumar a despensa depois de uma maratona de compras — nada de novo entra, mas tudo fica no lugar certo.
+
+> [!TIP]
+> Pense no seu projeto como uma cozinha profissional: os talheres ficam num drawer, os temperos numa prateleira e os pratos em outro armário. Misturar tudo num armário só funciona até alguém pedir algo específico. Aí vira bagunça.
 
 ---
 
 ## Passo 1: Construindo as Caixinhas da Hierarquia
 
-Olhe pro lado Esquerdo do seu Expo. Pare de largar `.js` no root. Nós vamos criar pastinhas para o modelo (Apesar das "Rotas" viverem na pasta App do Router, as Lógicas não).
+Olhe pro lado esquerdo do seu Expo. Pare de largar `.js` no root. Vamos criar **pastas** para cada responsabilidade:
 
-- Pasta `bancoDeDados/` - Guardará seu aquivo Base de Gerar e Aterrisar o SQLite Base.
-- Pasta `ui_componentes/` - O lixão organizado dos seus Botões soltos maravilhosos.
-- Pasta `contextosCeu/` - Onde seu Provider global vive.
-- Arquivo `constantesCores.js` - Onde você coloca suas Chaves e Cores Fixas!
+- **Pasta `bancoDeDados/`** — guardará seu arquivo base de gerenciar o SQLite.
+- **Pasta `ui_componentes/`** — o lugar organizado dos seus botões, cards e elementos visuais.
+- **Pasta `contextosCeu/`** — onde seu Provider global vive.
+- **Arquivo `constantesCores.js`** — onde ficam suas chaves e cores fixas.
 
-## Passo 2: O Desacoplamento da Interface Mestra!
-Se eu estiver dentro da SubPasta `ui_componentes/BotaoLindoCustomizado.tsx`, Olhe como ele é Limão Puro e Independente (Bate Props que mandaram pra ele sem saber de onde vieram as infos pra renderizar): 
+> [!WARNING]
+> **Erro comum de iniciante:** jogar tudo na pasta `app/`. O Expo Router usa a pasta `app/` apenas para rotas (telas). Componentes reutilizáveis, lógica de banco e constantes **não** ficam lá. É como colocar os talheres dentro do fogão — não faz sentido.
+
+Se a pasta não existir, crie com o botão direito no VS Code → "New Folder". Não precisa rodar nenhum comando no terminal.
+
+---
+
+## Passo 2: O Desacoplamento da Interface
+
+Imagine que você tem um botão lindo que aparece em 3 telas diferentes. Se ele estiver dentro da pasta `ui_componentes/BotaoLindoCustomizado.tsx`, ele é **limpo e independente** — recebe Props (dados injetados) sem saber de onde vieram as infos.
 
 ```tsx
 {% raw %}
 import { TouchableOpacity, Text } from 'react-native';
 import { CORES_BRAND } from '../constantesCores.js'; // Puxando o chefe das constantes!
 
-// Olha o PROP {AcaoDoClick} injetada que os Paises mandam:
+// Olha o PROP {AcaoDoClick} injetada que os pais mandam:
 type Props = { label: string; onPress: () => void };
 
 export default function BotaoAcao({ label, onPress }: Props) {
@@ -50,9 +61,21 @@ export default function BotaoAcao({ label, onPress }: Props) {
 {% endraw %}
 ```
 
+O que está acontecendo aqui:
+
+1. O componente recebe `label` (texto do botão) e `onPress` (o que fazer ao clicar) via **props**.
+2. Ele **não sabe** de onde vem o texto ou o que acontece ao clicar — só faz o que mandaram.
+3. As cores vêm do arquivo de constantes, não estão hardcoded no componente.
+
+> [!NOTE]
+> **O que são Props?**
+> Props (propriedades) são como **parâmetros de função** que passamos para um componente. Pense num pacote de delivery: o entregador (componente) recebe o pedido (props) sem saber quem cozinhou (donos dos dados).
+
+---
+
 ## Passo 3: Invocações dos Pais nas Gavetas
 
-Na tela 6 Mil pastas à Cima, sua Home chama o Desacoplamento pra brilhar sem ter medo de repetições:
+Na tela 6 mil pastas acima, sua Home chama o componente reutilizado para brilhar sem ter medo de repetições:
 
 ```tsx
    // Nota: não inclua a extensão .tsx no import — o bundler resolve automaticamente
@@ -70,7 +93,10 @@ Na tela 6 Mil pastas à Cima, sua Home chama o Desacoplamento pra brilhar sem te
    }
 ```
 
-Este padrão de organização — um arquivo por responsabilidade, sem misturar banco, tela e lógica num arquivo só — é o que separa um protótipo de um projeto profissional. Avance para a atividade!
+Repare que o **mesmo componente** (`BotaoAcao`) aparece duas vezes, mas com textos e ações diferentes. **Zero** linhas de estilo duplicadas. Se você mudar o estilo do botão uma vez, as duas instâncias mudam junto.
+
+> [!TIP]
+> **Regra de ouro:** se você copiou e colou o mesmo componente em 2+ telas, ele precisa estar num arquivo separado. Extração agora evita manutenção caótica depois.
 
 ---
 
@@ -122,7 +148,24 @@ const aoTocarItem = useCallback((id: number) => {
 | Cálculos pesados repetidos (filtros, totais) | Valores triviais (somar 2 números) |
 | Componentes que re-renderizam demais | Componentes que já re-renderizam pouco |
 
-> 💡 **Regra de ouro:** meça primeiro (veja lentidão real), otimize depois. A memoização prematura deixa o código confuso sem trazer ganho — no seu projeto final, aplique-a em **listas** e em **componentes que aparecem várias vezes**.
+> [!IMPORTANT]
+> **Regra de ouro:** meça primeiro (veja lentidão real), otimize depois. A memoização prematura deixa o código confuso sem trazer ganho — no seu projeto final, aplique-a em **listas** e em **componentes que aparecem várias vezes**.
+
+---
+
+## Checklist da Aula 19
+
+Marque cada item quando conseguir fazer:
+
+- [ ] Criei a pasta `components/` no meu projeto
+- [ ] Criei a pasta `database/` (ou `bancoDeDados/`) no meu projeto
+- [ ] Criei um arquivo de constantes (cores, chaves)
+- [ ] Extraí pelo menos 1 componente reutilizável para a pasta `components/`
+- [ ] O componente usa props em vez de dados hardcoded
+- [ ] (Bônus) Apliquei `React.memo` ou `useCallback` em pelo menos 1 componente
+
+> [!WARNING]
+> Se algum item ficou sem marcar, volte no passo correspondente. Não siga em frente com pendências — a atividade cobra tudo isso.
 
 ---
 
@@ -146,4 +189,5 @@ seu-projeto/
     └── cores.ts       ← Cores, chaves e textos fixos
 ```
 
-Com essa estrutura, cada arquivo tem uma responsabilidade clara, é fácil de testar e apresentar na defesa do projeto.
+> [!IMPORTANT]
+> Com essa estrutura, cada arquivo tem uma responsabilidade clara, é fácil de testar e apresentar na defesa do projeto. A Aula 20 exige essa organização como critério de aprovação.

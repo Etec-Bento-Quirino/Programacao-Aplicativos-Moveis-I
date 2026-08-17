@@ -1,23 +1,25 @@
-# Aula 09 – A Bússola Oculta: Geolocalização de Hardware
+# Aula 09 – Geolocalização com expo-location
 
 [Voltar ao curso](../../README.md) | [Calendário](../../docs/calendario-aulas.md) | [Tutoriais](../../TUTORIAIS.md)
 
 ---
 
-## O Desafio Prático
-Todos os celulares modernos possuem chips GPS (Global Positioning System) impressionantes, capazes de capturar sinais de satélites no espaço para triangulação em milissegundos. Mas como transformamos um sinal eletromagnético em variáveis JavaScript na nossa tela?
+Nesta aula você vai colocar as mãos no chip GPS do celular. Vamos usar o `expo-location` para extrair latitude e longitude — os números que dizem exatamente onde você está sentado neste momento. Tudo com o padrão que você já conhece: permissão → `await` → resultado.
 
-Nesta rodada vamos explorar a biblioteca Nativa do Expo que quebra essa barreira. Aprenderemos a extrair Latitude e Longitude, contornando a malha de segurança e privacidade do usuário.
+> [!IMPORTANT]
+> **Meta da aula:** terminar com um botão que, ao ser pressionado, mostra na tela as coordenadas GPS (latitude e longitude) do dispositivo. 🌍
+
+## 🧳 O Seu Inventário de Aula
 
 | Material | O que você vai encontrar lá dentro? |
-|----------|-----------|
-| [Apresentação](apresentacao.md) | Como funciona o satélite no React Native? A diferença de pedir permissões de GPS e de Câmera, e o que significa Precisão Balanceada. |
-| [Tutorial](tutorial.md) | O Guia Prático: Um botão que extrai sua rua inteira e joga os vetores de coordenadas Matemáticas de volta para a sua tela! |
-| [Atividade](atividade.md) | Missão 9: Valide se o chip do seu celular escutou o seu código JS. |
+|----------|-------------------------------------|
+| [Apresentação](apresentacao.md) | Como o GPS funciona, a diferença entre permissões de Câmera e de Localização, e o que é Precisão Balanceada. |
+| [Tutorial](tutorial.md) | O Guia Prático: um botão que extrai sua localização e joga as coordenadas na tela. |
+| [Atividade](atividade.md) | Sua Missão 9: prove que o chip GPS do seu celular escutou seu código JavaScript. |
+
+> [!TIP]
+> **Ordem sugerida:** leia a Apresentação (5 minutos), faça o Tutorial no computador (30–40 minutos) e por último resolva a Atividade. Você vai precisar do `async/await` que aprendeu na Aula 08!
 
 ---
 
-## Navegação
-
-- **Anterior:** [Aula 08 – Invadindo o Hardware: Câmeras](../aula-08-galeria-camera-expo-image-picker/README.md)
-- **Próxima:** [Aula 10 – O Toque Cibernético: Notificações Push Locais](../aula-10-notificacoes-locais-expo-notifications/README.md)
+**Próxima Parada:** 👉 [Aula 10 – Notificações Locais com expo-notifications](../aula-10-notificacoes-locais-expo-notifications/README.md)

@@ -1,23 +1,25 @@
-# Aula 08 – Invadindo o Hardware: A Galeria de Fotos
+# Aula 08 – Galeria, Câmera e o Assincronismo
 
 [Voltar ao curso](../../README.md) | [Calendário](../../docs/calendario-aulas.md) | [Tutoriais](../../TUTORIAIS.md)
 
 ---
 
-## O Desafio Prático
-Acabamos a lua de mel com componentes puramente de tela. Hoje nós abriremos uma Câmera e navegaremos nas fotos íntimas armazenadas na placa-mãe do celular do usuário (com permissão dele, claro).
+Nesta aula você vai finalmente tirar a poeia do teclado e mexer no **hardware real** do celular: a câmera e a galeria de fotos. Vamos usar o `expo-image-picker`, uma biblioteca que funciona como um tradutor entre o seu código JavaScript e o sistema nativo do Android/iOS.
 
-Como aplicativos que são essencialmente lógicas JavaScript rodando em um V8 conseguem dar a ordem de "abrir câmera" para um Hardware que é nativo em C++ no Android e Objective-C no iOS? Bem-vindo às pontes de acesso do Hardware Nativo via Expo.
+> [!IMPORTANT]
+> **Meta da aula:** terminar com uma foto escolhida pelo usuário aparecendo na tela do app. Você vai aprender a pedir permissão, abrir a galeria e exibir a imagem com `async/await`. 📸
+
+## 🧳 O Seu Inventário de Aula
 
 | Material | O que você vai encontrar lá dentro? |
-|----------|-----------|
-| [Apresentação](apresentacao.md) | Entendendo o tempo! Arquitetura de Permissões Móveis (Por que o app pede acesso?) e funções Assíncronas (Como parar o tempo com Async/Await). |
-| [Tutorial](tutorial.md) | O Guia Prático: Instalando a Câmera no nosso StickerSmash! |
-| [Atividade](atividade.md) | Missão 8: Fazer a foto cruzar o universo e pousar na sua tela nativa de forma brilhante. |
+|----------|-------------------------------------|
+| [Apresentação](apresentacao.md) | Entendendo permissões de hardware, a API `expo-image-picker` e o assincronismo (`async/await`). |
+| [Tutorial](tutorial.md) | O Guia Prático: instalando o `expo-image-picker`, abrindo a galeria e exibindo a foto na tela. |
+| [Atividade](atividade.md) | Sua Missão 8: provar que a foto cruzou o universo e pousou na sua tela. |
+
+> [!TIP]
+> **Ordem sugerida:** leia a Apresentação para entender o "porquê", faça o Tutorial no computador e por último resolva a Atividade. O `async/await` vai parecer mágica — e depois vai virar rotina!
 
 ---
 
-## Navegação
-
-- **Anterior:** [Aula 07 – Capturando a Vontade do Usuário](../../modulo-03-navegacao-formularios/aula-07-formularios-entrada-dados/README.md)
-- **Próxima:** [Aula 09 – O GPS Global](../aula-09-geolocalizacao-expo-location/README.md)
+**Próxima Parada:** 👉 [Aula 09 – Geolocalização com expo-location](../aula-09-geolocalizacao-expo-location/README.md)

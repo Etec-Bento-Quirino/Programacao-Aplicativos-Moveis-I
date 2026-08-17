@@ -42,7 +42,6 @@ cd pam-i-programacao-aplicativos-moveis
 ### 5. Conteúdo extra
 
 - **docs/** – Calendário sugerido e PTD (Plano de Trabalho Docente).
-- **plus/** – Conteúdo opcional (ex.: Storybook para design system).
 
 ---
 
@@ -84,8 +83,6 @@ Programacao-Aplicativos-Moveis/
 │   ├── ... (categoria-02 até categoria-14)
 │   └── categoria-14-eventos/
 │       └── tema-31-gerenciamento-de-eventos/
-├── plus/
-│   └── storybook-design-system.md
 └── docs/
     ├── calendario-aulas.md
     ├── base-javascript-typescript.md

@@ -1,61 +1,85 @@
 # Apresentação: O Despertar da Tela (Notificações) 🔔
 
-**Leitura Autônoma de Arquitetura de Comunicação em Fundo (Background Service)**
-
-Nós achamos que programar se trata apenas de criar telas bonitas. Mas a engenharia do Push Notification é algo completamente insano. A mensagem é processada independentemente do fato de o seu aplicativo estar tecnicamente morto/fechado na Memória RAM.
+**Sugestão de uso:** slides da Aula 10 (leia em voz alta antes do tutorial).
 
 ---
 
 ## 1. Local Push vs Remote Push
-Todo desenvolvedor novato acha que notificação só sai de nuvens. Não é verdade.
-- **Remote Push (Notificações de Nuvens):** É quando você recebe Mensagem no WhatsApp. A empresa lá fora manda um sinal de internet pra Célula Operadora do seu celular, que injeta no Android, que solta na sua tela. Isso envolve pagamentos em servidores e tokens difíceis Firebase.
-- **Local Push (Notificação de Despertador Humilde):** Você não precisa de servidores para lembretes de Tomar Água. Você usa o código do App para dizer à Placa-mãe nativa do Sistema Operacional: "Daqui a 6h... Mostre um painel". E mesmo desligando a Internet inteira, ele joga um Push na sua tela 6 horas depois! Faremos o Local Push!
+
+Todo desenvolvedor novato acha que notificação só sai de nuvens. Não é verdade — existem dois tipos:
+
+| Tipo | Como funciona? | Exemplo |
+|------|----------------|---------|
+| **Remote Push** (Nuvem) | Um servidor manda um sinal de internet para o celular | Mensagem no WhatsApp |
+| **Local Push** (Despertador) | O próprio app agenda uma notificação no sistema operacional | Lembrete de "tomar água" |
+
+> [!NOTE]
+> **O que é uma notificação Local?**
+> É como um despertador: você define "daqui a 6 horas, toque o alarme". Não precisa de internet, nem de servidor. O app fala direto com o Android/iOS e o sistema operacional guarda o lembrete. Quando o tempo chega, ele mostra a notificação — mesmo que o app esteja fechado!
+
+---
 
 ## 2. A Ditadura dos Canais do Android (Channels)
 
-No passado, os aplicativos enviavam 80 notificações chatas de propaganda por dia. Como penalidade judicial do usuário se defender, a Google atualizou o Android forçando todos os programadores ativarem `Canais Obrigatórios`.
+No passado, apps enviavam 80 notificações chatas de propaganda por dia. O Google reagiu: agora todo app Android é **obrigado** a criar "Canais" de notificação.
 
-Um "Canal da Notificação" (`channel`) significa que se seu App envia Ofertas de Loja e também Receibos, você é **Obrigado** pelo Google a criar um Canal de Ofertas na engenharia de software separado. Dessa forma, a sua avó pode entrar nas "Configs do Android" e desativar com o dedo o botãozinho do Canal de Promoção do Ifood, mas ainda receber as Notificações de Entrega! Sem isso o Android não emite sons de sininho. Nunca.
+Um "Canal" é como uma **categoria**. Se seu app envia lembretes de tarefas E alertas de pagamento, você precisa criar um Canal para cada tipo. Assim, o usuário pode desativar os alertas de pagamento mas manter os lembretes de tarefas — sem precisar desligar todas as notificações do app.
 
-## 3. Handlers (O Interceptador Supremo)
-E se o seu próprio aplicativo (sua tela ali de botão) já estiver aberto nas suas fuças enquanto você usa e a notificação apitar? Seria bizarro deslizar uma barra lá em cima dizendo "Lembrete: Você tá no app" se você já tá lendo! 
+> [!IMPORTANT]
+> Sem criar o canal, o **Android não emite sons de notificação**. É o erro mais comum de iniciantes: a notificação aparece mas é silenciosa. Sempre crie o canal antes de agendar!
 
-Usamos algo invocado no ínico do código raiz chamado de `setNotificationHandler`. Ele é o espião absoluto. Em milissegundos ele avisa: *"O cara está com os olhos no App? Bip. Sim."*. E aí o React pode decidir silenciar ou explodir tudo com Sound! Ou apenas ativar aquele icone vermelho (`badge`) de mensagem não lida. Sensacional, não?
+---
 
-**Exemplo Prático: Agendando um Alarme**
+## 3. Handlers: O Interceptador Supremo
+
+E se o app estiver **aberto** quando a notificação chegar? Seria bizarro mostrar "Lembrete: Você tá no app" quando o usuário já está olhando para ele!
+
+É aí que entra o **Handler** (`setNotificationHandler`). Ele é um espião que avisa: "o usuário está com os olhos no app?". Se sim, o React decide se mostra o pop-up, toca o som, ou apenas aciona o badge (bolinha vermelha) no ícone.
+
+> [!TIP]
+> Pense no Handler como o **porteiro** de um prédio: ele vê quem está chegando e decide se avisa o morador (mostra o pop-up) ou se deixa passar sem incômodo (só o badge).
+
+---
+
+## 4. A Anatomia de uma Notificação
+
+Toda notificação tem duas partes:
+
+| Parte | O que é? | Exemplo |
+|-------|----------|---------|
+| **`content`** | O que mostrar | Título + texto + dados extras |
+| **`trigger`** | Quando disparar | Daqui a 5 segundos, todo dia às 7h, numa data específica |
+
 ```tsx
-{% raw %}
-import * as Notifications from 'expo-notifications';
-import { Button, View } from 'react-native';
-
-// O "Espião": Avisa que se o app estiver aberto, PODE APITAR e mostrar pop-up!
-Notifications.setNotificationHandler({
-  handleNotification: async () => ({
-    shouldShowAlert: true,
-    shouldPlaySound: true,
-    shouldSetBadge: false,
-  }),
+await Notifications.scheduleNotificationAsync({
+  content: {
+    title: "Beba Água! 💧",
+    body: "Já faz muito tempo que você bebeu água...",
+  },
+  trigger: { seconds: 5 }, // Vai apitar em exatos 5 segundos
 });
-
-export default function TelaLembrete() {
-  const agendarParaDaquiA5Segundos = async () => {
-    // A mágica Local Push
-    await Notifications.scheduleNotificationAsync({
-      content: {
-        title: "Beba Água! 💧",
-        body: "Já faz muito tempo que você bebeu água...",
-      },
-      trigger: { seconds: 5 }, // 👈 Vai apitar em exatos 5 segundos
-    });
-  };
-
-  return (
-    <View style={{ marginTop: 50 }}>
-      <Button title="Me avise em 5 seg" onPress={agendarParaDaquiA5Segundos} />
-    </View>
-  );
-}
-{% endraw %}
 ```
 
-👉 **Expanda sua Cabeça Estudando a Documentação Base:** [Expo Notifications MasterAPI](https://docs.expo.dev/versions/latest/sdk/notifications/)
+> [!NOTE]
+> O campo `data` dentro do `content` permite enviar **dados extras** junto com a notificação. Quando o usuário toca na notificação, esses dados podem ser usados para navegar para uma tela específica do app. É assim que apps de delivery funcionam: "Toque para ver o status do pedido" → abre a tela do pedido.
+
+---
+
+## 5. Tipos de Trigger (Gatilhos)
+
+O `seconds: 5` é só um dos tipos. O SDK oferece vários:
+
+| Tipo | O que faz |
+|---|---|
+| `TIME_INTERVAL` | Dispara **uma vez**, X segundos após agendar |
+| `DATE` | Dispara **uma vez**, em uma data/hora exata |
+| `DAILY` | Dispara **todos os dias** em um horário |
+| `WEEKLY` | Dispara **toda semana** em um dia/hora |
+| `MONTHLY` | Dispara **todo mês** em um dia/hora |
+| `YEARLY` | Dispara **todo ano** em um dia/mês/hora |
+
+> [!TIP]
+> Com esses gatilhos, você pode criar lembretes diários ("Hora de estudar!"), semanais ("Segunda é dia de prova!") ou datados ("Véspera da entrega do projeto"). Tudo sem servidor!
+
+> [!TIP]
+> Quer praticar? Abra o [tutorial.md](tutorial.md) e monte o botão de notificação passo a passo. Lá você vai ver como configurar o Handler, pedir permissão e agendar o "alarme de 5 segundos"! 🔔

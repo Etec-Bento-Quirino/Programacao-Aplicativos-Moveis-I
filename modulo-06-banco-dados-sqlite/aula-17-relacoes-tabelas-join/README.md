@@ -1,24 +1,27 @@
-# Aula 17 – O Casamento de Matrizes (The SQL JOIN)
+# Aula 17 – Relações entre Tabelas e SQL JOIN
 
 [Voltar ao curso](../../README.md) | [Calendário](../../docs/calendario-aulas.md) | [Tutoriais](../../TUTORIAIS.md)
 
 ---
 
-## O Desafio Prático
-Temos 1000 compras salvas no Histórico com o atributo obscuro chamdo "id_categoria" preenchido com números puros ("2", "15", "8"). 
-Como você exibe para o cliente o nome da categoria escrito bonitinho na interface, se a tabela original daquele nome mora em outra dimensão? Enviar 1000 consultas no SQLite secundário trancado vai colapsar a bateria do celular.
+Imagina que você tem 1000 compras salvas no banco, cada uma com um número de categoria (1, 2, 5…). Na tela, o usuário quer ver o **nome** da categoria ("Alimentos", "Roupas"), não o número. Mas o nome mora em outra tabela! Como juntar tudo numa única consulta?
 
-O Cérebro definitivo do Servidor de Bancos guarda um As na Manga: Ele cruza vetores fundindo Tabelas antes de Cuspir pra tela! A engenhosidade de "Cruzamento Lógico" (O Padrão JOIN).
+É aqui que entra o **JOIN** — o comando mais poderoso do SQL. Ele cruza dados de duas tabelas e devolve tudo pronto numa única busca.
+
+> [!IMPORTANT]
+> **Meta da aula:** usar `INNER JOIN` e `LEFT JOIN` para buscar dados de duas tabelas numa única consulta, e exibir categorias com contagem de itens. 🎯
+
+## 🧳 O Seu Inventário de Aula
 
 | Material | O que você vai encontrar lá dentro? |
-|----------|-----------|
-| [Apresentação](apresentacao.md) | O Que é um JOIN? Como um Inner Join difere do assomboroso Left Join em tabelas inexistentes. |
-| [Tutorial](tutorial.md) | O Guia Prático: Um SELECT esmagador! Formate apelidos (Alias) e puxe o nome da Categoria e do Item ao mesmo tempo numa única estocada de performance C++. |
-| [Atividade](atividade.md) | Missão 17: Imprima a Linha Casada Perfeita! Exija do Console do Windows que a palavra original apareça na frente do ID cego. |
+|----------|-------------------------------------|
+| [Apresentação](apresentacao.md) | O que é um JOIN? Como o `INNER JOIN` difere do `LEFT JOIN`? O que são aliases (apelidos)? |
+| [Tutorial](tutorial.md) | Passo a passo para montar consultas com JOIN, usar aliases e contar itens com `COUNT`. |
+| [Atividade](atividade.md) | Sua Missão 17: imprima categorias com a contagem de itens — o SQL resolve tudo! Valendo XP e nota! |
+
+> [!TIP]
+> **Ordem sugerida:** leia a Apresentação (5 minutos), siga o Tutorial no computador (30–40 minutos) e por último resolva a Atividade. Não pule o tutorial — a atividade cobra exatamente o que ele ensina.
 
 ---
 
-## Navegação
-
-- **Anterior:** [Aula 16 – Formulários Táticos](../aula-16-formularios-sqlite-integracao/README.md)
-- **Próxima:** [Aula 18 – O Tapete Vermelho (UX/Loadings)](../../modulo-07-boas-praticas-ux/aula-18-ux-loading-empty-state-erros/README.md)
+**Próxima Parada:** 👉 [Aula 18 – UX, Loadings e Tratamento de Erros](../../modulo-07-boas-praticas-ux/aula-18-ux-loading-empty-state-erros/README.md)

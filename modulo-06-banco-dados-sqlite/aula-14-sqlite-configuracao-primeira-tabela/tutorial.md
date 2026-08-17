@@ -1,46 +1,80 @@
-# Tutorial: A Forja da Tabela de Tarefas
+# Tutorial: A Forja da Primeira Tabela (SQLite)
 
 **Sugestão de execução:** Quinzena 17 | **Bimestre:** 3
 
-> **Pré-requisitos:** [Aula 13](../../modulo-05-estado-persistencia/aula-13-asyncstorage-persistencia-simples/README.md) — AsyncStorage compreendido; `useEffect` e `useState` dominados.
->
-> **O que você vai aprender:**
-> - Instalar e importar o `expo-sqlite` no projeto
-> - Abrir (ou criar) um banco de dados local no dispositivo com `openDatabaseSync`
+> [!NOTE]
+> **O que você vai aprender hoje:**
+> - Instalar o `expo-sqlite` no seu projeto Expo
 > - Criar uma tabela com `CREATE TABLE IF NOT EXISTS` usando SQL
-> - Inserir o primeiro registro com `INSERT INTO` e entender o `?` como proteção contra SQL Injection
+> - Inserir o primeiro registro com `INSERT INTO` e entender o `?` como proteção
+> - Usar `SQLiteProvider` e `useSQLiteContext` (a forma React de usar banco)
+>
+> **Pré-requisitos:** [Aula 13](../../modulo-05-estado-persistencia/aula-13-asyncstorage-persistencia-simples/README.md) — AsyncStorage compreendido; `useEffect` e `useState` dominados.
 
 ---
 
-O StickerSmash foi nosso protótipo de Design. Mas hoje, construiremos as fundações (o Database) para o nosso projeto independente "Tarefas Diárias". Este módulo foca unicamente em construir o cofre do zero, sem construir toda a interface linda ainda. 
+Vamos começar uma nova fase! Até agora, seus dados viviam em listas simples. Mas imagine que você quer salvar 500 tarefas e buscar rapidamente só as pendentes — o Async Storage não aguenta isso com performance.
+
+Hoje, você vai construir o **cofre** do seu aplicativo: um banco de dados SQLite. Pense nele como uma planilha que mora dentro do celular, blindada, rápida e superorganizada.
+
+> [!TIP]
+> Se você já instalou o `expo-sqlite` antes e já tem o `openDatabaseSync` funcionando, pule para o **Passo 3**. Mas eu recomendo ler tudo — a parte do `SQLiteProvider` vai te economizar muito trabalho!
 
 ---
 
-## Passo 1: Injeção de Maquinário DDL
-No console de comando do terminal, acione a instalação da ponte (Lembre-se de desligar o server com Ctrl+C primeiro e ligar depois).
+## Passo 1: Instalando o `expo-sqlite` (a ponte para o banco)
+
+O `expo-sqlite` é a biblioteca que conecta seu app React Native ao motor SQLite embutido no celular.
+
+> [!CAUTION]
+> Antes de rodar o comando, **pare o servidor** que está rodando no terminal (pressione `Ctrl+C`). Depois, reinstale o servidor com `npx expo start`.
+
+1. No terminal, dentro da pasta do seu projeto, digite:
+
 ```bash
 npx expo install expo-sqlite
 ```
 
-## Passo 2: O Guardião de Arranque (`openDatabaseSync`)
+O terminal vai baixar a biblioteca. Espere aparecer algo como:
 
-Crie uma tela nova limpa para testar, chamada `BancoTest.tsx`.
-No topo, importaremos a ferramenta. Ao invés da complicação de `useState`, usaremos a sintaxe pura moderna e limpa de abertura assíncrona. 
+```
+added 1 package in Xs
+```
+
+> [!WARNING]
+> Se aparecer erro de permissão, tente rodar o terminal como administrador (Windows) ou use `sudo` (Mac/Linux). Se o erro persistir, delete a pasta `node_modules` e rode `npm install` antes de tentar de novo.
+
+2. Agora reinicie o servidor:
+
+```bash
+npx expo start
+```
+
+Pronto — a ponte entre seu app e o banco de dados está construída!
+
+---
+
+## Passo 2: Abrindo o Banco de Dados (o Guardião de Arranque)
+
+Agora vamos criar uma tela nova para testar. O nome sugestivo é `BancoTest.tsx`.
+
+No topo do arquivo, vamos importar as ferramentas e **abrir o banco de dados**:
 
 ```tsx
 import { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Alert } from 'react-native';
 import * as SQLite from 'expo-sqlite';
 
-// ABERTURA IMEDIATA DO ARQUIVO BINÁRIO (Se ikke existir, ele forja no SSD do celular agora).
+// Abre (ou cria) o arquivo do banco no celular
 const bancoDados = SQLite.openDatabaseSync('aplicativo_v1.db');
 
 export default function BancoTest() {
   const [bancoGerado, setBancoGerado] = useState(false);
 
-  // Lembra dele? O Guarda Noturno. Irá criar as tabelas SÓ quando a tela abrir 1 vez.
+  // O useEffect roda quando a tela abre pela primeira vez
   useEffect(() => {
     try {
+      // Cria a tabela "metas" se ela ainda não existir
       bancoDados.execSync(`
         CREATE TABLE IF NOT EXISTS metas (
           id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -49,57 +83,69 @@ export default function BancoTest() {
         );
       `);
       setBancoGerado(true);
-      console.log("Sucesso: A Tabela nas profundezas está montada.");
-    } catch(err) {
-      console.error("Pane no SQLite C++ engine:", err);
+      console.log("Sucesso: Tabela criada!");
+    } catch (err) {
+      console.error("Erro ao criar tabela:", err);
     }
   }, []);
 ```
 
-## Passo 3: O Primeiro Teste Lógico (INSERT)
+Explicando bloco por bloco:
 
-Ainda no mesmo arquivo, embaixo do *useEffect*, você vai criar uma função e um *Componente Button* só para socar uma tarefa pra dentro na brutalidade e ver se o banco vai engolir:
+- `openDatabaseSync('aplicativo_v1.db')` → abre (ou cria) o arquivo do banco no celular. Se o arquivo não existir, ele nasce ali
+- `execSync('CREATE TABLE IF NOT EXISTS ...')` → cria a tabela; o `IF NOT EXISTS` garante que não dá erro se ela já existir
+- `id INTEGER PRIMARY KEY AUTOINCREMENT` → coluna que o SQLite numera sozinha (1, 2, 3…)
+- `descricao TEXT NOT NULL` → campo de texto obrigatório
+- `status_feita INTEGER DEFAULT 0` → 0 = não feita, 1 = feita (começa em 0)
+
+> [!IMPORTANT]
+> O `useEffect(() => {}, [])` com array vazio roda **uma única vez** quando a tela abre. É o momento perfeito para criar tabelas — não precisa recriar toda vez que o usuário navega!
+
+---
+
+## Passo 3: Inserindo o Primeiro Registro (INSERT)
+
+Ainda no mesmo arquivo, vamos criar uma função que **insere** uma tarefa no banco e um botão para testar:
 
 ```tsx
-  const inserirTarefa = () => {
-    // O "?" previne SQL Injection: a variável é passada separadamente, não concatenada na string.
-    bancoDados.runSync(
-        'INSERT INTO metas (descricao) VALUES (?)', 
-        ['Minha primeira tarefa no SQLite!']
-    );
-    Alert.alert('Sucesso', 'Tarefa salva no banco de dados. Ela persiste mesmo ao fechar o app!');
-  };
-
-  // --- Tela de laboratório (sem estilo final — foco na lógica):
-  return (
-    <View style={styles.container}>
-      <Text style={styles.titulos}> 
-        Status do banco: { bancoGerado ? "ABERTO E OPERACIONAL" : "INICIANDO..."  } 
-      </Text>
-      
-      {bancoGerado && (
-         <Text onPress={inserirTarefa} style={styles.botaoInserir}>
-            [ TESTAR INSERT ]
-         </Text>
-      )}
-    </View>
+const inserirTarefa = () => {
+  // O "?" protege contra SQL Injection — o valor é passado separadamente
+  bancoDados.runSync(
+    'INSERT INTO metas (descricao) VALUES (?)',
+    ['Minha primeira tarefa no SQLite!']
   );
-}
+  Alert.alert('Sucesso', 'Tarefa salva no banco! Ela persiste mesmo ao fechar o app!');
+};
 
-const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: 'center', alignItems: 'center' },
-  titulos: { fontSize: 20, color: 'blue', marginBottom: 30 },
-  botaoInserir: { padding: 15, backgroundColor: '#007AFF', color: 'white', fontWeight: 'bold' }
-});
+return (
+  <View style={styles.container}>
+    <Text style={styles.titulo}>
+      Status do banco: {bancoGerado ? "ABERTO E OPERACIONAL" : "INICIANDO..."}
+    </Text>
+
+    {bancoGerado && (
+      <Text onPress={inserirTarefa} style={styles.botao}>
+        [ TESTAR INSERT ]
+      </Text>
+    )}
+  </View>
+);
 ```
 
-Na próxima aula faremos a leitura com `SELECT` e montaremos o CRUD completo. Avance para a sua atividade!
+Explicando:
+
+- `runSync('INSERT INTO metas ...')` → insere uma linha nova na tabela
+- `VALUES (?)` → o `?` é um "espaço reservado"; o valor real (`['Minha primeira tarefa...']`) é passado num array separado
+- O botão só aparece depois que `bancoGerado` vira `true` (tabela criada com sucesso)
+
+> [!WARNING]
+> **Nunca** concatene o valor direto na string SQL como `'INSERT ... VALUES ("' + texto + '")'`. Isso abre brecha para **SQL Injection**. Sempre use o `?`!
 
 ---
 
 ## Passo 3.1: O Que o `runSync` Devolve (o recibo do INSERT)
 
-O `runSync` **não devolve `undefined`** — ele devolve um objeto com duas informações valiosas: o `lastInsertRowId` (o `id` que o SQLite acabou de gerar) e o `changes` (quantas linhas foram afetadas):
+O `runSync` não devolve `undefined` — ele devolve um objeto com duas informações valiosas:
 
 ```tsx
 const resultado = bancoDados.runSync(
@@ -112,14 +158,18 @@ console.log('Linhas afetadas:', resultado.changes);        // ex.: 1
 ```
 
 > [!TIP]
-> Guarde o `lastInsertRowId` quando o usuário cadastrar algo e você poderá navegar direto para o detalhe daquele registro: `router.push('/detalhe/' + resultado.lastInsertRowId)`.
+> Guarde o `lastInsertRowId` quando o usuário cadastra algo — com ele você pode navegar direto para o detalhe do registro recém-criado!
 
-## Passo 3.2: `SQLiteProvider` e `useSQLiteContext` (a forma React de usar banco)
+---
 
-No Passo 2 abrimos o banco com `SQLite.openDatabaseSync(...)` num arquivo e usamos ele direto. Existe outra forma **mais "React"**: o componente `<SQLiteProvider>` abre o banco uma vez no topo do app e o hook `useSQLiteContext()` entrega a mesma conexão a **qualquer** tela, sem repetir `openDatabaseSync` em cada arquivo:
+## Passo 4: A Forma React de Usar o Banco (`SQLiteProvider`)
+
+No Passo 2, abrimos o banco com `openDatabaseSync(...)` direto no arquivo. Existe outra forma **mais organizada**: o componente `<SQLiteProvider>`.
+
+Funciona assim: ele abre o banco **uma única vez** no topo do app e entrega a conexão a qualquer tela filha, sem precisar repetir `openDatabaseSync` em cada arquivo.
 
 ```tsx
-// app/_layout.tsx — o App Master: abre o banco UMA vez para o app inteiro
+// app/_layout.tsx — abre o banco UMA vez para o app inteiro
 import { SQLiteProvider } from 'expo-sqlite';
 import { Stack } from 'expo-router';
 
@@ -132,13 +182,14 @@ export default function RootLayout() {
 }
 ```
 
+E em qualquer tela filha:
+
 ```tsx
-// Qualquer tela filha — por exemplo, app/index.tsx
+// app/index.tsx — usa o banco sem abrir de novo
 import { useSQLiteContext } from 'expo-sqlite';
 
 export default function Inicio() {
-  // A conexão já veio pronta do SQLiteProvider — use sem medo!
-  const banco = useSQLiteContext();
+  const banco = useSQLiteContext(); // conexão pronta!
 
   const inserirTarefa = () => {
     banco.runSync('INSERT INTO metas (descricao) VALUES (?)', ['Tarefa via contexto!']);
@@ -149,13 +200,15 @@ export default function Inicio() {
 ```
 
 > [!NOTE]
-> - `SQLiteProvider` recebe `databaseName` (nome do arquivo `.db`) e opcionalmente `onError`, `useSuspense`, `onInit` e `directory`.
-> - Você **não precisa** chamar `openDatabaseSync` nas telas filhas: `useSQLiteContext()` já devolve a conexão pronta.
-> - As duas formas (abrir no arquivo ou usar o Provider) coexistem no SDK — a do Provider é a recomendada quando o app tem várias telas usando o mesmo banco (o caso do **seu** projeto!).
+> - `SQLiteProvider` recebe o nome do arquivo `.db` e abre o banco para todo o app
+> - `useSQLiteContext()` devolve a conexão pronta — não precisa chamar `openDatabaseSync` nas telas filhas
+> - A forma do **Provider** é a recomendada quando o app tem várias telas usando o mesmo banco (que é o caso do seu projeto!)
 
-## Passo 3.3: Apagando o Banco (`deleteDatabaseAsync`)
+---
 
-Errou na estrutura da tabela e quer **zerar tudo** (banco inteiro apagado)? O SDK expõe:
+## Passo 5: Apagando o Banco (reset total)
+
+Errou na estrutura da tabela e quer recomeçar do zero? O Expo expõe uma função para apagar o banco inteiro:
 
 ```tsx
 import * as SQLite from 'expo-sqlite';
@@ -163,14 +216,30 @@ import * as SQLite from 'expo-sqlite';
 await SQLite.deleteDatabaseAsync('aplicativo_v1.db');
 ```
 
-> [!WARNING]
-> `deleteDatabaseAsync` apaga **o banco inteiro** — todas as tabelas e dados vão embora. Use apenas em testes/desenvolvimento (ex.: quando você mudou uma coluna da tabela e quer recomeçar do zero).
+> [!CAUTION]
+> `deleteDatabaseAsync` apaga **o banco inteiro** — todas as tabelas e dados somem. Use **apenas em testes** ou quando você mudou a estrutura da tabela e precisa recomeçar. Em produção, isso apagaria todo o trabalho do usuário!
+
+---
+
+## Checklist da Aula 14
+
+Marque cada item quando conseguir fazer:
+
+- [ ] Instalei o `expo-sqlite` com `npx expo install expo-sqlite`
+- [ ] Criei uma tela `BancoTest.tsx` com `openDatabaseSync`
+- [ ] Criei a tabela `metas` com `CREATE TABLE IF NOT EXISTS`
+- [ ] Inseri o primeiro registro com `INSERT INTO` + `runSync`
+- [ ] Vi o "Sucesso" no Alert do celular
+- [ ] (Opcional) Configurei o `SQLiteProvider` no `_layout.tsx`
+
+> [!NOTE]
+> Se algum item ficou sem marcar, volte no passo correspondente. Não siga em frente com pendências — a próxima aula usa tudo isso!
 
 ---
 
 ## Como isso se aplica ao seu projeto
 
-A tabela criada nesta aula é o banco de dados do **seu** projeto. Cada categoria tem sua própria estrutura:
+A tabela criada nesta aula é a **fundação** do banco de dados do seu projeto. Cada categoria tem sua própria estrutura:
 
 | Categoria | Tabela principal | Colunas essenciais |
 |---|---|---|
@@ -179,4 +248,4 @@ A tabela criada nesta aula é o banco de dados do **seu** projeto. Cada categori
 | Categoria 3 | `notas` | `id`, `titulo`, `conteudo`, `data_criacao` |
 | Categoria 4 | `gastos` | `id`, `valor`, `descricao`, `categoria`, `data` |
 
-O padrão de abrir o banco fora do componente (`const db = SQLite.openDatabaseSync(...)`) e criar a tabela dentro do `useEffect(() => {}, [])` é o padrão que você usará em todo o projeto.
+O padrão de criar a tabela dentro do `useEffect(() => {}, [])` é o mesmo que você usará em todo o projeto. Na próxima aula, vamos aprender a **buscar**, **atualizar** e **apagar** registros — o famoso CRUD completo!

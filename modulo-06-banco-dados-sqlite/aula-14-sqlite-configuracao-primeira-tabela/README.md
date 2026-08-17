@@ -4,21 +4,22 @@
 
 ---
 
-## O Desafio Prático
-O *Async Storage* que aprendemos na última aula é ótimo para salvar temas claros/escuros ou senhas curtas. Mas se você tentar salvar 500 produtos num carrinho de compras dentro de uma única tripa JSON, a pesquisa ficará ridiculamente lenta. 
-Aplicações sérias exigem Relações (Bancos Relacionais). Como rodamos um servidor SQL gigante dentro de um celular minúsculo sem travar?
+Nesta aula você vai finalmente dar um passo enorme: em vez de salvar dados em listas simples, vamos criar um **banco de dados** de verdade dentro do seu celular. O que é isso? Imagina uma planilha Excel poderosa que mora dentro do app e que ninguém de fora consegue acessar — nem outro app do celular.
 
-Senhoras e Senhores: O **SQLite**. O motor de banco de dados mais usado do Planeta Terra, que vive embutido no hardware de 100% dos smartphones mundiais.
+> [!IMPORTANT]
+> **Meta da aula:** terminar com o `expo-sqlite` instalado e sua primeira tabela criada. Se você conseguir inserir um registro e ver o "Sucesso" no celular, a missão está cumprida. 🎯
+
+## 🧳 O Seu Inventário de Aula
 
 | Material | O que você vai encontrar lá dentro? |
-|----------|-----------|
-| [Apresentação](apresentacao.md) | A Teoria do Cofre: Por que o SQLite não usa Servidores na Amazon? Como as Tabelas Rígidas esmagam a fragilidade livre dos JSONs. |
-| [Tutorial](tutorial.md) | O Guia Prático: Faremos a instalação com `expo-sqlite` moderno e a Forja Inicial (CREATE TABLE) preparando nossa base! |
-| [Atividade](atividade.md) | Missão 14: Demonstre seu preparo enviando sua primeira SQL query de "Inset" perfeitamente arquitetada via Terminal do JS. |
+|----------|-------------------------------------|
+| [Apresentação](apresentacao.md) | Por que o SQLite é diferente do Async Storage? Como um arquivo `.db` se transforma num cofre blindado no seu celular. |
+| [Tutorial](tutorial.md) | O passo a passo para instalar o `expo-sqlite`, criar sua primeira tabela com `CREATE TABLE` e inserir o primeiro registro. |
+| [Atividade](atividade.md) | Sua Missão 14: comprove que o banco funciona inserindo dados e lendo pelo terminal. Valendo XP e nota! |
+
+> [!TIP]
+> **Ordem sugerida:** leia a Apresentação (5 minutos), siga o Tutorial no computador (30–40 minutos) e por último resolva a Atividade. Não pule o tutorial — a atividade cobra exatamente o que ele ensina.
 
 ---
 
-## Navegação
-
-- **Anterior:** [Aula 13 – O Diário Blindado (Local Storage)](../../modulo-05-estado-persistencia/aula-13-asyncstorage-persistencia-simples/README.md)
-- **Próxima:** [Aula 15 – A Fúria do CRUD SQLite](../aula-15-sqlite-crud-completo/README.md)
+**Próxima Parada:** 👉 [Aula 15 – A Fúria do CRUD Completo](../aula-15-sqlite-crud-completo/README.md)

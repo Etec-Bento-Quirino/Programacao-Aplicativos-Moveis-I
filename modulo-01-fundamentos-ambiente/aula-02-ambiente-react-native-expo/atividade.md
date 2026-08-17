@@ -1,20 +1,37 @@
 # Atividade 2: O Primeiro Aplicativo (Hello World) 🚀
 
-**Objetivo da Atividade:**
+**Sugestão de execução:** Quinzena 2 | **Bimestre:** 1 | **Valendo XP e nota**
 
-Validar que você consegue executar o aplicativo gerado pelo Expo na sua máquina e no seu celular, e realizar alterações básicas de estilo no React Native.
+---
+
+**Objetivo da Atividade:** validar que você consegue **rodar o app Expo na sua máquina e no seu celular**, e fazer alterações básicas de estilo no React Native usando `View`, `Text` e `StyleSheet`.
+
+> [!NOTE]
+> Se você ainda não fez o [Tutorial da Aula 02](tutorial.md), faça primeiro. Esta atividade cobra exatamente os passos de lá — só com uma pitada extra de desafio.
 
 ---
 
 ## O Desafio: Alterando Cores e Textos
 
-1. Inicie o servidor do seu aplicativo utilizando o comando adequado no terminal.
-2. Abra o projeto no **Expo Go** do seu celular ou no emulador.
-3. Altere o arquivo principal do aplicativo para exibir o texto *"Bem-vindo ao StickerSmash! 🚀"* e mude a cor de fundo (background) da tela para o tom escuro `#25292e`.
+1. **Ligue o servidor** do seu aplicativo. No terminal, dentro da pasta `StickerSmash`, execute:
 
-### 💡 Dica de como iniciar:
+```bash
+npm start
+```
 
-Para alterar o texto e o estilo do fundo, modifique o arquivo principal do projeto: `app/index.tsx`. Encontre o componente `<Text>` e o contêiner `<View>` principal. Lembre-se de utilizar a folha de estilos `StyleSheet`.
+**O que você deve VER:** o Metro Bundler acendendo, um **QR Code** e uma URL começando com `exp://...`, parecida com:
+
+```
+› Metro waiting on exp://192.168.0.15:8081
+› Scan the QR code above with Expo Go to open the app
+```
+
+> [!TIP]
+> **Dica de como iniciar:** abra o projeto no **Expo Go** do seu celular (escaneando o QR Code) ou no emulador. Lembre-se: se estiver na escola, o `--tunnel` configurado no tutorial garante que o app carregue mesmo com o firewall bloqueando a rede.
+
+2. **Abra o arquivo principal** do projeto: `app/index.tsx`.
+
+3. **Altere o texto e o estilo** para exibir *"Bem-vindo ao StickerSmash! 🚀"* com o fundo escuro `#25292e`. No código abaixo, o ponto de atenção é o `backgroundColor`:
 
 ```tsx
 import { StyleSheet, Text, View } from 'react-native';
@@ -38,5 +55,39 @@ const styles = StyleSheet.create({
 });
 ```
 
-## Entrega:
-Tire uma captura de tela (print) do aplicativo rodando no seu celular ou emulador, exibindo claramente o novo texto com a cor de fundo alterada. Envie a imagem na plataforma.
+**O que você deve VER:** a tela do seu celular (ou emulador) **escura** (tom `#25292e`, quase preto) com o texto *"Bem-vindo ao StickerSmash! 🚀"* no centro — atualizada em tempo real pelo **Fast Refresh**, sem você reiniciar nada.
+
+> [!WARNING]
+> **A tela não mudou?** Confira: (1) você **salvou** o arquivo com `Ctrl+S`? (2) o `backgroundColor` está com as aspas e o `#` no lugar certo? (3) o celular e o notebook estão na mesma rede (ou o tunnel está ativo)? Se o terminal travou no `--tunnel`, consulte o [Guia de Erros Comuns](../../docs/GUIA-DE-ERROS-COMUNS.md).
+
+---
+
+## O Desafio Extra: Brincando de Designer (valendo XP)
+
+Você aprendeu que `color` muda a cor do texto. Agora prove que entendeu:
+
+1. Escolha **qualquer outra cor** (ex.: `'#ffd33d'`, um amarelo) e aplique no `color` do texto.
+2. Salve o arquivo com `Ctrl+S`.
+3. Observe o celular: o texto deve mudar de cor **sozinho**, em tempo real.
+
+**O que você deve VER:** o texto branco virando a cor que você escolheu, sem tocar no celular.
+
+> [!TIP]
+> Esse é o coração da Aula 02: salvar → Metro entrega → celular atualiza. Se você viu a cor mudar sozinha, você viveu o **Fast Refresh** na prática — e é exatamente isso que vamos usar o ano inteiro.
+
+---
+
+## Checklist de Entrega
+
+Antes de enviar, confira:
+
+- [ ] Print do app aberto no **Expo Go** (ou emulador) com o texto *"Bem-vindo ao StickerSmash! 🚀"*
+- [ ] Fundo da tela na cor escura `#25292e`
+- [ ] Print do desafio extra mostrando o texto em uma **cor diferente**
+- [ ] (Bônus) Print do terminal mostrando o QR Code / a URL `exp://...`
+
+---
+
+## Como isso se aplica ao seu projeto
+
+Rodar o app e mudar a tela inicial é a **mesma rotina** do seu Trabalho em Grupo: criar o projeto, abrir no celular e começar a estilizar a tela com `View`, `Text` e `StyleSheet`. Todo app do Módulo 8 começa assim — e agora você já sabe fazer isso sozinho. Capricho nos prints! 🚀
