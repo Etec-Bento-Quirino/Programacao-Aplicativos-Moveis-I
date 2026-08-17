@@ -1,3 +1,10 @@
+---
+title: Aula 17 – Relações e JOIN
+layout: default
+parent: Módulo 6 – Banco de Dados (SQLite)
+nav_order: 4
+---
+
 # Aula 17 – Relações entre Tabelas e SQL JOIN
 
 [Voltar ao curso](../../README.md) | [Calendário](../../docs/calendario-aulas.md) | [Tutoriais](../../TUTORIAIS.md)

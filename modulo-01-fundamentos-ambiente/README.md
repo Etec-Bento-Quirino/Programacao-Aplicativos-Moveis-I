@@ -1,3 +1,10 @@
+---
+title: Módulo 1 – Fundamentos e Ambiente
+layout: default
+nav_order: 2
+has_children: true
+---
+
 # Módulo 01 – Fundamentos e Ambiente
 
 [Voltar ao curso](../README.md) | [Calendário](../docs/calendario-aulas.md) | [Tutoriais](../TUTORIAIS.md)

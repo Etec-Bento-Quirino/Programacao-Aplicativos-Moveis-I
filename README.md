@@ -1,3 +1,10 @@
+---
+title: Início
+layout: home
+nav_order: 1
+permalink: /
+---
+
 # PAM I – Programação de Aplicativos Móveis I
 
 **Professor:** Jackson Sá  

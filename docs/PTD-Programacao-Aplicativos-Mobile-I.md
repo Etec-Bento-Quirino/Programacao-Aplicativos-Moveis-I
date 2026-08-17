@@ -1,3 +1,9 @@
+---
+title: PTD – Programação de Aplicativos Móveis I
+layout: default
+nav_order: 12
+---
+
 # Plano de Trabalho Docente - Programação de Aplicativos Mobile I
 
 **Componente:** II.14 PROGRAMAÇÃO DE APLICATIVOS MOBILE I  

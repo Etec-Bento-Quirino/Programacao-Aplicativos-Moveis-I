@@ -1,3 +1,10 @@
+---
+title: Aula 14 – SQLite: Configuração
+layout: default
+parent: Módulo 6 – Banco de Dados (SQLite)
+nav_order: 1
+---
+
 # Aula 14 – O Banco de Dados Primordial (SQLite na Prática)
 
 [Voltar ao curso](../../README.md) | [Calendário](../../docs/calendario-aulas.md) | [Tutoriais](../../TUTORIAIS.md)

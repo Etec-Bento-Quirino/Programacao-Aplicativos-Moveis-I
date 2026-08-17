@@ -1,3 +1,10 @@
+---
+title: Módulo 7 – Boas Práticas e UX
+layout: default
+nav_order: 8
+has_children: true
+---
+
 # Módulo 07 – Boas Práticas e UX
 
 [Voltar ao curso](../README.md) | [Calendário](../docs/calendario-aulas.md) | [Tutoriais](../TUTORIAIS.md)

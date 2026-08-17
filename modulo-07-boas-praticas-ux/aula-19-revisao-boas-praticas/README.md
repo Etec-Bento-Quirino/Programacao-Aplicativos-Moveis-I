@@ -1,3 +1,10 @@
+---
+title: Aula 19 – Boas Práticas
+layout: default
+parent: Módulo 7 – Boas Práticas e UX
+nav_order: 2
+---
+
 # Aula 19 – Mente Limpa, Código Limpo (Clean-Code) 🧹
 
 [Voltar ao curso](../../README.md) | [Calendário](../../docs/calendario-aulas.md) | [Tutoriais](../../TUTORIAIS.md)

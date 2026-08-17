@@ -1,3 +1,10 @@
+---
+title: Aula 02 – Ambiente Expo e Primeiro App
+layout: default
+parent: Módulo 1 – Fundamentos e Ambiente
+nav_order: 2
+---
+
 # Aula 02 – Seu Primeiro App e o Ambiente Expo
 
 [Voltar ao curso](../../README.md) | [Calendário](../../docs/calendario-aulas.md) | [Tutoriais](../../TUTORIAIS.md)

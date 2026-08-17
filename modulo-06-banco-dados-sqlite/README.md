@@ -1,3 +1,10 @@
+---
+title: Módulo 6 – Banco de Dados (SQLite)
+layout: default
+nav_order: 7
+has_children: true
+---
+
 # Módulo 06 – Banco de Dados (SQLite)
 
 [Voltar ao curso](../README.md) | [Calendário](../docs/calendario-aulas.md) | [Tutoriais](../TUTORIAIS.md)

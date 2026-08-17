@@ -1,3 +1,10 @@
+---
+title: Aula 18 – UX: Loading e Erros
+layout: default
+parent: Módulo 7 – Boas Práticas e UX
+nav_order: 1
+---
+
 # Aula 18 – UX, Loadings e Tratativas: O Tapete Vermelho 🎩
 
 [Voltar ao curso](../../README.md) | [Calendário](../../docs/calendario-aulas.md) | [Tutoriais](../../TUTORIAIS.md)

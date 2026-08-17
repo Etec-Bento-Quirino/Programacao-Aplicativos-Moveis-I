@@ -1,3 +1,9 @@
+---
+title: Calendário de Aulas
+layout: default
+nav_order: 10
+---
+
 # Calendário – Aulas, Projetos e Extensão
 
 **Componente:** PAM I – Programação de Aplicativos Mobile I  

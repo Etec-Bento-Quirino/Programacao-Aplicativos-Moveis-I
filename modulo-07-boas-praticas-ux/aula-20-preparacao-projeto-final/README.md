@@ -1,3 +1,10 @@
+---
+title: Aula 20 – Projeto Final
+layout: default
+parent: Módulo 7 – Boas Práticas e UX
+nav_order: 3
+---
+
 # Aula 20 – Últimas Pinceladas e Projeto Final 🎓
 
 [Voltar ao curso](../../README.md) | [Calendário](../../docs/calendario-aulas.md) | [Tutoriais](../../TUTORIAIS.md)

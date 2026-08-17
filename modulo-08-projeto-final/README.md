@@ -1,3 +1,10 @@
+---
+title: Módulo 8 – Projeto Final
+layout: default
+nav_order: 9
+has_children: true
+---
+
 # Trabalho em Grupo – Desenvolvimento de Aplicativo Mobile
 
 **Componente:** Programação de Aplicativos Móveis I  

@@ -1,3 +1,10 @@
+---
+title: Aula 07 – Formulários e Validação
+layout: default
+parent: Módulo 3 – Navegação e Formulários
+nav_order: 2
+---
+
 # Aula 07 – Formulários: Capturando a Vontade do Usuário
 
 [Voltar ao curso](../../README.md) | [Calendário](../../docs/calendario-aulas.md) | [Tutoriais](../../TUTORIAIS.md)

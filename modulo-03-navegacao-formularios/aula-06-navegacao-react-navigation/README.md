@@ -1,3 +1,10 @@
+---
+title: Aula 06 – Navegação com Expo Router
+layout: default
+parent: Módulo 3 – Navegação e Formulários
+nav_order: 1
+---
+
 # Aula 06 – A Teia do App (Navegação com Expo Router)
 
 [Voltar ao curso](../../README.md) | [Calendário](../../docs/calendario-aulas.md) | [Tutoriais](../../TUTORIAIS.md)

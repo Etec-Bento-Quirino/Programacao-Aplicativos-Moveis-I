@@ -1,3 +1,10 @@
+---
+title: Aula 08 – Galeria e Câmera
+layout: default
+parent: Módulo 4 – Recursos do Dispositivo
+nav_order: 1
+---
+
 # Aula 08 – Galeria, Câmera e o Assincronismo
 
 [Voltar ao curso](../../README.md) | [Calendário](../../docs/calendario-aulas.md) | [Tutoriais](../../TUTORIAIS.md)

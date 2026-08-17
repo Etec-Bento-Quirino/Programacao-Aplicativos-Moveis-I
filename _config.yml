@@ -1,0 +1,73 @@
+title: PAM I – Programação de Aplicativos Móveis I
+description: Curso completo de React Native (Expo) + SQLite — 20 aulas progressivas + Trabalho em Grupo
+url: https://etec-bento-quirino.github.io
+baseurl: /Programacao-Aplicativos-Moveis-I
+
+theme: just-the-docs
+
+color_scheme: light
+
+# Navegação
+nav_enabled: true
+search_enabled: true
+heading_anchors: true
+back_to_top: true
+back_to_top_text: "Voltar ao topo"
+
+# Excluir pastas que não são conteúdo do site
+exclude:
+  - modulo-*/app/
+  - modulo-08-projeto-final/categoria-*/*
+  - .git/
+  - node_modules/
+  - vendor/
+  - Gemfile
+  - Gemfile.lock
+  - INSTRUCOES.md
+  - TUTORIAIS.md
+  - LICENSE
+  - .gitignore
+
+# Incluir apenas os arquivos de conteúdo
+include:
+  - modulo-*/README.md
+  - modulo-*/aula-*/*.md
+  - modulo-08-projeto-final/README.md
+  - modulo-08-projeto-final/fase*.md
+  - docs/*.md
+
+# Plugins
+plugins:
+  - jekyll-seo-tag
+
+# Miscelânea
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
+# Layouts padrão para arquivos sem front matter
+defaults:
+  - scope:
+      path: "modulo-*"
+    values:
+      layout: "default"
+  - scope:
+      path: "docs"
+    values:
+      layout: "default"
+
+# Barra de navegação
+aux_links:
+  "Repositório no GitHub":
+    - "https://github.com/Etec-Bento-Quirino/Programacao-Aplicativos-Moveis-I"
+aux_links_new_tab: true
+
+# Footer
+footer_content: "ETEC Bento Quirino – Campinas/SP · Professor Jackson Sá"
+
+# Edit link
+gh_edit_link: true
+gh_edit_link_text: "Editar esta página no GitHub"
+gh_edit_repository: "https://github.com/Etec-Bento-Quirino/Programacao-Aplicativos-Moveis-I"
+gh_edit_branch: "main"

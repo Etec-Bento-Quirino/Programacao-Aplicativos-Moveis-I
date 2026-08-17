@@ -1,3 +1,10 @@
+---
+title: Aula 03 – Layouts com Flexbox
+layout: default
+parent: Módulo 2 – Interface e Componentes
+nav_order: 1
+---
+
 # Aula 03 – O Esqueleto da Tela (View, Flexbox e StyleSheet)
 
 [Voltar ao curso](../../README.md) | [Calendário](../../docs/calendario-aulas.md) | [Tutoriais](../../TUTORIAIS.md)

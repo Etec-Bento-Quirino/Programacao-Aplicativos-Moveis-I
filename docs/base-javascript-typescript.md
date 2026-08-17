@@ -1,3 +1,9 @@
+---
+title: Base de JavaScript / TypeScript
+layout: default
+nav_order: 11
+---
+
 # Base de JavaScript / TypeScript para PAM I
 
 Este guia é o **ponto de partida de linguagem** para o curso de **Programação de Aplicativos Móveis I**. Ele não substitui o curso de Algoritmos — apenas reúne o mínimo de JavaScript/TypeScript que você usará nas aulas de React Native (Expo) e indica onde praticar cada tópico.

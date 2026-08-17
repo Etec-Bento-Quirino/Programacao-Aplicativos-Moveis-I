@@ -1,3 +1,9 @@
+---
+title: Guia de Erros Comuns
+layout: default
+nav_order: 13
+---
+
 # Ambulância Digital: Guia de Erros Comuns 🚑
 
 Bem-vindo à central de socorro técnico. Se o seu aplicativo quebrou antes mesmo de você escrever a primeira linha de código, ou parou de funcionar de uma semana para outra, você provavelmente é vítima do ambiente externo (Rede da escola bloqueando algo, ou aplicativos do seu celular que atualizaram sem sua permissão).

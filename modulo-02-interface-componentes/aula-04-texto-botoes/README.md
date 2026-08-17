@@ -1,3 +1,10 @@
+---
+title: Aula 04 – Texto e Botões
+layout: default
+parent: Módulo 2 – Interface e Componentes
+nav_order: 2
+---
+
 # Aula 04 – A Arte da Interação (Text, Pressable e Tipografia)
 
 [Voltar ao curso](../../README.md) | [Calendário](../../docs/calendario-aulas.md) | [Tutoriais](../../TUTORIAIS.md)

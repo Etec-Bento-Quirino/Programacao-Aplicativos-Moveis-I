@@ -1,3 +1,10 @@
+---
+title: Aula 15 – SQLite: CRUD Completo
+layout: default
+parent: Módulo 6 – Banco de Dados (SQLite)
+nav_order: 2
+---
+
 # Aula 15 – A Fúria do CRUD Completo (Integração Lógica)
 
 [Voltar ao curso](../../README.md) | [Calendário](../../docs/calendario-aulas.md) | [Tutoriais](../../TUTORIAIS.md)

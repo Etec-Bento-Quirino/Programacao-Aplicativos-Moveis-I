@@ -1,3 +1,10 @@
+---
+title: Aula 16 – Formulários + SQLite
+layout: default
+parent: Módulo 6 – Banco de Dados (SQLite)
+nav_order: 3
+---
+
 # Aula 16 – Formulários e SQLite: Integração
 
 [Voltar ao curso](../../README.md) | [Calendário](../../docs/calendario-aulas.md) | [Tutoriais](../../TUTORIAIS.md)

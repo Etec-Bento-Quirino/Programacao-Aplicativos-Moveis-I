@@ -1,3 +1,10 @@
+---
+title: Aula 10 – Notificações Locais
+layout: default
+parent: Módulo 4 – Recursos do Dispositivo
+nav_order: 3
+---
+
 # Aula 10 – Notificações Locais com expo-notifications
 
 [Voltar ao curso](../../README.md) | [Calendário](../../docs/calendario-aulas.md) | [Tutoriais](../../TUTORIAIS.md)

@@ -1,3 +1,10 @@
+---
+title: Aula 11 – useState e useEffect
+layout: default
+parent: Módulo 5 – Estado e Persistência
+nav_order: 1
+---
+
 # Aula 11 – O Cérebro do App: useState e useEffect (Hooks)
 
 [Voltar ao curso](../../README.md) | [Calendário](../../docs/calendario-aulas.md) | [Tutoriais](../../TUTORIAIS.md)

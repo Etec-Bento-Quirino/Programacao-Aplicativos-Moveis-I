@@ -1,3 +1,10 @@
+---
+title: Aula 13 – AsyncStorage
+layout: default
+parent: Módulo 5 – Estado e Persistência
+nav_order: 3
+---
+
 # Aula 13 – AsyncStorage: Salvando Dados que Sobrevivem ao Fechar o App
 
 [Voltar ao curso](../../README.md) | [Calendário](../../docs/calendario-aulas.md) | [Tutoriais](../../TUTORIAIS.md)

@@ -1,3 +1,10 @@
+---
+title: Aula 05 – Imagens e Listas
+layout: default
+parent: Módulo 2 – Interface e Componentes
+nav_order: 3
+---
+
 # Aula 05 – Imagens e Listas (FlatList e Modais)
 
 [Voltar ao curso](../../README.md) | [Calendário](../../docs/calendario-aulas.md) | [Tutoriais](../../TUTORIAIS.md)

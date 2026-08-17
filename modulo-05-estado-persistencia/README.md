@@ -1,3 +1,10 @@
+---
+title: Módulo 5 – Estado e Persistência
+layout: default
+nav_order: 6
+has_children: true
+---
+
 # Módulo 05 – Estado e Persistência
 
 [Voltar ao curso](../README.md) | [Calendário](../docs/calendario-aulas.md) | [Tutoriais](../TUTORIAIS.md)

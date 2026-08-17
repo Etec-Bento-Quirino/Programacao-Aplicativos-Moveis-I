@@ -1,3 +1,10 @@
+---
+title: Módulo 3 – Navegação e Formulários
+layout: default
+nav_order: 4
+has_children: true
+---
+
 # Módulo 03 – Navegação e Formulários
 
 [Voltar ao curso](../README.md) | [Calendário](../docs/calendario-aulas.md) | [Tutoriais](../TUTORIAIS.md)

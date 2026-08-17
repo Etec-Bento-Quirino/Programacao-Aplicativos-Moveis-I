@@ -1,3 +1,10 @@
+---
+title: Módulo 4 – Recursos do Dispositivo
+layout: default
+nav_order: 5
+has_children: true
+---
+
 # Módulo 04 – Recursos do Dispositivo
 
 [Voltar ao curso](../README.md) | [Calendário](../docs/calendario-aulas.md) | [Tutoriais](../TUTORIAIS.md)

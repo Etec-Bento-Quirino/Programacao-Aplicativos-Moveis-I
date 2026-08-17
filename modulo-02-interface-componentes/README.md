@@ -1,3 +1,10 @@
+---
+title: Módulo 2 – Interface e Componentes
+layout: default
+nav_order: 3
+has_children: true
+---
+
 # Módulo 02 – Interface e Componentes
 
 [Voltar ao curso](../README.md) | [Calendário](../docs/calendario-aulas.md) | [Tutoriais](../TUTORIAIS.md)

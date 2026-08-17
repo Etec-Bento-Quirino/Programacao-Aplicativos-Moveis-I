@@ -1,3 +1,10 @@
+---
+title: Aula 01 – Node e React Native
+layout: default
+parent: Módulo 1 – Fundamentos e Ambiente
+nav_order: 1
+---
+
 # Aula 01 – O Início da Jornada Mobile (Node e React Native)
 
 [Voltar ao curso](../../README.md) | [Calendário](../../docs/calendario-aulas.md) | [Tutoriais](../../TUTORIAIS.md)

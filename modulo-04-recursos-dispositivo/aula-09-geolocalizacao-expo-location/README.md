@@ -1,3 +1,10 @@
+---
+title: Aula 09 – Geolocalização
+layout: default
+parent: Módulo 4 – Recursos do Dispositivo
+nav_order: 2
+---
+
 # Aula 09 – Geolocalização com expo-location
 
 [Voltar ao curso](../../README.md) | [Calendário](../../docs/calendario-aulas.md) | [Tutoriais](../../TUTORIAIS.md)
